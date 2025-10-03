@@ -7,7 +7,6 @@ import Breadcrumb from "../components/layout/Breadcrumb";
 import CodeEditor from "../components/compiler/CodeEditor";
 import Output from "../components/compiler/Output";
 import EmotionAnalysis from "../components/compiler/EmotionAnalysis";
-import Feedback from "../pages/Feedback";
 import { ThemeContext } from "../context/ThemeContext";
 import {
   fetchCourseById,
@@ -19,22 +18,19 @@ import {
 } from "../api/coursesApi";
 
 export default function Compiler() {
-  const { courseId, lessonId } = useParams();
+  const { courseId, lessonId, exerciseId } = useParams(); // lấy exerciseId từ URL
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
 
-  // State chính
   const [course, setCourse] = useState(null);
   const [lesson, setLesson] = useState(null);
   const [exercises, setExercises] = useState([]);
+  const [currentExercise, setCurrentExercise] = useState(null);
   const [currentCode, setCurrentCode] = useState("");
   const [isRunning, setIsRunning] = useState(false);
   const [output, setOutput] = useState("");
-  const [feedback, setFeedback] = useState(null);
-  const [showFeedback, setShowFeedback] = useState(false);
 
-  // Ngôn ngữ
   const [languages, setLanguages] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("javascript");
 
@@ -54,7 +50,12 @@ export default function Compiler() {
 
             const ex = await fetchExercisesByLesson(lessonId);
             setExercises(ex);
-            if (ex.length > 0) setCurrentCode(ex[0].starter_code || "");
+
+            // Chọn exercise dựa vào URL, nếu không có thì mặc định bài 1
+            let selectedEx = ex.find((e) => e.id.toString() === exerciseId);
+            if (!selectedEx && ex.length > 0) selectedEx = ex[0];
+            setCurrentExercise(selectedEx);
+            setCurrentCode(selectedEx?.starter_code || "");
           }
         }
       } catch (err) {
@@ -62,9 +63,9 @@ export default function Compiler() {
       }
     };
     loadData();
-  }, [courseId, lessonId]);
+  }, [courseId, lessonId, exerciseId]);
 
-  // Load languages
+  // Load ngôn ngữ
   useEffect(() => {
     const loadLanguages = async () => {
       try {
@@ -78,7 +79,6 @@ export default function Compiler() {
     loadLanguages();
   }, []);
 
-  // Chạy code
   const handleRun = async () => {
     setIsRunning(true);
     try {
@@ -94,30 +94,29 @@ export default function Compiler() {
     }
   };
 
-  // Nộp bài
   const handleSubmit = async () => {
-    if (!exercises[0]) return;
+    if (!currentExercise) return;
+
     try {
       const res = await submitExercise({
         userId: null,
-        exerciseId: exercises[0].id,
+        exerciseId: currentExercise.id,
         code: currentCode,
       });
 
-      // Chuyển sang Feedback page và gửi dữ liệu
-      navigate(`/courses/${courseId}/lessons/${lessonId}/exercise/feedback`, {
-        state: { feedback: res },
-      });
+      navigate(
+        `/courses/${courseId}/lessons/${lessonId}/exercise/${currentExercise.id}/feedback`,
+        { state: { feedback: res } }
+      );
     } catch (err) {
-      navigate(`/courses/${courseId}/lessons/${lessonId}/exercise/feedback`, {
-        state: {
-          feedback: {
-            passed: false,
-            message: err.message,
-            comments: [],
+      navigate(
+        `/courses/${courseId}/lessons/${lessonId}/exercise/${currentExercise.id}/feedback`,
+        {
+          state: {
+            feedback: { passed: false, message: err.message, comments: [] },
           },
-        },
-      });
+        }
+      );
     }
   };
 
@@ -143,7 +142,7 @@ export default function Compiler() {
         <div className="flex-1 flex flex-col lg:flex-row gap-4 h-full min-h-0">
           {/* Trái: 2/3 width */}
           <div className="flex-[2] flex flex-col gap-4 min-h-0">
-            {/* Trên trái: Bài tập */}
+            {/* Trên trái: Nội dung bài tập */}
             <div
               className={`h-1/4 p-4 md:p-6 rounded-md overflow-auto min-h-0 ${
                 isDark
@@ -151,10 +150,13 @@ export default function Compiler() {
                   : "bg-white text-gray-900 border border-gray-200"
               }`}
             >
-              {lesson && exercises.length > 0 && (
+              {currentExercise && lesson && (
                 <>
                   <h2 className="text-2xl font-bold mb-2">{lesson.title}</h2>
-                  <p className="text-sm">{exercises[0].description}</p>
+                  <h3 className="text-lg font-semibold mb-1">
+                    {currentExercise.title}
+                  </h3>
+                  <p className="text-sm">{currentExercise.description}</p>
                 </>
               )}
             </div>
@@ -202,13 +204,6 @@ export default function Compiler() {
       </main>
 
       <Footer />
-
-      {/* {showFeedback && (
-        <FeedbackModal
-          feedback={feedback}
-          onClose={() => setShowFeedback(false)}
-        />
-      )} */}
     </div>
   );
 }

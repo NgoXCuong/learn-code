@@ -29,7 +29,7 @@ const App = () => {
             element={<LessonPage />}
           />
           <Route
-            path="/courses/:courseId/lessons/:lessonId/exercise"
+            path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId"
             element={<Compiler />}
           />
 
@@ -37,7 +37,7 @@ const App = () => {
           <Route path="/compiler" element={<Compiler />} />
 
           <Route
-            path="/courses/:courseId/lessons/:lessonId/exercise/feedback"
+            path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId/feedback"
             element={<Feedback />}
           />
         </Routes>
