@@ -1,0 +1,331 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "password_hash": "admin123",
+      "role": "admin",
+      "created_at": "2025-01-01 10:00:00"
+    },
+    {
+      "id": 2,
+      "username": "johndoe",
+      "email": "a@gmail.com",
+      "password_hash": "123456",
+      "role": "user",
+      "created_at": "2025-01-05 14:30:00"
+    },
+    {
+      "id": 3,
+      "username": "janedoe",
+      "email": "b@gmail.com",
+      "password_hash": "123456",
+      "role": "user",
+      "created_at": "2025-01-06 09:15:00"
+    },
+    {
+      "id": 4,
+      "username": "abc",
+      "email": "abc@gmail.com",
+      "password_hash": "Abc123456",
+      "role": "user",
+      "created_at": "2025-10-02T03:12:05.867Z"
+    }
+  ],
+  "languages": [
+    { "id": 1, "name": "Java" },
+    { "id": 2, "name": "C++" },
+    { "id": 3, "name": "Python" },
+    { "id": 4, "name": "JavaScript" }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "lang_id": 1,
+      "title": "Java cơ bản",
+      "description": "Khóa học nhập môn Java từ cơ bản đến nâng cao.",
+      "created_at": "2025-01-10 08:00:00"
+    },
+    {
+      "id": 2,
+      "lang_id": 2,
+      "title": "C++ cơ bản",
+      "description": "Khóa học lập trình C++ cho người mới bắt đầu.",
+      "created_at": "2025-01-10 08:00:00"
+    },
+    {
+      "id": 3,
+      "lang_id": 1,
+      "title": "Java nâng cao",
+      "description": "Khóa học nâng cao Java, hướng tới lập trình OOP và Spring Framework.",
+      "created_at": "2025-02-15 09:00:00"
+    },
+    {
+      "id": 4,
+      "lang_id": 2,
+      "title": "C++ nâng cao",
+      "description": "Khóa học C++ nâng cao, tập trung vào STL, lập trình hướng đối tượng và thuật toán.",
+      "created_at": "2025-02-20 10:00:00"
+    },
+    {
+      "id": 5,
+      "lang_id": 3,
+      "title": "Python cơ bản",
+      "description": "Khóa học Python từ cơ bản đến nâng cao, phù hợp cho người mới học lập trình.",
+      "created_at": "2025-03-01 08:30:00"
+    },
+    {
+      "id": 6,
+      "lang_id": 4,
+      "title": "JavaScript cơ bản",
+      "description": "Khóa học JavaScript cơ bản, học cách tạo website động và tương tác với DOM.",
+      "created_at": "2025-03-05 09:00:00"
+    }
+  ],
+  "lessons": [
+    {
+      "id": 1,
+      "course_id": 1,
+      "title": "Giới thiệu Java",
+      "content": "Java là ngôn ngữ lập trình hướng đối tượng phổ biến...",
+      "example_code": "public class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello Java!\");\n    }\n}"
+    },
+    {
+      "id": 2,
+      "course_id": 1,
+      "title": "Biến và kiểu dữ liệu",
+      "content": "Java hỗ trợ nhiều kiểu dữ liệu như int, double, boolean...",
+      "example_code": "int age = 20;\ndouble pi = 3.14;\nboolean isActive = true;"
+    },
+    {
+      "id": 3,
+      "course_id": 1,
+      "title": "Cấu trúc điều khiển",
+      "content": "Học về if, else, switch, for, while...",
+      "example_code": "for(int i = 0; i < 5; i++) {\n    System.out.println(i);\n}\n\nif(age > 18) {\n    System.out.println(\"Adult\");\n} else {\n    System.out.println(\"Minor\");\n}"
+    },
+    {
+      "id": 4,
+      "course_id": 1,
+      "title": "Hàm và phương thức",
+      "content": "Hàm trong Java giúp tái sử dụng code...",
+      "example_code": "public int sum(int a, int b) {\n    return a + b;\n}\n\nint result = sum(5, 10);\nSystem.out.println(result);"
+    },
+    {
+      "id": 5,
+      "course_id": 1,
+      "title": "Mảng và String",
+      "content": "Mảng và chuỗi là kiểu dữ liệu phổ biến...",
+      "example_code": "int[] numbers = {1, 2, 3};\nfor(int n : numbers) {\n    System.out.println(n);\n}\n\nString name = \"John\";\nSystem.out.println(\"Hello, \" + name);"
+    },
+    {
+      "id": 6,
+      "course_id": 1,
+      "title": "Lớp và đối tượng",
+      "content": "Java hỗ trợ lập trình hướng đối tượng với class và object...",
+      "example_code": "class Person {\n    String name;\n    int age;\n\n    void sayHello() {\n        System.out.println(\"Hello, \" + name);\n    }\n}\n\nPerson p = new Person();\np.name = \"Alice\";\np.age = 25;\np.sayHello();"
+    }
+  ],
+  "exercises": [
+    {
+      "id": 1,
+      "lesson_id": 1,
+      "title": "In Hello Java",
+      "description": "Viết chương trình in ra Hellon Javaddddddddddddddddddddddddd",
+      "difficulty": "easy"
+    },
+    {
+      "id": 2,
+      "lesson_id": 2,
+      "title": "Tính diện tích hình tròn",
+      "description": "Nhập bán kính r, in ra diện tích hình tròn",
+      "difficulty": "medium"
+    },
+    {
+      "id": 3,
+      "lesson_id": 3,
+      "title": "Số chẵn lẻ",
+      "description": "Nhập 1 số, kiểm tra chẵn hay lẻ",
+      "difficulty": "easy"
+    },
+    {
+      "id": 4,
+      "lesson_id": 4,
+      "title": "Hàm cộng hai số",
+      "description": "Viết hàm cộng 2 số nguyên",
+      "difficulty": "easy"
+    },
+    {
+      "id": 5,
+      "lesson_id": 5,
+      "title": "Tổng mảng số nguyên",
+      "description": "Tính tổng các phần tử mảng",
+      "difficulty": "medium"
+    },
+    {
+      "id": 6,
+      "lesson_id": 6,
+      "title": "Tạo class SinhVien",
+      "description": "Tạo class SinhVien với tên và tuổi",
+      "difficulty": "medium"
+    }
+  ],
+  "enrollments": [
+    {
+      "id": 1,
+      "user_id": 2,
+      "course_id": 1,
+      "progress": 40,
+      "enrolled_at": "2025-02-01 12:00:00"
+    }
+  ],
+  "lesson_progress": [
+    {
+      "id": 1,
+      "user_id": 2,
+      "lesson_id": 1,
+      "status": "completed",
+      "updated_at": "2025-02-01 13:00:00"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "lesson_id": 2,
+      "status": "in_progress",
+      "updated_at": "2025-02-01 15:00:00"
+    },
+    {
+      "id": 3,
+      "user_id": 2,
+      "lesson_id": 3,
+      "status": "not_started",
+      "updated_at": "2025-02-02 16:00:00"
+    },
+    {
+      "id": 4,
+      "user_id": 2,
+      "lesson_id": 4,
+      "status": "not_started",
+      "updated_at": "2025-02-03 10:00:00"
+    },
+    {
+      "id": 5,
+      "user_id": 2,
+      "lesson_id": 5,
+      "status": "not_started",
+      "updated_at": "2025-02-03 11:00:00"
+    },
+    {
+      "id": 6,
+      "user_id": 2,
+      "lesson_id": 6,
+      "status": "not_started",
+      "updated_at": "2025-02-03 12:00:00"
+    }
+  ],
+  "submissions": [
+    {
+      "id": 1,
+      "exercise_id": 1,
+      "user_id": 2,
+      "code": "public class Main { public static void main(String[] args){System.out.println(\"Hello Java\");} }",
+      "status": "passed",
+      "submitted_at": "2025-02-03 10:00:00"
+    },
+    {
+      "id": 2,
+      "exercise_id": 2,
+      "user_id": 2,
+      "code": "import java.util.Scanner; public class Circle{...}",
+      "status": "failed",
+      "submitted_at": "2025-02-04 09:30:00"
+    },
+    {
+      "id": 3,
+      "exercise_id": 3,
+      "user_id": 2,
+      "code": "Scanner sc = new Scanner(System.in); int n = sc.nextInt(); if(n%2==0) System.out.println(\"Even\"); else System.out.println(\"Odd\");",
+      "status": "passed",
+      "submitted_at": "2025-02-05 14:00:00"
+    }
+  ],
+  "exercise_tests": [
+    {
+      "id": 1,
+      "exercise_id": 2,
+      "input_data": "5",
+      "expected_output": "78.5",
+      "is_hidden": false
+    },
+    {
+      "id": 2,
+      "exercise_id": 2,
+      "input_data": "10",
+      "expected_output": "314",
+      "is_hidden": true
+    },
+    {
+      "id": 3,
+      "exercise_id": 3,
+      "input_data": "7",
+      "expected_output": "Odd",
+      "is_hidden": false
+    },
+    {
+      "id": 4,
+      "exercise_id": 3,
+      "input_data": "8",
+      "expected_output": "Even",
+      "is_hidden": false
+    }
+  ],
+  "submission_test_results": [
+    {
+      "id": 1,
+      "submission_id": 2,
+      "test_id": 1,
+      "passed": false,
+      "actual_output": "78.53"
+    },
+    {
+      "id": 2,
+      "submission_id": 2,
+      "test_id": 2,
+      "passed": false,
+      "actual_output": "314.159"
+    },
+    {
+      "id": 3,
+      "submission_id": 3,
+      "test_id": 3,
+      "passed": true,
+      "actual_output": "Odd"
+    },
+    {
+      "id": 4,
+      "submission_id": 3,
+      "test_id": 4,
+      "passed": true,
+      "actual_output": "Even"
+    }
+  ],
+  "feedbacks": [
+    {
+      "id": 1,
+      "user_id": 2,
+      "exercise_id": 2,
+      "submission_id": 2,
+      "content": "Bạn quên làm tròn kết quả diện tích.",
+      "created_at": "2025-02-04 10:00:00"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "exercise_id": 3,
+      "submission_id": 3,
+      "content": "Bài số chẵn lẻ đã đúng.",
+      "created_at": "2025-02-05 15:00:00"
+    }
+  ]
+}
