@@ -33,7 +33,9 @@ export default function LessonCode({ code, language = "java" }) {
   }, [code]);
 
   return (
-    <Card className="flex flex-col overflow-hidden rounded-xl shadow-lg border-0 mb-6">
+    <Card
+      className={`flex flex-col overflow-hidden rounded-xl shadow-lg border-0 mb-6 w-full md:w-1/2`}
+    >
       {/* Header kiểu MacOS */}
       <div
         className={`px-4 py-3 flex justify-between items-center ${
@@ -68,7 +70,7 @@ export default function LessonCode({ code, language = "java" }) {
             wordWrap: "on",
             renderWhitespace: "all",
             cursorStyle: "line",
-            readOnly: true, // chỉ hiển thị code
+            readOnly: true,
           }}
         />
       </div>
