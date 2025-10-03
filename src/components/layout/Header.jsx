@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
-import { toast } from "sonner";
+import { Toaster, toast } from "react-hot-toast"; // thay sonner bằng react-hot-toast
 import { HeartPulse, Menu, X, LogOut } from "lucide-react";
 import { ThemeContext } from "../../context/ThemeContext";
 import DarkModeToggle from "../layout/DarkModeToggle";
@@ -21,7 +21,7 @@ const Header = () => {
     localStorage.removeItem("user");
     setUser(null);
     setMobileOpen(false);
-    toast.success("Đã đăng xuất thành công!");
+    toast.success("Đã đăng xuất thành công!"); // React Hot Toast
     navigate("/");
   };
 
@@ -34,6 +34,8 @@ const Header = () => {
 
   return (
     <header className="bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-700/50 sticky top-0 z-50 transition-colors">
+      {/* Toaster để hiển thị toast */}
+      <Toaster position="top-center" reverseOrder={false} />
       {/* Container sát 2 lề */}
       <div className="w-full px-6 sm:px-14 lg:px-20">
         <div className="flex justify-between items-center py-4">

@@ -35,8 +35,8 @@ export default function LessonList({ lessons, progressMap, onLessonClick }) {
               <span className="font-semibold text-lg text-gray-900 dark:text-gray-100">
                 {lesson.title}
               </span>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 line-clamp-2">
-                Đây là nội dung mô tả ngắn gọn của bài học.{" "}
+              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+                {lesson.content.split(" ").slice(0, 10).join(" ")}...
                 <span className="text-blue-600 hover:underline">Xem thêm</span>
               </p>
             </div>

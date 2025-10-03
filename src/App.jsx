@@ -6,6 +6,7 @@ import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import LessonPage from "./pages/LessonPage";
 import Compiler from "./pages/Compiler";
+import Feedback from "./pages/Feedback";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const App = () => {
@@ -34,6 +35,11 @@ const App = () => {
 
           {/* Compiler trực tiếp từ trang chủ */}
           <Route path="/compiler" element={<Compiler />} />
+
+          <Route
+            path="/courses/:courseId/lessons/:lessonId/exercise/feedback"
+            element={<Feedback />}
+          />
         </Routes>
       </BrowserRouter>
     </div>

@@ -14,7 +14,7 @@ const Footer = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <p className="text-sm text-gray-900 dark:text-gray-400">
-          © 2025 CodePulse. Được xây dựng với ❤️ tại Việt Nam
+          © 2025 CodePulse. Nghiên cứu khoa học
         </p>
       </div>
     </footer>

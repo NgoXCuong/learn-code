@@ -7,11 +7,11 @@ const Output = ({ output }) => {
 
   return (
     <div
-      className={`p-4 rounded-lg font-mono ${
+      className={`p-4 rounded-lg font-mono h-full overflow-auto ${
         isDark ? "bg-gray-800 text-gray-100" : "bg-gray-100 text-gray-900"
       }`}
     >
-      <h3 className="font-bold mb-2">Output:</h3>
+      <h3 className="font-bold text-sm mb-2">Output:</h3>
       <pre className="whitespace-pre-wrap">{output || "// Chưa chạy code"}</pre>
     </div>
   );

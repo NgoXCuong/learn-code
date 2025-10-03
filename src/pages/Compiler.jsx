@@ -1,26 +1,30 @@
+// src/pages/Compiler.jsx
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Breadcrumb from "../components/layout/Breadcrumb";
 import CodeEditor from "../components/compiler/CodeEditor";
 import Output from "../components/compiler/Output";
 import EmotionAnalysis from "../components/compiler/EmotionAnalysis";
-import FeedbackModal from "../components/compiler/FeedbackModal";
+import Feedback from "../pages/Feedback";
 import { ThemeContext } from "../context/ThemeContext";
 import {
   fetchCourseById,
   fetchLessonsByCourse,
   fetchExercisesByLesson,
+  fetchLanguages,
   runCode,
   submitExercise,
 } from "../api/coursesApi";
 
 export default function Compiler() {
   const { courseId, lessonId } = useParams();
+  const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
 
+  // State chính
   const [course, setCourse] = useState(null);
   const [lesson, setLesson] = useState(null);
   const [exercises, setExercises] = useState([]);
@@ -30,6 +34,11 @@ export default function Compiler() {
   const [feedback, setFeedback] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
 
+  // Ngôn ngữ
+  const [languages, setLanguages] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState("javascript");
+
+  // Load dữ liệu khóa học, bài học, exercises
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -55,11 +64,26 @@ export default function Compiler() {
     loadData();
   }, [courseId, lessonId]);
 
+  // Load languages
+  useEffect(() => {
+    const loadLanguages = async () => {
+      try {
+        const langs = await fetchLanguages();
+        setLanguages(langs);
+        if (langs.length > 0) setSelectedLanguage(langs[0].name.toLowerCase());
+      } catch (err) {
+        console.error("Lỗi load languages:", err);
+      }
+    };
+    loadLanguages();
+  }, []);
+
+  // Chạy code
   const handleRun = async () => {
     setIsRunning(true);
     try {
       const res = await runCode({
-        language: exercises[0]?.language || "javascript",
+        language: selectedLanguage,
         code: currentCode,
       });
       setOutput(res.output);
@@ -70,24 +94,34 @@ export default function Compiler() {
     }
   };
 
+  // Nộp bài
   const handleSubmit = async () => {
     if (!exercises[0]) return;
-
     try {
       const res = await submitExercise({
-        userId: null, // Không cần userId
+        userId: null,
         exerciseId: exercises[0].id,
         code: currentCode,
       });
-      setFeedback(res);
-      setShowFeedback(true);
+
+      // Chuyển sang Feedback page và gửi dữ liệu
+      navigate(`/courses/${courseId}/lessons/${lessonId}/exercise/feedback`, {
+        state: { feedback: res },
+      });
     } catch (err) {
-      setFeedback({ passed: false, message: err.message });
-      setShowFeedback(true);
+      navigate(`/courses/${courseId}/lessons/${lessonId}/exercise/feedback`, {
+        state: {
+          feedback: {
+            passed: false,
+            message: err.message,
+            comments: [],
+          },
+        },
+      });
     }
   };
 
-  // Breadcrumb động
+  // Breadcrumb
   const breadcrumbItems = [{ label: "Trang chủ", href: "/" }];
   if (course) breadcrumbItems.push({ label: "Khóa học", href: "/courses" });
   if (course && lesson) {
@@ -100,77 +134,81 @@ export default function Compiler() {
   breadcrumbItems.push({ label: "Compiler" });
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors">
+    <div className="flex flex-col max-h-screen h-[1000px] bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors">
       <Header />
 
-      <main className="flex-1 w-full px-6 sm:px-14 lg:px-20 py-4 h-[calc(100vh-140px)] flex flex-col gap-4">
+      <main className="flex-1 w-full px-4 sm:px-10 lg:px-16 py-4 flex flex-col h-[calc(100vh-140px)] gap-4">
         <Breadcrumb items={breadcrumbItems} />
 
-        {/* Khối trên: Bài tập + Emotion */}
-        <div className="flex-1 basis-2/5 flex flex-col lg:flex-row gap-4">
-          {/* Mô tả bài tập */}
-          <div
-            className={`flex-1 p-6 rounded-md ${
-              isDark
-                ? "bg-gray-800 text-gray-100 border border-gray-700"
-                : "bg-white text-gray-900 border border-gray-200"
-            }`}
-          >
-            {lesson && exercises.length > 0 && (
-              <>
-                <h2 className="text-2xl font-bold mb-2">{lesson.title}</h2>
-                <p className="text-sm">{exercises[0].description}</p>
-              </>
-            )}
+        <div className="flex-1 flex flex-col lg:flex-row gap-4 h-full min-h-0">
+          {/* Trái: 2/3 width */}
+          <div className="flex-[2] flex flex-col gap-4 min-h-0">
+            {/* Trên trái: Bài tập */}
+            <div
+              className={`h-1/4 p-4 md:p-6 rounded-md overflow-auto min-h-0 ${
+                isDark
+                  ? "bg-gray-800 text-gray-100 border border-gray-700"
+                  : "bg-white text-gray-900 border border-gray-200"
+              }`}
+            >
+              {lesson && exercises.length > 0 && (
+                <>
+                  <h2 className="text-2xl font-bold mb-2">{lesson.title}</h2>
+                  <p className="text-sm">{exercises[0].description}</p>
+                </>
+              )}
+            </div>
+
+            {/* Dưới trái: Code Editor */}
+            <div className="h-3/4 flex flex-col min-h-0">
+              <CodeEditor
+                languages={languages}
+                language={selectedLanguage}
+                onLanguageChange={setSelectedLanguage}
+                code={currentCode}
+                onCodeChange={setCurrentCode}
+                onRunCode={handleRun}
+                onSubmitCode={handleSubmit}
+                isRunning={isRunning}
+              />
+            </div>
           </div>
 
-          {/* EmotionAnalysis */}
-          <div
-            className={`flex-1 p-6 rounded-md h-full ${
-              isDark
-                ? "bg-gray-800 text-gray-100 border border-gray-700"
-                : "bg-white text-gray-900 border border-gray-200"
-            }`}
-          >
-            <EmotionAnalysis />
-          </div>
-        </div>
+          {/* Phải: 1/3 width */}
+          <div className="flex-1 flex flex-col gap-4 min-h-0">
+            {/* Emotion Analysis */}
+            <div
+              className={`h-1/4 p-2 md:p-3 rounded-md overflow-auto min-h-0 ${
+                isDark
+                  ? "bg-gray-800 text-gray-100 border border-gray-700"
+                  : "bg-white text-gray-900 border border-gray-200"
+              }`}
+            >
+              <EmotionAnalysis />
+            </div>
 
-        {/* Khối dưới: Code + Output */}
-        <div className="flex-1 basis-3/5 flex flex-col lg:flex-row gap-4">
-          {/* Code Editor */}
-          <div className="flex-1 lg:flex-[2] flex flex-col min-h-[300px]">
-            <CodeEditor
-              language={exercises[0]?.language || "javascript"}
-              code={currentCode}
-              onCodeChange={setCurrentCode}
-              onRunCode={handleRun}
-              onSubmitCode={handleSubmit}
-              isRunning={isRunning}
-            />
-          </div>
-
-          {/* Output */}
-          <div
-            className={`flex-1 lg:flex-[1] flex flex-col h-full min-h-[300px] rounded-md ${
-              isDark
-                ? "bg-gray-800 text-gray-100 border border-gray-700"
-                : "bg-white text-gray-900 border border-gray-200"
-            }`}
-          >
-            <Output output={output} />
+            {/* Output */}
+            <div
+              className={`h-3/4 p-2 md:p-3 rounded-md overflow-auto min-h-0 ${
+                isDark
+                  ? "bg-gray-800 text-gray-100 border border-gray-700"
+                  : "bg-white text-gray-900 border border-gray-200"
+              }`}
+            >
+              <Output output={output} />
+            </div>
           </div>
         </div>
       </main>
 
       <Footer />
 
-      {showFeedback && (
+      {/* {showFeedback && (
         <FeedbackModal
           feedback={feedback}
           onClose={() => setShowFeedback(false)}
         />
-      )}
+      )} */}
     </div>
   );
 }

@@ -64,7 +64,7 @@ export default function CourseDetail() {
 
         {/* Danh sách bài học */}
         <section className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
             Danh sách bài học
           </h2>
           <LessonList

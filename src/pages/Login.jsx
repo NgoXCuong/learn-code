@@ -5,15 +5,14 @@ import { Card } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Checkbox } from "../components/ui/checkbox";
-import { toast } from "sonner";
 import { Eye, EyeOff, Mail, Lock, LogIn, ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { Toaster, toast } from "react-hot-toast"; // <- React Hot Toast
 
 const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
 
   const {
     register,
@@ -23,19 +22,15 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     setIsLoading(true);
-    setSuccessMessage(""); // reset message
 
     try {
-      // Fetch user từ JSON Server
       const res = await fetch(
         `http://localhost:3001/users?email=${encodeURIComponent(data.email)}`
       );
       const users = await res.json();
-
       const user = users.find((u) => u.password_hash === data.password);
 
       if (user) {
-        // Lưu info vào localStorage
         localStorage.setItem(
           "user",
           JSON.stringify({
@@ -46,25 +41,28 @@ const Login = () => {
           })
         );
 
-        const msg = `Chào mừng ${user.username}!`;
-        setSuccessMessage(msg);
-        toast.success(msg);
+        // Hiển thị toast thành công
+        toast.success(`Chào mừng ${user.username}!`, {
+          duration: 2000,
+        });
 
-        // Chuyển hướng sau 1.5s để user thấy message
         setTimeout(() => navigate("/"), 1500);
       } else {
-        toast.error("Email hoặc mật khẩu không đúng!");
+        toast.error("Email hoặc mật khẩu không đúng!", { duration: 2000 });
       }
     } catch (error) {
       console.error(error);
-      toast.error("Lỗi kết nối server!");
+      toast.error("Lỗi kết nối server!", { duration: 2000 });
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 flex items-center justify-center p-4 relative">
+      {/* Toaster hiển thị toast */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       <div className="w-full max-w-md relative">
         <Card className="p-8 bg-white/80 backdrop-blur-sm border-0 shadow-2xl">
           <div className="text-center mb-8 relative">
@@ -83,13 +81,6 @@ const Login = () => {
             </p>
           </div>
 
-          {/* Thông báo thành công */}
-          {successMessage && (
-            <div className="mb-4 p-3 bg-green-100 text-green-800 rounded-md text-center">
-              {successMessage}
-            </div>
-          )}
-
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email" className="text-gray-700 font-medium">
@@ -102,7 +93,6 @@ const Login = () => {
                   type="email"
                   placeholder="your@email.com"
                   className="pl-10 h-12 bg-white/70 border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
-                  data-testid="email-input"
                   {...register("email", {
                     required: "Email là bắt buộc",
                     pattern: {
@@ -128,7 +118,6 @@ const Login = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Nhập mật khẩu"
                   className="pl-10 pr-10 h-12 bg-white/70 border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
-                  data-testid="password-input"
                   {...register("password", {
                     required: "Mật khẩu là bắt buộc",
                     minLength: {
@@ -141,7 +130,6 @@ const Login = () => {
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                  data-testid="toggle-password-btn"
                 >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5" />
@@ -179,7 +167,6 @@ const Login = () => {
               type="submit"
               disabled={isLoading}
               className="w-full h-12 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              data-testid="login-submit-btn"
             >
               {isLoading ? (
                 <div className="flex items-center space-x-2">
@@ -198,7 +185,6 @@ const Login = () => {
               <Link
                 to="/register"
                 className="text-indigo-600 hover:text-indigo-700 font-semibold hover:underline"
-                data-testid="go-to-register-link"
               >
                 Đăng ký ngay
               </Link>
