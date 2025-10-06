@@ -67,7 +67,7 @@ export default function CourseList({ selectedLang }) {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-20 ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
       {courses.map((course) => {
         const lang = languages.find(
           (l) => String(l.id) === String(course.lang_id)

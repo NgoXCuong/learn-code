@@ -137,3 +137,170 @@ body,
 .delay-700 {
   animation-delay: 0.7s;
 }
+
+/* ====== HEADER NGÔN NGỮ TỐI GIẢN ====== */
+.java-header {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+  animation: subtleGradient 6s ease infinite;
+}
+
+.python-header {
+  background: linear-gradient(135deg, #2563eb, #facc15);
+  animation: subtleGradient 6s ease infinite;
+}
+
+.cpp-header {
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+  animation: subtleGradient 6s ease infinite;
+}
+
+.js-header {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  animation: subtleGradient 6s ease infinite;
+}
+
+.default-header {
+  background: linear-gradient(135deg, #64748b, #475569);
+  animation: subtleGradient 6s ease infinite;
+}
+
+/* Gradient di chuyển nhẹ, không quá chói */
+@keyframes subtleGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ====== CHỮ 3D NHẸ NHÀNG, KHÔNG HOA MẮT ====== */
+.language-text {
+  position: relative;
+  display: inline-block;
+  font-weight: 800;
+  font-size: 2.5rem;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3), 2px 2px 4px rgba(0, 0, 0, 0.2);
+  animation: gentleFloat 4s ease-in-out infinite alternate;
+}
+
+/* Bóng đổ nhẹ, tạo cảm giác nổi */
+.language-text::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  color: rgba(0, 0, 0, 0.25);
+  z-index: -1;
+}
+
+/* Hiệu ứng trôi nhẹ, không xoay */
+@keyframes gentleFloat {
+  0% {
+    transform: translateY(0px);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3), 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  100% {
+    transform: translateY(-4px);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35),
+      3px 3px 6px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* Hiệu ứng zoom khi card xuất hiện */
+.animate-zoom-in {
+  animation: zoomIn 0.5s ease-out forwards;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-left {
+  animation: fade-in-left 0.5s ease-out forwards;
+}
+
+@keyframes slide-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out forwards;
+}
+
+/* Hiệu ứng glow 3D nhẹ cho button */
+button:hover {
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+/* ===================== */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 20s linear infinite;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
