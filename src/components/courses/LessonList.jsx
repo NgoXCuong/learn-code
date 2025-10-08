@@ -1,102 +1,141 @@
 // src/components/courses/LessonList.jsx
 import React from "react";
-import { CheckCircle, PlayCircle, Lock } from "lucide-react";
+import { Check, Play, FileText, HelpCircle, Clock } from "lucide-react";
 
 export default function LessonList({ lessons, progressMap, onLessonClick }) {
   return (
-    <ul className="space-y-5 animate-fade-in-left">
+    <div className="space-y-4">
       {lessons.map((lesson, index) => {
         const progress = progressMap[lesson.id] || "not_started";
         const percent =
           progress === "completed" ? 100 : progress === "in_progress" ? 50 : 0;
 
-        // icon & màu trạng thái
-        const status = {
-          completed: {
-            label: "Hoàn thành",
-            icon: <CheckCircle className="w-5 h-5 text-green-500" />,
-            color: "bg-green-100 text-green-700 dark:bg-green-800/30",
-          },
-          in_progress: {
-            label: "Đang học",
-            icon: (
-              <PlayCircle className="w-5 h-5 text-yellow-500 animate-pulse" />
-            ),
-            color: "bg-yellow-100 text-yellow-700 dark:bg-yellow-800/30",
-          },
-          not_started: {
-            label: "Chưa học",
-            icon: <Lock className="w-5 h-5 text-gray-500" />,
-            color: "bg-gray-200 text-gray-600 dark:bg-gray-700/40",
-          },
+        // 🎯 Trạng thái vòng tròn
+        const circleStyle = {
+          completed:
+            "bg-green-500 text-white border-green-500 shadow-md shadow-green-200",
+          in_progress:
+            "bg-blue-500 text-white border-blue-500 shadow-md shadow-blue-200 animate-pulse-slow",
+          not_started:
+            "bg-gray-200 text-gray-600 border-gray-300 dark:bg-gray-700 dark:text-gray-400",
         }[progress];
 
+        const cardHighlight =
+          progress === "in_progress"
+            ? "border-blue-500/60 bg-blue-50/70 dark:bg-blue-900/10"
+            : "border-transparent";
+
         return (
-          <li
+          <div
             key={lesson.id}
             onClick={() => onLessonClick(lesson.id)}
-            className={`p-5 rounded-2xl cursor-pointer 
+            className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 
+                        p-5 rounded-2xl border cursor-pointer
                         bg-white/70 dark:bg-gray-800/60 backdrop-blur-md
-                        shadow-sm hover:shadow-xl transition-all duration-300
-                        hover:-translate-y-1 hover:bg-blue-50/60 dark:hover:bg-gray-700/60
-                        border border-gray-200 dark:border-gray-700
-                        flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4
-                        animate-zoomIn`}
+                        hover:shadow-lg hover:-translate-y-1 transition-all duration-300
+                        ${cardHighlight}`}
           >
-            {/* 🔹 Số thứ tự */}
-            <div className="flex-shrink-0 flex items-center justify-center">
+            {/* 🔘 Vòng tròn trạng thái */}
+            <div className="flex items-center gap-4 w-full sm:w-auto">
               <div
-                className="w-12 h-12 flex items-center justify-center rounded-xl 
-                              bg-gradient-to-br from-blue-500 to-indigo-600 
-                              text-white font-bold text-lg shadow-inner"
+                className={`w-12 h-12 rounded-full flex items-center justify-center border-2 font-bold text-lg transition-all duration-300 ${circleStyle}`}
               >
-                {index + 1}
+                {progress === "completed" ? (
+                  <Check className="w-6 h-6" />
+                ) : (
+                  index + 1
+                )}
+              </div>
+
+              {/* 🧠 Nội dung bài học */}
+              <div className="flex flex-col">
+                <h3 className="font-semibold text-lg text-gray-900 dark:text-white hover:text-blue-600 transition-colors">
+                  {lesson.title}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  {lesson.content
+                    ? lesson.content.split(" ").slice(0, 15).join(" ")
+                    : "Không có mô tả"}
+                  {lesson.content?.split(" ").length > 15 && (
+                    <button
+                      onClick={() => onLessonClick(lesson.id)}
+                      className="text-blue-600 font-medium hover:underline ml-1 focus:outline-none"
+                    >
+                      ... Xem thêm
+                    </button>
+                  )}
+                </p>
+
+                {/* 📊 Metadata */}
+                <div className="flex items-center gap-3 mt-2 text-xs text-gray-500 dark:text-gray-400">
+                  <span className="flex items-center gap-1">
+                    <FileText className="w-4 h-4" />{" "}
+                    {lesson.readTime || "10 phút đọc"}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <HelpCircle className="w-4 h-4" />{" "}
+                    {lesson.questionCount || "5 câu hỏi"}
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* 🧠 Nội dung bài học */}
-            <div className="flex-1 flex flex-col justify-center">
-              <span className="font-bold text-lg text-gray-900 dark:text-white mb-1 hover:text-blue-600 transition-colors">
-                {lesson.title}
-              </span>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
-                {lesson.content.split(" ").slice(0, 10).join(" ")}...
-                <span className="text-blue-600 font-medium hover:underline ml-1">
-                  Xem thêm
-                </span>
-              </p>
+            {/* 📈 Trạng thái tiến độ */}
+            <div className="flex flex-col items-end sm:items-center sm:flex-row gap-3 w-full sm:w-64">
+              {/* 🎯 ĐÃ HOÀN THÀNH */}
+              {progress === "completed" && (
+                <div className="w-full">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-green-600 font-medium text-sm">
+                      Đã hoàn thành
+                    </span>
+                    <span className="text-xs text-gray-500">100%</span>
+                  </div>
+                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                      className="h-2 bg-gradient-to-r from-green-400 to-green-600 rounded-full transition-all duration-500"
+                      style={{ width: "100%" }}
+                    ></div>
+                  </div>
+                </div>
+              )}
+
+              {/* 🟡 ĐANG HỌC */}
+              {progress === "in_progress" && (
+                <div className="w-full">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-yellow-600 font-medium text-sm">
+                      Đang học
+                    </span>
+                    <span className="text-xs text-gray-500">{percent}%</span>
+                  </div>
+                  <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                    <div
+                      className="h-2 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full transition-all duration-500 animate-pulse"
+                      style={{ width: `${percent}%` }}
+                    ></div>
+                  </div>
+                </div>
+              )}
+
+              {/* ⚪ CHƯA HỌC */}
+              {progress === "not_started" && (
+                <button
+                  onClick={() => onLessonClick(lesson.id)}
+                  className="px-5 py-2.5 text-sm font-semibold text-white 
+    bg-gradient-to-r from-blue-500 to-indigo-500 
+    hover:from-blue-400 hover:to-indigo-400 
+    dark:from-blue-600 dark:to-indigo-600
+    dark:hover:from-blue-500 dark:hover:to-indigo-500
+    rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+                >
+                  🚀 Bắt đầu
+                </button>
+              )}
             </div>
-
-            {/* 🎯 Trạng thái + Tiến độ */}
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:w-72 w-full">
-              <div
-                className={`flex items-center justify-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium ${status.color}`}
-              >
-                {status.icon}
-                {status.label}
-              </div>
-
-              {/* Thanh tiến độ */}
-              <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
-                <div
-                  className={`h-2 rounded-full transition-all duration-500 ${
-                    percent === 100
-                      ? "bg-gradient-to-r from-green-400 to-green-600"
-                      : percent === 50
-                      ? "bg-gradient-to-r from-yellow-400 to-yellow-600 animate-gradient-x"
-                      : "bg-gradient-to-r from-gray-400 to-gray-500"
-                  }`}
-                  style={{ width: `${percent}%` }}
-                />
-              </div>
-
-              <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 sm:w-10 text-right">
-                {percent}%
-              </span>
-            </div>
-          </li>
+          </div>
         );
       })}
-    </ul>
+    </div>
   );
 }

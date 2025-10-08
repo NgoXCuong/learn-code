@@ -140,23 +140,16 @@ body,
 
 /* ====== HEADER NGÔN NGỮ TỐI GIẢN ====== */
 .java-header {
-  background: linear-gradient(135deg, #f97316, #ea580c);
-  animation: subtleGradient 6s ease infinite;
+  background: linear-gradient(135deg, #f7ac66, #ffb43b);
 }
-
 .python-header {
-  background: linear-gradient(135deg, #2563eb, #facc15);
-  animation: subtleGradient 6s ease infinite;
+  background: linear-gradient(135deg, #4188c2, #ffd43b);
 }
-
 .cpp-header {
-  background: linear-gradient(135deg, #2563eb, #1e3a8a);
-  animation: subtleGradient 6s ease infinite;
+  background: linear-gradient(135deg, #00599c, #007acc);
 }
-
 .js-header {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  animation: subtleGradient 6s ease infinite;
+  background: linear-gradient(135deg, #f7df1e, #f39c12);
 }
 
 .default-header {
@@ -303,4 +296,20 @@ button:hover {
 
 .animate-float-slow {
   animation: float-slow 6s ease-in-out infinite;
+}
+
+/* ================ */
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 2s ease-in-out infinite;
 }

@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { BookOpen, Code } from "lucide-react";
 import bookIcon from "../../assets/closed-book.svg";
 import laptopIcon from "../../assets/laptop-icon.svg";
+import rocketIcon from "../../assets/rocket-icon.svg";
 
 const languages = [
   { name: "Java", color: "from-orange-400 to-red-500" },
@@ -24,17 +25,38 @@ const HeroSection = () => {
 
   return (
     <section className="relative overflow-hidden py-12 px-4 sm:py-16 md:py-20 lg:py-28 transition-colors">
-      {/* Hiệu ứng nền động */}
-      <img
-        src={bookIcon}
-        alt="Book"
-        className="absolute top-12 sm:top-16 md:top-20 left-4 sm:left-12 md:left-60 w-32 sm:w-48 md:w-66 opacity-20 animate-float-slow"
-      />
-      <img
-        src={laptopIcon}
-        alt="Laptop"
-        className="absolute bottom-10 sm:bottom-16 md:bottom-24 right-6 sm:right-16 md:right-24 w-40 sm:w-52 md:w-66 opacity-30 animate-float-slow delay-500"
-      />
+      {/* Hiệu ứng nền động với ánh sáng ở icon */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* Book + ánh sáng */}
+        <div className="absolute top-12 sm:top-16 md:top-30 left-4 sm:left-12 md:left-60">
+          <div className="absolute -inset-10 bg-indigo-400/30 blur-3xl rounded-full animate-pulse-slow"></div>
+          <img
+            src={bookIcon}
+            alt="Book"
+            className="hidden sm:block relative w-32 sm:w-48 md:w-66 opacity-80 animate-float-slow"
+          />
+        </div>
+
+        {/* Rocket + ánh sáng */}
+        <div className="absolute top-12 sm:top-16 md:top-15 right-4 sm:right-12 md:right-80">
+          <div className="absolute -inset-10 bg-purple-400/30 blur-3xl rounded-full animate-pulse-slower"></div>
+          <img
+            src={laptopIcon}
+            alt="Laptop"
+            className="hidden sm:block relative w-32 sm:w-48 md:w-66 opacity-80 animate-float-slow"
+          />
+        </div>
+
+        {/* Laptop + ánh sáng
+        <div className="absolute bottom-10 sm:bottom-16 md:bottom-24 right-6 sm:right-16 md:right-24">
+          <div className="absolute -inset-12 bg-teal-400/25 blur-3xl rounded-full animate-pulse-slowest"></div>
+          <img
+            src={laptopIcon}
+            alt="Laptop"
+            className="hidden sm:block relative w-40 sm:w-52 md:w-66 opacity-80 animate-float-slow delay-500"
+          />
+        </div> */}
+      </div>
 
       {/* Nội dung chính */}
       <div className="max-w-7xl mx-auto text-center relative z-10 px-2 sm:px-6">
