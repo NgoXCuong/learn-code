@@ -7,7 +7,9 @@ import CourseDetail from "./pages/CourseDetail";
 import LessonPage from "./pages/LessonPage";
 import Compiler from "./pages/Compiler";
 import Feedback from "./pages/Feedback";
+import ProfilePage from "./pages/ProfilePage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ChallengesPage from "./pages/ChallengesPage";
 
 const App = () => {
   return (
@@ -40,6 +42,9 @@ const App = () => {
             path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId/feedback"
             element={<Feedback />}
           />
+
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/challenges" element={<ChallengesPage />} />
         </Routes>
       </BrowserRouter>
     </div>
