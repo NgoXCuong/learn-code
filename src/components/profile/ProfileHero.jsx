@@ -4,7 +4,7 @@ export default function ProfileHero({ user }) {
   return (
     <div className="relative w-full bg-dark">
       {/* Ảnh nền */}
-      <div className="w-full h-30 md:h-50 overflow-hidden relative">
+      <div className="w-full h-20 md:h-30 overflow-hidden relative">
         <img
           src={user.cover}
           alt="Cover"

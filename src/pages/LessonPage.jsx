@@ -70,10 +70,10 @@ export default function LessonPage() {
         <Tabs defaultValue="theory" className="w-full mt-6">
           {/* Tabs list căn giữa */}
           <div className="flex justify-center mb-4">
-            <TabsList className="inline-flex bg-gray-200 dark:bg-gray-800 rounded-lg p-1">
+            <TabsList className="inline-flex bg-gray-200 dark:bg-gray-800 rounded-lg p-1 gap-2 dark:text-white">
               <TabsTrigger
                 value="theory"
-                className="px-6 py-2 rounded-lg font-medium hover:bg-indigo-500 hover:text-white data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
+                className="px-6 py-2  rounded-lg font-medium hover:bg-indigo-500 hover:text-white data-[state=active]:bg-indigo-600 data-[state=active]:text-white"
               >
                 Lý thuyết
               </TabsTrigger>

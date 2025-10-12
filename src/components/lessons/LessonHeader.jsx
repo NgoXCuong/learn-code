@@ -8,7 +8,7 @@ export default function LessonHeader({ title, content }) {
 
   return (
     <div className="mb-6">
-      <h2 className={`text-3xl font-bold mb-4 ${textColor}`}>{title}</h2>
+      <h2 className={`text-2xl font-bold mb-4 ${textColor}`}>{title}</h2>
       <p className={`leading-relaxed ${textSecondary}`}>
         {content || "Chưa có mô tả chi tiết."}
       </p>
