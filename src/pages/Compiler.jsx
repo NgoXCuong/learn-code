@@ -136,7 +136,7 @@ export default function Compiler() {
     <div className="flex flex-col max-h-screen h-[1000px] bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors">
       <Header />
 
-      <main className="flex-1 w-full px-4 sm:px-10 lg:px-16 py-4 flex flex-col h-[calc(100vh-140px)] gap-4">
+      <main className="pt-20 md:pt-24 flex-1 w-full px-4 sm:px-10 lg:px-16 py-4 flex flex-col h-[calc(100vh-140px)] gap-4">
         <Breadcrumb items={breadcrumbItems} />
 
         <div className="flex-1 flex flex-col lg:flex-row gap-4 h-full min-h-0">

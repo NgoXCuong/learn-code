@@ -1,51 +1,63 @@
-// src/components/challenges/ChallengeCard.jsx
 import React from "react";
-import { Flame, Clock, Award } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
+import { Users, Target, Flame } from "lucide-react";
+import { Button } from "../ui/button";
 
-export default function ChallengeCard({ challenge }) {
+export default function ChallengeCard({ challenge, onClick }) {
+  const { title, difficulty, description, participants, successRate, points } =
+    challenge;
+
   return (
-    <div
-      className="p-5 rounded-xl border border-gray-200 dark:border-gray-700 
-                    bg-white dark:bg-gray-800 hover:shadow-lg hover:-translate-y-1 
-                    transition-all duration-300"
+    <Card
+      className="border border-gray-200 dark:border-gray-700 hover:shadow-xl hover:border-blue-400 dark:hover:border-blue-500 
+                 transition-all duration-300 rounded-2xl bg-white dark:bg-gray-800 group"
     >
-      <div className="flex justify-between items-center mb-2">
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
-          {challenge.title}
-        </h3>
-        <span
-          className={`text-xs px-2 py-1 rounded-full font-medium ${
-            challenge.difficulty === "Dễ"
-              ? "bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200"
-              : challenge.difficulty === "Trung bình"
-              ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-800 dark:text-yellow-200"
-              : "bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-200"
-          }`}
-        >
-          {challenge.difficulty}
-        </span>
-      </div>
+      <CardContent className="p-5 space-y-3">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+            {title}
+          </h3>
+          <span
+            className={`text-sm font-medium px-3 py-1 rounded-full ${
+              difficulty === "Dễ"
+                ? "bg-green-100 text-green-700"
+                : difficulty === "Trung bình"
+                ? "bg-yellow-100 text-yellow-700"
+                : "bg-red-100 text-red-700"
+            }`}
+          >
+            {difficulty}
+          </span>
+        </div>
 
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-        {challenge.description}
-      </p>
+        <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed line-clamp-2">
+          {description}
+        </p>
 
-      <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-        <div className="flex items-center space-x-3">
+        <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-1">
-            <Flame className="w-4 h-4 text-orange-500" />
-            <span>{challenge.participants} người tham gia</span>
+            <Users className="w-4 h-4 text-blue-500" />
+            <span>{participants} người tham gia</span>
           </div>
           <div className="flex items-center gap-1">
-            <Award className="w-4 h-4 text-yellow-500" />
-            <span>{challenge.rewards} XP</span>
+            <Target className="w-4 h-4 text-green-500" />
+            <span>{successRate}% thành công</span>
           </div>
         </div>
-        <div className="flex items-center gap-1">
-          <Clock className="w-4 h-4 text-blue-500" />
-          <span>Còn {challenge.remainingDays} ngày</span>
+
+        <div className="flex items-center justify-between mt-3">
+          <div className="flex items-center text-sm text-gray-600 dark:text-gray-300">
+            <Flame className="w-4 h-4 mr-1 text-orange-500" />+{points} XP
+          </div>
+
+          <Button
+            onClick={() => onClick(challenge)}
+            className="text-sm font-semibold px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow-sm"
+          >
+            Thử sức
+          </Button>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

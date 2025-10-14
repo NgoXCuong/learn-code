@@ -55,7 +55,7 @@ export default function LessonPage() {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors">
       <Header />
 
-      <main className="flex-1 w-full px-6 sm:px-14 lg:px-20 py-8">
+      <main className="pt-20 md:pt-24 flex-1 w-full px-6 sm:px-14 lg:px-20 py-8">
         {/* Breadcrumb */}
         <Breadcrumb
           items={[

@@ -27,7 +27,11 @@ export default function ProfilePage() {
     { id: 2, name: "Tốc độ", icon: "⚡", date: "2024-10-10" },
   ];
 
-  const stats = { lessonsDone: 120, codeLines: 5400, coursesJoined: 7 };
+  const stats = {
+    lessonsDone: 24,
+    exercisesSolved: 120,
+    challengesCompleted: 5,
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100 dark:bg-gray-900">

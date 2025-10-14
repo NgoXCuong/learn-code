@@ -32,7 +32,7 @@ export default function Feedback() {
     >
       <Header />
 
-      <main className="flex-1 flex flex-col items-center justify-between p-4 md:p-6 h-full w-full">
+      <main className="pt-20 md:pt-24 flex-1 flex flex-col items-center justify-between p-4 md:p-6 h-full w-full">
         {/* Hoàn thành */}
         <div
           className={`flex flex-col items-center mb-4 p-4 md:p-6 rounded-xl shadow-sm w-full text-center

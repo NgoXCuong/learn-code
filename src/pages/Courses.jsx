@@ -30,15 +30,17 @@ export default function Courses() {
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500">
       <Header />
 
-      <main className="flex-grow w-full px-6 sm:px-14 lg:px-20 py-6">
+      <main className="pt-20 md:pt-24 flex-grow w-full px-6 sm:px-14 lg:px-20 py-6">
         <Breadcrumb items={breadcrumbItems} />
 
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-5">
+          {/* 🔹 Tiêu đề */}
           <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Danh sách khóa học
           </h1>
 
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+          {/* 🔹 Bộ lọc ngôn ngữ */}
+          <div className="flex items-center gap-3">
             <label
               htmlFor="language-select"
               className="text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -56,18 +58,19 @@ export default function Courses() {
                   )
                 }
                 className="
-                  appearance-none
-                  px-4 py-2.5 pr-10
-                  rounded-lg
-                  border border-gray-300 dark:border-gray-700
-                  bg-white dark:bg-gray-800
-                  text-gray-900 dark:text-gray-100
-                  shadow-sm
-                  focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-                  hover:border-blue-400 dark:hover:border-blue-500
-                  transition-all duration-200 ease-in-out
-                  cursor-pointer
-                "
+          appearance-none
+          px-4 py-2 pr-10
+          rounded-lg
+          border border-gray-300 dark:border-gray-700
+          bg-white dark:bg-gray-800
+          text-gray-900 dark:text-gray-100
+          text-sm
+          shadow-sm
+          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+          hover:border-blue-400 dark:hover:border-blue-500
+          transition-all duration-200 ease-in-out
+          cursor-pointer
+        "
               >
                 <option value="">🌐 Tất cả</option>
                 {languages.map((lang) => (
@@ -77,7 +80,7 @@ export default function Courses() {
                 ))}
               </select>
 
-              {/* Icon mũi tên custom */}
+              {/* 🔹 Icon mũi tên */}
               <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-400">
                 <svg
                   className="w-4 h-4"

@@ -1,29 +1,29 @@
 import React from "react";
-import { BookOpen, Code, GraduationCap } from "lucide-react";
+import { BookOpen, CheckCircle, Target } from "lucide-react";
 
 export default function StatsCard({ stats }) {
   const items = [
     {
       icon: <BookOpen className="w-6 h-6 text-indigo-500" />,
-      label: "Bài học",
+      label: "Bài học đã hoàn thành",
       value: stats.lessonsDone,
     },
     {
-      icon: <Code className="w-6 h-6 text-indigo-500" />,
-      label: "Dòng code",
-      value: stats.codeLines,
+      icon: <CheckCircle className="w-6 h-6 text-green-500" />,
+      label: "Bài tập đã giải quyết",
+      value: stats.exercisesSolved,
     },
     {
-      icon: <GraduationCap className="w-6 h-6 text-indigo-500" />,
-      label: "Khóa học",
-      value: stats.coursesJoined,
+      icon: <Target className="w-6 h-6 text-yellow-500" />,
+      label: "Thử thách hoàn thành",
+      value: stats.challengesCompleted,
     },
   ];
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-5">
       <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
-        📊 Thống kê
+        📊 Thống kê học tập
       </h3>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
