@@ -64,7 +64,7 @@ export default function ChallengesPage() {
     <div className="bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors min-h-screen flex flex-col">
       <Header />
 
-      <main className="pt-20 md:pt-24 flex-1 w-full  px-6 sm:px-14 lg:px-20 py-8">
+      <main className="flex-1 w-full  px-6 sm:px-14 lg:px-20 py-8">
         {/* Breadcrumb */}
         <Breadcrumb
           items={[{ label: "Trang chủ", href: "/" }, { label: "Thử thách" }]}

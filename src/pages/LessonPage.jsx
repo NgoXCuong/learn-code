@@ -17,7 +17,16 @@ import {
 import { mockLessons } from "../mock/lessons";
 import { mockCourses } from "../mock/courses";
 import { mockExercises } from "../mock/exercises";
-import { BookOpen, Code2, CheckCircle } from "lucide-react";
+import {
+  BookOpen,
+  Code2,
+  CheckCircle,
+  Clock,
+  BarChart3,
+  Trophy,
+  Users,
+  ChevronRight,
+} from "lucide-react";
 
 export default function LessonPage() {
   const { courseId, lessonId } = useParams();
@@ -27,7 +36,7 @@ export default function LessonPage() {
   const [course, setCourse] = useState(null);
   const [lesson, setLesson] = useState(null);
   const [exercises, setExercises] = useState([]);
-  const [expandedExerciseId, setExpandedExerciseId] = useState(null);
+  const [activeTab, setActiveTab] = useState("theory");
 
   useEffect(() => {
     const c = mockCourses.find((c) => c.id.toString() === courseId);
@@ -42,96 +51,277 @@ export default function LessonPage() {
       (ex) => ex.lesson_id.toString() === lessonId
     );
     setExercises(exs);
-    if (exs.length > 0) setExpandedExerciseId(exs[0].id);
   }, [courseId, lessonId]);
 
   if (!lesson || !course)
     return (
-      <p className="text-center mt-10 text-gray-600 dark:text-gray-400">
-        Đang tải dữ liệu...
-      </p>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+        <p className="text-center text-gray-600 dark:text-gray-400 text-lg">
+          Đang tải dữ liệu...
+        </p>
+      </div>
     );
 
+  const completedExercises = exercises.filter(
+    (ex) => ex.status === "completed"
+  ).length;
+  const progressPercent = exercises.length
+    ? Math.round((completedExercises / exercises.length) * 100)
+    : 0;
+
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors">
       <Header />
 
-      <main className="flex-1 w-full px-6 sm:px-14 lg:px-20 py-8">
-        <Breadcrumb
-          items={[
-            { label: "Trang chủ", href: "/" },
-            { label: "Khóa học", href: "/courses" },
-            { label: course.title, href: `/courses/${courseId}` },
-            { label: lesson.title },
-          ]}
-        />
+      <main className="flex-1 w-full px-6 sm:px-14 lg:px-20 py-6">
+        <div className=" mx-auto">
+          {/* Breadcrumb */}
+          <div className="mb-6">
+            <Breadcrumb
+              items={[
+                { label: "Trang chủ", href: "/" },
+                { label: "Khóa học", href: "/courses" },
+                { label: course.title, href: `/courses/${courseId}` },
+                { label: lesson.title },
+              ]}
+            />
+          </div>
 
-        {/* Lesson Info Banner */}
-        <div className="mt-6 p-6 rounded-xl bg-gradient-to-r from-indigo-500/10 to-blue-500/10 border border-indigo-200 dark:border-indigo-900/30 dark:from-indigo-950/20 dark:to-blue-950/20">
-          <div className="flex items-start gap-3">
-            <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400 flex-shrink-0 mt-1" />
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                {lesson.title}
-              </h1>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Khóa học: <span className="font-medium">{course.title}</span>
-              </p>
+          {/* Hero Banner Section - Simplified */}
+          <div className="relative overflow-hidden rounded-2xl mb-8">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600 dark:from-indigo-900 dark:to-blue-900"></div>
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute top-0 right-0 w-96 h-96 bg-white rounded-full -mr-48 -mt-48"></div>
+            </div>
+
+            <div className="relative p-6 sm:p-8 lg:p-10">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+                {/* Title Section */}
+                <div className="flex-1 min-w-0">
+                  <p className="text-indigo-200 text-sm font-medium mb-2">
+                    {course.title}
+                  </p>
+                  <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4 break-words">
+                    {lesson.title}
+                  </h1>
+
+                  {/* Quick Stats */}
+                  <div className="flex flex-wrap gap-6 text-sm">
+                    <div className="flex items-center gap-2 text-indigo-100">
+                      <Clock className="w-4 h-4 flex-shrink-0" />
+                      <span>{lesson.readTime}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-indigo-100">
+                      <Code2 className="w-4 h-4 flex-shrink-0" />
+                      <span>{exercises.length} bài tập</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-indigo-100">
+                      <Users className="w-4 h-4 flex-shrink-0" />
+                      <span>
+                        {lesson.students?.toLocaleString("vi-VN")} học viên
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Progress Card - Compact */}
+                <div className="bg-white/15 backdrop-blur-sm rounded-xl p-4 border border-white/20 sm:min-w-56 flex-shrink-0">
+                  <div className="text-xs font-medium text-white/70 mb-2">
+                    Tiến độ bài học
+                  </div>
+                  <div className="mb-3">
+                    <div className="text-2xl font-bold text-white mb-2">
+                      {lesson.progress || 0}%
+                    </div>
+                    <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-yellow-300 to-emerald-400 transition-all duration-500"
+                        style={{ width: `${lesson.progress || 0}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                  {exercises.length > 0 && (
+                    <div className="text-xs text-white/80 flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3 text-green-300 flex-shrink-0" />
+                      <span>
+                        <strong>{completedExercises}</strong>/{exercises.length}{" "}
+                        hoàn thành
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            {/* Left Sidebar - Lesson Info (Mobile: Top) */}
+            <div className="lg:col-span-1 order-first lg:order-last">
+              <div className="sticky top-24 space-y-4">
+                {/* Lesson Info Card */}
+                <div className="p-5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+                  <h3 className="text-base font-bold text-gray-900 dark:text-white mb-4">
+                    Thông tin bài học
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
+                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                        <BarChart3 className="w-4 h-4 flex-shrink-0" />
+                        <span className="text-xs font-medium">Độ khó</span>
+                      </div>
+                      <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                        {lesson.difficulty}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
+                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                        <Clock className="w-4 h-4 flex-shrink-0" />
+                        <span className="text-xs font-medium">Thời gian</span>
+                      </div>
+                      <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                        {lesson.readTime}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
+                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                        <Code2 className="w-4 h-4 flex-shrink-0" />
+                        <span className="text-xs font-medium">Ngôn ngữ</span>
+                      </div>
+                      <span className="text-xs font-bold text-gray-900 dark:text-white uppercase">
+                        {lesson.language}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
+                      <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                        <Trophy className="w-4 h-4 flex-shrink-0" />
+                        <span className="text-xs font-medium">Bài tập</span>
+                      </div>
+                      <span className="text-sm font-semibold text-gray-900 dark:text-white">
+                        {exercises.length}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Progress Summary Card */}
+                <div className="p-5 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-900/30">
+                  <div className="text-center">
+                    <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
+                      Tiến độ bài tập
+                    </p>
+                    <p className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-1">
+                      {progressPercent}%
+                    </p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                      <strong>{completedExercises}</strong>/{exercises.length}{" "}
+                      hoàn thành
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Main Content Area */}
+            <div className="lg:col-span-3 order-last lg:order-first">
+              <Tabs
+                value={activeTab}
+                onValueChange={setActiveTab}
+                className="w-full"
+              >
+                {/* Tabs Header */}
+                <div className="mb-6">
+                  <TabsList className="inline-flex rounded-lg p-1 gap-1 bg-gray-100 dark:bg-gray-800">
+                    <TabsTrigger
+                      value="theory"
+                      className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium
+                        text-gray-600 dark:text-gray-300
+                        data-[state=active]:bg-white data-[state=active]:text-indigo-600 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-indigo-400
+                        transition-all"
+                    >
+                      <BookOpen className="w-4 h-4" />
+                      Lý thuyết
+                    </TabsTrigger>
+
+                    <TabsTrigger
+                      value="exercise"
+                      className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium
+                        text-gray-600 dark:text-gray-300
+                        data-[state=active]:bg-white data-[state=active]:text-indigo-600 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-indigo-400
+                        transition-all"
+                    >
+                      <Code2 className="w-4 h-4" />
+                      Bài tập
+                      {exercises.length > 0 && (
+                        <span className="ml-1 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded-full text-xs font-semibold">
+                          {exercises.length}
+                        </span>
+                      )}
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+
+                {/* THEORY TAB */}
+                <TabsContent value="theory" className="space-y-6 mt-0">
+                  {/* Lesson Content */}
+                  <div className="p-6 sm:p-8 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                      <div className="p-2 rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
+                        <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                      </div>
+                      <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                        Nội dung bài học
+                      </h2>
+                    </div>
+
+                    <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300">
+                      <LessonHeader title="" content={lesson.content} />
+                    </div>
+                  </div>
+
+                  {/* Example Code */}
+                  {lesson.example_code && (
+                    <div className="p-6 sm:p-8 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+                      <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
+                        <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30">
+                          <Code2 className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                        </div>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                          Ví dụ mã nguồn
+                        </h3>
+                      </div>
+
+                      <LessonCode
+                        code={lesson.example_code}
+                        language={lesson.language}
+                      />
+                    </div>
+                  )}
+                </TabsContent>
+
+                {/* EXERCISE TAB */}
+                <TabsContent value="exercise" className="mt-0">
+                  {exercises.length > 0 ? (
+                    <div className="space-y-6">
+                      <LessonExercise
+                        exercises={exercises}
+                        courseId={courseId}
+                        lessonId={lessonId}
+                      />
+                    </div>
+                  ) : (
+                    <div className="p-12 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-center">
+                      <Code2 className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                      <p className="text-gray-500 dark:text-gray-400 font-medium">
+                        Hiện chưa có bài tập nào
+                      </p>
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
         </div>
-
-        {/* Tabs */}
-        <Tabs defaultValue="theory" className="w-full mt-8">
-          <div className="flex justify-center mb-6">
-            <TabsList className="inline-flex bg-gray-200 dark:bg-gray-800 rounded-lg p-1 gap-2 dark:text-white">
-              <TabsTrigger
-                value="theory"
-                className="px-6 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-indigo-500 hover:text-white data-[state=active]:bg-indigo-600 data-[state=active]:text-white transition-colors"
-              >
-                <BookOpen className="w-4 h-4" />
-                Lý thuyết
-              </TabsTrigger>
-              <TabsTrigger
-                value="exercise"
-                className="px-6 py-2 rounded-lg font-medium flex items-center gap-2 hover:bg-indigo-500 hover:text-white data-[state=active]:bg-indigo-600 data-[state=active]:text-white transition-colors"
-              >
-                <Code2 className="w-4 h-4" />
-                Bài tập ({exercises.length})
-              </TabsTrigger>
-            </TabsList>
-          </div>
-
-          {/* Tab Lý thuyết */}
-          <TabsContent value="theory" className="mt-0">
-            <div className="space-y-6">
-              <div className="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
-                <LessonHeader title="" content={lesson.content} />
-              </div>
-
-              {lesson.example_code && (
-                <div className="p-6 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
-                  <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
-                    <Code2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                    Ví dụ mã nguồn
-                  </h3>
-                  <LessonCode
-                    code={lesson.example_code}
-                    language={lesson.language}
-                  />
-                </div>
-              )}
-            </div>
-          </TabsContent>
-
-          <TabsContent value="exercise" className="mt-0">
-            <LessonExercise
-              exercises={exercises}
-              courseId={courseId}
-              lessonId={lessonId}
-            />
-          </TabsContent>
-        </Tabs>
       </main>
 
       <Footer />

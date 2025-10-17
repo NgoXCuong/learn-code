@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Star, Users, Clock } from "lucide-react";
+import { Star, Users, Clock, BookOpen } from "lucide-react";
 
 export default function CourseCard({ course, language, onEnroll = () => {} }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -11,7 +11,7 @@ export default function CourseCard({ course, language, onEnroll = () => {} }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* --- Ảnh khóa học --- */}
+      {/* Ảnh khóa học */}
       <div className="relative h-40 overflow-hidden bg-gray-200 dark:bg-gray-700">
         <img
           src={course.image}
@@ -38,7 +38,7 @@ export default function CourseCard({ course, language, onEnroll = () => {} }) {
           </span>
         </div>
 
-        {/* Nút “Bắt đầu học” khi hover */}
+        {/* Nút hover */}
         {isHovered && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <button
@@ -46,15 +46,19 @@ export default function CourseCard({ course, language, onEnroll = () => {} }) {
                 e.stopPropagation();
                 onEnroll(course.id);
               }}
-              className="px-6 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+              className={`px-6 py-2.5 text-sm font-bold text-white rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all ${
+                course.progress === 0
+                  ? "bg-gradient-to-r from-indigo-500 to-purple-600"
+                  : "bg-gradient-to-r from-green-500 to-teal-600"
+              }`}
             >
-              Bắt đầu học
+              {course.progress === 0 ? "Đăng ký học ngay" : "Tiếp tục học"}
             </button>
           </div>
         )}
       </div>
 
-      {/* --- Nội dung khóa học --- */}
+      {/* Nội dung khóa học */}
       <div className="p-5 flex flex-col flex-grow">
         <h3 className="text-base font-bold text-gray-900 dark:text-white line-clamp-2 mb-2 leading-snug">
           {course.title}
@@ -64,31 +68,30 @@ export default function CourseCard({ course, language, onEnroll = () => {} }) {
           {course.description}
         </p>
 
-        {/* --- Thông tin học viên + tiến độ --- */}
+        {/* Thông tin học viên + tiến độ */}
         <div className="mb-3 text-xs text-gray-500 dark:text-gray-400">
           <div className="flex items-center justify-between mb-2">
-            {/* Học viên + thời lượng */}
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1">
                 <Users className="w-3.5 h-3.5" />
-                <span>{course.students.toLocaleString()}</span>
+                <span>{course.students.toLocaleString()} học viên</span>
               </div>
-
               <div className="w-px h-3 bg-gray-300 dark:bg-gray-600"></div>
-
               <div className="flex items-center gap-1">
                 <Clock className="w-3.5 h-3.5" />
                 <span>{course.duration}</span>
               </div>
+              <div className="w-px h-3 bg-gray-300 dark:bg-gray-600"></div>
+              <div className="flex items-center gap-1">
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>{course.lessons} bài</span>
+              </div>
             </div>
-
-            {/* Phần trăm tiến độ */}
             <span className="text-gray-600 dark:text-gray-400 font-medium">
               {course.progress}%
             </span>
           </div>
 
-          {/* --- Thanh tiến độ nổi bật, dài full card --- */}
           <div className="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden shadow-inner">
             <div
               className="h-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full transition-[width] duration-700 ease-out"

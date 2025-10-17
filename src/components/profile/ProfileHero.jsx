@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ProfileHero({ user }) {
   return (
-    <div className="pt-20 md:pt-20 relative w-full bg-dark">
+    <div className="relative w-full bg-dark">
       {/* Ảnh nền */}
       <div className="w-full h-20 md:h-30 overflow-hidden relative">
         <img

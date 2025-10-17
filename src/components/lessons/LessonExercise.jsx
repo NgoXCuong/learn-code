@@ -1,7 +1,7 @@
 // src/components/lessons/LessonExercise.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Code2 } from "lucide-react";
+import { Code2, ChevronDown } from "lucide-react";
 
 export default function LessonExercise({ exercises, courseId, lessonId }) {
   const [expandedExerciseId, setExpandedExerciseId] = useState(
@@ -57,14 +57,7 @@ export default function LessonExercise({ exercises, courseId, lessonId }) {
                 expandedExerciseId === ex.id ? "rotate-180" : ""
               }`}
             >
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
+              <ChevronDown />
             </div>
           </button>
 
