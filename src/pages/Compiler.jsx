@@ -8,17 +8,35 @@ import CodeEditor from "../components/compiler/CodeEditor";
 import Output from "../components/compiler/Output";
 import EmotionAnalysis from "../components/compiler/EmotionAnalysis";
 import { ThemeContext } from "../context/ThemeContext";
-import {
-  fetchCourseById,
-  fetchLessonsByCourse,
-  fetchExercisesByLesson,
-  fetchLanguages,
-  runCode,
-  submitExercise,
-} from "../api/coursesApi";
+
+import { mockCourses } from "../mock/courses";
+import { mockLessons } from "../mock/lessons";
+import { mockExercises } from "../mock/exercises";
+
+// Mock API chạy code (demo)
+const runCode = async ({ language, code }) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ output: `Kết quả giả lập (${language}):\n${code}` });
+    }, 500);
+  });
+};
+
+// Mock API submit code (demo)
+const submitExercise = async ({ exerciseId, code }) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        passed: true,
+        message: "Submit thành công!",
+        comments: [],
+      });
+    }, 500);
+  });
+};
 
 export default function Compiler() {
-  const { courseId, lessonId, exerciseId } = useParams(); // lấy exerciseId từ URL
+  const { courseId, lessonId, exerciseId } = useParams();
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
@@ -31,53 +49,36 @@ export default function Compiler() {
   const [isRunning, setIsRunning] = useState(false);
   const [output, setOutput] = useState("");
 
-  const [languages, setLanguages] = useState([]);
+  const [languages, setLanguages] = useState([
+    "javascript",
+    "python",
+    "cpp",
+    "java",
+    "csharp",
+  ]);
   const [selectedLanguage, setSelectedLanguage] = useState("javascript");
 
-  // Load dữ liệu khóa học, bài học, exercises
+  // Load dữ liệu từ mock
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        if (courseId) {
-          const c = await fetchCourseById(courseId);
-          setCourse(c);
+    const c = mockCourses.find((c) => c.id.toString() === courseId);
+    setCourse(c);
 
-          if (lessonId) {
-            const lessons = await fetchLessonsByCourse(courseId);
-            const l = lessons.find((l) => l.id.toString() === lessonId);
-            if (l) l.course_title = c.title;
-            setLesson(l);
+    const l = mockLessons.find(
+      (l) => l.id.toString() === lessonId && l.course_id.toString() === courseId
+    );
+    setLesson(l);
 
-            const ex = await fetchExercisesByLesson(lessonId);
-            setExercises(ex);
+    const exs = mockExercises.filter(
+      (e) => e.lesson_id.toString() === lessonId
+    );
+    setExercises(exs);
 
-            // Chọn exercise dựa vào URL, nếu không có thì mặc định bài 1
-            let selectedEx = ex.find((e) => e.id.toString() === exerciseId);
-            if (!selectedEx && ex.length > 0) selectedEx = ex[0];
-            setCurrentExercise(selectedEx);
-            setCurrentCode(selectedEx?.starter_code || "");
-          }
-        }
-      } catch (err) {
-        console.error("Lỗi load dữ liệu:", err);
-      }
-    };
-    loadData();
+    const selectedEx =
+      exs.find((e) => e.id.toString() === exerciseId) || exs[0];
+    setCurrentExercise(selectedEx);
+    setCurrentCode(selectedEx?.example_code || "");
+    setSelectedLanguage(selectedEx?.language || "javascript");
   }, [courseId, lessonId, exerciseId]);
-
-  // Load ngôn ngữ
-  useEffect(() => {
-    const loadLanguages = async () => {
-      try {
-        const langs = await fetchLanguages();
-        setLanguages(langs);
-        if (langs.length > 0) setSelectedLanguage(langs[0].name.toLowerCase());
-      } catch (err) {
-        console.error("Lỗi load languages:", err);
-      }
-    };
-    loadLanguages();
-  }, []);
 
   const handleRun = async () => {
     setIsRunning(true);
@@ -96,14 +97,11 @@ export default function Compiler() {
 
   const handleSubmit = async () => {
     if (!currentExercise) return;
-
     try {
       const res = await submitExercise({
-        userId: null,
         exerciseId: currentExercise.id,
         code: currentCode,
       });
-
       navigate(
         `/courses/${courseId}/lessons/${lessonId}/exercise/${currentExercise.id}/feedback`,
         { state: { feedback: res } }
@@ -136,7 +134,7 @@ export default function Compiler() {
     <div className="flex flex-col max-h-screen h-[1000px] bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors">
       <Header />
 
-      <main className="pt-20 md:pt-24 flex-1 w-full px-4 sm:px-10 lg:px-16 py-4 flex flex-col h-[calc(100vh-140px)] gap-4">
+      <main className="flex-1 w-full px-4 sm:px-10 lg:px-16 py-4 flex flex-col h-[calc(100vh-140px)] gap-4">
         <Breadcrumb items={breadcrumbItems} />
 
         <div className="flex-1 flex flex-col lg:flex-row gap-4 h-full min-h-0">

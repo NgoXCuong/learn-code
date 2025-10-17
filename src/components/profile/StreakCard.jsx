@@ -15,10 +15,10 @@ export default function StreakCard() {
   const getColor = (lvl) => {
     const colors = [
       "bg-gray-200 dark:bg-gray-700",
-      "bg-green-100 dark:bg-green-800",
-      "bg-green-300 dark:bg-green-600",
-      "bg-green-500 dark:bg-green-500",
-      "bg-green-700 dark:bg-green-400",
+      "bg-emerald-200 dark:bg-emerald-900",
+      "bg-emerald-400 dark:bg-emerald-700",
+      "bg-emerald-600 dark:bg-emerald-500",
+      "bg-emerald-800 dark:bg-emerald-400",
     ];
     return colors[lvl];
   };
@@ -40,39 +40,37 @@ export default function StreakCard() {
   });
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-5">
-      <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
-        🔥 Chuỗi ngày học trong năm 2025
-      </h3>
+    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-shadow">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+          <span className="text-2xl">🔥</span>
+          Chuỗi ngày học trong năm 2025
+        </h3>
+        <div className="px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-bold shadow-lg">
+          365 ngày
+        </div>
+      </div>
 
-      {/* Container scroll ngang */}
       <div
-        className="overflow-x-auto overflow-y-hidden touch-pan-x"
-        style={{
-          WebkitOverflowScrolling: "touch", // giúp cuộn mượt trên iOS
-        }}
+        className="overflow-x-auto overflow-y-hidden touch-pan-x scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent"
+        style={{ WebkitOverflowScrolling: "touch" }}
       >
-        {/* Nhãn tháng */}
-        <div className="relative h-6 ml-10 mb-1 text-xs text-gray-500 dark:text-gray-400 min-w-[900px]">
+        <div className="relative h-6 ml-10 mb-2 text-xs font-medium text-gray-500 dark:text-gray-400 min-w-[900px]">
           {monthPositions.map((m) => (
             <span
               key={m.month}
               className="absolute text-center"
-              style={{
-                left: `${m.weekIdx * 16 + 40}px`,
-                minWidth: "30px",
-              }}
+              style={{ left: `${m.weekIdx * 16 + 40}px`, minWidth: "30px" }}
             >
               T{m.month}
             </span>
           ))}
         </div>
 
-        {/* Heatmap */}
-        <div className="flex flex-col gap-[3px] min-w-[900px]">
+        <div className="flex flex-col gap-1 min-w-[900px]">
           {["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((dayName, dayIdx) => (
-            <div key={dayIdx} className="flex items-center gap-[3px]">
-              <span className="text-xs text-gray-500 dark:text-gray-400 w-5">
+            <div key={dayIdx} className="flex items-center gap-1">
+              <span className="text-xs font-medium text-gray-500 dark:text-gray-400 w-6">
                 {dayName}
               </span>
 
@@ -87,17 +85,17 @@ export default function StreakCard() {
                 return (
                   <div
                     key={`${weekIdx}-${dayIdx}`}
-                    className={`relative w-3.5 h-3.5 rounded-sm ${getColor(
+                    className={`relative w-3.5 h-3.5 rounded ${getColor(
                       dayData.level
-                    )} hover:scale-110 transition-transform duration-150 ${
+                    )} hover:scale-125 hover:ring-2 hover:ring-emerald-400 transition-all duration-150 cursor-pointer ${
                       isMonthStart
-                        ? "border-l-2 border-gray-300 dark:border-gray-600"
+                        ? "border-l-2 border-gray-400 dark:border-gray-500"
                         : ""
                     }`}
-                    title={`${d.getDate()}/${d.getMonth() + 1}/2025 - cấp ${
+                    title={`${d.getDate()}/${d.getMonth() + 1}/2025 - Cấp ${
                       dayData.level
                     }`}
-                  ></div>
+                  />
                 );
               })}
             </div>
@@ -105,15 +103,27 @@ export default function StreakCard() {
         </div>
       </div>
 
-      {/* Chú thích */}
-      <div className="flex flex-wrap justify-end items-center mt-4 text-sm text-gray-500 dark:text-gray-400">
-        <span>Ít</span>
-        <div className="flex gap-[3px] mx-2">
-          {[0, 1, 2, 3, 4].map((lvl) => (
-            <div key={lvl} className={`w-4 h-4 rounded-sm ${getColor(lvl)}`} />
-          ))}
+      <div className="flex flex-wrap justify-between items-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+          <span className="font-medium">Ít</span>
+          <div className="flex gap-1">
+            {[0, 1, 2, 3, 4].map((lvl) => (
+              <div
+                key={lvl}
+                className={`w-5 h-5 rounded ${getColor(
+                  lvl
+                )} border border-gray-300 dark:border-gray-600`}
+              />
+            ))}
+          </div>
+          <span className="font-medium">Nhiều</span>
         </div>
-        <span>Nhiều</span>
+        <div className="text-sm text-gray-500 dark:text-gray-400">
+          <span className="font-semibold text-emerald-600 dark:text-emerald-400">
+            {days.filter((d) => d.level > 0).length}
+          </span>{" "}
+          ngày đã học
+        </div>
       </div>
     </div>
   );

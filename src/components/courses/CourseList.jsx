@@ -1,12 +1,9 @@
-/// src/components/courses/CourseList.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  fetchCourses,
-  fetchLanguages,
-  fetchCoursesByLang,
-} from "../../api/coursesApi";
 import CourseCard from "./CourseCard";
+
+// 🔹 Import mock data
+import { mockCourses, mockLanguages } from "../../mock/courses";
 
 export default function CourseList({ selectedLang }) {
   const [courses, setCourses] = useState([]);
@@ -14,30 +11,26 @@ export default function CourseList({ selectedLang }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Load languages lúc đầu
+  // 🟦 Load danh sách ngôn ngữ
   useEffect(() => {
+    // Giả lập fetch API
     const loadLanguages = async () => {
-      try {
-        const langs = await fetchLanguages();
-        setLanguages(langs);
-      } catch (err) {
-        console.error("Lỗi load languages:", err);
-      }
+      setLanguages(mockLanguages);
     };
     loadLanguages();
   }, []);
 
-  // Load courses mỗi khi selectedLang thay đổi
+  // 🟨 Load danh sách khóa học
   useEffect(() => {
     const loadCourses = async () => {
       setLoading(true);
       try {
         let data;
-        if (selectedLang) {
-          data = await fetchCoursesByLang(selectedLang);
-        } else {
-          data = await fetchCourses();
-        }
+        if (selectedLang)
+          data = mockCourses.filter(
+            (course) => course.lang_id === Number(selectedLang)
+          );
+        else data = mockCourses;
         setCourses(data);
       } catch (err) {
         console.error("Lỗi load courses:", err);
@@ -48,31 +41,28 @@ export default function CourseList({ selectedLang }) {
     loadCourses();
   }, [selectedLang]);
 
+  // 🟩 Khi nhấn vào 1 khóa học
   const handleEnroll = (courseId) => navigate(`/courses/${courseId}`);
 
-  if (loading) {
+  if (loading)
     return (
       <p className="text-center text-gray-500 dark:text-gray-300 mt-6">
         Đang tải khóa học...
       </p>
     );
-  }
 
-  if (courses.length === 0) {
+  if (courses.length === 0)
     return (
       <p className="text-center text-gray-500 dark:text-gray-300 mt-6">
         Không có khóa học nào.
       </p>
     );
-  }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {courses.map((course) => {
-        const lang = languages.find(
-          (l) => String(l.id) === String(course.lang_id)
-        );
-        if (!lang) return null; // bỏ qua nếu không tìm thấy
+        const lang = languages.find((l) => l.id === course.lang_id);
+        if (!lang) return null;
         return (
           <CourseCard
             key={course.id}

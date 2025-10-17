@@ -3,7 +3,9 @@ import CourseList from "../components/courses/CourseList";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import Breadcrumb from "../components/layout/Breadcrumb";
-import { fetchLanguages } from "../api/coursesApi";
+
+// 🟢 Import mock data thay vì fetch API
+import { mockLanguages } from "../mock/courses";
 
 export default function Courses() {
   const [languages, setLanguages] = useState([]);
@@ -14,23 +16,16 @@ export default function Courses() {
     { label: "Khóa học" },
   ];
 
+  // 🟦 Load danh sách ngôn ngữ từ mock
   useEffect(() => {
-    const loadLanguages = async () => {
-      try {
-        const langs = await fetchLanguages();
-        setLanguages(langs);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    loadLanguages();
+    setLanguages(mockLanguages);
   }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500">
       <Header />
 
-      <main className="pt-20 md:pt-24 flex-grow w-full px-6 sm:px-14 lg:px-20 py-6">
+      <main className=" flex-grow w-full px-6 sm:px-14 lg:px-20 py-6">
         <Breadcrumb items={breadcrumbItems} />
 
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 gap-5">
@@ -58,19 +53,19 @@ export default function Courses() {
                   )
                 }
                 className="
-          appearance-none
-          px-4 py-2 pr-10
-          rounded-lg
-          border border-gray-300 dark:border-gray-700
-          bg-white dark:bg-gray-800
-          text-gray-900 dark:text-gray-100
-          text-sm
-          shadow-sm
-          focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
-          hover:border-blue-400 dark:hover:border-blue-500
-          transition-all duration-200 ease-in-out
-          cursor-pointer
-        "
+                  appearance-none
+                  px-4 py-2 pr-10
+                  rounded-lg
+                  border border-gray-300 dark:border-gray-700
+                  bg-white dark:bg-gray-800
+                  text-gray-900 dark:text-gray-100
+                  text-sm
+                  shadow-sm
+                  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+                  hover:border-blue-400 dark:hover:border-blue-500
+                  transition-all duration-200 ease-in-out
+                  cursor-pointer
+                "
               >
                 <option value="">🌐 Tất cả</option>
                 {languages.map((lang) => (
@@ -100,6 +95,7 @@ export default function Courses() {
           </div>
         </div>
 
+        {/* 🔸 Hiển thị danh sách khóa học */}
         <CourseList selectedLang={selectedLang} />
       </main>
 

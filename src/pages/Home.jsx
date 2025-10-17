@@ -12,7 +12,7 @@ const Home = () => {
       dark:from-gray-900 dark:via-gray-950 dark:to-indigo-950 
       transition-colors duration-500"
     >
-      {/* 🔹 Header cố định nhẹ (ẩn nền khi Hero hiển thị) */}
+      {/* 🔹 Header cố định nhẹ */}
       <Header />
 
       <main className="flex-grow overflow-hidden">

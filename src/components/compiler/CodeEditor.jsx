@@ -58,8 +58,8 @@ const CodeEditor = ({
             onChange={(e) => onLanguageChange(e.target.value)}
           >
             {languages.map((lang) => (
-              <option key={lang.id} value={lang.name.toLowerCase()}>
-                {lang.name}
+              <option key={lang} value={lang}>
+                {lang.charAt(0).toUpperCase() + lang.slice(1)}
               </option>
             ))}
           </select>

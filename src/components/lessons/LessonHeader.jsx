@@ -1,17 +1,45 @@
+// src/components/lessons/LessonHeader.jsx
 import React, { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 
 export default function LessonHeader({ title, content }) {
   const { theme } = useContext(ThemeContext);
-  const textColor = theme === "dark" ? "text-gray-200" : "text-gray-900";
-  const textSecondary = theme === "dark" ? "text-gray-400" : "text-gray-700";
+  const isDark = theme === "dark";
+
+  // Phân tích content thành các đoạn văn
+  const paragraphs = content
+    ? content.split("\n\n").filter((p) => p.trim())
+    : [];
 
   return (
-    <div className="mb-6">
-      <h2 className={`text-3xl font-bold mb-4 ${textColor}`}>{title}</h2>
-      <p className={`leading-relaxed ${textSecondary}`}>
-        {content || "Chưa có mô tả chi tiết."}
-      </p>
+    <div className="space-y-4">
+      {title && (
+        <h2
+          className={`text-2xl font-bold ${
+            isDark ? "text-white" : "text-gray-900"
+          }`}
+        >
+          {title}
+        </h2>
+      )}
+
+      <div
+        className={`space-y-4 leading-relaxed ${
+          isDark ? "text-gray-300" : "text-gray-700"
+        }`}
+      >
+        {paragraphs.length > 0 ? (
+          paragraphs.map((paragraph, index) => (
+            <p key={index} className="text-base leading-relaxed">
+              {paragraph}
+            </p>
+          ))
+        ) : (
+          <p className={isDark ? "text-gray-400" : "text-gray-600"}>
+            Chưa có mô tả chi tiết.
+          </p>
+        )}
+      </div>
     </div>
   );
 }
