@@ -88,49 +88,6 @@ export default function ChallengesPage() {
         </div>
 
         {/* Stats Overview */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-          {[
-            {
-              title: "Tổng người tham gia",
-              value: totalParticipants.toLocaleString(),
-              color: "from-indigo-500 to-blue-500",
-              icon: "👥",
-            },
-            {
-              title: "Tổng điểm",
-              value: totalPoints.toLocaleString(),
-              color: "from-purple-500 to-pink-500",
-              icon: "⭐",
-            },
-            {
-              title: "Tỷ lệ thành công TB",
-              value: `${avgSuccess}%`,
-              color: "from-green-500 to-emerald-500",
-              icon: "🎯",
-            },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                    {item.title}
-                  </p>
-                  <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
-                    {item.value}
-                  </p>
-                </div>
-                <div
-                  className={`w-12 h-12 bg-gradient-to-br ${item.color} rounded-lg flex items-center justify-center`}
-                >
-                  <span className="text-2xl">{item.icon}</span>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
 
         {/* Main Grid */}
         <div className="grid lg:grid-cols-12 gap-10">
@@ -167,6 +124,44 @@ export default function ChallengesPage() {
 
           {/* Leaderboard Section */}
           <aside className="lg:col-span-3 space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+              {[
+                {
+                  title: "Tổng người tham gia",
+                  value: totalParticipants.toLocaleString(),
+                  color: "from-indigo-500 to-blue-500",
+                  icon: "👥",
+                },
+
+                {
+                  title: "Tỷ lệ thành công TB",
+                  value: `${avgSuccess}%`,
+                  color: "from-green-500 to-emerald-500",
+                  icon: "🎯",
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md border border-gray-100 dark:border-gray-700 hover:shadow-xl transition-all"
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                        {item.title}
+                      </p>
+                      <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+                        {item.value}
+                      </p>
+                    </div>
+                    <div
+                      className={`w-12 h-12 bg-gradient-to-br ${item.color} rounded-lg flex items-center justify-center`}
+                    >
+                      <span className="text-2xl">{item.icon}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
             {/* Leaderboard */}
 
             <Leaderboard leaderboard={leaderboard} currentUser={currentUser} />

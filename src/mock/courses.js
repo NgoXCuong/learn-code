@@ -1,5 +1,3 @@
-// mock/courses.js
-
 export const mockLanguages = [
   { id: 1, name: "JavaScript", color: "from-yellow-400 to-yellow-600" },
   { id: 2, name: "Python", color: "from-blue-400 to-blue-600" },
@@ -17,7 +15,7 @@ export const mockCourses = [
     lang_id: 1,
     level: "Cơ bản",
     image:
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&w=800&q=80", // Ảnh mới: Mã JavaScript
     rating: 4.8,
     students: 3200,
     duration: "12 giờ",
@@ -32,7 +30,7 @@ export const mockCourses = [
     lang_id: 2,
     level: "Cơ bản",
     image:
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=800&q=80", // Ảnh mới: Mã Python
     rating: 4.6,
     students: 4100,
     duration: "10 giờ",
@@ -47,7 +45,7 @@ export const mockCourses = [
     lang_id: 3,
     level: "Cơ bản",
     image:
-      "https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&w=800&q=80", // Ảnh mới: Mã C++
     rating: 4.7,
     students: 2100,
     duration: "14 giờ",
@@ -62,7 +60,7 @@ export const mockCourses = [
     lang_id: 4,
     level: "Cơ bản",
     image:
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=800&q=80", // Link ảnh Java đã thay thế
     rating: 4.5,
     students: 2800,
     duration: "15 giờ",
@@ -77,7 +75,7 @@ export const mockCourses = [
     lang_id: 5,
     level: "Cơ bản",
     image:
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1605379399642-870262d3d051?auto=format&fit=crop&w=800&q=80", // Link ảnh C# đã thay thế
     rating: 4.9,
     students: 3400,
     duration: "16 giờ",
@@ -92,7 +90,7 @@ export const mockCourses = [
     lang_id: 2,
     level: "Cơ bản",
     image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80", // Ảnh mới: Phân tích dữ liệu, dự án
     rating: 4.8,
     students: 3900,
     duration: "12 giờ",

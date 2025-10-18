@@ -1,4 +1,3 @@
-// src/pages/LessonPage.jsx
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../components/layout/Header";
@@ -25,7 +24,6 @@ import {
   BarChart3,
   Trophy,
   Users,
-  ChevronRight,
 } from "lucide-react";
 
 export default function LessonPage() {
@@ -62,9 +60,13 @@ export default function LessonPage() {
       </div>
     );
 
+  // ✅ Vì mockLessons không có trường "students", ta bỏ hoặc thay bằng giá trị từ course
+  const totalStudents = course.students || 0;
+
   const completedExercises = exercises.filter(
     (ex) => ex.status === "completed"
   ).length;
+
   const progressPercent = exercises.length
     ? Math.round((completedExercises / exercises.length) * 100)
     : 0;
@@ -74,7 +76,7 @@ export default function LessonPage() {
       <Header />
 
       <main className="flex-1 w-full px-6 sm:px-14 lg:px-20 py-6">
-        <div className=" mx-auto">
+        <div className="mx-auto">
           {/* Breadcrumb */}
           <div className="mb-6">
             <Breadcrumb
@@ -87,7 +89,7 @@ export default function LessonPage() {
             />
           </div>
 
-          {/* Hero Banner Section - Simplified */}
+          {/* Hero Banner Section */}
           <div className="relative overflow-hidden rounded-2xl mb-8">
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-blue-600 dark:from-indigo-900 dark:to-blue-900"></div>
             <div className="absolute inset-0 opacity-5">
@@ -118,13 +120,13 @@ export default function LessonPage() {
                     <div className="flex items-center gap-2 text-indigo-100">
                       <Users className="w-4 h-4 flex-shrink-0" />
                       <span>
-                        {lesson.students?.toLocaleString("vi-VN")} học viên
+                        {totalStudents.toLocaleString("vi-VN")} học viên
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Progress Card - Compact */}
+                {/* Progress Card */}
                 <div className="bg-white/15 backdrop-blur-sm rounded-xl p-4 border border-white/20 sm:min-w-56 flex-shrink-0">
                   <div className="text-xs font-medium text-white/70 mb-2">
                     Tiến độ bài học
@@ -154,47 +156,46 @@ export default function LessonPage() {
             </div>
           </div>
 
-          {/* Main Content Layout */}
+          {/* Main Layout */}
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* Left Sidebar - Lesson Info (Mobile: Top) */}
+            {/* Sidebar */}
             <div className="lg:col-span-1 order-first lg:order-last">
               <div className="sticky top-24 space-y-4">
-                {/* Lesson Info Card */}
                 <div className="p-5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
                   <h3 className="text-base font-bold text-gray-900 dark:text-white mb-4">
                     Thông tin bài học
                   </h3>
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
+                    <div className="flex justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
                       <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                        <BarChart3 className="w-4 h-4 flex-shrink-0" />
+                        <BarChart3 className="w-4 h-4" />
                         <span className="text-xs font-medium">Độ khó</span>
                       </div>
                       <span className="text-sm font-semibold text-gray-900 dark:text-white">
                         {lesson.difficulty}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
+                    <div className="flex justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
                       <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                        <Clock className="w-4 h-4 flex-shrink-0" />
+                        <Clock className="w-4 h-4" />
                         <span className="text-xs font-medium">Thời gian</span>
                       </div>
                       <span className="text-sm font-semibold text-gray-900 dark:text-white">
                         {lesson.readTime}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
+                    <div className="flex justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
                       <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                        <Code2 className="w-4 h-4 flex-shrink-0" />
+                        <Code2 className="w-4 h-4" />
                         <span className="text-xs font-medium">Ngôn ngữ</span>
                       </div>
-                      <span className="text-xs font-bold text-gray-900 dark:text-white uppercase">
+                      <span className="text-xs font-bold uppercase text-gray-900 dark:text-white">
                         {lesson.language}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
+                    <div className="flex justify-between p-2.5 rounded-lg bg-gray-50 dark:bg-gray-700/40">
                       <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                        <Trophy className="w-4 h-4 flex-shrink-0" />
+                        <Trophy className="w-4 h-4" />
                         <span className="text-xs font-medium">Bài tập</span>
                       </div>
                       <span className="text-sm font-semibold text-gray-900 dark:text-white">
@@ -204,7 +205,7 @@ export default function LessonPage() {
                   </div>
                 </div>
 
-                {/* Progress Summary Card */}
+                {/* Progress summary */}
                 <div className="p-5 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-900/30">
                   <div className="text-center">
                     <p className="text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
@@ -222,22 +223,20 @@ export default function LessonPage() {
               </div>
             </div>
 
-            {/* Main Content Area */}
+            {/* Tabs: Theory / Exercise */}
             <div className="lg:col-span-3 order-last lg:order-first">
               <Tabs
                 value={activeTab}
                 onValueChange={setActiveTab}
                 className="w-full"
               >
-                {/* Tabs Header */}
                 <div className="mb-6">
                   <TabsList className="inline-flex rounded-lg p-1 gap-1 bg-gray-100 dark:bg-gray-800">
                     <TabsTrigger
                       value="theory"
                       className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium
-                        text-gray-600 dark:text-gray-300
-                        data-[state=active]:bg-white data-[state=active]:text-indigo-600 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-indigo-400
-                        transition-all"
+                      text-gray-600 dark:text-gray-300
+                      data-[state=active]:bg-white data-[state=active]:text-indigo-600 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-indigo-400 transition-all"
                     >
                       <BookOpen className="w-4 h-4" />
                       Lý thuyết
@@ -246,9 +245,8 @@ export default function LessonPage() {
                     <TabsTrigger
                       value="exercise"
                       className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium
-                        text-gray-600 dark:text-gray-300
-                        data-[state=active]:bg-white data-[state=active]:text-indigo-600 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-indigo-400
-                        transition-all"
+                      text-gray-600 dark:text-gray-300
+                      data-[state=active]:bg-white data-[state=active]:text-indigo-600 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-indigo-400 transition-all"
                     >
                       <Code2 className="w-4 h-4" />
                       Bài tập
@@ -261,9 +259,8 @@ export default function LessonPage() {
                   </TabsList>
                 </div>
 
-                {/* THEORY TAB */}
+                {/* THEORY */}
                 <TabsContent value="theory" className="space-y-6 mt-0">
-                  {/* Lesson Content */}
                   <div className="p-6 sm:p-8 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
                     <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
                       <div className="p-2 rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
@@ -279,7 +276,6 @@ export default function LessonPage() {
                     </div>
                   </div>
 
-                  {/* Example Code */}
                   {lesson.example_code && (
                     <div className="p-6 sm:p-8 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
                       <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200 dark:border-gray-700">
@@ -299,7 +295,7 @@ export default function LessonPage() {
                   )}
                 </TabsContent>
 
-                {/* EXERCISE TAB */}
+                {/* EXERCISES */}
                 <TabsContent value="exercise" className="mt-0">
                   {exercises.length > 0 ? (
                     <div className="space-y-6">
