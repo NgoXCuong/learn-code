@@ -9,7 +9,7 @@ const Home = () => {
     <div
       className="w-full min-h-screen flex flex-col bg-gradient-to-br 
       from-indigo-50 via-white to-cyan-50 
-      dark:from-gray-900 dark:via-gray-950 dark:to-indigo-950 
+      dark:from-gray-600 dark:via-gray-700 dark:to-indigo-900 
       transition-colors duration-500"
     >
       {/* 🔹 Header cố định nhẹ */}

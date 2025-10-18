@@ -29,7 +29,10 @@ export default function CourseDetail() {
   ).length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+    <div
+      className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-600 dark:via-gray-700 dark:to-indigo-900 
+      transition-colors duration-500"
+    >
       <Header />
       <main className="min-h-screen flex-grow w-full px-4 sm:px-6 md:px-14 lg:px-20 py-6">
         <Breadcrumb

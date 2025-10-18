@@ -1,6 +1,6 @@
 // src/components/courses/CourseHero.jsx
 import React from "react";
-import { Users, Clock, Star, Flame, ArrowRight } from "lucide-react";
+import { Users, Clock, Star, Flame, ArrowRight, BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function CourseHero({
@@ -26,8 +26,8 @@ export default function CourseHero({
       <div className="absolute bottom-10 left-6 md:left-10 w-28 h-28 md:w-40 md:h-40 bg-pink-500/10 rounded-full blur-3xl" />
 
       {/* Nội dung hero */}
-      <div className="absolute inset-0 flex flex-col md:flex-row justify-end md:items-end">
-        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pb-6 md:pb-8 flex flex-col md:flex-row gap-6 md:gap-8 items-end">
+      <div className="absolute inset-0 flex flex-col md:flex-row justify-center md:items-center">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pb-6 md:pb-8 flex flex-col md:flex-row gap-6 md:gap-8 items-center">
           {/* Course Info */}
           <div className="flex-1 text-center md:text-left">
             <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-white mb-2 sm:mb-3 leading-tight">
@@ -57,6 +57,12 @@ export default function CourseHero({
                 <Star className="w-4 h-4 text-yellow-400" />
                 <span className="text-white font-semibold">
                   {course.rating}
+                </span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg backdrop-blur">
+                <BookOpen className="w-4 h-4 text-blue-400" />
+                <span className="text-white font-semibold">
+                  {lessons.length} bài học
                 </span>
               </div>
             </div>

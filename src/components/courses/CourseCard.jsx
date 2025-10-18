@@ -46,7 +46,7 @@ export default function CourseCard({ course, language, onEnroll = () => {} }) {
                 e.stopPropagation();
                 onEnroll(course.id);
               }}
-              className={`px-6 py-2.5 text-sm font-bold text-white rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all ${
+              className={`px-6 py-2.5 text-sm font-bold text-white rounded-lg shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer transition-all ${
                 course.progress === 0
                   ? "bg-gradient-to-r from-indigo-500 to-purple-600"
                   : "bg-gradient-to-r from-green-500 to-teal-600"

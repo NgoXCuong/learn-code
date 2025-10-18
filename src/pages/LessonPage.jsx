@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import LessonHeader from "../components/lessons/LessonHeader";
@@ -24,12 +24,16 @@ import {
   BarChart3,
   Trophy,
   Users,
+  ArrowRight,
+  ArrowLeft,
+  Check,
 } from "lucide-react";
 
 export default function LessonPage() {
   const { courseId, lessonId } = useParams();
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
+  const navigate = useNavigate(); // 🟢 thêm hook điều hướng
 
   const [course, setCourse] = useState(null);
   const [lesson, setLesson] = useState(null);
@@ -70,6 +74,18 @@ export default function LessonPage() {
   const progressPercent = exercises.length
     ? Math.round((completedExercises / exercises.length) * 100)
     : 0;
+
+  // 🟢 Lấy danh sách bài học thuộc cùng khóa
+  const lessonsInCourse = mockLessons.filter(
+    (l) => l.course_id.toString() === courseId
+  );
+
+  // 🟢 Xác định vị trí bài hiện tại
+  const currentIndex = lessonsInCourse.findIndex(
+    (l) => l.id.toString() === lessonId
+  );
+  const prevLesson = lessonsInCourse[currentIndex - 1];
+  const nextLesson = lessonsInCourse[currentIndex + 1];
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors">
@@ -315,6 +331,55 @@ export default function LessonPage() {
                   )}
                 </TabsContent>
               </Tabs>
+
+              {/* 🟢 Nút điều hướng Bài trước / Bài tiếp theo */}
+              <div className="flex justify-between items-center mt-10">
+                {/* Nút bài trước */}
+                {prevLesson ? (
+                  <button
+                    onClick={() =>
+                      navigate(`/courses/${courseId}/lessons/${prevLesson.id}`)
+                    }
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm 
+                 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-200
+                 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-300 shadow-sm"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    {prevLesson.title}
+                  </button>
+                ) : (
+                  <div></div>
+                )}
+
+                {/* Nút bài tiếp */}
+                {nextLesson && (
+                  <button
+                    onClick={() =>
+                      navigate(`/courses/${courseId}/lessons/${nextLesson.id}`)
+                    }
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm 
+                 bg-blue-500 text-white hover:bg-blue-600
+                 dark:bg-blue-600 dark:hover:bg-blue-500
+                 transition-all duration-300 shadow-md"
+                  >
+                    {nextLesson.title}
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                )}
+                {!nextLesson && (
+                  <button
+                    onClick={() =>
+                      toast.success("Chúc mừng! Bạn đã hoàn thành khóa học 🎉")
+                    }
+                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm 
+               bg-green-500 text-white hover:bg-green-600 
+               transition-all duration-300 shadow-md"
+                  >
+                    <Check className="w-4 h-4" />
+                    Hoàn thành khóa học
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

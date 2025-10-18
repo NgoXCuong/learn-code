@@ -22,7 +22,10 @@ export default function Courses() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500">
+    <div
+      className="flex flex-col min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-600 dark:via-gray-700 dark:to-indigo-900 
+      transition-colors duration-500"
+    >
       <Header />
 
       <main className=" flex-grow w-full px-6 sm:px-14 lg:px-20 py-6">

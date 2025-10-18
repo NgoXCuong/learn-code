@@ -6,7 +6,7 @@ const FeaturesSection = () => {
   const features = [
     {
       icon: BookOpen,
-      title: "Lý thuyết phong phú",
+      title: "Bài học phong phú",
       description:
         "Các bài học được thiết kế chi tiết với lý thuyết dễ hiểu và bài tập thực hành phong phú",
       gradientColors: "from-blue-500 to-indigo-600",
