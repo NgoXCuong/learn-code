@@ -25,8 +25,8 @@ export default function LessonList({ lessons = [], onLessonClick }) {
   };
 
   return (
-    <div className="space-y-4 p-4 sm:p-6">
-      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+    <div className="space-y-4">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         Danh sách bài học
       </h1>
 

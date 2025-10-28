@@ -4,6 +4,13 @@ import { Button } from "../ui/button";
 import { Play, Send } from "lucide-react";
 import MonacoEditor from "@monaco-editor/react";
 import { ThemeContext } from "../../context/ThemeContext";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "../ui/select";
 
 const CodeEditor = ({
   languages = [],
@@ -20,7 +27,7 @@ const CodeEditor = ({
   const isDark = theme === "dark";
   const editorRef = useRef(null);
 
-  // Gọi layout khi resize window
+  // Gọi layout khi resize
   useEffect(() => {
     const handleResize = () => {
       editorRef.current?.layout();
@@ -37,6 +44,7 @@ const CodeEditor = ({
           isDark ? "bg-gray-800" : "bg-gray-200"
         }`}
       >
+        {/* File name + status dots */}
         <div className="flex items-center space-x-2">
           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
@@ -47,23 +55,31 @@ const CodeEditor = ({
           </span>
         </div>
 
+        {/* Action buttons */}
         <div className="flex items-center gap-2 sm:gap-4">
-          <select
-            className={`ml-2 px-2 py-1 border rounded text-sm ${
-              isDark
-                ? "bg-gray-700 text-gray-100 border-gray-600"
-                : "bg-white text-gray-900 border-gray-300"
-            }`}
-            value={language}
-            onChange={(e) => onLanguageChange(e.target.value)}
-          >
-            {languages.map((lang) => (
-              <option key={lang} value={lang}>
-                {lang.charAt(0).toUpperCase() + lang.slice(1)}
-              </option>
-            ))}
-          </select>
+          {/* Select (shadcn/ui) */}
+          <Select value={language} onValueChange={onLanguageChange}>
+            <SelectTrigger
+              className={`w-[140px] text-sm border rounded transition-colors ${
+                isDark
+                  ? "bg-gray-700 border-gray-600 text-gray-100"
+                  : "bg-white border-gray-300 text-gray-900"
+              }`}
+            >
+              <SelectValue placeholder="Ngôn ngữ" />
+            </SelectTrigger>
+            <SelectContent
+              className={isDark ? "bg-gray-800 border-gray-700 text-white" : ""}
+            >
+              {languages.map((lang) => (
+                <SelectItem key={lang} value={lang}>
+                  {lang.charAt(0).toUpperCase() + lang.slice(1)}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
+          {/* Run button */}
           <Button
             onClick={onRunCode}
             disabled={isRunning}
@@ -75,6 +91,7 @@ const CodeEditor = ({
             </span>
           </Button>
 
+          {/* Submit button */}
           <Button
             onClick={onSubmitCode}
             disabled={isSubmit}
@@ -89,7 +106,7 @@ const CodeEditor = ({
       </div>
 
       {/* Monaco Editor */}
-      <div className="flex-1 min-h-0 mt-1">
+      <div className="flex-1 min-h-0 mt-1 h-[calc(100vh-220px)]">
         <MonacoEditor
           height="100%"
           language={language === "java" ? "java" : language}
@@ -100,7 +117,7 @@ const CodeEditor = ({
             fontSize: 14,
             fontFamily: "'Fira Code', monospace",
             lineNumbers: "on",
-            automaticLayout: true, // vẫn giữ
+            automaticLayout: true,
             minimap: { enabled: true },
             scrollBeyondLastLine: false,
             wordWrap: "on",

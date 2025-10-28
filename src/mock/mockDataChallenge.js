@@ -1,0 +1,163 @@
+// ============================================
+// FILE: src/constants/challengesData.js
+// ============================================
+export const userData = {
+  name: "johndoe",
+  level: 12,
+  xp: 3450,
+  xpToNextLevel: 4000,
+  streak: 7,
+  longestStreak: 15,
+  totalPoints: 700,
+  badges: [
+    {
+      id: 1,
+      name: "First Steps",
+      icon: "🎯",
+      unlocked: true,
+      description: "Hoàn thành thử thách đầu tiên",
+    },
+    {
+      id: 2,
+      name: "Week Warrior",
+      icon: "🔥",
+      unlocked: true,
+      description: "Duy trì streak 7 ngày",
+    },
+    {
+      id: 3,
+      name: "Problem Solver",
+      icon: "🧠",
+      unlocked: true,
+      description: "Giải 10 thử thách",
+    },
+    {
+      id: 4,
+      name: "Speed Demon",
+      icon: "⚡",
+      unlocked: false,
+      description: "Giải thử thách trong <5 phút",
+    },
+    {
+      id: 5,
+      name: "Master Mind",
+      icon: "👑",
+      unlocked: false,
+      description: "Đạt top 3 bảng xếp hạng",
+    },
+  ],
+  completedChallenges: [1, 2],
+  attemptedChallenges: [3],
+};
+
+export const challenges = [
+  {
+    id: 1,
+    title: "Reverse a String",
+    difficulty: "Dễ",
+    points: 100,
+    description: "Viết hàm đảo ngược một chuỗi đầu vào.",
+    participants: 340,
+    successRate: 92,
+    tags: ["String", "Basic"],
+    comments: 12,
+    avgTime: "8 phút",
+    hints: [
+      "Thử sử dụng vòng lặp để duyệt ngược chuỗi",
+      "Hoặc có thể dùng built-in methods như split(), reverse(), join()",
+    ],
+  },
+  {
+    id: 2,
+    title: "Find the Missing Number",
+    difficulty: "Trung bình",
+    points: 200,
+    description: "Tìm số còn thiếu trong dãy 1→n.",
+    participants: 210,
+    successRate: 67,
+    tags: ["Array", "Math"],
+    comments: 8,
+    avgTime: "12 phút",
+    hints: [
+      "Công thức tổng của dãy số từ 1 đến n là n*(n+1)/2",
+      "Tính tổng thực tế và so sánh với tổng lý thuyết",
+    ],
+  },
+  {
+    id: 3,
+    title: "Two Sum Problem",
+    difficulty: "Khó",
+    points: 300,
+    description: "Tìm hai số trong mảng có tổng bằng target.",
+    participants: 125,
+    successRate: 40,
+    tags: ["Array", "HashMap"],
+    comments: 15,
+    avgTime: "18 phút",
+    hints: [
+      "Sử dụng HashMap để lưu các số đã duyệt qua",
+      "Với mỗi số, kiểm tra xem (target - số hiện tại) có trong HashMap không",
+    ],
+  },
+  {
+    id: 4,
+    title: "Valid Palindrome",
+    difficulty: "Dễ",
+    points: 100,
+    description: "Kiểm tra chuỗi có phải palindrome không.",
+    participants: 280,
+    successRate: 85,
+    tags: ["String", "Two Pointers"],
+    comments: 6,
+    avgTime: "10 phút",
+    hints: [],
+  },
+  {
+    id: 5,
+    title: "Binary Search",
+    difficulty: "Trung bình",
+    points: 200,
+    description: "Tìm kiếm phần tử trong mảng đã sắp xếp.",
+    participants: 190,
+    successRate: 72,
+    tags: ["Array", "Search"],
+    comments: 10,
+    avgTime: "15 phút",
+    hints: [],
+  },
+];
+
+export const leaderboard = [
+  { rank: 1, name: "Lê Văn A", score: 1250, avatar: "👨‍💻", change: 0 },
+  { rank: 2, name: "Nguyễn Thị B", score: 980, avatar: "👩‍💻", change: 1 },
+  { rank: 3, name: "Trần C", score: 850, avatar: "🧑‍💻", change: -1 },
+  { rank: 4, name: "johndoe", score: 700, avatar: "😎", change: 2 },
+  { rank: 5, name: "Mai D", score: 650, avatar: "👨‍🎓", change: 0 },
+];
+
+export const dailyQuests = [
+  {
+    id: 1,
+    title: "Hoàn thành 1 thử thách",
+    progress: 0,
+    target: 1,
+    reward: 50,
+    completed: false,
+  },
+  {
+    id: 2,
+    title: "Đăng 3 bình luận hữu ích",
+    progress: 1,
+    target: 3,
+    reward: 30,
+    completed: false,
+  },
+  {
+    id: 3,
+    title: "Duy trì streak",
+    progress: 1,
+    target: 1,
+    reward: 20,
+    completed: true,
+  },
+];

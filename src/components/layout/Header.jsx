@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import { HeartPulse, Menu, X, ChevronDown } from "lucide-react";
 import { ThemeContext } from "../../context/ThemeContext";
-import DarkModeToggle from "../layout/DarkModeToggle";
+import DarkModeToggle from "./DarkModeToggle";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -76,14 +76,14 @@ const Header = () => {
       className={`sticky top-0 left-0 w-full z-50 border-b transition-all duration-500 ${
         isScrolled
           ? theme === "dark"
-            ? "bg-gray-900/80 border-gray-800 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.3)]"
-            : "bg-white/70 border-white backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.05)]"
+            ? "bg-gray-900/70 border-gray-800 backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.3)]"
+            : "bg-white/50 border-white backdrop-blur-md shadow-[0_2px_20px_rgba(0,0,0,0.05)]"
           : theme === "dark"
           ? "bg-gray-900/40 border-gray-800/40 backdrop-blur-md"
           : "bg-white/40 border-gray-300/60 backdrop-blur-md"
       }`}
     >
-      <Toaster position="top-center" />
+      <Toaster richColors position="top-center" />
       <div className="w-full px-6 sm:px-14 lg:px-20">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}

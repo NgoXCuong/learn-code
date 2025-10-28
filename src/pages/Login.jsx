@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Button } from "../components/ui/button";
-import { Card } from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { Label } from "../components/ui/label";
-import { Checkbox } from "../components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff, Mail, Lock, LogIn, ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { Toaster, toast } from "react-hot-toast"; // <- React Hot Toast
+import { Toaster, toast } from "sonner";
+
+// Mock database
+let mockUsers = [
+  {
+    id: 1,
+    username: "Nguyen Van A",
+    email: "a@gmail.com",
+    password_hash: "123456",
+  },
+  {
+    id: 2,
+    username: "Tran Thi B",
+    email: "b@gmail.com",
+    password_hash: "abcdef",
+  },
+];
 
 const Login = () => {
   const navigate = useNavigate();
@@ -24,11 +40,10 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const res = await fetch(
-        `http://localhost:3001/users?email=${encodeURIComponent(data.email)}`
+      // Kiểm tra user trong mock database
+      const user = mockUsers.find(
+        (u) => u.email === data.email && u.password_hash === data.password
       );
-      const users = await res.json();
-      const user = users.find((u) => u.password_hash === data.password);
 
       if (user) {
         localStorage.setItem(
@@ -41,18 +56,14 @@ const Login = () => {
           })
         );
 
-        // Hiển thị toast thành công
-        toast.success(`Chào mừng ${user.username}!`, {
-          duration: 2000,
-        });
-
+        toast.success(`Chào mừng ${user.username}!`, { duration: 2000 });
         setTimeout(() => navigate("/"), 1500);
       } else {
         toast.error("Email hoặc mật khẩu không đúng!", { duration: 2000 });
       }
     } catch (error) {
       console.error(error);
-      toast.error("Lỗi kết nối server!", { duration: 2000 });
+      toast.error("Lỗi đăng nhập!", { duration: 2000 });
     } finally {
       setIsLoading(false);
     }
@@ -60,9 +71,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 flex items-center justify-center p-4 relative">
-      {/* Toaster hiển thị toast */}
-      <Toaster position="top-center" reverseOrder={false} />
-
       <div className="w-full max-w-md relative">
         <Card className="p-8 bg-white/80 backdrop-blur-sm border-0 shadow-2xl">
           <div className="text-center mb-8 relative">

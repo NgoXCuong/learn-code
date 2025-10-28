@@ -1,11 +1,18 @@
 import React from "react";
-import { Smile } from "lucide-react"; // icon lucide-react
+import { Smile, Brain } from "lucide-react"; // icon lucide-react
 
 const EmotionAnalysis = () => {
   return (
     <div className="flex flex-col h-full">
       {/* Tiêu đề chính */}
-      <h3 className="text-sm font-bold m-1">Emotion Analysis</h3>
+      <div className="flex items-center gap-2 mb-3">
+        <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30">
+          <Brain className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+        </div>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+          Phân tích AI
+        </h3>
+      </div>
 
       {/* Khung icon + nội dung */}
       <div className="flex flex-row items-center p-2 rounded-lg flex-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-900 dark:text-yellow-100 overflow-auto gap-4">

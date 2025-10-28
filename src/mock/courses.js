@@ -21,6 +21,7 @@ export const mockCourses = [
     duration: "12 giờ",
     lessons: 20,
     progress: 30,
+    isFavorite: false,
   },
   {
     id: 2,
@@ -36,6 +37,7 @@ export const mockCourses = [
     duration: "10 giờ",
     lessons: 18,
     progress: 20,
+    isFavorite: false,
   },
   {
     id: 3,
@@ -51,6 +53,7 @@ export const mockCourses = [
     duration: "14 giờ",
     lessons: 22,
     progress: 10,
+    isFavorite: false,
   },
   {
     id: 4,
@@ -66,6 +69,7 @@ export const mockCourses = [
     duration: "15 giờ",
     lessons: 25,
     progress: 0,
+    isFavorite: false,
   },
   {
     id: 5,
@@ -81,6 +85,7 @@ export const mockCourses = [
     duration: "16 giờ",
     lessons: 24,
     progress: 40,
+    isFavorite: false,
   },
   {
     id: 6,
@@ -96,5 +101,38 @@ export const mockCourses = [
     duration: "12 giờ",
     lessons: 20,
     progress: 15,
+    isFavorite: false,
+  },
+  {
+    id: 6,
+    title: "Python cơ bản qua dự án nhỏ",
+    description:
+      "Làm quen với Python bằng cách thực hiện các mini project như máy tính đơn giản, trò chơi đoán số và xử lý dữ liệu nhỏ.",
+    lang_id: 2,
+    level: "Cơ bản",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80", // Ảnh mới: Phân tích dữ liệu, dự án
+    rating: 4.8,
+    students: 3900,
+    duration: "12 giờ",
+    lessons: 20,
+    progress: 15,
+    isFavorite: false,
+  },
+  {
+    id: 6,
+    title: "Python cơ bản qua dự án nhỏ",
+    description:
+      "Làm quen với Python bằng cách thực hiện các mini project như máy tính đơn giản, trò chơi đoán số và xử lý dữ liệu nhỏ.",
+    lang_id: 2,
+    level: "Cơ bản",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80", // Ảnh mới: Phân tích dữ liệu, dự án
+    rating: 4.8,
+    students: 3900,
+    duration: "12 giờ",
+    lessons: 20,
+    progress: 15,
+    isFavorite: false,
   },
 ];

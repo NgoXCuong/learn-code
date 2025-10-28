@@ -46,16 +46,6 @@ const HeroSection = () => {
             className="hidden sm:block relative w-32 sm:w-48 md:w-66 opacity-80 animate-float-slow"
           />
         </div>
-
-        {/* Laptop + ánh sáng
-        <div className="absolute bottom-10 sm:bottom-16 md:bottom-24 right-6 sm:right-16 md:right-24">
-          <div className="absolute -inset-12 bg-teal-400/25 blur-3xl rounded-full animate-pulse-slowest"></div>
-          <img
-            src={laptopIcon}
-            alt="Laptop"
-            className="hidden sm:block relative w-40 sm:w-52 md:w-66 opacity-80 animate-float-slow delay-500"
-          />
-        </div> */}
       </div>
 
       {/* Nội dung chính */}
