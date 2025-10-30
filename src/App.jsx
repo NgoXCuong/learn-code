@@ -12,8 +12,8 @@ import ChallengesPage from "@/pages/ChallengesPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { UserCoursesProvider } from "@/context/UserCoursesContext"; // ✅ import context provider
-import CareerPathsDemo from "@/pages/CareerPathsDemo";
-import Chatbot from "./components/layout/Chatbot";
+import Chatbot from "@/components/layout/Chatbot";
+import Exam from "@/pages/Exam";
 
 const App = () => {
   return (
@@ -33,9 +33,8 @@ const App = () => {
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/:id" element={<CourseDetail />} />
 
-            {/* CarrerPath */}
-            <Route path="/career-paths" element={<CareerPathsDemo />} />
-            <Route path="/career-path/:pathId" element={<Courses />} />
+            <Route path="/exam" element={<Exam />} />
+            <Route path="/exam/:id" element={<Compiler />} />
 
             {/* Lessons */}
             <Route

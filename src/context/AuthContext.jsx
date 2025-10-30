@@ -1,4 +1,3 @@
-// src/context/AuthContext.jsx
 import React, { createContext, useState } from "react";
 
 // Tạo context

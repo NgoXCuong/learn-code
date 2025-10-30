@@ -42,7 +42,7 @@ export default function StreakCard() {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-shadow">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+        <h3 className="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
           <span className="text-2xl">🔥</span>
           Chuỗi ngày học trong năm 2025
         </h3>
@@ -55,7 +55,7 @@ export default function StreakCard() {
         className="overflow-x-auto overflow-y-hidden touch-pan-x scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-transparent"
         style={{ WebkitOverflowScrolling: "touch" }}
       >
-        <div className="relative h-6 ml-10 mb-2 text-xs font-medium text-gray-500 dark:text-gray-400 min-w-[900px]">
+        <div className="relative h-6 ml-10 mb-2 text-sm font-medium text-gray-500 dark:text-gray-400 min-w-[900px]">
           {monthPositions.map((m) => (
             <span
               key={m.month}
@@ -70,7 +70,7 @@ export default function StreakCard() {
         <div className="flex flex-col gap-1 min-w-[900px]">
           {["T2", "T3", "T4", "T5", "T6", "T7", "CN"].map((dayName, dayIdx) => (
             <div key={dayIdx} className="flex items-center gap-1">
-              <span className="text-xs font-medium text-gray-500 dark:text-gray-400 w-6">
+              <span className="text-sm font-medium text-gray-500 dark:text-gray-400 w-6">
                 {dayName}
               </span>
 
@@ -104,7 +104,7 @@ export default function StreakCard() {
       </div>
 
       <div className="flex flex-wrap justify-between items-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+        <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
           <span className="font-medium">Ít</span>
           <div className="flex gap-1">
             {[0, 1, 2, 3, 4].map((lvl) => (
@@ -118,7 +118,7 @@ export default function StreakCard() {
           </div>
           <span className="font-medium">Nhiều</span>
         </div>
-        <div className="text-sm text-gray-500 dark:text-gray-400">
+        <div className="text-base text-gray-500 dark:text-gray-400">
           <span className="font-semibold text-emerald-600 dark:text-emerald-400">
             {days.filter((d) => d.level > 0).length}
           </span>{" "}

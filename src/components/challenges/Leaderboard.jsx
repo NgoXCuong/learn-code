@@ -29,7 +29,7 @@ function RankBadge({ rank }) {
   if (!config) {
     return (
       <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-700 flex items-center justify-center">
-        <span className="text-sm font-bold text-gray-600 dark:text-gray-300">
+        <span className="text-base font-bold text-gray-600 dark:text-gray-300">
           #{rank}
         </span>
       </div>
@@ -66,16 +66,16 @@ function LeaderboardRow({ user, currentUser, rank }) {
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <span className="text-lg font-bold text-gray-900 dark:text-white">
+            <span className="text-xl font-bold text-gray-900 dark:text-white">
               {user.name}
             </span>
             {isCurrentUser && (
-              <span className="inline-block px-2 py-1 text-xs font-semibold bg-blue-600 text-white rounded-full">
+              <span className="inline-block px-2 py-1 text-sm font-semibold bg-blue-600 text-white rounded-full">
                 Bạn
               </span>
             )}
           </div>
-          <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
             <span>Xếp hạng</span>
             <span className="font-semibold">#{rank}</span>
           </div>
@@ -85,16 +85,16 @@ function LeaderboardRow({ user, currentUser, rank }) {
       {/* Score */}
       <div className="flex items-center gap-3">
         <div className="text-right">
-          <div className="text-lg font-bold text-gray-900 dark:text-white">
+          <div className="text-xl font-bold text-gray-900 dark:text-white">
             {user.score}
           </div>
-          <div className="text-xs text-gray-500 dark:text-gray-400">points</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">points</div>
         </div>
 
         {isTop3 && (
           <div className="flex items-center gap-1 px-3 py-1.5 bg-orange-100 dark:bg-orange-950/40 rounded-lg">
             <Flame className="w-4 h-4 text-orange-500" />
-            <span className="text-xs font-semibold text-orange-700 dark:text-orange-400">
+            <span className="text-sm font-semibold text-orange-700 dark:text-orange-400">
               {rank === 1 ? "Top" : "Hot"}
             </span>
           </div>
@@ -120,14 +120,14 @@ export default function Leaderboard({ leaderboard, currentUser }) {
               Bảng xếp hạng
             </h3>
           </div>
-          <span className="text-sm font-medium px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full">
+          <span className="text-base font-medium px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-full">
             👑 Tuần này
           </span>
         </div>
 
         {/* Top 3 Section */}
         <div className="space-y-2">
-          <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+          <div className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
             🏆 Hạng nhất
           </div>
           <div className="space-y-2">
@@ -148,7 +148,7 @@ export default function Leaderboard({ leaderboard, currentUser }) {
         {/* Others Section */}
         {others.length > 0 && (
           <div className="space-y-2">
-            <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+            <div className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               📊 Xếp hạng của bạn
             </div>
             <div className="space-y-2 max-h-80 overflow-y-auto">

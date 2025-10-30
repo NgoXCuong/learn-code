@@ -82,7 +82,7 @@ export default function LessonTabs({
           >
             <div className="flex items-center gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                 Ví dụ minh họa
               </h3>
             </div>

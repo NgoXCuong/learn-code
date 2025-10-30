@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useEffect, useState } from "react";
 import MonacoEditor from "@monaco-editor/react";
-import { ThemeContext } from "../../context/ThemeContext";
+import { ThemeContext } from "@/context/ThemeContext";
 import { Copy, Check, Play, Terminal } from "lucide-react";
 
 export default function LessonCode({ code, language = "java" }) {
@@ -105,7 +105,7 @@ export default function LessonCode({ code, language = "java" }) {
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
           </div>
           <span
-            className={`ml-2 text-sm font-medium ${
+            className={`ml-2 text-base font-medium ${
               isDark ? "text-gray-300" : "text-gray-700"
             }`}
           >
@@ -117,7 +117,7 @@ export default function LessonCode({ code, language = "java" }) {
           <button
             onClick={handleRunCode}
             disabled={isRunning}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-base font-medium transition-all
               ${isRunning ? "opacity-60 cursor-not-allowed" : "hover:scale-105"}
               ${
                 isDark
@@ -131,7 +131,7 @@ export default function LessonCode({ code, language = "java" }) {
 
           <button
             onClick={handleCopy}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all text-xs font-medium
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all text-base font-medium
               ${
                 copied
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
@@ -165,7 +165,7 @@ export default function LessonCode({ code, language = "java" }) {
           value={code}
           onMount={handleEditorDidMount}
           options={{
-            fontSize: 14,
+            fontSize: 16,
             fontFamily: "'Fira Code', 'Courier New', monospace",
             lineNumbers: "on",
             automaticLayout: true,
@@ -185,14 +185,14 @@ export default function LessonCode({ code, language = "java" }) {
 
       {/* Output console */}
       <div
-        className={`border-t px-4 py-3 font-mono text-sm overflow-y-auto max-h-56 ${
+        className={`border-t px-4 py-3 font-mono text-lg overflow-y-auto max-h-56 ${
           isDark
             ? "bg-gray-900 border-gray-700 text-gray-100"
             : "bg-gray-50 border-gray-200 text-gray-800"
         }`}
       >
         <div className="flex items-center gap-2 mb-2 font-semibold">
-          <Terminal size={14} />
+          <Terminal size={16} />
           <span>Kết quả chạy:</span>
         </div>
         <pre className="whitespace-pre-wrap">{output || "..."}</pre>

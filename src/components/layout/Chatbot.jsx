@@ -152,8 +152,8 @@ const Chatbot = () => {
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white"></div>
             </div>
             <div>
-              <h2 className="font-bold text-lg">Trợ lý AI</h2>
-              <p className="text-xs opacity-80">
+              <h2 className="font-bold text-xl">Trợ lý AI</h2>
+              <p className="text-sm opacity-80">
                 {isDark ? "Đang hoạt động 🌙" : "Đang hoạt động"}
               </p>
             </div>
@@ -207,7 +207,7 @@ const Chatbot = () => {
                         : "bg-white text-gray-800 rounded-tl-none border border-gray-100"
                     }`}
                   >
-                    <p className="text-sm whitespace-pre-line">{m.text}</p>
+                    <p className="text-base whitespace-pre-line">{m.text}</p>
                   </div>
                   <p
                     className={`text-[11px] mt-1 ${
@@ -260,7 +260,7 @@ const Chatbot = () => {
           >
             <div className="flex items-center gap-1 mb-2">
               <Sparkles size={14} className="text-blue-500" />
-              <p className="text-xs font-semibold">
+              <p className="text-sm font-semibold">
                 {isDark ? "Gợi ý câu hỏi 🌙" : "Gợi ý câu hỏi"}
               </p>
             </div>
@@ -269,7 +269,7 @@ const Chatbot = () => {
                 <button
                   key={i}
                   onClick={() => handleQuickReply(r)}
-                  className={`text-xs px-3 py-1.5 rounded-full border transition
+                  className={`text-sm px-3 py-1.5 rounded-full border transition
                     ${
                       isDark
                         ? "bg-gray-800 border-gray-600 text-gray-200 hover:bg-gray-700"
@@ -296,7 +296,7 @@ const Chatbot = () => {
               onChange={(e) => setInputText(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Nhập câu hỏi của bạn..."
-              className={`flex-1 border rounded-full px-4 py-2.5 text-sm outline-none transition
+              className={`flex-1 border rounded-full px-4 py-2.5 text-base outline-none transition
                 ${
                   isDark
                     ? "border-gray-600 bg-gray-800 text-gray-100 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
@@ -311,7 +311,7 @@ const Chatbot = () => {
               <Send size={20} />
             </button>
           </div>
-          <p className="text-xs text-gray-400 mt-2 text-center">
+          <p className="text-sm text-gray-400 mt-2 text-center">
             Nhấn Enter để gửi tin nhắn
           </p>
         </div>

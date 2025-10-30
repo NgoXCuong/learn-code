@@ -83,43 +83,51 @@ export default function CourseList({
       </div>
 
       {totalPages > 1 && (
-        <div className="flex justify-center items-center mt-8 gap-2 flex-wrap">
+        <div className="flex justify-center items-center mt-10 gap-2 flex-wrap">
+          {/* Nút Trước */}
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
             disabled={currentPage === 1}
             onClick={() => onPageChange(currentPage - 1)}
+            className="flex items-center gap-1 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all"
           >
-            Trước
+            <span className="hidden sm:inline">← Trước</span>
           </Button>
 
+          {/* Danh sách số trang */}
           {getPageNumbers().map((page, idx) =>
             page === "..." ? (
               <span
                 key={`dots-${idx}`}
-                className="px-2 text-gray-400 select-none"
+                className="px-2 text-gray-400 dark:text-gray-500 select-none"
               >
                 ...
               </span>
             ) : (
-              <Button
+              <button
                 key={`page-${page}`}
-                variant={currentPage === page ? "default" : "outline"}
-                size="sm"
                 onClick={() => onPageChange(page)}
+                className={`w-9 h-9 rounded-xl font-medium transition-all duration-200 ${
+                  currentPage === page
+                    ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md scale-105"
+                    : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
+                }`}
               >
                 {page}
-              </Button>
+              </button>
             )
           )}
 
+          {/* Nút Sau */}
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
             disabled={currentPage === totalPages}
             onClick={() => onPageChange(currentPage + 1)}
+            className="flex items-center gap-1 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all"
           >
-            Sau
+            <span className="hidden sm:inline">Sau →</span>
           </Button>
         </div>
       )}

@@ -82,7 +82,7 @@ const Register = () => {
           <div className="text-center mb-8 relative">
             <button
               onClick={() => navigate("/")}
-              className="absolute left-0 top-0 flex items-center text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+              className="absolute left-0 top-0 flex items-center text-indigo-600 hover:text-indigo-800 text-base font-medium"
             >
               <ArrowLeft className="w-4 h-4 mr-1" />
             </button>
@@ -111,7 +111,7 @@ const Register = () => {
                 />
               </div>
               {errors.fullName && (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 text-base">
                   {errors.fullName.message}
                 </p>
               )}
@@ -138,7 +138,7 @@ const Register = () => {
                 />
               </div>
               {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
+                <p className="text-red-500 text-base">{errors.email.message}</p>
               )}
             </div>
 
@@ -174,7 +174,7 @@ const Register = () => {
                 </button>
               </div>
               {errors.password && (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 text-base">
                   {errors.password.message}
                 </p>
               )}
@@ -211,7 +211,7 @@ const Register = () => {
                 </button>
               </div>
               {errors.confirmPassword && (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 text-base">
                   {errors.confirmPassword.message}
                 </p>
               )}
@@ -221,13 +221,13 @@ const Register = () => {
               <Checkbox id="agree" {...register("agree", { required: true })} />
               <Label
                 htmlFor="agree"
-                className="text-sm text-gray-600 cursor-pointer"
+                className="text-base text-gray-600 cursor-pointer"
               >
                 Tôi đồng ý với điều khoản sử dụng
               </Label>
             </div>
             {errors.agree && (
-              <p className="text-red-500 text-sm">Bạn cần đồng ý điều khoản</p>
+              <p className="text-red-500 text-base">Bạn cần đồng ý điều khoản</p>
             )}
 
             <Button

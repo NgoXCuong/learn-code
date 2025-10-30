@@ -100,23 +100,23 @@ export default function CourseCard({
       {/* Nội dung */}
       <div className="p-5 flex flex-col flex-grow space-y-2">
         {/* Level + ngôn ngữ */}
-        <div className="flex items-center gap-2 mb-1">
+        <div className="flex items-center gap-2 mb-2">
           <span
-            className={`text-xs px-2.5 py-1 rounded-full font-medium ${getLevelColor(
+            className={`text-sm px-2.5 py-1 rounded-full font-medium ${getLevelColor(
               course.level
             )}`}
           >
             {course.level}
           </span>
           <span
-            className={`text-xs px-2.5 py-1 rounded-full font-medium bg-gradient-to-r ${language.color} text-white`}
+            className={`text-sm px-2.5 py-1 rounded-full font-medium bg-gradient-to-r ${language.color} text-white`}
           >
             {language.name}
           </span>
         </div>
 
         <h3
-          className={`text-lg font-semibold line-clamp-2 ${
+          className={`text-xl font-semibold line-clamp-2 ${
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
@@ -124,7 +124,7 @@ export default function CourseCard({
         </h3>
 
         <p
-          className={`text-sm line-clamp-2 ${
+          className={`text-base line-clamp-2 ${
             darkMode ? "text-gray-300" : "text-gray-600"
           }`}
         >
@@ -133,7 +133,7 @@ export default function CourseCard({
 
         {/* Thông tin khóa học */}
         <div
-          className={`grid grid-cols-2 md:grid-cols-4 text-sm gap-y-1 mt-2 ${
+          className={`grid grid-cols-2 md:grid-cols-4 text-base gap-y-1 mt-2 ${
             darkMode ? "text-gray-400" : "text-gray-600"
           }`}
         >
@@ -157,7 +157,7 @@ export default function CourseCard({
 
         {/* Thanh tiến độ (ShadCN) */}
         <div className="mt-3 space-y-1">
-          <div className="flex justify-between text-sm font-medium">
+          <div className="text-gray-500 dark:text-white flex justify-between text-base font-medium">
             <span className={getProgressStatus(course.progress).color}>
               {getProgressStatus(course.progress).text}
             </span>

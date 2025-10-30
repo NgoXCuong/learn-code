@@ -29,10 +29,10 @@ export default function TopBar({
         {currentExercise && (
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 px-4 sm:px-6 md:px-14 lg:px-20">
             <div className="flex-1">
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-1">
+              <h1 className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">
                 {currentExercise.title}
               </h1>
-              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-base">
                 <span
                   className={`flex items-center gap-1 ${
                     isDark ? "text-gray-400" : "text-gray-600"
@@ -64,7 +64,7 @@ export default function TopBar({
                   )
                 }
                 disabled={!prevExercise}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-base font-medium transition-all ${
                   !prevExercise
                     ? isDark
                       ? "bg-gray-800 text-gray-600 cursor-not-allowed"
@@ -79,7 +79,7 @@ export default function TopBar({
               </button>
 
               <div
-                className={`px-3 py-2 text-xs sm:text-sm font-medium ${
+                className={`px-3 py-2 text-xs sm:text-base font-medium ${
                   isDark ? "text-gray-400" : "text-gray-600"
                 }`}
               >
@@ -95,7 +95,7 @@ export default function TopBar({
                     : alert("🎉 Bạn đã hoàn thành tất cả bài tập!")
                 }
                 disabled={!nextExercise}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-base font-medium transition-all ${
                   !nextExercise
                     ? isDark
                       ? "bg-gray-800 text-gray-600 cursor-not-allowed"

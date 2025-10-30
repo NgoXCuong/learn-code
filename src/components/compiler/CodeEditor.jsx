@@ -50,7 +50,7 @@ const CodeEditor = ({
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
 
-          <span className="ml-4 text-sm font-medium text-gray-900 dark:text-gray-100">
+          <span className="ml-4 text-base font-medium text-gray-900 dark:text-gray-100">
             main.{language}
           </span>
         </div>
@@ -60,7 +60,7 @@ const CodeEditor = ({
           {/* Select (shadcn/ui) */}
           <Select value={language} onValueChange={onLanguageChange}>
             <SelectTrigger
-              className={`w-[140px] text-sm border rounded transition-colors ${
+              className={`w-[140px] text-base border rounded transition-colors ${
                 isDark
                   ? "bg-gray-700 border-gray-600 text-gray-100"
                   : "bg-white border-gray-300 text-gray-900"
@@ -83,10 +83,10 @@ const CodeEditor = ({
           <Button
             onClick={onRunCode}
             disabled={isRunning}
-            className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md flex items-center justify-center text-sm"
+            className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md flex items-center justify-center text-base"
           >
             <Play className="w-4 h-4 sm:mr-1" />
-            <span className="hidden sm:inline text-sm">
+            <span className="hidden sm:inline text-base">
               {isRunning ? "Running..." : "Run"}
             </span>
           </Button>
@@ -95,10 +95,10 @@ const CodeEditor = ({
           <Button
             onClick={onSubmitCode}
             disabled={isSubmit}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-md flex items-center justify-center text-sm"
+            className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-md flex items-center justify-center text-base"
           >
             <Send className="w-4 h-4 sm:mr-1" />
-            <span className="hidden sm:inline text-sm">
+            <span className="hidden sm:inline text-base">
               {isSubmit ? "Submitting..." : "Submit"}
             </span>
           </Button>

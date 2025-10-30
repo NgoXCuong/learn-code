@@ -16,7 +16,7 @@ const Breadcrumb = ({ items }) => {
   const lastItem = items[items.length - 1];
 
   return (
-    <nav className="flex items-center space-x-1 sm:space-x-2 text-sm mb-6 transition-colors">
+    <nav className="flex items-center space-x-1 sm:space-x-2 text-base mb-6 transition-colors">
       {/* --- Mobile --- */}
       <div className="flex items-center sm:hidden space-x-1">
         {/* Icon Home */}

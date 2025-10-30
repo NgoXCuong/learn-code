@@ -7,7 +7,7 @@ export default function CourseOutcomes({ outcomes }) {
       <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         Bạn sẽ học được gì
       </h2>
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="text-lg grid sm:grid-cols-2 gap-4">
         {outcomes.map((outcome, index) => (
           <div
             key={index}

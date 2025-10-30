@@ -1,6 +1,3 @@
-// ============================================
-// FILE: src/components/challenges/StatsCards.jsx
-// ============================================
 import React from "react";
 
 export const StatsCards = ({ totalParticipants, avgSuccess }) => {
@@ -9,7 +6,7 @@ export const StatsCards = ({ totalParticipants, avgSuccess }) => {
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-md border border-gray-100 dark:border-gray-700">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+            <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
               Tổng người tham gia
             </p>
             <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
@@ -25,7 +22,7 @@ export const StatsCards = ({ totalParticipants, avgSuccess }) => {
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-md border border-gray-100 dark:border-gray-700">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+            <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
               Tỷ lệ thành công TB
             </p>
             <p className="text-2xl font-bold text-green-600 dark:text-green-400">

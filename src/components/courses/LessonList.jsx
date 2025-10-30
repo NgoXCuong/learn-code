@@ -57,9 +57,9 @@ export default function LessonList({ lessons = [], onLessonClick }) {
             >
               <div className="flex items-center gap-3 flex-wrap">
                 <BookOpen className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                <span className="font-semibold text-lg">
+                <span className="font-semibold text-xl">
                   {difficulty}
-                  <span className="text-gray-600 dark:text-gray-300 text-sm ml-1">
+                  <span className="text-gray-600 dark:text-gray-300 text-base ml-1">
                     ({lessonsByDifficulty.length} bài học)
                   </span>
                 </span>
@@ -114,16 +114,16 @@ export default function LessonList({ lessons = [], onLessonClick }) {
                         </div>
 
                         <div className="flex-1 min-w-0">
-                          <h4 className="font-semibold text-gray-900 dark:text-white text-base sm:text-lg truncate">
+                          <h4 className="font-semibold text-gray-900 dark:text-white text-lg sm:text-xl truncate">
                             {idx + 1}. {lesson.title}
                           </h4>
-                          <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mt-1">
+                          <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed mt-1">
                             {shortContent}
                           </p>
                         </div>
 
                         <span
-                          className={`px-3 py-1 rounded-full font-medium text-xs sm:text-sm shadow-sm self-start sm:self-center
+                          className={`px-3 py-1 rounded-full font-medium text-sm sm:text-base shadow-sm self-start sm:self-center
                           ${
                             color === "green"
                               ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
@@ -138,7 +138,7 @@ export default function LessonList({ lessons = [], onLessonClick }) {
 
                       {/* Meta + Tiến độ */}
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 flex-wrap">
-                        <div className="flex items-center flex-wrap gap-x-2 gap-y-1 text-sm text-gray-700 dark:text-gray-300">
+                        <div className="flex items-center flex-wrap gap-x-2 gap-y-1 text-base text-gray-700 dark:text-gray-300">
                           <Clock className="w-4 h-4 text-blue-500 dark:text-blue-400" />
                           <span>{lesson.readTime}</span>
 
@@ -152,7 +152,7 @@ export default function LessonList({ lessons = [], onLessonClick }) {
                         </div>
 
                         <div className="flex items-center gap-3 w-full sm:w-48">
-                          <span className="text-sm font-semibold text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                          <span className="text-base font-semibold text-blue-600 dark:text-blue-400 whitespace-nowrap">
                             {lesson.progress}%
                           </span>
                           <div className="relative flex-1 h-2.5 bg-gray-300 dark:bg-slate-700 rounded-full overflow-hidden">

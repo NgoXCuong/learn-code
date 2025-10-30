@@ -1,13 +1,5 @@
 import React, { useContext } from "react";
-import {
-  Heart,
-  Mail,
-  Github,
-  Linkedin,
-  Twitter,
-  Code2,
-  Sparkles,
-} from "lucide-react";
+import { Heart, Sparkles } from "lucide-react";
 
 const Footer = () => {
   return (

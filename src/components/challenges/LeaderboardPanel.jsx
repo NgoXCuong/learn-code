@@ -1,13 +1,10 @@
-// ============================================
-// FILE: src/components/challenges/LeaderboardPanel.jsx
-// ============================================
 import React from "react";
 import { Trophy, ChevronUp, ChevronDown } from "lucide-react";
 
 export const LeaderboardPanel = ({ leaderboard, currentUser }) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md border border-gray-100 dark:border-gray-700">
-      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
         <Trophy className="w-6 h-6 text-yellow-500" />
         Bảng xếp hạng
       </h3>
@@ -31,7 +28,7 @@ export const LeaderboardPanel = ({ leaderboard, currentUser }) => {
               }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${
+                className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-base ${
                   rankColors[user.rank] ||
                   "bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300"
                 }`}
@@ -50,16 +47,16 @@ export const LeaderboardPanel = ({ leaderboard, currentUser }) => {
                   }`}
                 >
                   {user.name}
-                  {isCurrentUser && <span className="ml-2 text-xs">(Bạn)</span>}
+                  {isCurrentUser && <span className="ml-2 text-sm">(Bạn)</span>}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-base text-gray-600 dark:text-gray-400">
                   {user.score.toLocaleString()} điểm
                 </p>
               </div>
 
               {user.change !== 0 && (
                 <div
-                  className={`flex items-center gap-1 text-sm font-medium ${
+                  className={`flex items-center gap-1 text-base font-medium ${
                     user.change > 0 ? "text-green-600" : "text-red-600"
                   }`}
                 >

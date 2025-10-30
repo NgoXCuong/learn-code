@@ -1,6 +1,3 @@
-// ============================================
-// FILE: src/components/challenges/ChallengesTabs.jsx
-// ============================================
 import React from "react";
 
 export const ChallengesTabs = ({
@@ -29,7 +26,7 @@ export const ChallengesTabs = ({
         <button
           key={tab.id}
           onClick={() => setActiveTab(tab.id)}
-          className={`px-4 py-2 font-medium text-sm transition-colors border-b-2 ${
+          className={`px-4 py-2 font-medium text-base transition-colors border-b-2 ${
             activeTab === tab.id
               ? "border-indigo-600 text-indigo-600 dark:text-indigo-400"
               : "border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"

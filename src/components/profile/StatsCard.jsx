@@ -39,10 +39,10 @@ export default function StatsCards() {
         >
           <stat.icon className={`${stat.color} w-10 h-10 flex-shrink-0`} />
           <div className="flex flex-col">
-            <div className="text-xl font-bold text-gray-900 dark:text-white">
+            <div className="text-2xl font-bold text-gray-900 dark:text-white">
               {stat.value}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-base text-gray-600 dark:text-gray-400">
               {stat.label}
             </div>
           </div>

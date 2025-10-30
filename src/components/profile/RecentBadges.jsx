@@ -15,7 +15,7 @@ const getRarityColor = (rarity) => {
 export default function RecentBadges() {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
-      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
         <Award className="mr-2 text-yellow-500" size={24} />
         Huy hiệu gần đây
       </h2>
@@ -31,11 +31,11 @@ export default function RecentBadges() {
               )} rounded-xl p-4 text-center transition-all hover:scale-105 cursor-pointer`}
             >
               <div className="text-4xl mb-2">{badge.icon}</div>
-              <div className="text-white font-bold text-sm">{badge.name}</div>
+              <div className="text-white font-bold text-base">{badge.name}</div>
             </div>
             {/* Tooltip */}
             <div className="absolute hidden group-hover:block bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-48 z-10">
-              <div className="bg-gray-900 text-white text-xs rounded-lg p-3 shadow-xl">
+              <div className="bg-gray-900 text-white text-sm rounded-lg p-3 shadow-xl">
                 <p className="font-semibold mb-1">{badge.desc}</p>
                 {badge.date ? (
                   <p className="text-gray-300">{badge.date}</p>

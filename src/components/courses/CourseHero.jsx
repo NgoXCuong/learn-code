@@ -35,12 +35,12 @@ export default function CourseHero({
             </h1>
 
             {/* Mô tả: ẩn bớt trên mobile */}
-            <p className="hidden sm:block text-purple-100 text-base md:text-lg mb-4 max-w-2xl mx-auto md:mx-0 line-clamp-2">
+            <p className="hidden sm:block text-purple-100 text-lg md:text-xl mb-4 max-w-2xl mx-auto md:mx-0 line-clamp-2">
               {course.description}
             </p>
 
             {/* Thông tin tổng quan */}
-            <div className="hidden sm:flex flex-wrap justify-center md:justify-start gap-3 text-sm">
+            <div className="hidden sm:flex flex-wrap justify-center md:justify-start gap-3 text-base">
               <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg backdrop-blur">
                 <Users className="w-4 h-4 text-purple-300" />
                 <span className="text-white font-semibold">
@@ -73,7 +73,7 @@ export default function CourseHero({
             <div className="bg-gradient-to-br from-purple-500 via-pink-500 to-rose-500 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
               <div className="space-y-5 text-center md:text-left">
                 <div>
-                  <h3 className="text-white text-xs sm:text-sm font-semibold mb-2 flex items-center justify-center md:justify-start gap-2">
+                  <h3 className="text-white text-sm sm:text-base font-semibold mb-2 flex items-center justify-center md:justify-start gap-2">
                     <Flame className="w-4 h-4" /> Tiến độ khóa học
                   </h3>
                   <div className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-3">
@@ -90,21 +90,21 @@ export default function CourseHero({
                 {/* Ẩn thống kê nhỏ trên mobile */}
                 <div className="hidden sm:grid grid-cols-2 gap-3">
                   <div className="bg-white/20 backdrop-blur rounded-xl p-3 text-center">
-                    <div className="text-white font-bold text-lg">
+                    <div className="text-white font-bold text-xl">
                       {completedCount}
                     </div>
-                    <div className="text-white/80 text-xs">Hoàn thành</div>
+                    <div className="text-white/80 text-sm">Hoàn thành</div>
                   </div>
                   <div className="bg-white/20 backdrop-blur rounded-xl p-3 text-center">
-                    <div className="text-white font-bold text-lg">
+                    <div className="text-white font-bold text-xl">
                       {inProgressCount}
                     </div>
-                    <div className="text-white/80 text-xs">Đang học</div>
+                    <div className="text-white/80 text-sm">Đang học</div>
                   </div>
                 </div>
 
                 <button
-                  className="w-full bg-white text-purple-600 font-bold py-2 sm:py-3 rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
+                  className="w-full bg-white text-purple-600 font-bold py-2 sm:py-3 rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-base sm:text-lg"
                   onClick={() =>
                     navigate(`/courses/${course.id}/lessons/${lessons[0]?.id}`)
                   }

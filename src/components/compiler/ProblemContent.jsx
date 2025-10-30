@@ -12,12 +12,12 @@ export default function ProblemContent({ exercise, isDark }) {
           <div className="p-2 rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
             <Lightbulb className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
           </div>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">
             Mô tả bài toán
           </h2>
         </div>
         <p
-          className={`text-sm leading-relaxed ${
+          className={`text-base leading-relaxed ${
             isDark ? "text-gray-300" : "text-gray-700"
           }`}
         >
@@ -27,11 +27,11 @@ export default function ProblemContent({ exercise, isDark }) {
 
       {/* Ví dụ */}
       <div>
-        <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">
+        <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
           Ví dụ:
         </h3>
         <div
-          className={`p-4 rounded-lg font-mono text-sm ${
+          className={`p-4 rounded-lg font-mono text-base ${
             isDark ? "bg-gray-800 text-gray-300" : "bg-gray-50 text-gray-800"
           }`}
         >
@@ -50,11 +50,11 @@ export default function ProblemContent({ exercise, isDark }) {
 
       {/* Ràng buộc */}
       <div>
-        <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-2">
+        <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
           Ràng buộc:
         </h3>
         <ul
-          className={`text-sm space-y-1 list-disc list-inside ${
+          className={`text-base space-y-1 list-disc list-inside ${
             isDark ? "text-gray-300" : "text-gray-700"
           }`}
         >
@@ -75,10 +75,10 @@ export default function ProblemContent({ exercise, isDark }) {
         <div className="flex items-start gap-2">
           <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-500 flex-shrink-0 mt-0.5" />
           <div>
-            <h3 className="text-sm font-bold text-amber-900 dark:text-amber-300 mb-1">
+            <h3 className="text-base font-bold text-amber-900 dark:text-amber-300 mb-1">
               Gợi ý
             </h3>
-            <p className="text-sm text-amber-800 dark:text-amber-400">
+            <p className="text-base text-amber-800 dark:text-amber-400">
               Sử dụng hash map để tối ưu độ phức tạp thời gian
             </p>
           </div>

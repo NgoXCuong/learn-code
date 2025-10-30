@@ -23,7 +23,7 @@ export default function LessonInfoCard({ isDark, lesson, totalExercises }) {
           : "bg-white border border-gray-200 shadow-sm"
       }`}
     >
-      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
         Thông tin bài học
       </h3>
 
@@ -31,7 +31,7 @@ export default function LessonInfoCard({ isDark, lesson, totalExercises }) {
         <div className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
           <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
             <Clock className="w-5 h-5" />
-            <span className="text-sm font-medium">Thời gian đọc</span>
+            <span className="text-base font-medium">Thời gian đọc</span>
           </div>
           <span className="font-semibold text-gray-900 dark:text-white">
             {lesson.readTime}
@@ -41,10 +41,10 @@ export default function LessonInfoCard({ isDark, lesson, totalExercises }) {
         <div className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
           <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
             <BarChart3 className="w-5 h-5" />
-            <span className="text-sm font-medium">Độ khó</span>
+            <span className="text-base font-medium">Độ khó</span>
           </div>
           <span
-            className={`px-3 py-1 rounded-full text-xs font-bold ${getDifficultyColor(
+            className={`px-3 py-1 rounded-full text-sm font-bold ${getDifficultyColor(
               lesson.difficulty
             )}`}
           >
@@ -55,7 +55,7 @@ export default function LessonInfoCard({ isDark, lesson, totalExercises }) {
         <div className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-gray-700">
           <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
             <Code2 className="w-5 h-5" />
-            <span className="text-sm font-medium">Ngôn ngữ</span>
+            <span className="text-base font-medium">Ngôn ngữ</span>
           </div>
           <span className="font-bold text-gray-900 dark:text-white uppercase tracking-wide">
             {lesson.language}
@@ -65,7 +65,7 @@ export default function LessonInfoCard({ isDark, lesson, totalExercises }) {
         <div className="flex items-center justify-between py-3">
           <div className="flex items-center gap-3 text-gray-600 dark:text-gray-400">
             <Trophy className="w-5 h-5" />
-            <span className="text-sm font-medium">Số bài tập</span>
+            <span className="text-base font-medium">Số bài tập</span>
           </div>
           <span className="font-semibold text-gray-900 dark:text-white">
             {totalExercises} bài

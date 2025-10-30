@@ -17,14 +17,14 @@ export default function LessonProgressCard({
     >
       <div className="flex items-center gap-2 mb-4">
         <Target className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
           Tiến độ học tập
         </h3>
       </div>
 
       <div className="mb-4">
         <div className="flex justify-between items-center mb-2">
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <span className="text-base font-medium text-gray-700 dark:text-gray-300">
             Hoàn thành
           </span>
           <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
@@ -40,7 +40,7 @@ export default function LessonProgressCard({
       </div>
 
       <div className="flex items-center justify-between pt-4 border-t border-indigo-200/30 dark:border-indigo-700/30">
-        <span className="text-sm text-gray-600 dark:text-gray-400">
+        <span className="text-base text-gray-600 dark:text-gray-400">
           Bài tập đã làm
         </span>
         <div className="flex items-center gap-2">

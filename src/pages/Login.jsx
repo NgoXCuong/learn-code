@@ -76,7 +76,7 @@ const Login = () => {
           <div className="text-center mb-8 relative">
             <button
               onClick={() => navigate("/")}
-              className="absolute left-0 top-0 flex items-center text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+              className="absolute left-0 top-0 flex items-center text-indigo-600 hover:text-indigo-800 text-base font-medium"
             >
               <ArrowLeft className="w-4 h-4 mr-1" />
             </button>
@@ -111,7 +111,7 @@ const Login = () => {
                 />
               </div>
               {errors.email && (
-                <p className="text-red-500 text-sm">{errors.email.message}</p>
+                <p className="text-red-500 text-base">{errors.email.message}</p>
               )}
             </div>
 
@@ -147,7 +147,7 @@ const Login = () => {
                 </button>
               </div>
               {errors.password && (
-                <p className="text-red-500 text-sm">
+                <p className="text-red-500 text-base">
                   {errors.password.message}
                 </p>
               )}
@@ -158,14 +158,14 @@ const Login = () => {
                 <Checkbox id="remember" {...register("remember")} />
                 <Label
                   htmlFor="remember"
-                  className="text-sm text-gray-600 cursor-pointer"
+                  className="text-base text-gray-600 cursor-pointer"
                 >
                   Ghi nhớ đăng nhập
                 </Label>
               </div>
               <Link
                 to="#"
-                className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+                className="text-base text-indigo-600 hover:text-indigo-700 font-medium"
               >
                 Quên mật khẩu?
               </Link>

@@ -8,14 +8,14 @@ const FavoriteCoursesSection = ({ language, darkMode = false }) => {
 
   return (
     <div className="">
-      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6  ">
+      <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6  ">
         Khóa học yêu thích
       </h3>
 
       {favoriteCourses.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-16 text-center">
           <Heart className="w-16 h-16  dark:text-gray-600 mb-4 text-red-400" />
-          <p className="text-lg text-gray-500 dark:text-gray-400">
+          <p className="text-xl text-gray-500 dark:text-gray-400">
             Bạn chưa thích khóa học nào!
           </p>
         </div>
