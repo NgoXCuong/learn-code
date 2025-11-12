@@ -31,7 +31,15 @@ export default function CourseDetail() {
   }, [id]);
 
   if (!course || !courseDetail)
-    return <div className="text-center py-20">Đang tải...</div>;
+    return (
+      <div className="fixed inset-0 flex flex-col items-center justify-center bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black z-50">
+        {/* Spinner */}
+        <div className="w-10 h-10 border-4 border-t-purple-600 border-gray-300 rounded-full animate-spin"></div>
+        <div className="text-gray-500 dark:text-gray-300 text-lg mt-4">
+          Đang tải...
+        </div>
+      </div>
+    );
 
   const completedCount = lessons.filter((l) => l.status === "completed").length;
   const inProgressCount = lessons.filter(
@@ -39,10 +47,7 @@ export default function CourseDetail() {
   ).length;
 
   return (
-    <div
-      className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 
-      dark:from-gray-800 dark:via-gray-900 dark:to-indigo-950 transition-colors duration-500"
-    >
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-500">
       <Header />
 
       <main className="grow w-full px-4 sm:px-6 md:px-14 lg:px-20 py-6">

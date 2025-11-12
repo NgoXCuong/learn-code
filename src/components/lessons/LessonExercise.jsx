@@ -40,7 +40,7 @@ export default function LessonExercise({ exercises, courseId, lessonId }) {
             className="w-full p-5 flex items-start justify-between gap-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
           >
             <div className="flex items-start gap-3 flex-1 text-left">
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center font-bold text-indigo-600 dark:text-indigo-400">
+              <div className="shrink-0 w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center font-bold text-indigo-600 dark:text-indigo-400">
                 {index + 1}
               </div>
               <div className="flex-1">
@@ -53,7 +53,7 @@ export default function LessonExercise({ exercises, courseId, lessonId }) {
               </div>
             </div>
             <div
-              className={`flex-shrink-0 w-5 h-5 text-gray-400 transition-transform duration-300 ${
+              className={`shrink-0 w-5 h-5 text-gray-400 transition-transform duration-300 ${
                 expandedExerciseId === ex.id ? "rotate-180" : ""
               }`}
             >

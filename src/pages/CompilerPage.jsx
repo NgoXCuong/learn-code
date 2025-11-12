@@ -123,14 +123,12 @@ export default function CompilerPage() {
     <div
       className={`flex flex-col h-screen ${
         isDark
-          ? "bg-gray-900"
+          ? "bg-linear-to-br from-gray-900 via-gray-800 to-black"
           : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100"
       }`}
     >
-      {/* Header */}
       <Header />
 
-      {/* Breadcrumb */}
       <TopBar
         breadcrumbItems={breadcrumbItems}
         currentExercise={currentExercise}

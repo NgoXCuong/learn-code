@@ -20,7 +20,7 @@ const HeroSection = () => {
   return (
     <section className="relative overflow-hidden py-12 px-4 sm:py-26 md:py-20 lg:py-24 min-h-[85vh] flex items-center">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-teal-50/50 dark:from-gray-900 dark:via-indigo-950/20 dark:to-purple-950/20"></div>
+      <div className="absolute inset-0 bg-linear-to-br from-indigo-50/50 via-purple-50/30 to-teal-50/50 dark:from-gray-900 dark:via-indigo-950/20 dark:to-purple-950/20"></div>
 
       {/* Animated background elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -65,7 +65,7 @@ const HeroSection = () => {
             Học lập trình
           </span>
           <span
-            className="block bg-gradient-to-r from-indigo-600 via-purple-600 to-teal-500 bg-clip-text text-transparent opacity-0 animate-fadeIn mt-2"
+            className="block bg-linear-to-r from-indigo-600 via-purple-600 to-teal-500 bg-clip-text text-transparent opacity-0 animate-fadeIn mt-2"
             style={{ animationDelay: "0.4s" }}
           >
             với AI thông minh
@@ -89,7 +89,7 @@ const HeroSection = () => {
         >
           <Button
             onClick={() => navigate("/courses")}
-            className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-10 py-7 rounded-2xl text-lg font-bold transition-all duration-300 shadow-2xl shadow-indigo-500/30 hover:shadow-indigo-500/50 transform hover:-translate-y-1 hover:scale-105"
+            className="w-full sm:w-auto bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-10 py-7 rounded-2xl text-lg font-bold transition-all duration-300 shadow-2xl shadow-indigo-500/30 hover:shadow-indigo-500/50 transform hover:-translate-y-1 hover:scale-105"
           >
             <BookOpen className="w-6 h-6 mr-3" />
             Bắt đầu học ngay
@@ -109,8 +109,8 @@ const HeroSection = () => {
         <div className="relative w-full overflow-hidden select-none">
           {/* Fade edges */}
           <div className="absolute inset-0 z-10 pointer-events-none">
-            <div className="absolute left-0 top-0 w-24 sm:w-40 h-full bg-gradient-to-r from-white dark:from-gray-900 to-transparent"></div>
-            <div className="absolute right-0 top-0 w-24 sm:w-40 h-full bg-gradient-to-l from-white dark:from-gray-900 to-transparent"></div>
+            <div className="absolute left-0 top-0 w-24 sm:w-40 h-full bg-linear-to-r from-white dark:from-gray-900 to-transparent"></div>
+            <div className="absolute right-0 top-0 w-24 sm:w-40 h-full bg-linear-to-l from-white dark:from-gray-900 to-transparent"></div>
           </div>
 
           {/* Row 1 - Moving right */}
@@ -118,7 +118,7 @@ const HeroSection = () => {
             {[...languages, ...languages, ...languages].map((lang, i) => (
               <div
                 key={`row1-${i}`}
-                className={`flex-shrink-0 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r ${lang.color} text-white font-bold shadow-lg text-base sm:text-lg backdrop-blur-sm`}
+                className={`shrink-0 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-linear-to-r ${lang.color} text-white font-bold shadow-lg text-base sm:text-lg backdrop-blur-sm`}
               >
                 {lang.name}
               </div>
@@ -130,7 +130,7 @@ const HeroSection = () => {
             {[...languages, ...languages, ...languages].map((lang, i) => (
               <div
                 key={`row2-${i}`}
-                className={`flex-shrink-0 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-gradient-to-r ${lang.color} text-white font-bold shadow-lg text-base sm:text-lg backdrop-blur-sm`}
+                className={`shrink-0 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-linear-to-r ${lang.color} text-white font-bold shadow-lg text-base sm:text-lg backdrop-blur-sm`}
               >
                 {lang.name}
               </div>

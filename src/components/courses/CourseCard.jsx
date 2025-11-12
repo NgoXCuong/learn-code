@@ -1,9 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Star, Users, Clock, BookOpen, Heart } from "lucide-react";
 import { UserCoursesContext } from "@/context/UserCoursesContext";
-
-// Giả định bạn có ThemeContext ở cấp cao hơn (ví dụ App.jsx hoặc Layout.jsx)
-import { ThemeContext } from "@/context/ThemeContext"; // <-- thêm nếu bạn có context
+import { ThemeContext } from "@/context/ThemeContext";
 import { Progress } from "@/components/ui/progress";
 
 export default function CourseCard({
@@ -16,7 +14,6 @@ export default function CourseCard({
   const { addFavorite, removeFavorite, isFavorite } =
     useContext(UserCoursesContext);
 
-  // Lấy theme từ context (light / dark)
   const { theme } = useContext(ThemeContext) || { theme: "light" };
   const darkMode = theme === "dark";
   const favorite = isFavorite(course.id);
@@ -47,7 +44,7 @@ export default function CourseCard({
 
   return (
     <div
-      className={`relative flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 ${
+      className={`relative flex flex-col rounded-2xl overflow-hidden  transition-all duration-300 hover:scale-105 ${
         darkMode
           ? "bg-gray-800 border-gray-700 hover:border-purple-500/50 hover:shadow-purple-500/20"
           : "bg-white border-gray-200 hover:border-purple-400/40 hover:shadow-lg"
@@ -64,7 +61,6 @@ export default function CourseCard({
           className="w-full h-48 object-cover"
         />
 
-        {/* Nút ❤️ */}
         <button
           onClick={toggleFavorite}
           className={`absolute top-3 right-3 z-20 p-2 rounded-full backdrop-blur-md transition-all duration-300 ${
@@ -89,7 +85,12 @@ export default function CourseCard({
                 e.stopPropagation();
                 onEnroll(course.id);
               }}
-              className="px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:scale-105 transition-transform"
+              className={`px-6 py-2 font-semibold rounded-full shadow-lg transition-all duration-200 hover:scale-105
+      ${
+        course.progress === 0
+          ? "bg-blue-600 text-white hover:bg-blue-700" // Trạng thái: Bắt đầu học
+          : "bg-purple-600 text-white hover:bg-purple-700" // Trạng thái: Tiếp tục học
+      }`}
             >
               {course.progress === 0 ? "Bắt đầu học" : "Tiếp tục học"}
             </button>
@@ -98,7 +99,7 @@ export default function CourseCard({
       </div>
 
       {/* Nội dung */}
-      <div className="p-5 flex flex-col flex-grow space-y-2">
+      <div className="p-5 flex flex-col grow space-y-2">
         {/* Level + ngôn ngữ */}
         <div className="flex items-center gap-2 mb-2">
           <span
@@ -109,7 +110,7 @@ export default function CourseCard({
             {course.level}
           </span>
           <span
-            className={`text-sm px-2.5 py-1 rounded-full font-medium bg-gradient-to-r ${language.color} text-white`}
+            className={`text-sm px-2.5 py-1 rounded-full font-medium bg-linear-to-r ${language.color} text-white`}
           >
             {language.name}
           </span>
@@ -166,7 +167,7 @@ export default function CourseCard({
 
           <Progress
             value={course.progress}
-            className="h-2 bg-gray-200 dark:bg-gray-700 [&>div]:bg-gradient-to-r [&>div]:from-blue-500 [&>div]:via-purple-500 [&>div]:to-pink-500 transition-all"
+            className="h-2 bg-gray-200 dark:bg-gray-700 [&>div]:bg-linear-to-r [&>div]:from-blue-500 [&>div]:via-purple-500 [&>div]:to-pink-500 transition-all"
           />
         </div>
       </div>

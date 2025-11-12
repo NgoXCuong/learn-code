@@ -73,7 +73,7 @@ export default function ProblemContent({ exercise, isDark }) {
         }`}
       >
         <div className="flex items-start gap-2">
-          <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-500 flex-shrink-0 mt-0.5" />
+          <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-500 shrink-0 mt-0.5" />
           <div>
             <h3 className="text-base font-bold text-amber-900 dark:text-amber-300 mb-1">
               Gợi ý

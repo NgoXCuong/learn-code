@@ -19,7 +19,7 @@ export default function CourseHero({
         alt={course.title}
         className="w-full h-56 sm:h-64 md:h-96 object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/40 to-slate-900" />
+      <div className="absolute inset-0 bg-linear-to-b from-transparent via-slate-900/40 to-slate-900" />
 
       {/* Hiệu ứng nền */}
       <div className="absolute top-10 right-6 md:right-10 w-24 h-24 md:w-32 md:h-32 bg-purple-500/20 rounded-full blur-3xl" />
@@ -69,8 +69,8 @@ export default function CourseHero({
           </div>
 
           {/* Progress Card */}
-          <div className="w-full md:w-80 flex-shrink-0">
-            <div className="bg-gradient-to-br from-purple-500 via-pink-500 to-rose-500 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+          <div className="w-full md:w-80 shrink-0">
+            <div className="bg-linear-to-br from-purple-500 via-pink-500 to-rose-500 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
               <div className="space-y-5 text-center md:text-left">
                 <div>
                   <h3 className="text-white text-sm sm:text-base font-semibold mb-2 flex items-center justify-center md:justify-start gap-2">
@@ -81,7 +81,7 @@ export default function CourseHero({
                   </div>
                   <div className="w-full h-2 bg-white/30 rounded-full overflow-hidden backdrop-blur">
                     <div
-                      className="h-full bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 rounded-full transition-all duration-500"
+                      className="h-full bg-linear-to-r from-yellow-300 via-yellow-400 to-yellow-500 rounded-full transition-all duration-500"
                       style={{ width: `${course.progress}%` }}
                     />
                   </div>

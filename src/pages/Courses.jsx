@@ -89,7 +89,7 @@ export default function CoursesPage() {
     <div
       className={`flex flex-col min-h-screen transition-colors duration-500 ${
         isDark
-          ? "bg-gray-900"
+          ? "bg-linear-to-br from-gray-900 via-gray-800 to-black"
           : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100"
       }`}
     >

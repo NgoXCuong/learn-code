@@ -110,7 +110,7 @@ export default function CourseList({
                 onClick={() => onPageChange(page)}
                 className={`w-9 h-9 rounded-xl font-medium transition-all duration-200 ${
                   currentPage === page
-                    ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md scale-105"
+                    ? "bg-linear-to-r from-blue-500 to-indigo-500 text-white shadow-md scale-105"
                     : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                 }`}
               >

@@ -19,7 +19,7 @@ const FeatureCard = ({
     >
       {/* Glow effect background */}
       <div
-        className={`absolute -inset-0.5 bg-gradient-to-r ${gradientColors} rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500`}
+        className={`absolute -inset-0.5 bg-linear-to-r ${gradientColors} rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500`}
       ></div>
 
       {/* Card content */}
@@ -27,10 +27,10 @@ const FeatureCard = ({
         {/* Icon container with animated background */}
         <div className="relative mb-6 inline-block">
           <div
-            className={`absolute inset-0 bg-gradient-to-r ${gradientColors} rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300`}
+            className={`absolute inset-0 bg-linear-to-r ${gradientColors} rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition-opacity duration-300`}
           ></div>
           <div
-            className={`relative bg-gradient-to-r ${gradientColors} p-4 rounded-2xl transform transition-transform duration-300 ${
+            className={`relative bg-linear-to-r ${gradientColors} p-4 rounded-2xl transform transition-transform duration-300 ${
               isHovered ? "rotate-6 scale-110" : ""
             }`}
           >
@@ -48,7 +48,7 @@ const FeatureCard = ({
 
         {/* Decorative corner accent */}
         <div
-          className={`absolute top-4 right-4 w-16 h-16 bg-gradient-to-br ${gradientColors} opacity-10 rounded-full blur-xl group-hover:opacity-20 transition-opacity duration-300`}
+          className={`absolute top-4 right-4 w-16 h-16 bg-linear-to-br ${gradientColors} opacity-10 rounded-full blur-xl group-hover:opacity-20 transition-opacity duration-300`}
         ></div>
       </div>
     </div>

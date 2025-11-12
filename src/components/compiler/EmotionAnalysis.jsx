@@ -17,7 +17,7 @@ const EmotionAnalysis = () => {
       {/* Khung icon + nội dung */}
       <div className="flex flex-row items-center p-2 rounded-lg flex-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-900 dark:text-yellow-100 overflow-auto gap-4">
         {/* Icon bên trái */}
-        <div className="flex-shrink-0">
+        <div className="shrink-0">
           <Smile className="w-20 h-20 md:w-24 md:h-24 text-yellow-500 dark:text-yellow-200" />
         </div>
 

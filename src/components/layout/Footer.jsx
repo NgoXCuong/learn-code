@@ -3,7 +3,7 @@ import { Heart, Sparkles } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="relative overflow-hidden border-t border-gray-200 dark:border-gray-700 bg-gradient-to-br from-gray-50/90 via-white/70 to-gray-50/80 dark:from-gray-900/60 dark:via-gray-800/70 dark:to-gray-900/50 transition-colors duration-500">
+    <footer className="relative overflow-hidden border-t border-gray-200 dark:border-gray-700 bg-linear-to-br from-gray-50/90 via-white/70 to-gray-50/80 dark:from-gray-900/60 dark:via-gray-800/70 dark:to-gray-900/50 transition-colors duration-500">
       <div className="max-w-7xl mx-auto px-6 py-4">
         {/* Top Section */}
 

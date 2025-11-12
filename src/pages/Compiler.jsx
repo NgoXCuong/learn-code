@@ -183,8 +183,8 @@ export default function Compiler() {
       });
       toast.success("Nộp bài thành công 🎉");
 
-      if (examId) {
-        navigate(`/exam/${examId}/feedback`, { state: { feedback: res } });
+      if (isExam) {
+        navigate(`/exam/${exerciseId}/feedback`, { state: { feedback: res } });
       } else if (challengeId) {
         navigate(`/challenges/${challengeId}/feedback`, {
           state: { feedback: res },
@@ -234,7 +234,7 @@ export default function Compiler() {
     <div
       className={`flex flex-col h-screen ${
         isDark
-          ? "dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black"
+          ? "bg-linear-to-br from-gray-900 via-gray-800 to-black"
           : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100"
       }`}
     >

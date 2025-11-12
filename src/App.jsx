@@ -37,6 +37,7 @@ const App = () => {
 
             <Route path="/exam" element={<CodeLearnPlatform />} />
             <Route path="/exam/:exerciseId/compiler" element={<Compiler />} />
+            <Route path="/exam/:examId/feedback" element={<Feedback />} />
 
             <Route
               path="/courses/:courseId/lessons/:lessonId"
@@ -61,6 +62,10 @@ const App = () => {
             <Route
               path="/challenges/:challengeId/compiler"
               element={<Compiler />}
+            />
+            <Route
+              path="/challenges/:challengeId/feedback"
+              element={<Feedback />}
             />
 
             <Route path="/ranks" element={<Rankings />} />

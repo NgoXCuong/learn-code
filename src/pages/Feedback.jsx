@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import {
   CheckCircle,
   XCircle,
@@ -28,18 +29,24 @@ const MonacoEditor = ({ value, theme }) => (
 
 export default function Feedback() {
   const { theme } = useContext(ThemeContext);
+  const { state } = useLocation();
   const isDark = theme === "dark";
   const [activeTab, setActiveTab] = useState("feedback");
 
-  // Random trạng thái thành công / thất bại
+  // Get feedback from state or use default
+  const passedFeedback = state?.feedback;
+
+  // Random trạng thái thành công / thất bại if no feedback passed
   const [passed, setPassed] = useState(true);
   useEffect(() => {
-    const randomPassed = Math.random() < 0.5; // 50% true / 50% false
-    setPassed(randomPassed);
-  }, []);
+    if (!passedFeedback) {
+      const randomPassed = Math.random() < 0.5; // 50% true / 50% false
+      setPassed(randomPassed);
+    }
+  }, [passedFeedback]);
 
-  const feedback = {
-    passed: passed, // sử dụng state random
+  const defaultFeedback = {
+    passed: passed,
     score: passed ? 95 : 40,
     testsPassed: passed ? 8 : 3,
     totalTests: 10,
@@ -62,6 +69,8 @@ export default function Feedback() {
       "Thêm validation đầu vào để tránh lỗi runtime",
     ],
   };
+
+  const feedback = passedFeedback || defaultFeedback;
 
   const solutionCode = `public class Main {
     public static void main(String[] args) {
@@ -154,13 +163,13 @@ export default function Feedback() {
                   icon: TrendingUp,
                   color: "text-blue-500",
                   label: "XP nhận được",
-                  value: passed ? "+15" : "+5",
+                  value: feedback.passed ? "+15" : "+5",
                 },
                 {
                   icon: Sparkles,
                   color: "text-purple-500",
                   label: "Xếp hạng",
-                  value: passed ? "A+" : "C",
+                  value: feedback.passed ? "A+" : "C",
                 },
               ].map(({ icon: Icon, color, label, value }, i) => (
                 <div

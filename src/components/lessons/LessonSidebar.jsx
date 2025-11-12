@@ -24,7 +24,7 @@ export default function LessonSidebar({
                 isDark ? "hover:bg-gray-700" : "hover:bg-gray-50"
               } transition-colors`}
             >
-              <span className="font-medium text-sm">{chapName}</span>
+              <span className="font-medium text-lg">{chapName}</span>
               {expandedChapters.includes(chapName) ? (
                 <ChevronDown className="w-4 h-4" />
               ) : (
@@ -39,7 +39,7 @@ export default function LessonSidebar({
                     onClick={() =>
                       navigate(`/courses/${l.course_id}/lessons/${l.id}`)
                     }
-                    className={`w-full flex items-center gap-2 p-2.5 rounded-lg text-left text-sm transition-colors ${
+                    className={`w-full flex items-center gap-2 p-2.5 rounded-lg text-left text-base transition-colors ${
                       l.id.toString() === currentLessonId
                         ? isDark
                           ? "bg-indigo-600 text-white"
@@ -54,7 +54,7 @@ export default function LessonSidebar({
                     ) : (
                       <Circle className="w-4 h-4 opacity-50" />
                     )}
-                    <span className="flex-1">{l.title}</span>
+                    <span className="flex-1 ">{l.title}</span>
                   </button>
                 ))}
               </div>

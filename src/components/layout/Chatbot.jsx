@@ -107,7 +107,7 @@ const Chatbot = () => {
       {/* Nút mở Chatbot */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 bg-gradient-to-r from-blue-600 to-cyan-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 z-50 transform hover:scale-110"
+        className="fixed bottom-6 right-6 bg-linear-to-r from-blue-600 to-cyan-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 z-50 transform hover:scale-110"
       >
         {open ? <X size={26} /> : <MessageCircle size={26} />}
       </button>
@@ -134,7 +134,7 @@ const Chatbot = () => {
           ${
             isDark
               ? "bg-[#1f2937] text-white border-b border-gray-700"
-              : "bg-gradient-to-r from-blue-600 to-cyan-600 text-white"
+              : "bg-linear-to-r from-blue-600 to-cyan-600 text-white"
           }`}
         >
           <div className="flex items-center gap-3">
@@ -179,15 +179,15 @@ const Chatbot = () => {
                 }`}
               >
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0
+                  className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0
                   ${
                     m.sender === "bot"
                       ? isDark
                         ? "bg-cyan-700"
-                        : "bg-gradient-to-br from-blue-500 to-cyan-500"
+                        : "bg-linear-to-br from-blue-500 to-cyan-500"
                       : isDark
                       ? "bg-purple-700"
-                      : "bg-gradient-to-br from-purple-500 to-pink-500"
+                      : "bg-linear-to-br from-purple-500 to-pink-500"
                   }`}
                 >
                   {m.sender === "bot" ? (
@@ -201,7 +201,7 @@ const Chatbot = () => {
                     className={`rounded-2xl px-4 py-3 leading-relaxed shadow
                     ${
                       m.sender === "user"
-                        ? "bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-tr-none"
+                        ? "bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-tr-none"
                         : isDark
                         ? "bg-gray-700 text-gray-100 rounded-tl-none border border-gray-600"
                         : "bg-white text-gray-800 rounded-tl-none border border-gray-100"
@@ -225,10 +225,10 @@ const Chatbot = () => {
             <div className="flex justify-start">
               <div className="flex gap-2">
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                  className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                     isDark
                       ? "bg-cyan-700"
-                      : "bg-gradient-to-br from-blue-500 to-cyan-500"
+                      : "bg-linear-to-br from-blue-500 to-cyan-500"
                   }`}
                 >
                   <Bot size={18} className="text-white" />
@@ -306,7 +306,7 @@ const Chatbot = () => {
             <button
               onClick={handleSendMessage}
               disabled={!inputText.trim()}
-              className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white p-2.5 rounded-full transition disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+              className="bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white p-2.5 rounded-full transition disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
             >
               <Send size={20} />
             </button>

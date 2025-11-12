@@ -55,7 +55,7 @@ export default function LessonNavigation({
             toast.success("🎉 Chúc mừng! Bạn đã hoàn thành khóa học.")
           }
           className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm 
-            bg-gradient-to-r from-green-500 to-emerald-600 text-white 
+            bg-linear-to-r from-green-500 to-emerald-600 text-white 
             hover:from-green-600 hover:to-emerald-700 transition-all duration-200 shadow-md hover:shadow-lg"
         >
           <Trophy className="w-5 h-5" />

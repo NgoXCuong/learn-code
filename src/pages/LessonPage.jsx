@@ -98,7 +98,9 @@ export default function LessonPage() {
   return (
     <div
       className={`min-h-screen ${
-        isDark ? "bg-gray-900 text-white" : "bg-gray-50 text-gray-900"
+        isDark
+          ? "bg-linear-to-br from-gray-900 via-gray-800 to-black text-white"
+          : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 text-gray-900"
       }`}
     >
       <Header />

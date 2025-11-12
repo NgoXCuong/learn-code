@@ -9,7 +9,7 @@ const FeatureCard = ({ icon: Icon, title, description, gradientColors }) => {
                  animate-zoom-in"
     >
       <div
-        className={`w-16 h-16 bg-gradient-to-br ${gradientColors} rounded-2xl flex items-center 
+        className={`w-16 h-16 bg-linear-to-br ${gradientColors} rounded-2xl flex items-center 
                 justify-center mb-6 mx-auto`}
       >
         <Icon className="w-8 h-8 text-white" />
