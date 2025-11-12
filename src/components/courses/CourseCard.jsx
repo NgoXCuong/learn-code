@@ -44,10 +44,10 @@ export default function CourseCard({
 
   return (
     <div
-      className={`relative flex flex-col rounded-2xl overflow-hidden  transition-all duration-300 hover:scale-105 ${
+      className={`relative flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-105 ${
         darkMode
-          ? "bg-gray-800 border-gray-700 hover:border-purple-500/50 hover:shadow-purple-500/20"
-          : "bg-white border-gray-200 hover:border-purple-400/40 hover:shadow-lg"
+          ? "bg-gray-800 border-gray-700 hover:border-blue-500 hover:shadow-purple-500/20"
+          : "bg-white border-gray-200 hover:border-blue-500 hover:shadow-lg"
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

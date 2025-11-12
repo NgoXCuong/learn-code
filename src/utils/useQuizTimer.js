@@ -5,6 +5,16 @@ export function useQuizTimer(isActive, onTick) {
   const intervalRef = useRef(null);
 
   useEffect(() => {
+    const handleStopTimer = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+
+    // Listen for stop timer event
+    window.addEventListener("stopTimer", handleStopTimer);
+
     if (isActive) {
       intervalRef.current = window.setInterval(() => {
         setTime((prevTime) => {
@@ -21,6 +31,7 @@ export function useQuizTimer(isActive, onTick) {
     }
 
     return () => {
+      window.removeEventListener("stopTimer", handleStopTimer);
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;

@@ -1,14 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CourseCard from "./CourseCard";
-import { Button } from "@/components/ui/button";
 
 export default function CourseList({
   courses,
   currentPage,
   totalPages,
   onPageChange,
-  clearFilters, // ✅ thêm prop clearFilters
+  clearFilters,
 }) {
   const navigate = useNavigate();
 
@@ -16,7 +15,6 @@ export default function CourseList({
     navigate(`/courses/${courseId}`);
   };
 
-  // Nếu không có khóa học nào
   if (!courses || courses.length === 0) {
     return (
       <div className="text-center py-12">
@@ -74,7 +72,7 @@ export default function CourseList({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {courses.map((course, idx) => (
           <CourseCard
-            key={`${currentPage}-${course.id}-${idx}`} // ✅ duy nhất
+            key={`${currentPage}-${course.id}-${idx}`}
             course={course}
             language={course.language}
             onEnroll={handleEnroll}
@@ -85,15 +83,18 @@ export default function CourseList({
       {totalPages > 1 && (
         <div className="flex justify-center items-center mt-10 gap-2 flex-wrap">
           {/* Nút Trước */}
-          <Button
-            variant="ghost"
-            size="sm"
-            disabled={currentPage === 1}
+          <button
             onClick={() => onPageChange(currentPage - 1)}
-            className="flex items-center gap-1 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all"
+            disabled={currentPage === 1}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
+              ${
+                currentPage === 1
+                  ? "opacity-50 cursor-not-allowed text-gray-400 dark:text-gray-500 border border-transparent"
+                  : "hover:bg-blue-50 dark:hover:bg-blue-900/40 text-gray-800 dark:text-gray-200 border border-transparent"
+              }`}
           >
-            <span className="hidden sm:inline">← Trước</span>
-          </Button>
+            ← Trước
+          </button>
 
           {/* Danh sách số trang */}
           {getPageNumbers().map((page, idx) =>
@@ -108,11 +109,12 @@ export default function CourseList({
               <button
                 key={`page-${page}`}
                 onClick={() => onPageChange(page)}
-                className={`w-9 h-9 rounded-xl font-medium transition-all duration-200 ${
-                  currentPage === page
-                    ? "bg-linear-to-r from-blue-500 to-indigo-500 text-white shadow-md scale-105"
-                    : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-                }`}
+                className={`w-9 h-9 rounded-xl font-medium border transition-all duration-200 
+                  ${
+                    currentPage === page
+                      ? "bg-linear-to-r from-blue-500 to-indigo-500 text-white shadow-md border-transparent scale-105"
+                      : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700"
+                  }`}
               >
                 {page}
               </button>
@@ -120,15 +122,18 @@ export default function CourseList({
           )}
 
           {/* Nút Sau */}
-          <Button
-            variant="ghost"
-            size="sm"
-            disabled={currentPage === totalPages}
+          <button
             onClick={() => onPageChange(currentPage + 1)}
-            className="flex items-center gap-1 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-all"
+            disabled={currentPage === totalPages}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
+              ${
+                currentPage === totalPages
+                  ? "opacity-50 cursor-not-allowed text-gray-400 dark:text-gray-500 border border-transparent"
+                  : "hover:bg-blue-50 dark:hover:bg-blue-900/40 text-gray-800 dark:text-gray-200 border border-transparent"
+              }`}
           >
-            <span className="hidden sm:inline">Sau →</span>
-          </Button>
+            Sau →
+          </button>
         </div>
       )}
     </>

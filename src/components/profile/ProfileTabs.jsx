@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 
 const tabs = [
   { id: "overview", label: "Tổng quan" },
@@ -7,18 +7,11 @@ const tabs = [
 ];
 
 export default function ProfileTabs({ activeTab, setActiveTab }) {
-  const activeRef = useRef();
-
-  useEffect(() => {
-    activeRef.current?.scrollIntoView({ behavior: "smooth", inline: "center" });
-  }, [activeTab]);
-
   return (
     <div className="flex space-x-2 sm:space-x-4 mb-8 overflow-x-auto pb-2">
       {tabs.map((tab) => (
         <button
           key={tab.id}
-          ref={activeTab === tab.id ? activeRef : null}
           onClick={() => setActiveTab(tab.id)}
           className={`relative px-6 py-2.5 rounded-lg font-medium whitespace-nowrap transition-all
             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500

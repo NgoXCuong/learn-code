@@ -24,7 +24,7 @@ export default function HomeScreen({ startQuiz, startExercises }) {
             onClick={startQuiz}
             className="group relative bg-white dark:bg-gray-800 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 hover:-translate-y-2 flex flex-col justify-between"
           >
-            <div className="absolute -top-24 -right-24 w-48 h-48 bg-linear-to-br from-blue-100 to-indigo-100 dark:from-gray-700 dark:to-gray-900 rounded-full opacity-60 group-hover:scale-150 transition-transform duration-700"></div>
+            <div className="absolute -top-24 -right-24 w-48 h-48 bg-linear-to-br from-blue-100 to-indigo-100 dark:from-blue-800 dark:to-indigo-900 rounded-full opacity-60 group-hover:scale-150 transition-transform duration-700"></div>
 
             <div className="relative p-10 flex-1 flex flex-col justify-between">
               <div>

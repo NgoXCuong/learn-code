@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HomeScreen from "@/components/exam/HomeScreen";
 import QuizScreen from "@/components/exam/QuizScreen";
@@ -46,11 +46,23 @@ export default function CodeLearnPlatform() {
   };
 
   const goToResults = () => setAppState("results");
+
   const reviewAnswers = () => {
     setIsReviewMode(true);
     setAppState("quiz");
     setCurrentQuestion(0);
   };
+
+  // Listen for review mode event from QuizScreen
+  useEffect(() => {
+    const handleStartReviewMode = () => {
+      reviewAnswers();
+    };
+
+    window.addEventListener("startReviewMode", handleStartReviewMode);
+    return () =>
+      window.removeEventListener("startReviewMode", handleStartReviewMode);
+  }, []);
   const submitQuiz = () => {
     setIsTimerActive(false);
     setAppState("results");

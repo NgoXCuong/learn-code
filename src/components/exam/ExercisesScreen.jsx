@@ -72,7 +72,6 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
             className="
               flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition
               bg-gray-100 hover:bg-gray-200 text-gray-700
-              dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200
             "
           >
             <ChevronLeft className="w-4 h-4" />
