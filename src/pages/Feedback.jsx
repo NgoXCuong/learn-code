@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   CheckCircle,
   XCircle,
@@ -14,7 +14,6 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ThemeContext } from "@/context/ThemeContext";
 
-// Giả lập Monaco Editor (chỉ hiển thị code dạng <pre>)
 const MonacoEditor = ({ value, theme }) => (
   <pre
     className={`p-4 rounded-lg overflow-auto h-full text-lg font-mono ${
@@ -29,14 +28,20 @@ const MonacoEditor = ({ value, theme }) => (
 
 export default function Feedback() {
   const { theme } = useContext(ThemeContext);
-  const isDark = theme === "dark"; // ✅ Light / Dark thực tế
+  const isDark = theme === "dark";
   const [activeTab, setActiveTab] = useState("feedback");
 
-  // Mock data
+  // Random trạng thái thành công / thất bại
+  const [passed, setPassed] = useState(true);
+  useEffect(() => {
+    const randomPassed = Math.random() < 0.5; // 50% true / 50% false
+    setPassed(randomPassed);
+  }, []);
+
   const feedback = {
-    passed: true,
-    score: 95,
-    testsPassed: 8,
+    passed: passed, // sử dụng state random
+    score: passed ? 95 : 40,
+    testsPassed: passed ? 8 : 3,
     totalTests: 10,
     comments: [
       {
@@ -74,43 +79,43 @@ export default function Feedback() {
   return (
     <div
       className={`flex flex-col min-h-screen transition-colors duration-300 ${
-        isDark ? "bg-gray-950 text-gray-100" : "bg-gray-50 text-gray-900"
+        isDark
+          ? "dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black text-gray-100"
+          : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 text-gray-900"
       }`}
     >
       <Header />
-
       <main className="flex-1 w-full">
-        {/* Hero Section */}
+        {/* Hero */}
         <div
-          className={`${
+          className={`bg-linear-to-br ${
             isDark
-              ? "bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
-              : "bg-gradient-to-br from-blue-50 to-indigo-50"
+              ? "from-gray-800 via-gray-900 to-gray-800"
+              : "from-blue-50 to-indigo-50"
           } border-b ${
-            isDark ? "border-gray-800" : "border-gray-200"
+            isDark ? "border-gray-700" : "border-gray-200"
           } transition-colors`}
         >
           <div className="max-w-7xl mx-auto px-6 py-12 text-center">
-            {/* Success Icon */}
             <div
               className={`relative mb-6 ${
                 feedback.passed ? "animate-bounce" : ""
               }`}
             >
               <div
-                className={`absolute inset-0 text-center${
+                className={`absolute inset-0 rounded-full opacity-20 ${
                   feedback.passed ? "bg-green-500" : "bg-red-500"
-                } blur-2xl opacity-30 rounded-full`}
+                } blur-2xl`}
               ></div>
-              <div className="flex justify-center items-center h-full w-full">
+              <div className="flex justify-center items-center h-full w-full relative z-10">
                 {feedback.passed ? (
                   <CheckCircle
-                    className="w-20 h-20 text-green-500 relative z-10"
+                    className="w-20 h-20 text-green-500"
                     strokeWidth={2.5}
                   />
                 ) : (
                   <XCircle
-                    className="w-20 h-20 text-red-500 relative z-10"
+                    className="w-20 h-20 text-red-500"
                     strokeWidth={2.5}
                   />
                 )}
@@ -149,13 +154,13 @@ export default function Feedback() {
                   icon: TrendingUp,
                   color: "text-blue-500",
                   label: "XP nhận được",
-                  value: "+15",
+                  value: passed ? "+15" : "+5",
                 },
                 {
                   icon: Sparkles,
                   color: "text-purple-500",
                   label: "Xếp hạng",
-                  value: "A+",
+                  value: passed ? "A+" : "C",
                 },
               ].map(({ icon: Icon, color, label, value }, i) => (
                 <div
@@ -179,7 +184,6 @@ export default function Feedback() {
           </div>
         </div>
 
-        {/* Tabs */}
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
             {[
@@ -197,8 +201,8 @@ export default function Feedback() {
                 className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all whitespace-nowrap ${
                   activeTab === id
                     ? isDark
-                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/50"
-                      : "bg-indigo-500 text-white shadow-lg"
+                      ? "bg-indigo-600 text-white shadow-md shadow-indigo-500/50"
+                      : "bg-indigo-500 text-white shadow-md"
                     : isDark
                     ? "bg-gray-800 text-gray-400 hover:bg-gray-700"
                     : "bg-white text-gray-600 hover:bg-gray-100"
@@ -214,7 +218,7 @@ export default function Feedback() {
           <div
             className={`rounded-2xl overflow-hidden border ${
               isDark
-                ? "bg-gray-900 border-gray-800"
+                ? "bg-gray-900 border-gray-700"
                 : "bg-white border-gray-200"
             }`}
           >
@@ -223,18 +227,18 @@ export default function Feedback() {
                 {feedback.comments.map((c, i) => (
                   <div
                     key={i}
-                    className={`flex items-start gap-4 p-4 rounded-xl ${
+                    className={`flex items-start gap-4 p-4 rounded-xl border ${
                       c.type === "success"
                         ? isDark
-                          ? "bg-green-900/20 border border-green-800/30"
-                          : "bg-green-50 border border-green-200"
+                          ? "bg-green-900/20 border-green-800/30"
+                          : "bg-green-50 border-green-200"
                         : c.type === "warning"
                         ? isDark
-                          ? "bg-yellow-900/20 border border-yellow-800/30"
-                          : "bg-yellow-50 border border-yellow-200"
+                          ? "bg-yellow-900/20 border-yellow-800/30"
+                          : "bg-yellow-50 border-yellow-200"
                         : isDark
-                        ? "bg-blue-900/20 border border-blue-800/30"
-                        : "bg-blue-50 border border-blue-200"
+                        ? "bg-blue-900/20 border-blue-800/30"
+                        : "bg-blue-50 border-blue-200"
                     }`}
                   >
                     {c.type === "success" ? (
@@ -275,15 +279,15 @@ export default function Feedback() {
                 {feedback.suggestions.map((s, i) => (
                   <div
                     key={i}
-                    className={`p-5 rounded-xl ${
+                    className={`p-5 rounded-xl border ${
                       isDark
-                        ? "bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-purple-800/30"
-                        : "bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200"
+                        ? "bg-linear-to-br from-purple-900/20 to-pink-900/20 border-purple-800/30"
+                        : "bg-linear-to-br from-purple-50 to-pink-50 border-purple-200"
                     }`}
                   >
                     <div className="flex items-start gap-3">
                       <div
-                        className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center font-bold text-lg ${
+                        className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center font-bold text-lg ${
                           isDark
                             ? "bg-purple-600 text-white"
                             : "bg-purple-500 text-white"
@@ -303,7 +307,6 @@ export default function Feedback() {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-8 w-full">
-            {/* Nút quay lại */}
             <button
               onClick={navigate}
               className={`flex items-center justify-center gap-2 w-full sm:w-1/2 py-3 px-6 rounded-xl font-medium border transition-all duration-200 ${
@@ -313,15 +316,14 @@ export default function Feedback() {
               }`}
             >
               <ArrowLeft className="w-5 h-5" />
-              <span>Quay lại thực hành</span>
+              <span>Quay lại </span>
             </button>
 
-            {/* Nút bài tiếp theo */}
             <button
               className={`flex items-center justify-center gap-2 w-full sm:w-1/2 py-3 px-6 rounded-xl font-medium shadow-lg transition-all duration-200 ${
                 isDark
-                  ? "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
-                  : "bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white"
+                  ? "bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
+                  : "bg-linear-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white"
               }`}
             >
               <Sparkles className="w-5 h-5" />
@@ -330,7 +332,6 @@ export default function Feedback() {
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   );

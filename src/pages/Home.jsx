@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 
 const Home = () => {
   return (
-    <div className="min-h-screen w-full relative bg-white dark:bg-[#020617]">
+    <div className="min-h-screen w-full relative bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black">
       {/* Background Sphere Grid */}
       <div className="absolute inset-0 z-0">
         <div
@@ -35,7 +35,7 @@ const Home = () => {
 
       {/* Content */}
       <Header />
-      <main className="flex-grow overflow-hidden relative z-10">
+      <main className="grow overflow-hidden relative z-10">
         <section className="relative">
           <HeroSection />
           <FeatureSection />

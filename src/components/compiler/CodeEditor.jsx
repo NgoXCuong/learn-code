@@ -27,11 +27,24 @@ const CodeEditor = ({
   const isDark = theme === "dark";
   const editorRef = useRef(null);
 
-  // Gọi layout khi resize
-  useEffect(() => {
-    const handleResize = () => {
-      editorRef.current?.layout();
+  // ✅ Hàm lấy extension chính xác
+  const getFileExtension = () => {
+    const extensions = {
+      java: "java",
+      cpp: "cpp",
+      python: "py",
+      javascript: "js",
+      typescript: "ts",
+      csharp: "cs",
+      php: "php",
     };
+
+    return extensions[language] || language;
+  };
+
+  // Resize Monaco
+  useEffect(() => {
+    const handleResize = () => editorRef.current?.layout();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -44,20 +57,21 @@ const CodeEditor = ({
           isDark ? "bg-gray-800" : "bg-gray-200"
         }`}
       >
-        {/* File name + status dots */}
+        {/* File title */}
         <div className="flex items-center space-x-2">
           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
 
+          {/* ✅ Sử dụng extension chuẩn */}
           <span className="ml-4 text-base font-medium text-gray-900 dark:text-gray-100">
-            main.{language}
+            main.{getFileExtension()}
           </span>
         </div>
 
-        {/* Action buttons */}
+        {/* Actions */}
         <div className="flex items-center gap-2 sm:gap-4">
-          {/* Select (shadcn/ui) */}
+          {/* Select Language */}
           <Select value={language} onValueChange={onLanguageChange}>
             <SelectTrigger
               className={`w-[140px] text-base border rounded transition-colors ${
@@ -68,6 +82,7 @@ const CodeEditor = ({
             >
               <SelectValue placeholder="Ngôn ngữ" />
             </SelectTrigger>
+
             <SelectContent
               className={isDark ? "bg-gray-800 border-gray-700 text-white" : ""}
             >
@@ -91,22 +106,24 @@ const CodeEditor = ({
             </span>
           </Button>
 
-          {/* Submit button */}
-          <Button
-            onClick={onSubmitCode}
-            disabled={isSubmit}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-md flex items-center justify-center text-base"
-          >
-            <Send className="w-4 h-4 sm:mr-1" />
-            <span className="hidden sm:inline text-base">
-              {isSubmit ? "Submitting..." : "Submit"}
-            </span>
-          </Button>
+          {/* ✅ Submit button — chỉ hiển thị khi có onSubmitCode */}
+          {onSubmitCode && (
+            <Button
+              onClick={onSubmitCode}
+              disabled={isSubmit}
+              className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-md flex items-center justify-center text-base"
+            >
+              <Send className="w-4 h-4 sm:mr-1" />
+              <span className="hidden sm:inline text-base">
+                {isSubmit ? "Submitting..." : "Submit"}
+              </span>
+            </Button>
+          )}
         </div>
       </div>
 
       {/* Monaco Editor */}
-      <div className="flex-1 min-h-0 mt-1 h-[calc(100vh-220px)]">
+      <div className="flex-1 min-h-0 h-[calc(100vh-220px)]">
         <MonacoEditor
           height="100%"
           language={language === "java" ? "java" : language}

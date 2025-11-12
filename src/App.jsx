@@ -11,14 +11,16 @@ import ProfilePage from "@/pages/ProfilePage";
 import ChallengesPage from "@/pages/ChallengesPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
-import { UserCoursesProvider } from "@/context/UserCoursesContext"; // ✅ import context provider
+import { UserCoursesProvider } from "@/context/UserCoursesContext";
 import Chatbot from "@/components/layout/Chatbot";
-import Exam from "@/pages/Exam";
+import CodeLearnPlatform from "@/pages/CodeLearnPlatform";
+import Rankings from "@/pages/Rankings";
+import CompilerPage from "@/pages/CompilerPage";
 
 const App = () => {
   return (
     <UserCoursesProvider>
-      <div className="App min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="App min-h-screen bg-linear-to-br from-slate-50 to-blue-50">
         {/* Toaster đặt ở đây để toàn app đều có thể dùng toast */}
         <Toaster richColors position="top-center" reverseOrder={false} />
 
@@ -33,10 +35,9 @@ const App = () => {
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/:id" element={<CourseDetail />} />
 
-            <Route path="/exam" element={<Exam />} />
-            <Route path="/exam/:id" element={<Compiler />} />
+            <Route path="/exam" element={<CodeLearnPlatform />} />
+            <Route path="/exam/:exerciseId/compiler" element={<Compiler />} />
 
-            {/* Lessons */}
             <Route
               path="/courses/:courseId/lessons/:lessonId"
               element={<LessonPage />}
@@ -47,7 +48,7 @@ const App = () => {
             />
 
             {/* Compiler trực tiếp từ trang chủ */}
-            <Route path="/compiler" element={<Compiler />} />
+            <Route path="/compiler" element={<CompilerPage />} />
 
             <Route
               path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId/feedback"
@@ -55,7 +56,14 @@ const App = () => {
             />
 
             <Route path="/profile" element={<ProfilePage />} />
+
             <Route path="/challenges" element={<ChallengesPage />} />
+            <Route
+              path="/challenges/:challengeId/compiler"
+              element={<Compiler />}
+            />
+
+            <Route path="/ranks" element={<Rankings />} />
           </Routes>
         </BrowserRouter>
         <Chatbot />

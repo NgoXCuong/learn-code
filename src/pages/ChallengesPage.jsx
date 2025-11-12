@@ -6,10 +6,7 @@ import {
   dailyQuests,
 } from "@/mock/mockDataChallenge";
 import { ChallengeCard } from "@/components/challenges/ChallengeCard";
-import { ProgressCard } from "@/components/challenges/ProgressCard";
-import { BadgesSection } from "@/components/challenges/BadgesSection";
 import { DailyQuestsPanel } from "@/components/challenges/DailyQuestsPanel";
-import { LeaderboardPanel } from "@/components/challenges/LeaderboardPanel";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
 import { ChallengesFilter } from "@/components/challenges/ChallengesFilter";
 import { ChallengesTabs } from "@/components/challenges/ChallengesTabs";
@@ -17,6 +14,7 @@ import { StatsCards } from "@/components/challenges/StatsCards";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Breadcrumb from "@/components/layout/Breadcrumb";
+import { useNavigate } from "react-router-dom"; // import navigate
 
 export default function ChallengesPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,15 +23,16 @@ export default function ChallengesPage() {
   const [selectedChallenge, setSelectedChallenge] = useState(null);
   const [activeTab, setActiveTab] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6; // số thử thách mỗi trang
+  const itemsPerPage = 4; // số thử thách mỗi trang
+
+  const navigate = useNavigate();
 
   const handleChallengeClick = (challenge) => {
-    setSelectedChallenge(challenge);
+    navigate(`/challenges/${challenge.id}/compiler`, {
+      state: { challenge }, // truyền luôn dữ liệu challenge qua state
+    });
   };
 
-  // -----------------------------
-  // Lọc và sắp xếp thử thách
-  // -----------------------------
   const filteredAndSortedChallenges = useMemo(() => {
     let result = [...challenges];
 
@@ -78,13 +77,10 @@ export default function ChallengesPage() {
       }
     });
 
-    setCurrentPage(1); // reset về trang đầu khi lọc
+    setCurrentPage(1);
     return result;
   }, [searchQuery, difficultyFilter, sortBy, activeTab]);
 
-  // -----------------------------
-  // Phân trang
-  // -----------------------------
   const totalPages = Math.ceil(
     filteredAndSortedChallenges.length / itemsPerPage
   );
@@ -124,9 +120,6 @@ export default function ChallengesPage() {
     return rangeWithDots;
   };
 
-  // -----------------------------
-  // Bộ lọc và thống kê
-  // -----------------------------
   const clearFilters = () => {
     setSearchQuery("");
     setDifficultyFilter("all");
@@ -145,11 +138,8 @@ export default function ChallengesPage() {
     challenges.reduce((sum, c) => sum + c.successRate, 0) / challenges.length
   );
 
-  // -----------------------------
-  // Render giao diện
-  // -----------------------------
   return (
-    <div className="bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors min-h-screen">
+    <div className="bg-linear-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors min-h-screen">
       <Header />
       <main className="px-6 sm:px-14 lg:px-20 py-8">
         <Breadcrumb
@@ -158,9 +148,6 @@ export default function ChallengesPage() {
 
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-2xl">🧠</span>
-            </div>
             <div>
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                 Thử thách lập trình
@@ -174,8 +161,6 @@ export default function ChallengesPage() {
 
         <div className="grid lg:grid-cols-12 gap-8">
           <section className="lg:col-span-8 space-y-6">
-            <ProgressCard userData={userData} />
-
             <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
               <ChallengesTabs
                 activeTab={activeTab}
@@ -240,7 +225,7 @@ export default function ChallengesPage() {
                             onClick={() => setCurrentPage(page)}
                             className={`w-9 h-9 rounded-xl font-medium transition-all duration-200 ${
                               currentPage === page
-                                ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-md scale-105"
+                                ? "bg-linear-to-r from-blue-500 to-indigo-500 text-white shadow-md scale-105"
                                 : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                             }`}
                           >
@@ -286,11 +271,6 @@ export default function ChallengesPage() {
               avgSuccess={avgSuccess}
             />
             <DailyQuestsPanel quests={dailyQuests} />
-            <BadgesSection badges={userData.badges} />
-            <LeaderboardPanel
-              leaderboard={leaderboard}
-              currentUser={userData.name}
-            />
           </aside>
         </div>
       </main>

@@ -9,36 +9,39 @@ import { ThemeContext } from "@/context/ThemeContext";
 import { mockCourses } from "@/mock/courses";
 import { mockLessons } from "@/mock/lessons";
 import { mockExercises } from "@/mock/exercises";
+import { challenges as mockChallenges } from "@/mock/mockDataChallenge";
 import ProblemContent from "@/components/compiler/ProblemContent";
 import ResizableDivider from "@/components/compiler/ResizableDivider";
 import TopBar from "@/components/compiler/TopBar";
-import { runCode, submitExercise } from "@/mock/mockRunAndSubmit";
+import { submitExercise } from "@/mock/mockRunAndSubmit";
 import { toast } from "sonner";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function Compiler() {
-  const { courseId, lessonId, exerciseId } = useParams();
+  const { courseId, lessonId, exerciseId, challengeId, examId } = useParams();
   const navigate = useNavigate();
   const { state } = useLocation();
   const { theme } = useContext(ThemeContext);
   const isDark = theme === "dark";
   const containerRef = useRef(null);
 
+  const passedCourse = state?.course;
+  const passedLesson = state?.lesson;
   const passedExercise = state?.exercise;
   const passedExercises = state?.exercises || [];
 
+  const [currentCourse, setCurrentCourse] = useState(passedCourse || null);
+  const [currentLesson, setCurrentLesson] = useState(passedLesson || null);
   const [currentExercise, setCurrentExercise] = useState(
     passedExercise || null
   );
+  const [exercises, setExercises] = useState(passedExercises);
   const [currentCode, setCurrentCode] = useState(
     passedExercise?.example_code || ""
   );
 
-  const [exercises, setExercises] = useState(passedExercises);
-
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
-  const [activeTab, setActiveTab] = useState("problem");
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   const [languages] = useState([
@@ -54,6 +57,8 @@ export default function Compiler() {
   const [rightTopHeight, setRightTopHeight] = useState(250);
   const [showProblem, setShowProblem] = useState(true);
 
+  const isExam = !!exerciseId && !courseId && !lessonId && !challengeId;
+
   // Resize
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
@@ -61,37 +66,108 @@ export default function Compiler() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Nếu không có state từ Exam, fallback fetch từ mock
+  // Load bài từ Exam / Challenge / Course-Lesson
   useEffect(() => {
-    if (!passedExercise) {
+    // --- Exam ---
+    if (examId) {
+      const selectedExam = mockExercises.find(
+        (ex) => ex.id.toString() === examId
+      );
+      if (selectedExam) {
+        setCurrentCourse({ id: "exam", title: "Bài kiểm tra" });
+        setCurrentLesson({ id: selectedExam.id, title: selectedExam.title });
+        if (passedExercises.length > 0) {
+          setExercises(passedExercises);
+          setCurrentExercise(passedExercise || selectedExam);
+        } else {
+          setExercises([selectedExam]);
+          setCurrentExercise(selectedExam);
+        }
+        setCurrentCode((passedExercise || selectedExam).example_code || "");
+        setSelectedLanguage(
+          (passedExercise || selectedExam).language || "javascript"
+        );
+      }
+      return;
+    }
+
+    // --- Challenge ---
+    if (challengeId) {
+      const selectedChallenge = mockChallenges.find(
+        (ch) => ch.id.toString() === challengeId
+      );
+      if (selectedChallenge) {
+        setCurrentCourse({ id: "challenges", title: "Thử thách" });
+        setCurrentLesson({
+          id: selectedChallenge.id,
+          title: selectedChallenge.title,
+        });
+        setExercises([selectedChallenge]);
+        setCurrentExercise(selectedChallenge);
+        setCurrentCode(selectedChallenge.example_code || "");
+        setSelectedLanguage(selectedChallenge.language || "javascript");
+      }
+      return;
+    }
+
+    // --- Course / Lesson / Exercise ---
+    if (!currentCourse) {
       const c = mockCourses.find((c) => c.id.toString() === courseId);
+      setCurrentCourse(c);
+    }
+    if (!currentLesson) {
       const l = mockLessons.find(
         (l) =>
           l.id.toString() === lessonId && l.course_id.toString() === courseId
       );
+      setCurrentLesson(l);
+    }
+    if (!passedExercise) {
       const exs = mockExercises.filter(
         (e) => e.lesson_id.toString() === lessonId
       );
-
       setExercises(exs);
-
       const selectedEx =
         exs.find((e) => e.id.toString() === exerciseId) || exs[0];
-
       setCurrentExercise(selectedEx);
       setCurrentCode(selectedEx?.example_code || "");
       setSelectedLanguage(selectedEx?.language || "javascript");
     }
-  }, [courseId, lessonId, exerciseId, passedExercise]);
+  }, [courseId, lessonId, exerciseId, challengeId, examId]);
+
+  // --- Helper ---
+  const getFileExtension = () => {
+    const ext = {
+      javascript: "js",
+      python: "py",
+      cpp: "cpp",
+      java: "java",
+      csharp: "cs",
+    };
+    return ext[selectedLanguage] || "txt";
+  };
 
   const handleRun = async () => {
     setIsRunning(true);
+    setOutput("");
+    const codeToRun = currentCode;
     try {
-      const res = await runCode({
-        language: selectedLanguage,
-        code: currentCode,
+      const response = await fetch("https://emkc.org/api/v2/piston/execute", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          language: selectedLanguage,
+          version: "*",
+          files: [{ name: `main.${getFileExtension()}`, content: codeToRun }],
+        }),
       });
-      setOutput(res.output);
+      const result = await response.json();
+      const stdout = result.run?.stdout || "";
+      const stderr = result.run?.stderr || "";
+      setOutput(stdout || stderr || "Không có kết quả.");
+    } catch (err) {
+      console.error(err);
+      setOutput("Lỗi khi chạy code. Vui lòng thử lại sau.");
     } finally {
       setIsRunning(false);
     }
@@ -106,26 +182,49 @@ export default function Compiler() {
         code: currentCode,
       });
       toast.success("Nộp bài thành công 🎉");
-      navigate(
-        `/courses/${courseId}/lessons/${lessonId}/exercise/${currentExercise.id}/feedback`,
-        { state: { feedback: res } }
-      );
+
+      if (examId) {
+        navigate(`/exam/${examId}/feedback`, { state: { feedback: res } });
+      } else if (challengeId) {
+        navigate(`/challenges/${challengeId}/feedback`, {
+          state: { feedback: res },
+        });
+      } else {
+        navigate(
+          `/courses/${courseId}/lessons/${lessonId}/exercise/${currentExercise.id}/feedback`,
+          { state: { feedback: res } }
+        );
+      }
     } catch (error) {
       toast.error("Nộp bài thất bại 😢");
       console.error(error);
     }
   };
 
-  const breadcrumbItems = [
-    { label: "Trang chủ", href: "/" },
-    { label: "Khóa học", href: "/courses" },
-    courseId && { label: "Khóa học", href: `/courses/${courseId}` },
-    lessonId && {
-      label: "Bài học",
-      href: `/courses/${courseId}/lessons/${lessonId}`,
-    },
-    { label: "Thực hành" },
-  ].filter(Boolean);
+  const breadcrumbItems = isExam
+    ? [
+        { label: "Trang chủ", href: "/" },
+        currentExercise && { label: currentExercise.title },
+      ].filter(Boolean)
+    : challengeId
+    ? [
+        { label: "Trang chủ", href: "/" },
+        { label: "Thử thách", href: "/challenges" },
+        currentExercise && { label: currentExercise.title },
+      ].filter(Boolean)
+    : [
+        { label: "Trang chủ", href: "/" },
+        { label: "Khóa học", href: "/courses" },
+        currentCourse && {
+          label: currentCourse.title,
+          href: `/courses/${courseId}`,
+        },
+        currentLesson && {
+          label: currentLesson.title,
+          href: `/courses/${courseId}/lessons/${lessonId}`,
+        },
+        currentExercise && { label: currentExercise.title },
+      ].filter(Boolean);
 
   const currentExIndex = exercises.findIndex(
     (ex) => ex.id === currentExercise?.id
@@ -134,7 +233,9 @@ export default function Compiler() {
   return (
     <div
       className={`flex flex-col h-screen ${
-        isDark ? "bg-gray-950" : "bg-gray-50"
+        isDark
+          ? "dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black"
+          : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100"
       }`}
     >
       <Header />
@@ -144,11 +245,22 @@ export default function Compiler() {
         exercises={exercises}
         currentExIndex={currentExIndex}
         navigate={(pathOrId) => {
-          if (typeof pathOrId === "string") {
-            navigate(pathOrId);
-          } else if (typeof pathOrId === "object") {
-            // next/prev exercise
-            navigate("/compiler", { state: { exercise: pathOrId, exercises } });
+          if (typeof pathOrId === "string") navigate(pathOrId);
+          else if (typeof pathOrId === "object") {
+            if (isExam) {
+              navigate(`/exam/${pathOrId.id}/compiler`, {
+                state: {
+                  exercise: pathOrId,
+                  exercises,
+                  course: currentCourse,
+                  lesson: currentLesson,
+                },
+              });
+            } else {
+              navigate(
+                `/courses/${courseId}/lessons/${lessonId}/exercise/${pathOrId.id}`
+              );
+            }
             setCurrentExercise(pathOrId);
             setCurrentCode(pathOrId.example_code || "");
             setSelectedLanguage(pathOrId.language || "javascript");
@@ -158,8 +270,6 @@ export default function Compiler() {
         lessonId={lessonId}
         isDark={isDark}
       />
-
-      {/* Layout Desktop / Mobile */}
       <div className="flex-1 flex overflow-hidden" ref={containerRef}>
         {/* Left: Problem */}
         {showProblem && currentExercise && (
@@ -193,8 +303,6 @@ export default function Compiler() {
             orientation="vertical"
             isDark={isDark}
           />
-
-          {/* Nút mở lại đề bài nếu đang ẩn */}
           {!showProblem && (
             <button
               onClick={() => setShowProblem(true)}

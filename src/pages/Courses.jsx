@@ -88,12 +88,14 @@ export default function CoursesPage() {
   return (
     <div
       className={`flex flex-col min-h-screen transition-colors duration-500 ${
-        isDark ? "bg-gray-900" : "bg-gradient-to-br from-slate-50 to-blue-50"
+        isDark
+          ? "bg-gray-900"
+          : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100"
       }`}
     >
       <Header />
 
-      <main className="flex-grow w-full px-6 sm:px-14 lg:px-20 py-6">
+      <main className="grow w-full px-6 sm:px-14 lg:px-20 py-6">
         <Breadcrumb items={breadcrumbItems} />
 
         <CourseFilters

@@ -22,7 +22,7 @@ export default function TopBar({
       }`}
     >
       <div className="py-3 sm:py-6">
-        <div className="flex-grow w-full px-4 sm:px-6 md:px-14 lg:px-20">
+        <div className="grow w-full px-4 sm:px-6 md:px-14 lg:px-20">
           <Breadcrumb items={breadcrumbItems} />
         </div>
 
@@ -57,12 +57,7 @@ export default function TopBar({
             {/* Navigation Buttons */}
             <div className="flex items-center gap-2">
               <button
-                onClick={() =>
-                  prevExercise &&
-                  navigate(
-                    `/courses/${courseId}/lessons/${lessonId}/exercise/${prevExercise.id}`
-                  )
-                }
+                onClick={() => prevExercise && navigate(prevExercise)}
                 disabled={!prevExercise}
                 className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-base font-medium transition-all ${
                   !prevExercise
@@ -89,9 +84,7 @@ export default function TopBar({
               <button
                 onClick={() =>
                   nextExercise
-                    ? navigate(
-                        `/courses/${courseId}/lessons/${lessonId}/exercise/${nextExercise.id}`
-                      )
+                    ? navigate(nextExercise)
                     : alert("🎉 Bạn đã hoàn thành tất cả bài tập!")
                 }
                 disabled={!nextExercise}

@@ -26,7 +26,7 @@ export default function RecentBadges() {
             className={`relative group ${!badge.date && "opacity-40"}`}
           >
             <div
-              className={`bg-gradient-to-br ${getRarityColor(
+              className={`bg-linear-to-br ${getRarityColor(
                 badge.rarity
               )} rounded-xl p-4 text-center transition-all hover:scale-105 cursor-pointer`}
             >

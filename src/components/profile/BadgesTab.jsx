@@ -25,7 +25,7 @@ export default function BadgesTab() {
             className={`relative group ${!badge.date && "opacity-50"}`}
           >
             <div
-              className={`bg-gradient-to-br ${getRarityColor(
+              className={`bg-linear-to-br ${getRarityColor(
                 badge.rarity
               )} rounded-2xl p-6 text-center transition-all hover:scale-105 cursor-pointer shadow-lg`}
             >

@@ -1,6 +1,4 @@
 export const mockExercises = [
-  // === JavaScript ===
-  // Lesson 1: Giới thiệu về JavaScript (ID: 1)
   {
     id: 1,
     lesson_id: 1,

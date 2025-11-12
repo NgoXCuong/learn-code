@@ -13,7 +13,7 @@ export const StatsCards = ({ totalParticipants, avgSuccess }) => {
               {totalParticipants.toLocaleString()}
             </p>
           </div>
-          <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-blue-500 rounded-lg flex items-center justify-center">
+          <div className="w-12 h-12 bg-linear-to-br from-indigo-500 to-blue-500 rounded-lg flex items-center justify-center">
             <span className="text-2xl">👥</span>
           </div>
         </div>
@@ -29,7 +29,7 @@ export const StatsCards = ({ totalParticipants, avgSuccess }) => {
               {avgSuccess}%
             </p>
           </div>
-          <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+          <div className="w-12 h-12 bg-linear-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
             <span className="text-2xl">🎯</span>
           </div>
         </div>

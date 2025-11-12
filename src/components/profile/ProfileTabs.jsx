@@ -4,13 +4,11 @@ const tabs = [
   { id: "overview", label: "Tổng quan" },
   { id: "courses", label: "Khóa học" },
   { id: "badges", label: "Huy hiệu" },
-  { id: "activity", label: "Hoạt động" },
 ];
 
 export default function ProfileTabs({ activeTab, setActiveTab }) {
   const activeRef = useRef();
 
-  // Tự động cuộn đến tab đang chọn (nếu bị tràn ngang)
   useEffect(() => {
     activeRef.current?.scrollIntoView({ behavior: "smooth", inline: "center" });
   }, [activeTab]);

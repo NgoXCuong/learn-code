@@ -40,12 +40,12 @@ export default function CourseDetail() {
 
   return (
     <div
-      className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 
+      className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-50 
       dark:from-gray-800 dark:via-gray-900 dark:to-indigo-950 transition-colors duration-500"
     >
       <Header />
 
-      <main className="flex-grow w-full px-4 sm:px-6 md:px-14 lg:px-20 py-6">
+      <main className="grow w-full px-4 sm:px-6 md:px-14 lg:px-20 py-6">
         <Breadcrumb
           items={[
             { label: "Trang chủ", href: "/" },

@@ -46,7 +46,7 @@ export default function StreakCard() {
           <span className="text-2xl">🔥</span>
           Chuỗi ngày học trong năm 2025
         </h3>
-        <div className="px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-bold shadow-lg">
+        <div className="px-4 py-2 bg-linear-to-r from-orange-500 to-red-500 text-white rounded-xl font-bold shadow-lg">
           365 ngày
         </div>
       </div>

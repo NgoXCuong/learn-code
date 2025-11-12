@@ -189,7 +189,7 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
           {showAiHelp && (
             <div className="border border-blue-200 dark:border-blue-700 rounded-lg p-4 bg-blue-50 dark:bg-gray-800">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center shrink-0">
                   <Zap className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex-1">
@@ -201,15 +201,15 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
                   </p>
                   <ul className="text-base text-blue-900 dark:text-blue-100 space-y-2">
                     <li className="flex gap-2">
-                      <Star className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                      <Star className="w-4 h-4 shrink-0 mt-0.5" />
                       <span>Kiểm tra kỹ điều kiện biên (edge cases)</span>
                     </li>
                     <li className="flex gap-2">
-                      <Star className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                      <Star className="w-4 h-4 shrink-0 mt-0.5" />
                       <span>Rà soát logic vòng lặp</span>
                     </li>
                     <li className="flex gap-2">
-                      <Star className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                      <Star className="w-4 h-4 shrink-0 mt-0.5" />
                       <span>Thử debug với dữ liệu nhỏ</span>
                     </li>
                   </ul>
@@ -226,22 +226,15 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
             >
               Bắt đầu thử thách
             </button>
-            {/* <button
-              onClick={handleAttemptFailed}
-              className="px-6 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 font-semibold py-3 rounded-lg transition-all"
-            >
-              Simulate Failed Attempt
-            </button> */}
           </div>
 
           {/* Bình luận */}
-          <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+          {/* <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <MessageSquare className="w-5 h-5" />
               Bình luận ({comments.length})
             </h3>
 
-            {/* Ô nhập */}
             <div className="mb-6">
               <div className="flex gap-3">
                 <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
@@ -269,7 +262,6 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
               </div>
             </div>
 
-            {/* Danh sách bình luận */}
             <div className="space-y-4">
               {comments.map((comment) => (
                 <div
@@ -301,7 +293,7 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

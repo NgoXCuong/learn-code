@@ -3,6 +3,7 @@ export const mockLessons = [
   {
     id: 1,
     course_id: 1,
+    chap: "Giới thiệu cơ bản",
     title: "Giới thiệu về JavaScript",
     content: `
 JavaScript là một trong những ngôn ngữ lập trình phổ biến và quan trọng nhất trong thế giới công nghệ hiện nay. 
@@ -65,6 +66,7 @@ console.log("Bạn có thể chạy mã này trong Console của trình duyệt 
   {
     id: 2,
     course_id: 1,
+    chap: "Giới thiệu cơ bản",
     title: "Biến và Kiểu dữ liệu",
     content: `
 Biến là 'vùng chứa' được đặt tên để lưu trữ dữ liệu.
@@ -108,6 +110,7 @@ console.log(typeof age); // "number"
   {
     id: 3,
     course_id: 1,
+    chap: "Cấu trúc điều khiển",
     title: "Toán tử trong JavaScript",
     content: `
 Toán tử cho phép chúng ta thực hiện các phép tính và so sánh.
@@ -158,6 +161,7 @@ console.log(!isLoggedIn); // false
   {
     id: 4,
     course_id: 1,
+    chap: "Cấu trúc điều khiển",
     title: "Hàm (Functions)",
     content: `
 Hàm là một khối mã được thiết kế để thực hiện một tác vụ cụ thể. 
@@ -200,6 +204,7 @@ console.log("Tích là: " + multiply(6, 6));
   {
     id: 5,
     course_id: 1,
+    chap: "Nâng cao",
     title: "Tương tác với DOM",
     content: `
 DOM (Document Object Model) là cách mà trình duyệt biểu diễn cấu trúc của một trang HTML. Nó coi tài liệu HTML như một cây cấu trúc gồm các 'nút' (nodes).
@@ -247,6 +252,7 @@ buttonElement.addEventListener("click", function() {
   {
     id: 6,
     course_id: 2,
+    chap: "Giới thiêu cơ bản",
     title: "Làm quen với Python",
     content: `
 Python là ngôn ngữ lập trình bậc cao, thông dịch, nổi tiếng với cú pháp rõ ràng, dễ đọc.
@@ -275,6 +281,7 @@ print(f"Chào mừng bạn đến với {name} {version}") # f-string (cách đ�
   {
     id: 7,
     course_id: 2,
+    chap: "Cấu trúc điều kiển",
     title: "Cấu trúc điều kiện và vòng lặp",
     content: `
 Để kiểm soát luồng chương trình, ta dùng:
@@ -324,6 +331,7 @@ while count < 3:
   {
     id: 8,
     course_id: 2,
+    chap: "Cấu trúc điều kiển",
     title: "Cấu trúc dữ liệu: List",
     content: `
 List (danh sách) là một cấu trúc dữ liệu cơ bản và mạnh mẽ trong Python.
@@ -374,6 +382,7 @@ print(f"Độ dài list: {len(numbers)}")
   {
     id: 9,
     course_id: 2,
+    chap: "Kiến thức nâng cao",
     title: "Hàm (Functions) trong Python",
     content: `
 Hàm (function) là khối mã có thể tái sử dụng, được định nghĩa bằng từ khóa 'def'.
@@ -420,6 +429,7 @@ greet_person_default("Hoa") # Dùng giá trị được truyền vào
   {
     id: 10,
     course_id: 2,
+    chap: "Cấu trúc điều kiển",
     title: "Đọc và Ghi File",
     content: `
 Làm việc với file là một tác vụ phổ biến. Python cung cấp hàm 'open()' để xử lý file.
@@ -469,6 +479,7 @@ with open("greeting.txt", "r", encoding="utf-8") as f:
   {
     id: 11,
     course_id: 3,
+    chap: "Giới thiệu cơ bản",
     title: "Chương trình C++ đầu tiên",
     content: `
 C++ là ngôn ngữ lập trình mạnh mẽ, hướng đối tượng, được phát triển từ C.
@@ -508,6 +519,7 @@ int main() {
   {
     id: 12,
     course_id: 3,
+    chap: "Giới thiệu cơ bản",
     title: "Biến và Toán tử trong C++",
     content: `
 C++ là ngôn ngữ 'kiểu tĩnh' (statically typed), nghĩa là bạn phải khai báo kiểu dữ liệu của biến trước khi sử dụng.
@@ -558,8 +570,9 @@ int main() {
   },
   {
     id: 13,
-    course_id: 13, // ID này có vẻ sai, tôi sẽ giả định nó là 3
     course_id: 3,
+    course_id: 3,
+    chap: "Giới thiệu cơ bản",
     title: "Nhập dữ liệu từ bàn phím",
     content: `
 Chúng ta sử dụng 'cin' (Character Input) từ thư viện 'iostream' để nhận đầu vào từ người dùng qua bàn phím.
@@ -604,6 +617,7 @@ int main() {
   {
     id: 14,
     course_id: 3,
+    chap: "Cấu trúc",
     title: "Câu lệnh điều kiện If-Else",
     content: `
 Câu lệnh 'if' cho phép chương trình rẽ nhánh, thực thi các khối mã khác nhau dựa trên một điều kiện logic (đúng hoặc sai).

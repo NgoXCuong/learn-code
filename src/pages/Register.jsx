@@ -76,7 +76,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-cyan-50 flex items-center justify-center p-4 relative">
+    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-cyan-50 flex items-center justify-center p-4 relative">
       <div className="w-full max-w-md relative">
         <Card className="p-8 bg-white/80 backdrop-blur-sm border-0 shadow-2xl">
           <div className="text-center mb-8 relative">
@@ -86,7 +86,7 @@ const Register = () => {
             >
               <ArrowLeft className="w-4 h-4 mr-1" />
             </button>
-            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-linear-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <UserPlus className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Đăng ký</h1>
@@ -227,13 +227,15 @@ const Register = () => {
               </Label>
             </div>
             {errors.agree && (
-              <p className="text-red-500 text-base">Bạn cần đồng ý điều khoản</p>
+              <p className="text-red-500 text-base">
+                Bạn cần đồng ý điều khoản
+              </p>
             )}
 
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-12 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="w-full h-12 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               {isLoading ? (
                 <div className="flex items-center space-x-2">
