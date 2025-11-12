@@ -2,7 +2,9 @@ import React, { useState, useContext } from "react";
 import { Star, Users, Clock, BookOpen, Heart } from "lucide-react";
 import { UserCoursesContext } from "@/context/UserCoursesContext";
 import { ThemeContext } from "@/context/ThemeContext";
+import { AuthContext } from "@/context/AuthContext";
 import { Progress } from "@/components/ui/progress";
+import { useNavigate } from "react-router-dom";
 
 export default function CourseCard({
   course,
@@ -13,6 +15,8 @@ export default function CourseCard({
   const [isHovered, setIsHovered] = useState(false);
   const { addFavorite, removeFavorite, isFavorite } =
     useContext(UserCoursesContext);
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const { theme } = useContext(ThemeContext) || { theme: "light" };
   const darkMode = theme === "dark";
@@ -83,16 +87,26 @@ export default function CourseCard({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                onEnroll(course.id);
+                if (!user) {
+                  navigate("/login");
+                } else {
+                  onEnroll(course.id);
+                }
               }}
               className={`px-6 py-2 font-semibold rounded-full shadow-lg transition-all duration-200 hover:scale-105
       ${
-        course.progress === 0
+        !user
+          ? "bg-orange-600 text-white hover:bg-orange-700" // Đăng nhập để bắt đầu
+          : course.progress === 0
           ? "bg-blue-600 text-white hover:bg-blue-700" // Trạng thái: Bắt đầu học
           : "bg-purple-600 text-white hover:bg-purple-700" // Trạng thái: Tiếp tục học
       }`}
             >
-              {course.progress === 0 ? "Bắt đầu học" : "Tiếp tục học"}
+              {!user
+                ? "Đăng nhập để bắt đầu"
+                : course.progress === 0
+                ? "Bắt đầu học"
+                : "Tiếp tục học"}
             </button>
           </div>
         )}

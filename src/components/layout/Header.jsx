@@ -3,25 +3,21 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
 import { HeartPulse, Menu, X, ChevronDown } from "lucide-react";
 import { ThemeContext } from "@/context/ThemeContext";
+import { AuthContext } from "@/context/AuthContext";
 import DarkModeToggle from "./DarkModeToggle";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { theme } = useContext(ThemeContext);
+  const { user, logout } = useContext(AuthContext);
 
-  const [user, setUser] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const menuRef = useRef(null);
   const mobileRef = useRef(null);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) setUser(JSON.parse(storedUser));
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,8 +39,7 @@ const Header = () => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+    logout();
     setMobileOpen(false);
     setMenuOpen(false);
     toast.success("Đã đăng xuất thành công!");

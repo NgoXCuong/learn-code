@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "@/components/layout/Header";
 import HeroSection from "@/components/home/HeroSection";
-import FeatureSection from "@/components/home/FeatureSection";
+// import FeatureSection from "@/components/home/FeatureSection";
 import Footer from "@/components/layout/Footer";
 
 const Home = () => {
@@ -38,7 +38,7 @@ const Home = () => {
       <main className="grow overflow-hidden relative z-10">
         <section className="relative">
           <HeroSection />
-          <FeatureSection />
+          {/* <FeatureSection /> */}
         </section>
       </main>
       <Footer />

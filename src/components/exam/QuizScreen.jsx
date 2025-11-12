@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   CheckCircle,
   ChevronLeft,
@@ -11,6 +11,9 @@ import {
   Trophy,
   FileText,
 } from "lucide-react";
+import { AuthContext } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 import ResultsScreen from "./ResultsScreen";
 
 export default function QuizScreen({
@@ -28,6 +31,9 @@ export default function QuizScreen({
   isReviewMode = false,
   timeLimit = 3600,
 }) {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [showExitModal, setShowExitModal] = useState(false);
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false);
   const [showResultsModal, setShowResultsModal] = useState(false);
@@ -69,6 +75,12 @@ export default function QuizScreen({
   };
 
   const handleSubmitClick = () => {
+    if (!user) {
+      toast.error("Vui lòng đăng nhập để nộp bài!");
+      navigate("/login");
+      return;
+    }
+
     if (unansweredCount > 0) {
       setShowSubmitConfirm(true);
     } else {
@@ -532,6 +544,18 @@ const ExitModal = ({ show, close, answeredCount, total, confirm }) => {
 };
 
 const SubmitConfirmModal = ({ show, unansweredCount, close, confirm }) => {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleConfirm = () => {
+    if (!user) {
+      toast.error("Vui lòng đăng nhập để nộp bài!");
+      navigate("/login");
+      return;
+    }
+    confirm();
+  };
+
   if (!show) return null;
   return (
     <div className="fixed inset-0 flex items-center justify-center p-4 bg-black bg-opacity-50 z-50 animate-fadeIn">
@@ -555,7 +579,7 @@ const SubmitConfirmModal = ({ show, unansweredCount, close, confirm }) => {
             Quay lại
           </button>
           <button
-            onClick={confirm}
+            onClick={handleConfirm}
             className="flex-1 py-3 bg-green-500  text-white rounded-lg font-semibold hover:bg-green-600 transition-all"
           >
             Nộp bài

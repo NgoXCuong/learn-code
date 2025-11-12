@@ -6,6 +6,7 @@ import CodeEditor from "@/components/compiler/CodeEditor";
 import Output from "@/components/compiler/Output";
 import EmotionAnalysis from "@/components/compiler/EmotionAnalysis";
 import { ThemeContext } from "@/context/ThemeContext";
+import { AuthContext } from "@/context/AuthContext";
 import { mockCourses } from "@/mock/courses";
 import { mockLessons } from "@/mock/lessons";
 import { mockExercises } from "@/mock/exercises";
@@ -22,6 +23,7 @@ export default function Compiler() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const { theme } = useContext(ThemeContext);
+  const { user } = useContext(AuthContext);
   const isDark = theme === "dark";
   const containerRef = useRef(null);
 
@@ -175,6 +177,14 @@ export default function Compiler() {
 
   const handleSubmit = async () => {
     if (!currentExercise) return;
+
+    // Check authentication for challenges and exams
+    if ((challengeId || isExam) && !user) {
+      toast.error("Vui lòng đăng nhập để nộp bài!");
+      navigate("/login");
+      return;
+    }
+
     try {
       toast.info("Đang nộp bài... ⏳");
       const res = await submitExercise({

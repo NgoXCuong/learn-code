@@ -124,18 +124,6 @@ const HeroSection = () => {
               </div>
             ))}
           </div>
-
-          {/* Row 2 - Moving left */}
-          <div className="flex gap-3 sm:gap-4 animate-marquee-reverse">
-            {[...languages, ...languages, ...languages].map((lang, i) => (
-              <div
-                key={`row2-${i}`}
-                className={`shrink-0 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-linear-to-r ${lang.color} text-white font-bold shadow-lg text-base sm:text-lg backdrop-blur-sm`}
-              >
-                {lang.name}
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     </section>
