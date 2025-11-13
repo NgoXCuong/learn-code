@@ -4,6 +4,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { ThemeContext } from "@/context/ThemeContext";
+import { ProgressContext } from "@/context/ProgressContext";
 import { mockLessons } from "@/mock/lessons";
 import { mockCourses } from "@/mock/courses";
 import { mockExercises } from "@/mock/exercises";
@@ -15,6 +16,7 @@ import LessonNavigation from "@/components/lessons/LessonNavigation";
 export default function LessonPage() {
   const { courseId, lessonId } = useParams();
   const { theme } = useContext(ThemeContext);
+  const { isExerciseCompleted } = useContext(ProgressContext);
   const isDark = theme === "dark";
   const navigate = useNavigate();
 
@@ -63,8 +65,8 @@ export default function LessonPage() {
   }
 
   // Tính toán progress và navigation
-  const completedExercises = exercises.filter(
-    (ex) => ex.status === "completed"
+  const completedExercises = exercises.filter((ex) =>
+    isExerciseCompleted(ex.id)
   ).length;
   const totalExercises = exercises.length;
   const progressPercent = totalExercises

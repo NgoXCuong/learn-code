@@ -7,6 +7,7 @@ import Output from "@/components/compiler/Output";
 import EmotionAnalysis from "@/components/compiler/EmotionAnalysis";
 import { ThemeContext } from "@/context/ThemeContext";
 import { AuthContext } from "@/context/AuthContext";
+import { ProgressContext } from "@/context/ProgressContext";
 import { mockCourses } from "@/mock/courses";
 import { mockLessons } from "@/mock/lessons";
 import { mockExercises } from "@/mock/exercises";
@@ -24,6 +25,7 @@ export default function Compiler() {
   const { state } = useLocation();
   const { theme } = useContext(ThemeContext);
   const { user } = useContext(AuthContext);
+  const { markExerciseAsCompleted } = useContext(ProgressContext);
   const isDark = theme === "dark";
   const containerRef = useRef(null);
 
@@ -191,6 +193,12 @@ export default function Compiler() {
         exerciseId: currentExercise.id,
         code: currentCode,
       });
+
+      // Mark exercise as completed if it passed
+      if (res.passed && courseId && lessonId) {
+        markExerciseAsCompleted(currentExercise.id, lessonId, courseId);
+      }
+
       toast.success("Nộp bài thành công 🎉");
 
       if (isExam) {

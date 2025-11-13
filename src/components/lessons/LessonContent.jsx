@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ProgressContext } from "@/context/ProgressContext";
+import { CheckCircle2 } from "lucide-react";
 import LessonCode from "./LessonCode";
 
 export default function LessonContent({ lesson, isDark }) {
+  const { isLessonRead, markLessonAsRead } = useContext(ProgressContext);
   // Function to parse content with embedded code blocks
   const parseContent = (content) => {
     const parts = [];
@@ -82,6 +85,35 @@ export default function LessonContent({ lesson, isDark }) {
           <LessonCode code={lesson.example_code} language={lesson.language} />
         </div>
       )}
+
+      {/* Mark as Read Button */}
+      <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-center">
+          <button
+            onClick={() => markLessonAsRead(lesson.id)}
+            disabled={isLessonRead(lesson.id)}
+            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
+              isLessonRead(lesson.id)
+                ? "bg-green-100 text-green-700 cursor-not-allowed dark:bg-green-900/30 dark:text-green-400"
+                : "bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg"
+            }`}
+          >
+            <CheckCircle2
+              className={`w-5 h-5 ${
+                isLessonRead(lesson.id)
+                  ? "text-green-600 dark:text-green-400"
+                  : "text-white"
+              }`}
+            />
+            {isLessonRead(lesson.id) ? "Đã đọc bài học" : "Đánh dấu đã đọc"}
+          </button>
+        </div>
+        {isLessonRead(lesson.id) && (
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-2">
+            Bạn đã hoàn thành bài học này!
+          </p>
+        )}
+      </div>
     </div>
   );
 }

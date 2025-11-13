@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff, Mail, Lock, LogIn, ArrowLeft } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
+import { AuthContext } from "@/context/AuthContext";
 
 // Mock database
 let mockUsers = [
@@ -29,6 +30,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { login } = useContext(AuthContext);
 
   const {
     register,
@@ -46,15 +48,12 @@ const Login = () => {
       );
 
       if (user) {
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            id: user.id,
-            name: user.username,
-            email: user.email,
-            loginTime: new Date().toISOString(),
-          })
-        );
+        login({
+          id: user.id,
+          name: user.username,
+          email: user.email,
+          loginTime: new Date().toISOString(),
+        });
 
         toast.success(`Chào mừng ${user.username}!`, { duration: 2000 });
         setTimeout(() => navigate("/"), 1500);

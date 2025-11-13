@@ -43,10 +43,11 @@ export default function HeaderSection({
         >
           <TabsList
             className="
-              grid grid-cols-3 lg:flex 
-              bg-muted/50 dark:bg-gray-700 
-              rounded-xl px-1.5 py-1.5
-            "
+    grid grid-cols-3 lg:flex 
+    bg-gray-100 dark:bg-gray-800/60
+    rounded-xl p-1.5
+    shadow-inner border border-gray-200 dark:border-gray-700
+  "
           >
             {TIMEFRAMES.map((t) => {
               const Icon = t.icon;
@@ -55,12 +56,18 @@ export default function HeaderSection({
                   key={t.id}
                   value={t.id}
                   className="
-                    flex items-center gap-2 rounded-xl px-4 py-4
-                    data-[state=active]:bg-indigo-500
-                    data-[state=active]:text-white
-                    dark:data-[state=active]:bg-indigo-600
-                    dark:text-gray-200
-                  "
+          flex items-center gap-2 justify-center
+          px-4 py-3 md:px-5 md:py-3.5 rounded-lg font-medium
+          transition-all duration-200
+          text-gray-600 dark:text-gray-300
+          hover:bg-blue-100 dark:hover:bg-blue-800/40
+          data-[state=active]:bg-linear-to-r
+          data-[state=active]:from-blue-500 data-[state=active]:to-cyan-500
+          data-[state=active]:text-white
+          data-[state=active]:shadow-md
+          data-[state=active]:scale-[1.03]
+          data-[state=active]:border-transparent
+        "
                 >
                   <Icon className="w-4 h-4" />
                   {t.label}
@@ -91,6 +98,7 @@ export default function HeaderSection({
                 bg-white dark:bg-gray-800
                 border-gray-300 dark:border-gray-700
                 text-gray-900 dark:text-gray-200
+                font-medium
               "
             >
               <SelectValue placeholder="Chọn khóa học" />
@@ -109,7 +117,7 @@ export default function HeaderSection({
             </SelectContent>
           </Select>
 
-          {/* Search Input đưa sang cạnh Lọc */}
+          {/* Search Input */}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-300 w-5 h-5" />
             <Input

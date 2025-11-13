@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HomeScreen from "@/components/exam/HomeScreen";
 import QuizScreen from "@/components/exam/QuizScreen";
-import ResultsScreen from "@/components/exam/ResultsScreen";
+// import ResultsScreen from "@/components/exam/ResultsScreen";
 import ExercisesScreen from "@/components/exam/ExercisesScreen";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -112,16 +112,16 @@ export default function CodeLearnPlatform() {
             timeLimit={TIME_LIMIT}
           />
         );
-      case "results":
-        return (
-          <ResultsScreen
-            questions={questions}
-            answers={answers}
-            timeSpent={timeSpent}
-            onReview={reviewAnswers}
-            onGoHome={goHome}
-          />
-        );
+      // case "results":
+      //   return (
+      //     <ResultsScreen
+      //       questions={questions}
+      //       answers={answers}
+      //       timeSpent={timeSpent}
+      //       onReview={reviewAnswers}
+      //       onGoHome={goHome}
+      //     />
+      //   );
       case "exercises":
         return (
           <ExercisesScreen

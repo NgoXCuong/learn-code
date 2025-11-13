@@ -12,8 +12,17 @@ export function useQuizTimer(isActive, onTick) {
       }
     };
 
-    // Listen for stop timer event
+    const handleResetTimer = () => {
+      setTime(0);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+
+    // Listen for timer events
     window.addEventListener("stopTimer", handleStopTimer);
+    window.addEventListener("resetTimer", handleResetTimer);
 
     if (isActive) {
       intervalRef.current = window.setInterval(() => {
@@ -32,6 +41,7 @@ export function useQuizTimer(isActive, onTick) {
 
     return () => {
       window.removeEventListener("stopTimer", handleStopTimer);
+      window.removeEventListener("resetTimer", handleResetTimer);
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;

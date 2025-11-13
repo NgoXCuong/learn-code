@@ -35,7 +35,7 @@ export const DailyQuestsPanel = ({ quests }) => {
                   </p>
                 </div>
                 {quest.completed && (
-                  <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" />
                 )}
               </div>
 

@@ -23,14 +23,9 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (username, password) => {
-    // Fake login
-    const fakeUser = {
-      id: 1,
-      username: username,
-      email: `${username}@example.com`,
-    };
-    setUser(fakeUser);
+  const login = (userData) => {
+    setUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const logout = () => {

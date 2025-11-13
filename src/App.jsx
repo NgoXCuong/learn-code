@@ -12,6 +12,7 @@ import ChallengesPage from "@/pages/ChallengesPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { UserCoursesProvider } from "@/context/UserCoursesContext";
+import { ProgressProvider } from "@/context/ProgressContext";
 import Chatbot from "@/components/layout/Chatbot";
 import CodeLearnPlatform from "@/pages/CodeLearnPlatform";
 import Rankings from "@/pages/Rankings";
@@ -19,61 +20,63 @@ import CompilerPage from "@/pages/CompilerPage";
 
 const App = () => {
   return (
-    <UserCoursesProvider>
-      <div className="App min-h-screen bg-linear-to-br from-slate-50 to-blue-50">
-        {/* Toaster đặt ở đây để toàn app đều có thể dùng toast */}
-        <Toaster richColors position="top-center" reverseOrder={false} />
+    <ProgressProvider>
+      <UserCoursesProvider>
+        <div className="App min-h-screen bg-linear-to-br from-slate-50 to-blue-50">
+          {/* Toaster đặt ở đây để toàn app đều có thể dùng toast */}
+          <Toaster richColors position="top-center" reverseOrder={false} />
 
-        <BrowserRouter>
-          <Routes>
-            {/* Auth */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+          <BrowserRouter>
+            <Routes>
+              {/* Auth */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
-            {/* Home / Courses */}
-            <Route path="/" element={<Home />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/courses/:id" element={<CourseDetail />} />
+              {/* Home / Courses */}
+              <Route path="/" element={<Home />} />
+              <Route path="/courses" element={<Courses />} />
+              <Route path="/courses/:id" element={<CourseDetail />} />
 
-            <Route path="/exam" element={<CodeLearnPlatform />} />
-            <Route path="/exam/:exerciseId/compiler" element={<Compiler />} />
-            <Route path="/exam/:examId/feedback" element={<Feedback />} />
+              <Route path="/exam" element={<CodeLearnPlatform />} />
+              <Route path="/exam/:exerciseId/compiler" element={<Compiler />} />
+              <Route path="/exam/:examId/feedback" element={<Feedback />} />
 
-            <Route
-              path="/courses/:courseId/lessons/:lessonId"
-              element={<LessonPage />}
-            />
-            <Route
-              path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId"
-              element={<Compiler />}
-            />
+              <Route
+                path="/courses/:courseId/lessons/:lessonId"
+                element={<LessonPage />}
+              />
+              <Route
+                path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId"
+                element={<Compiler />}
+              />
 
-            {/* Compiler trực tiếp từ trang chủ */}
-            <Route path="/compiler" element={<CompilerPage />} />
+              {/* Compiler trực tiếp từ trang chủ */}
+              <Route path="/compiler" element={<CompilerPage />} />
 
-            <Route
-              path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId/feedback"
-              element={<Feedback />}
-            />
+              <Route
+                path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId/feedback"
+                element={<Feedback />}
+              />
 
-            <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/profile" element={<ProfilePage />} />
 
-            <Route path="/challenges" element={<ChallengesPage />} />
-            <Route
-              path="/challenges/:challengeId/compiler"
-              element={<Compiler />}
-            />
-            <Route
-              path="/challenges/:challengeId/feedback"
-              element={<Feedback />}
-            />
+              <Route path="/challenges" element={<ChallengesPage />} />
+              <Route
+                path="/challenges/:challengeId/compiler"
+                element={<Compiler />}
+              />
+              <Route
+                path="/challenges/:challengeId/feedback"
+                element={<Feedback />}
+              />
 
-            <Route path="/ranks" element={<Rankings />} />
-          </Routes>
-        </BrowserRouter>
-        <Chatbot />
-      </div>
-    </UserCoursesProvider>
+              <Route path="/ranks" element={<Rankings />} />
+            </Routes>
+          </BrowserRouter>
+          <Chatbot />
+        </div>
+      </UserCoursesProvider>
+    </ProgressProvider>
   );
 };
 

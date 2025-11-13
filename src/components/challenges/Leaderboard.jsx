@@ -56,7 +56,7 @@ function LeaderboardRow({ user, currentUser, rank }) {
       className={`flex items-center justify-between p-4 rounded-xl transition-all duration-300
         ${
           isCurrentUser
-            ? "bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/40 border-2 border-blue-400 dark:border-blue-600 shadow-md"
+            ? "bg-linear-to-r from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/40 border-2 border-blue-400 dark:border-blue-600 shadow-md"
             : "bg-gray-50 dark:bg-gray-700/40 border border-gray-200 dark:border-gray-600 hover:border-blue-300 dark:hover:border-blue-500 hover:shadow-md"
         }`}
     >
@@ -143,7 +143,7 @@ export default function Leaderboard({ leaderboard, currentUser }) {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
+        <div className="h-px bg-linear-to-r from-transparent via-gray-300 dark:via-gray-600 to-transparent" />
 
         {/* Others Section */}
         {others.length > 0 && (

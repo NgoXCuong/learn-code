@@ -1,25 +1,28 @@
 import React from "react";
+import { Users, Target } from "lucide-react";
 
 export const StatsCards = ({ totalParticipants, avgSuccess }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-md border border-gray-100 dark:border-gray-700">
+      {/* Tổng người tham gia */}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-md border border-gray-100 dark:border-gray-700 transition-all hover:shadow-lg">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
               Tổng người tham gia
             </p>
-            <p className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
               {totalParticipants.toLocaleString()}
             </p>
           </div>
-          <div className="w-12 h-12 bg-linear-to-br from-indigo-500 to-blue-500 rounded-lg flex items-center justify-center">
-            <span className="text-2xl">👥</span>
+          <div className="w-12 h-12 bg-linear-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center text-white">
+            <Users className="w-6 h-6" />
           </div>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-md border border-gray-100 dark:border-gray-700">
+      {/* Tỷ lệ thành công TB */}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-md border border-gray-100 dark:border-gray-700 transition-all hover:shadow-lg">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
@@ -29,8 +32,8 @@ export const StatsCards = ({ totalParticipants, avgSuccess }) => {
               {avgSuccess}%
             </p>
           </div>
-          <div className="w-12 h-12 bg-linear-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-            <span className="text-2xl">🎯</span>
+          <div className="w-12 h-12 bg-linear-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center text-white">
+            <Target className="w-6 h-6" />
           </div>
         </div>
       </div>

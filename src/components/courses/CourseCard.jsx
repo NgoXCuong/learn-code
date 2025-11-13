@@ -161,7 +161,8 @@ export default function CourseCard({
           </div>
 
           <div className="flex items-center gap-1 md:justify-center">
-            <Users className="w-4 h-4" /> {course.students.toLocaleString()} HV
+            <Users className="w-4 h-4" /> {course.students.toLocaleString()} học
+            viên
           </div>
 
           <div className="flex items-center gap-1 justify-end">
@@ -171,19 +172,22 @@ export default function CourseCard({
         </div>
 
         {/* Thanh tiến độ (ShadCN) */}
-        <div className="mt-3 space-y-1">
-          <div className="text-gray-500 dark:text-white flex justify-between text-base font-medium">
-            <span className={getProgressStatus(course.progress).color}>
-              {getProgressStatus(course.progress).text}
-            </span>
-            <span>{course.progress}%</span>
-          </div>
+        {/* Thanh tiến độ (ShadCN) */}
+        {course.progress > 0 && (
+          <div className="mt-3 space-y-1">
+            <div className="text-gray-500 dark:text-white flex justify-between text-base font-medium">
+              <span className={getProgressStatus(course.progress).color}>
+                {getProgressStatus(course.progress).text}
+              </span>
+              <span>{course.progress}%</span>
+            </div>
 
-          <Progress
-            value={course.progress}
-            className="h-2 bg-gray-200 dark:bg-gray-700 [&>div]:bg-linear-to-r [&>div]:from-blue-500 [&>div]:via-purple-500 [&>div]:to-pink-500 transition-all"
-          />
-        </div>
+            <Progress
+              value={course.progress}
+              className="h-2 bg-gray-200 dark:bg-gray-700 [&>div]:bg-green-500 transition-all"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
