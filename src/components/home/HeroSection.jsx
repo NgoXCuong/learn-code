@@ -1,10 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { BookOpen, Code, Sparkles } from "lucide-react";
-import bookIcon from "../../assets/closed-book.svg";
-import laptopIcon from "../../assets/laptop-icon.svg";
-import rocketIcon from "../../assets/rocket-icon.svg";
+import { BookOpen, Code, Sparkles, Zap } from "lucide-react";
+import { ThemeContext } from "@/context/ThemeContext";
 
 const languages = [
   { name: "Java", color: "from-orange-400 to-red-500" },
@@ -16,109 +13,525 @@ const languages = [
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { theme } = useContext(ThemeContext);
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 50;
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2 + 1,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5,
+        color:
+          theme === "dark"
+            ? Math.random() > 0.5
+              ? "rgba(168, 85, 247, 0.6)"
+              : "rgba(34, 211, 238, 0.6)"
+            : Math.random() > 0.5
+            ? "rgba(147, 51, 234, 0.4)"
+            : "rgba(6, 182, 212, 0.4)",
+      });
+    }
+
+    function animate() {
+      ctx.fillStyle =
+        theme === "dark"
+          ? "rgba(15, 23, 42, 0.05)"
+          : "rgba(248, 250, 252, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle) => {
+        ctx.fillStyle = particle.color;
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = particle.color;
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
+        if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [theme]);
 
   return (
-    <section className="relative overflow-hidden py-12 px-4 sm:py-26 md:py-20 lg:py-24 min-h-[85vh] flex items-center">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-linear-to-br from-indigo-50/50 via-purple-50/30 to-teal-50/50 dark:from-gray-900 dark:via-indigo-950/20 dark:to-purple-950/20"></div>
+    <section
+      className={`relative overflow-hidden h-screen flex items-center transition-colors duration-500 ${
+        theme === "dark" ? "bg-slate-950" : "bg-slate-50"
+      }`}
+    >
+      {/* Animated particles background */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 pointer-events-none opacity-40"
+      />
 
-      {/* Animated background elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Book icon with glow - Left side */}
-        <div className="absolute top-1/4 left-8 sm:left-16 lg:left-32 transform -translate-y-1/2">
-          <div className="absolute inset-0 bg-indigo-500/20 blur-[80px] rounded-full animate-pulse"></div>
-          <img
-            src={bookIcon}
-            alt="Book"
-            className="hidden md:block relative w-40 lg:w-56 opacity-70 animate-float"
-            style={{ animationDuration: "6s" }}
-          />
-        </div>
+      {/* Gradient overlays */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-500 ${
+          theme === "dark"
+            ? "bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 opacity-100"
+            : "bg-linear-to-br from-slate-50 via-white to-slate-100 opacity-100"
+        }`}
+      ></div>
 
-        {/* Laptop icon with glow - Right side */}
-        <div className="absolute top-1/3 right-8 sm:right-16 lg:right-32 transform -translate-y-1/2">
-          <div
-            className="absolute inset-0 bg-purple-500/20 blur-[80px] rounded-full animate-pulse"
-            style={{ animationDelay: "1s" }}
-          ></div>
-          <img
-            src={laptopIcon}
-            alt="Laptop"
-            className="hidden md:block relative w-40 lg:w-56 opacity-70 animate-float"
-            style={{ animationDuration: "7s", animationDelay: "0.5s" }}
-          />
-        </div>
+      {/* Neon glow effects */}
+      <div
+        className={`absolute top-20 left-1/4 w-96 h-96 rounded-full blur-[120px] animate-pulse transition-opacity duration-500 ${
+          theme === "dark" ? "bg-purple-600/20" : "bg-purple-400/10"
+        }`}
+      ></div>
+      <div
+        className={`absolute bottom-40 right-1/4 w-96 h-96 rounded-full blur-[120px] animate-pulse transition-opacity duration-500 ${
+          theme === "dark" ? "bg-cyan-500/20" : "bg-cyan-400/10"
+        }`}
+        style={{ animationDelay: "1s" }}
+      ></div>
 
-        {/* Decorative circles */}
-        <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-indigo-300/10 dark:bg-indigo-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/3 w-80 h-80 bg-purple-300/10 dark:bg-purple-500/10 rounded-full blur-3xl"></div>
-      </div>
+      {/* Grid pattern */}
+      <div
+        className={`absolute inset-0 bg-size-[100px_100px] mask-[radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)] transition-opacity duration-500 ${
+          theme === "dark"
+            ? "bg-[linear-gradient(rgba(168,85,247,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.03)_1px,transparent_1px)]"
+            : "bg-[linear-gradient(rgba(147,51,234,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.06)_1px,transparent_1px)]"
+        }`}
+      ></div>
 
-      {/* Main content */}
-      <div className="max-w-6xl mx-auto text-center relative z-10 w-full">
-        {/* Heading */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[1.1] mb-6 sm:mb-8">
-          <span
-            className="block text-gray-900 dark:text-white opacity-0 animate-fadeIn"
-            style={{ animationDelay: "0.2s" }}
-          >
-            Học lập trình
-          </span>
-          <span
-            className="block bg-linear-to-r from-indigo-600 via-purple-600 to-teal-500 bg-clip-text text-transparent opacity-0 animate-fadeIn mt-2"
-            style={{ animationDelay: "0.4s" }}
-          >
-            với AI thông minh
-          </span>
-        </h1>
+      {/* Main content container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left side - Text content */}
+          <div className="text-center lg:text-left">
+            {/* Heading */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">
+              <span
+                className={`block mb-3 transition-all duration-300 ${
+                  theme === "dark"
+                    ? "text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+                    : "text-slate-900 drop-shadow-[0_0_20px_rgba(0,0,0,0.1)]"
+                }`}
+              >
+                Học lập trình
+              </span>
+              <span
+                className={`block bg-linear-to-r bg-clip-text text-transparent transition-all duration-300 ${
+                  theme === "dark"
+                    ? "from-purple-400 via-pink-400 to-cyan-400 drop-shadow-[0_0_50px_rgba(168,85,247,0.5)]"
+                    : "from-purple-600 via-pink-500 to-cyan-600"
+                }`}
+              >
+                với AI thông minh
+              </span>
+            </h1>
 
-        {/* Description */}
-        <p
-          className="text-lg sm:text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-10 sm:mb-12 max-w-3xl mx-auto leading-relaxed opacity-0 animate-fadeIn font-medium"
-          style={{ animationDelay: "0.6s" }}
-        >
-          Nền tảng học lập trình hiện đại với AI dự đoán cảm xúc real-time,
-          <br className="hidden sm:block" />
-          giúp bạn học code hiệu quả và thú vị hơn bao giờ hết.
-        </p>
+            {/* Description */}
+            <p
+              className={`text-lg sm:text-xl mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed transition-colors duration-300 ${
+                theme === "dark" ? "text-slate-300" : "text-slate-700"
+              }`}
+            >
+              Nền tảng học lập trình hiện đại với AI dự đoán cảm xúc real-time,
+              <br className="hidden sm:block" />
+              <span
+                className={
+                  theme === "dark"
+                    ? "text-cyan-300 font-medium"
+                    : "text-cyan-700 font-semibold"
+                }
+              >
+                giúp bạn học code hiệu quả và thú vị hơn bao giờ hết
+              </span>
+            </p>
 
-        {/* CTA Buttons */}
-        <div
-          className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16 sm:mb-20 opacity-0 animate-fadeIn"
-          style={{ animationDelay: "0.8s" }}
-        >
-          <Button
-            onClick={() => navigate("/courses")}
-            className="w-full sm:w-auto bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-10 py-7 rounded-2xl text-lg font-bold transition-all duration-300 shadow-2xl shadow-indigo-500/30 hover:shadow-indigo-500/50 transform hover:-translate-y-1 hover:scale-105"
-          >
-            <BookOpen className="w-6 h-6 mr-3" />
-            Bắt đầu học ngay
-          </Button>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 mb-12">
+              <button
+                onClick={() => navigate("/courses")}
+                className={`group relative w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-base overflow-hidden transition-all duration-300 hover:scale-105 active:scale-100 ${
+                  theme === "dark"
+                    ? "bg-linear-to-r from-purple-600 to-cyan-600 text-white hover:shadow-[0_0_30px_rgba(168,85,247,0.6)]"
+                    : "bg-linear-to-r from-purple-600 to-cyan-600 text-white hover:shadow-[0_0_30px_rgba(147,51,234,0.5)]"
+                }`}
+              >
+                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                <span className="relative flex items-center justify-center gap-2">
+                  <BookOpen className="w-5 h-5" />
+                  Bắt đầu học ngay
+                </span>
+              </button>
 
-          <Button
-            onClick={() => navigate("/compiler")}
-            variant="outline"
-            className="w-full sm:w-auto bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-indigo-400 dark:hover:border-indigo-500 px-10 py-7 rounded-2xl text-lg font-bold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-          >
-            <Code className="w-6 h-6 mr-3" />
-            Thử compiler
-          </Button>
-        </div>
-
-        {/* Language tags - Marquee effect */}
-        <div className="relative w-full overflow-hidden select-none">
-          {/* Fade edges */}
-          <div className="absolute inset-0 z-10 pointer-events-none">
-            <div className="absolute left-0 top-0 w-24 sm:w-40 h-full bg-linear-to-r from-white dark:from-gray-900 to-transparent"></div>
-            <div className="absolute right-0 top-0 w-24 sm:w-40 h-full bg-linear-to-l from-white dark:from-gray-900 to-transparent"></div>
+              <button
+                onClick={() => navigate("/compiler")}
+                className={`group relative w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-base overflow-hidden transition-all duration-300 active:scale-95 ${
+                  theme === "dark"
+                    ? "bg-slate-800/50 backdrop-blur-sm border-2 border-purple-500/30 text-slate-200 hover:border-cyan-400/60 hover:bg-slate-800/70 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]"
+                    : "bg-white/70 backdrop-blur-sm border-2 border-purple-300 text-slate-700 hover:border-cyan-500 hover:bg-white hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]"
+                }`}
+              >
+                <span className="relative flex items-center justify-center gap-2">
+                  <Code className="w-5 h-5" />
+                  Thử compiler
+                </span>
+              </button>
+            </div>
           </div>
 
-          {/* Row 1 - Moving right */}
-          <div className="flex gap-3 sm:gap-4 mb-4 animate-marquee">
+          {/* Right side - Code display */}
+          <div className="hidden lg:flex justify-center items-center">
+            <div className="relative w-full max-w-lg">
+              {/* Laptop container */}
+              <div className="relative">
+                {/* Screen */}
+                <div
+                  className={`relative w-full h-80 rounded-2xl border backdrop-blur-md transition-all duration-300 ${
+                    theme === "dark"
+                      ? "bg-linear-to-br from-slate-800/90 to-slate-900/90 border-cyan-400/40 shadow-[0_0_60px_rgba(34,211,238,0.4)]"
+                      : "bg-linear-to-br from-white/90 to-slate-100/90 border-cyan-500/50 shadow-[0_0_40px_rgba(6,182,212,0.3)]"
+                  }`}
+                >
+                  {/* Window controls */}
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+
+                  {/* Code content */}
+                  <div className="p-8 pt-12 space-y-3 font-mono text-sm">
+                    <div className="flex gap-2">
+                      <span
+                        className={
+                          theme === "dark"
+                            ? "text-purple-400"
+                            : "text-purple-600"
+                        }
+                      >
+                        const
+                      </span>
+                      <span
+                        className={
+                          theme === "dark" ? "text-cyan-300" : "text-cyan-600"
+                        }
+                      >
+                        learnAI
+                      </span>
+                      <span
+                        className={
+                          theme === "dark" ? "text-slate-400" : "text-slate-600"
+                        }
+                      >
+                        =
+                      </span>
+                      <span
+                        className={
+                          theme === "dark"
+                            ? "text-emerald-400"
+                            : "text-emerald-600"
+                        }
+                      >
+                        "intelligent"
+                      </span>
+                    </div>
+                    <div className="flex gap-2">
+                      <span
+                        className={
+                          theme === "dark"
+                            ? "text-purple-400"
+                            : "text-purple-600"
+                        }
+                      >
+                        function
+                      </span>
+                      <span
+                        className={
+                          theme === "dark"
+                            ? "text-yellow-300"
+                            : "text-yellow-600"
+                        }
+                      >
+                        detectEmotion
+                      </span>
+                      <span
+                        className={
+                          theme === "dark" ? "text-slate-400" : "text-slate-600"
+                        }
+                      >
+                        (user) {"{"}
+                      </span>
+                    </div>
+                    <div className="flex gap-2 pl-6">
+                      <span
+                        className={
+                          theme === "dark" ? "text-cyan-300" : "text-cyan-600"
+                        }
+                      >
+                        return
+                      </span>
+                      <span
+                        className={
+                          theme === "dark" ? "text-pink-400" : "text-pink-600"
+                        }
+                      >
+                        AI.analyze
+                      </span>
+                      <span
+                        className={
+                          theme === "dark" ? "text-slate-400" : "text-slate-600"
+                        }
+                      >
+                        (user)
+                      </span>
+                    </div>
+                    <div
+                      className={
+                        theme === "dark" ? "text-slate-400" : "text-slate-600"
+                      }
+                    >
+                      {"}"}
+                    </div>
+                    <div className="mt-4 flex gap-2">
+                      <span
+                        className={
+                          theme === "dark"
+                            ? "text-purple-400"
+                            : "text-purple-600"
+                        }
+                      >
+                        class
+                      </span>
+                      <span
+                        className={
+                          theme === "dark"
+                            ? "text-yellow-300"
+                            : "text-yellow-600"
+                        }
+                      >
+                        SmartLearning
+                      </span>
+                      <span
+                        className={
+                          theme === "dark" ? "text-slate-400" : "text-slate-600"
+                        }
+                      >
+                        {"{"}
+                      </span>
+                    </div>
+                    <div className="flex gap-2 pl-6">
+                      <span
+                        className={
+                          theme === "dark" ? "text-cyan-300" : "text-cyan-600"
+                        }
+                      >
+                        adapt
+                      </span>
+                      <span
+                        className={
+                          theme === "dark" ? "text-slate-400" : "text-slate-600"
+                        }
+                      >
+                        () {"{"}
+                      </span>
+                    </div>
+                    <div className="flex gap-2 pl-12">
+                      <span
+                        className={
+                          theme === "dark"
+                            ? "text-emerald-400"
+                            : "text-emerald-600"
+                        }
+                      >
+                        this
+                      </span>
+                      <span
+                        className={
+                          theme === "dark" ? "text-slate-400" : "text-slate-600"
+                        }
+                      >
+                        .optimize()
+                      </span>
+                    </div>
+                    <div className="flex gap-2 pl-6">
+                      <span
+                        className={
+                          theme === "dark" ? "text-slate-400" : "text-slate-600"
+                        }
+                      >
+                        {"}"}
+                      </span>
+                    </div>
+                    <div
+                      className={
+                        theme === "dark" ? "text-slate-400" : "text-slate-600"
+                      }
+                    >
+                      {"}"}
+                    </div>
+                  </div>
+
+                  {/* Glowing cursor */}
+                  <div
+                    className={`absolute bottom-8 right-8 w-2 h-5 animate-pulse ${
+                      theme === "dark"
+                        ? "bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]"
+                        : "bg-cyan-600 shadow-[0_0_10px_rgba(6,182,212,0.8)]"
+                    }`}
+                  ></div>
+                </div>
+
+                {/* Laptop base */}
+                <div
+                  className={`relative mt-2 h-6 rounded-b-2xl border-t-0 transition-all duration-300 ${
+                    theme === "dark"
+                      ? "bg-linear-to-b from-slate-800 to-slate-900 border border-purple-500/30"
+                      : "bg-linear-to-b from-slate-200 to-slate-300 border border-purple-300"
+                  }`}
+                >
+                  <div
+                    className={`absolute top-1 left-1/2 -translate-x-1/2 w-16 h-1 rounded-full ${
+                      theme === "dark" ? "bg-slate-700" : "bg-slate-400"
+                    }`}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Connecting lines */}
+              <svg className="absolute top-8 left-1/2 -translate-x-1/2 w-40 h-40 opacity-30 pointer-events-none">
+                <line
+                  x1="80"
+                  y1="0"
+                  x2="40"
+                  y2="80"
+                  stroke="url(#gradient1)"
+                  strokeWidth="2"
+                  className="animate-pulse"
+                />
+                <line
+                  x1="80"
+                  y1="0"
+                  x2="120"
+                  y2="80"
+                  stroke="url(#gradient2)"
+                  strokeWidth="2"
+                  className="animate-pulse"
+                  style={{ animationDelay: "0.5s" }}
+                />
+                <defs>
+                  <linearGradient
+                    id="gradient1"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop
+                      offset="0%"
+                      stopColor={theme === "dark" ? "#a855f7" : "#9333ea"}
+                      stopOpacity="0.8"
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor={theme === "dark" ? "#22d3ee" : "#06b6d4"}
+                      stopOpacity="0.2"
+                    />
+                  </linearGradient>
+                  <linearGradient
+                    id="gradient2"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="100%"
+                  >
+                    <stop
+                      offset="0%"
+                      stopColor={theme === "dark" ? "#22d3ee" : "#06b6d4"}
+                      stopOpacity="0.8"
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor={theme === "dark" ? "#a855f7" : "#9333ea"}
+                      stopOpacity="0.2"
+                    />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* Language tags */}
+        <div className="relative w-full overflow-hidden mt-16">
+          <div className="absolute inset-0 z-10 pointer-events-none">
+            <div
+              className={`absolute left-0 top-0 w-32 h-full ${
+                theme === "dark"
+                  ? "bg-linear-to-r from-slate-950 to-transparent"
+                  : "bg-linear-to-r from-slate-50 to-transparent"
+              }`}
+            ></div>
+            <div
+              className={`absolute right-0 top-0 w-32 h-full ${
+                theme === "dark"
+                  ? "bg-linear-to-l from-slate-950 to-transparent"
+                  : "bg-linear-to-l from-slate-50 to-transparent"
+              }`}
+            ></div>
+          </div>
+
+          <div className="flex gap-3 mb-3 animate-marquee">
             {[...languages, ...languages, ...languages].map((lang, i) => (
               <div
                 key={`row1-${i}`}
-                className={`shrink-0 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full bg-linear-to-r ${lang.color} text-white font-bold shadow-lg text-base sm:text-lg backdrop-blur-sm`}
+                className={`shrink-0 px-6 py-2.5 rounded-full bg-linear-to-r ${
+                  lang.color
+                } text-white font-semibold text-sm sm:text-base whitespace-nowrap transition-shadow ${
+                  theme === "dark"
+                    ? "shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)]"
+                    : "shadow-[0_0_15px_rgba(147,51,234,0.3)] hover:shadow-[0_0_25px_rgba(147,51,234,0.5)]"
+                }`}
+              >
+                {lang.name}
+              </div>
+            ))}
+          </div>
+
+          <div className="flex gap-3 animate-marquee-reverse">
+            {[...languages, ...languages, ...languages].map((lang, i) => (
+              <div
+                key={`row2-${i}`}
+                className={`shrink-0 px-6 py-2.5 rounded-full bg-linear-to-r ${
+                  lang.color
+                } text-white font-semibold text-sm sm:text-base whitespace-nowrap transition-shadow ${
+                  theme === "dark"
+                    ? "shadow-[0_0_20px_rgba(34,211,238,0.4)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)]"
+                    : "shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.5)]"
+                }`}
               >
                 {lang.name}
               </div>
