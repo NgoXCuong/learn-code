@@ -19,7 +19,7 @@ export default function PodiumTop3({ users }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 + idx * 0.1 }}
-          className="
+          className="btn-shimmer
             relative overflow-hidden rounded-3xl border 
             border-gray-300 dark:border-gray-700 
             bg-white dark:bg-gray-900 

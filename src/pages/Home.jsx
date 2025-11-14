@@ -6,16 +6,16 @@ import Footer from "@/components/layout/Footer";
 
 const Home = () => {
   return (
-    <div className="min-h-screen w-full relative bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black">
+    <div className="h-screen w-full relative bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black flex flex-col">
       {/* Background Sphere Grid */}
       <div className="absolute inset-0 z-0">
         <div
           className="absolute inset-0 block dark:hidden"
           style={{
             backgroundImage: `
-          linear-gradient(to right, rgba(71,85,105,0.3) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(71,85,105,0.3) 1px, transparent 1px),
-          radial-gradient(circle at 50% 50%, rgba(139,92,246,0.25) 0%, rgba(139,92,246,0.1) 40%, transparent 80%)
+          linear-gradient(to right, rgba(71,85,105,0.1) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(71,85,105,0.1) 1px, transparent 1px),
+          radial-gradient(circle at 50% 50%, rgba(139,92,246,0.25) 0%, rgba(139,92,246,0.15) 50%, transparent 70%)
         `,
             backgroundSize: "32px 32px, 32px 32px, 100% 100%",
           }}
@@ -24,9 +24,9 @@ const Home = () => {
           className="absolute inset-0 hidden dark:block"
           style={{
             backgroundImage: `
-          linear-gradient(to right, rgba(71,85,105,0.3) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(71,85,105,0.3) 1px, transparent 1px),
-          radial-gradient(circle at 50% 50%, rgba(139,92,246,0.15) 0%, transparent 70%)
+          linear-gradient(to right, rgba(71,85,105,0.1) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(71,85,105,0.1) 1px, transparent 1px),
+          radial-gradient(circle at 50% 50%, rgba(139,92,246,0.25) 0%, rgba(139,92,246,0.1) 50%, transparent 70%)
         `,
             backgroundSize: "32px 32px, 32px 32px, 100% 100%",
           }}

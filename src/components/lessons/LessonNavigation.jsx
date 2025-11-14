@@ -16,7 +16,7 @@ export default function LessonNavigation({
           onClick={() =>
             navigate(`/courses/${courseId}/lessons/${prevLesson.id}`)
           }
-          className={`group flex items-center gap-3 px-6 py-3 rounded-xl font-medium text-sm transition-all duration-200 ${
+          className={`btn-shimmer group relative flex items-center gap-3 px-6 py-3 rounded-xl font-medium text-sm transition-all duration-200 overflow-hidden ${
             isDark
               ? "bg-gray-800 text-gray-200 hover:bg-gray-700 border border-gray-700"
               : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200 shadow-sm hover:shadow"
@@ -38,7 +38,7 @@ export default function LessonNavigation({
           onClick={() =>
             navigate(`/courses/${courseId}/lessons/${nextLesson.id}`)
           }
-          className="group flex items-center gap-3 px-6 py-3 rounded-xl font-medium text-sm 
+          className="btn-shimmer group relative flex items-center gap-3 px-6 py-3 rounded-xl font-medium text-sm overflow-hidden
             bg-indigo-600 text-white hover:bg-indigo-700
             dark:bg-indigo-600 dark:hover:bg-indigo-500 transition-all duration-200 shadow-md hover:shadow-lg"
         >
@@ -54,8 +54,8 @@ export default function LessonNavigation({
           onClick={() =>
             toast.success("🎉 Chúc mừng! Bạn đã hoàn thành khóa học.")
           }
-          className="flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm 
-            bg-linear-to-r from-green-500 to-emerald-600 text-white 
+          className="btn-shimmer relative flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm overflow-hidden
+            bg-linear-to-r from-green-500 to-emerald-600 text-white
             hover:from-green-600 hover:to-emerald-700 transition-all duration-200 shadow-md hover:shadow-lg"
         >
           <Trophy className="w-5 h-5" />

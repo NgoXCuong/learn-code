@@ -69,8 +69,8 @@ export default function CourseHero({
           </div>
 
           {/* Progress Card */}
-          <div className="w-full md:w-80 shrink-0">
-            <div className="bg-linear-to-br from-purple-500 via-pink-500 to-rose-500 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+          <div className=" w-full md:w-80 shrink-0">
+            <div className="btn-shimmer bg-linear-to-br from-purple-500 via-pink-500 to-rose-500 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
               <div className="space-y-5 text-center md:text-left">
                 <div>
                   <h3 className="text-white text-sm sm:text-base font-semibold mb-2 flex items-center justify-center md:justify-start gap-2">
@@ -104,7 +104,7 @@ export default function CourseHero({
                 </div>
 
                 <button
-                  className="w-full bg-white text-purple-600 font-bold py-2 sm:py-3 rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-base sm:text-lg"
+                  className="btn-shimmer relative w-full bg-white text-purple-600 font-bold py-2 sm:py-3 rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-base sm:text-lg"
                   onClick={() =>
                     navigate(`/courses/${course.id}/lessons/${lessons[0]?.id}`)
                   }

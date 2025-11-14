@@ -117,7 +117,7 @@ export default function LessonCode({ code, language = "java" }) {
           <button
             onClick={handleRunCode}
             disabled={isRunning}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-base font-medium transition-all
+            className={`btn-shimmer relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-base font-medium transition-all overflow-hidden
               ${isRunning ? "opacity-60 cursor-not-allowed" : "hover:scale-105"}
               ${
                 isDark
@@ -131,7 +131,7 @@ export default function LessonCode({ code, language = "java" }) {
 
           <button
             onClick={handleCopy}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all text-base font-medium
+            className={`btn-shimmer relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all text-base font-medium overflow-hidden
               ${
                 copied
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"

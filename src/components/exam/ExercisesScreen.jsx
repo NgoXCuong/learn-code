@@ -121,7 +121,7 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
               <div
                 key={ex.id}
                 onClick={() => openExercise(ex)}
-                className={`
+                className={`btn-shimmer
                   cursor-pointer p-5 rounded-xl border shadow-md transform transition
                   bg-white border-gray-100
                   dark:bg-gray-800 dark:border-gray-700

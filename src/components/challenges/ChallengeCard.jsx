@@ -21,7 +21,7 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
   return (
     <div
       onClick={() => onClick(challenge)}
-      className="bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-md transition-all cursor-pointer relative"
+      className="btn-shimmer bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-md transition-all cursor-pointer relative"
     >
       {/* Trạng thái */}
       {isCompleted && (

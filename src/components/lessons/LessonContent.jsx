@@ -92,7 +92,7 @@ export default function LessonContent({ lesson, isDark }) {
           <button
             onClick={() => markLessonAsRead(lesson.id)}
             disabled={isLessonRead(lesson.id)}
-            className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
+            className={`btn-shimmer relative flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all overflow-hidden ${
               isLessonRead(lesson.id)
                 ? "bg-green-100 text-green-700 cursor-not-allowed dark:bg-green-900/30 dark:text-green-400"
                 : "bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { Toaster, toast } from "react-hot-toast";
+import { Toaster, toast } from "sonner";
 import { HeartPulse, Menu, X, ChevronDown } from "lucide-react";
 import { ThemeContext } from "@/context/ThemeContext";
 import { AuthContext } from "@/context/AuthContext";
@@ -169,7 +169,7 @@ const Header = () => {
 
                         <button
                           onClick={handleLogout}
-                          className="block w-full text-left px-4 py-2 text-base text-red-600 hover:bg-red-50 dark:hover:bg-gray-700 dark:text-red-400 rounded transition-colors"
+                          className="btn-shimmer block w-full text-left px-4 py-2 text-base text-red-600 hover:bg-red-50 dark:hover:bg-gray-700 dark:text-red-400 rounded transition-colors"
                         >
                           Đăng xuất
                         </button>
@@ -182,7 +182,7 @@ const Header = () => {
                   <DarkModeToggle />
                   <Link
                     to="/login"
-                    className={`relative px-4 py-2 font-semibold text-base rounded-lg border transition-all duration-300 ${
+                    className={`btn-shimmer relative px-4 py-2 font-semibold text-base rounded-lg border transition-all duration-300 ${
                       isActive("/login")
                         ? "bg-indigo-600 text-white border-indigo-600"
                         : "border-indigo-500 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-gray-800 dark:text-indigo-400 dark:border-indigo-400"
@@ -192,7 +192,7 @@ const Header = () => {
                   </Link>
                   <Link
                     to="/register"
-                    className={`relative px-4 py-2 font-semibold text-base rounded-lg shadow-md transition-all duration-300 ${
+                    className={`btn-shimmer relative px-4 py-2 font-semibold text-base rounded-lg shadow-md transition-all duration-300 ${
                       isActive("/register")
                         ? "bg-indigo-700 text-white"
                         : "bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600"
@@ -266,7 +266,7 @@ const Header = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="w-full text-left px-4 py-3 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium"
+                  className="btn-shimmer w-full text-left px-4 py-3 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium"
                 >
                   Đăng xuất
                 </button>
@@ -277,14 +277,14 @@ const Header = () => {
                 <Link
                   to="/login"
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 rounded-lg text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium border border-indigo-600 dark:border-indigo-400 text-center"
+                  className="btn-shimmer block px-4 py-3 rounded-lg text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium border border-indigo-600 dark:border-indigo-400 text-center"
                 >
                   Đăng nhập
                 </Link>
                 <Link
                   to="/register"
                   onClick={() => setMobileOpen(false)}
-                  className="block px-4 py-3 rounded-lg bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all duration-200 font-medium text-center"
+                  className="btn-shimmer block px-4 py-3 rounded-lg bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all duration-200 font-medium text-center"
                 >
                   Đăng ký
                 </Link>

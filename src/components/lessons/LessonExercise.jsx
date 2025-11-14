@@ -85,7 +85,7 @@ export default function LessonExercise({ exercises, courseId, lessonId }) {
 
                 <button
                   onClick={() => handleStartExercise(ex.id)}
-                  className="w-full mt-4 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors"
+                  className="btn-shimmer relative w-full mt-4 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors overflow-hidden"
                 >
                   Bắt đầu làm bài tập
                 </button>

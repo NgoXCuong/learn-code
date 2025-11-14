@@ -31,17 +31,15 @@ const HeroSection = () => {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 2 + 1,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 3 + 2,
         color:
           theme === "dark"
             ? Math.random() > 0.5
-              ? "rgba(168, 85, 247, 0.6)"
-              : "rgba(34, 211, 238, 0.6)"
+              ? "rgba(168, 85, 247, 0.8)"
+              : "rgba(34, 211, 238, 0.8)"
             : Math.random() > 0.5
-            ? "rgba(147, 51, 234, 0.4)"
-            : "rgba(6, 182, 212, 0.4)",
+            ? "rgba(147, 51, 234, 0.6)"
+            : "rgba(6, 182, 212, 0.6)",
       });
     }
 
@@ -54,17 +52,11 @@ const HeroSection = () => {
 
       particles.forEach((particle) => {
         ctx.fillStyle = particle.color;
-        ctx.shadowBlur = 20;
+        ctx.shadowBlur = 25;
         ctx.shadowColor = particle.color;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fill();
-
-        particle.x += particle.speedX;
-        particle.y += particle.speedY;
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1;
-        if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1;
       });
 
       requestAnimationFrame(animate);
@@ -82,48 +74,7 @@ const HeroSection = () => {
   }, [theme]);
 
   return (
-    <section
-      className={`relative overflow-hidden h-screen flex items-center transition-colors duration-500 ${
-        theme === "dark" ? "bg-slate-950" : "bg-slate-50"
-      }`}
-    >
-      {/* Animated particles background */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 pointer-events-none opacity-40"
-      />
-
-      {/* Gradient overlays */}
-      <div
-        className={`absolute inset-0 transition-opacity duration-500 ${
-          theme === "dark"
-            ? "bg-linear-to-br from-slate-950 via-slate-900 to-slate-950 opacity-100"
-            : "bg-linear-to-br from-slate-50 via-white to-slate-100 opacity-100"
-        }`}
-      ></div>
-
-      {/* Neon glow effects */}
-      <div
-        className={`absolute top-20 left-1/4 w-96 h-96 rounded-full blur-[120px] animate-pulse transition-opacity duration-500 ${
-          theme === "dark" ? "bg-purple-600/20" : "bg-purple-400/10"
-        }`}
-      ></div>
-      <div
-        className={`absolute bottom-40 right-1/4 w-96 h-96 rounded-full blur-[120px] animate-pulse transition-opacity duration-500 ${
-          theme === "dark" ? "bg-cyan-500/20" : "bg-cyan-400/10"
-        }`}
-        style={{ animationDelay: "1s" }}
-      ></div>
-
-      {/* Grid pattern */}
-      <div
-        className={`absolute inset-0 bg-size-[100px_100px] mask-[radial-gradient(ellipse_80%_50%_at_50%_50%,black,transparent)] transition-opacity duration-500 ${
-          theme === "dark"
-            ? "bg-[linear-gradient(rgba(168,85,247,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.03)_1px,transparent_1px)]"
-            : "bg-[linear-gradient(rgba(147,51,234,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(147,51,234,0.06)_1px,transparent_1px)]"
-        }`}
-      ></div>
-
+    <section className="relative overflow-hidden h-full flex items-center transition-colors duration-500 py-20">
       {/* Main content container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -489,53 +440,61 @@ const HeroSection = () => {
         <div className="relative w-full overflow-hidden mt-16">
           <div className="absolute inset-0 z-10 pointer-events-none">
             <div
-              className={`absolute left-0 top-0 w-32 h-full ${
+              className={`absolute left-0 top-0 w-48 h-full ${
                 theme === "dark"
-                  ? "bg-linear-to-r from-slate-950 to-transparent"
-                  : "bg-linear-to-r from-slate-50 to-transparent"
+                  ? "bg-linear-to-r from-gray-900 via-gray-900/80 to-transparent"
+                  : "bg-linear-to-r from-slate-50 via-slate-100/80 to-transparent"
               }`}
             ></div>
             <div
-              className={`absolute right-0 top-0 w-32 h-full ${
+              className={`absolute right-0 top-0 w-48 h-full ${
                 theme === "dark"
-                  ? "bg-linear-to-l from-slate-950 to-transparent"
-                  : "bg-linear-to-l from-slate-50 to-transparent"
+                  ? "bg-linear-to-l from-gray-900 via-gray-900/80 to-transparent"
+                  : "bg-linear-to-l from-slate-50 via-slate-100/80 to-transparent"
               }`}
             ></div>
           </div>
 
-          <div className="flex gap-3 mb-3 animate-marquee">
-            {[...languages, ...languages, ...languages].map((lang, i) => (
-              <div
-                key={`row1-${i}`}
-                className={`shrink-0 px-6 py-2.5 rounded-full bg-linear-to-r ${
-                  lang.color
-                } text-white font-semibold text-sm sm:text-base whitespace-nowrap transition-shadow ${
-                  theme === "dark"
-                    ? "shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)]"
-                    : "shadow-[0_0_15px_rgba(147,51,234,0.3)] hover:shadow-[0_0_25px_rgba(147,51,234,0.5)]"
-                }`}
-              >
-                {lang.name}
-              </div>
-            ))}
+          <div className="relative overflow-hidden">
+            <div className="flex gap-3 mb-3 animate-scroll-left">
+              {[...languages, ...languages, ...languages, ...languages].map(
+                (lang, i) => (
+                  <div
+                    key={`row1-${i}`}
+                    className={`shrink-0 px-6 py-2.5 rounded-full bg-linear-to-r ${
+                      lang.color
+                    } text-white font-semibold text-sm sm:text-base whitespace-nowrap transition-shadow ${
+                      theme === "dark"
+                        ? "shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)]"
+                        : "shadow-[0_0_15px_rgba(147,51,234,0.3)] hover:shadow-[0_0_25px_rgba(147,51,234,0.5)]"
+                    }`}
+                  >
+                    {lang.name}
+                  </div>
+                )
+              )}
+            </div>
           </div>
 
-          <div className="flex gap-3 animate-marquee-reverse">
-            {[...languages, ...languages, ...languages].map((lang, i) => (
-              <div
-                key={`row2-${i}`}
-                className={`shrink-0 px-6 py-2.5 rounded-full bg-linear-to-r ${
-                  lang.color
-                } text-white font-semibold text-sm sm:text-base whitespace-nowrap transition-shadow ${
-                  theme === "dark"
-                    ? "shadow-[0_0_20px_rgba(34,211,238,0.4)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)]"
-                    : "shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.5)]"
-                }`}
-              >
-                {lang.name}
-              </div>
-            ))}
+          <div className="relative overflow-hidden">
+            <div className="flex gap-3 animate-scroll-right">
+              {[...languages, ...languages, ...languages, ...languages].map(
+                (lang, i) => (
+                  <div
+                    key={`row2-${i}`}
+                    className={`shrink-0 px-6 py-2.5 rounded-full bg-linear-to-r ${
+                      lang.color
+                    } text-white font-semibold text-sm sm:text-base whitespace-nowrap transition-shadow ${
+                      theme === "dark"
+                        ? "shadow-[0_0_20px_rgba(34,211,238,0.4)] hover:shadow-[0_0_30px_rgba(34,211,238,0.6)]"
+                        : "shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:shadow-[0_0_25px_rgba(6,182,212,0.5)]"
+                    }`}
+                  >
+                    {lang.name}
+                  </div>
+                )
+              )}
+            </div>
           </div>
         </div>
       </div>

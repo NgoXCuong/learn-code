@@ -48,7 +48,7 @@ export default function CourseCard({
 
   return (
     <div
-      className={`relative flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-105 ${
+      className={`group relative flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-105 ${
         darkMode
           ? "bg-gray-800 border-gray-700 hover:border-blue-500 hover:shadow-purple-500/20"
           : "bg-white border-gray-200 hover:border-blue-500 hover:shadow-lg"
@@ -57,8 +57,9 @@ export default function CourseCard({
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onViewDetail(course.id)}
     >
+      <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
       {/* Ảnh khóa học */}
-      <div className="relative">
+      <div className="relative z-10">
         <img
           src={course.image}
           alt={course.title}
@@ -93,7 +94,7 @@ export default function CourseCard({
                   onEnroll(course.id);
                 }
               }}
-              className={`px-6 py-2 font-semibold rounded-full shadow-lg transition-all duration-200 hover:scale-105
+              className={`relative px-6 py-2 font-semibold rounded-full shadow-lg transition-all duration-200 hover:scale-105 overflow-hidden
       ${
         !user
           ? "bg-orange-600 text-white hover:bg-orange-700" // Đăng nhập để bắt đầu
@@ -102,18 +103,21 @@ export default function CourseCard({
           : "bg-purple-600 text-white hover:bg-purple-700" // Trạng thái: Tiếp tục học
       }`}
             >
-              {!user
-                ? "Đăng nhập để bắt đầu"
-                : course.progress === 0
-                ? "Bắt đầu học"
-                : "Tiếp tục học"}
+              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              <span className="relative flex items-center justify-center gap-2">
+                {!user
+                  ? "Đăng nhập để bắt đầu"
+                  : course.progress === 0
+                  ? "Bắt đầu học"
+                  : "Tiếp tục học"}
+              </span>
             </button>
           </div>
         )}
       </div>
 
       {/* Nội dung */}
-      <div className="p-5 flex flex-col grow space-y-2">
+      <div className="relative z-10 p-5 flex flex-col grow space-y-2">
         {/* Level + ngôn ngữ */}
         <div className="flex items-center gap-2 mb-2">
           <span
@@ -171,7 +175,6 @@ export default function CourseCard({
           </div>
         </div>
 
-        {/* Thanh tiến độ (ShadCN) */}
         {/* Thanh tiến độ (ShadCN) */}
         {course.progress > 0 && (
           <div className="mt-3 space-y-1">
