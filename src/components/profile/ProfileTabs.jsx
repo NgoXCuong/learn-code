@@ -8,12 +8,12 @@ const tabs = [
 
 export default function ProfileTabs({ activeTab, setActiveTab }) {
   return (
-    <div className="flex space-x-2 sm:space-x-4 mb-8 overflow-x-auto pb-2">
+    <div className="flex  space-x-2 sm:space-x-4 mb-8 overflow-x-auto pb-2">
       {tabs.map((tab) => (
         <button
           key={tab.id}
           onClick={() => setActiveTab(tab.id)}
-          className={`relative px-6 py-2.5 rounded-lg font-medium whitespace-nowrap transition-all
+          className={`relative btn-shimmer px-6 py-2 rounded-lg font-medium whitespace-nowrap transition-all
             focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500
             ${
               activeTab === tab.id

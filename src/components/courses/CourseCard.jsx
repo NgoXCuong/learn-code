@@ -48,7 +48,7 @@ export default function CourseCard({
 
   return (
     <div
-      className={`group relative flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-105 ${
+      className={`group relative flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-105 cursor-pointer ${
         darkMode
           ? "bg-gray-800 border-gray-700 hover:border-blue-500 hover:shadow-purple-500/20"
           : "bg-white border-gray-200 hover:border-blue-500 hover:shadow-lg"
@@ -57,7 +57,11 @@ export default function CourseCard({
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onViewDetail(course.id)}
     >
-      <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+      <div
+        className={`absolute inset-0 bg-linear-to-r from-transparent ${
+          darkMode ? "via-white/20" : "via-black/20"
+        } to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700`}
+      ></div>
       {/* Ảnh khóa học */}
       <div className="relative z-10">
         <img
@@ -94,7 +98,7 @@ export default function CourseCard({
                   onEnroll(course.id);
                 }
               }}
-              className={`relative px-6 py-2 font-semibold rounded-full shadow-lg transition-all duration-200 hover:scale-105 overflow-hidden
+              className={`btn-shimmer relative px-6 py-2 font-semibold rounded-full shadow-lg transition-all duration-200 hover:scale-105 overflow-hidden cursor-pointer
       ${
         !user
           ? "bg-orange-600 text-white hover:bg-orange-700" // Đăng nhập để bắt đầu
@@ -103,7 +107,6 @@ export default function CourseCard({
           : "bg-purple-600 text-white hover:bg-purple-700" // Trạng thái: Tiếp tục học
       }`}
             >
-              <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
               <span className="relative flex items-center justify-center gap-2">
                 {!user
                   ? "Đăng nhập để bắt đầu"

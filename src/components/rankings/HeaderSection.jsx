@@ -45,7 +45,7 @@ export default function HeaderSection({
             className="
     grid grid-cols-3 lg:flex 
     bg-gray-100 dark:bg-gray-800/60
-    rounded-xl p-1.5
+    rounded-xl p-2
     shadow-inner border border-gray-200 dark:border-gray-700
   "
           >
@@ -57,7 +57,7 @@ export default function HeaderSection({
                   value={t.id}
                   className="
           flex items-center gap-2 justify-center
-          px-4 py-3 md:px-5 md:py-3.5 rounded-lg font-medium
+          px-4 py-3 md:px-5 md:py-4 rounded-lg font-medium
           transition-all duration-200
           text-gray-600 dark:text-gray-300
           hover:bg-blue-100 dark:hover:bg-blue-800/40
@@ -80,7 +80,7 @@ export default function HeaderSection({
         {/* Search + Course Filter */}
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2 text-muted-foreground dark:text-gray-300 font-medium">
-            <Filter className="w-4 h-4" />
+            <Filter className="w-5 h-5" />
             Lọc:
           </div>
 
@@ -104,7 +104,7 @@ export default function HeaderSection({
               <SelectValue placeholder="Chọn khóa học" />
             </SelectTrigger>
 
-            <SelectContent className="dark:bg-gray-800 dark:text-gray-200">
+            <SelectContent className="bg-white  dark:bg-gray-800 dark:text-gray-200 border-none">
               {COURSES.map((c) => (
                 <SelectItem
                   key={c.id}

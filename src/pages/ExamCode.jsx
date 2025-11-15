@@ -12,7 +12,7 @@ import { useQuizTimer } from "@/utils/useQuizTimer";
 
 const TIME_LIMIT = 600;
 
-export default function CodeLearnPlatform() {
+export default function ExamCode() {
   const navigate = useNavigate();
   const [appState, setAppState] = useState("home");
   const [questions, setQuestions] = useState([]);

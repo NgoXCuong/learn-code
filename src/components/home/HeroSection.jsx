@@ -132,7 +132,7 @@ const HeroSection = () => {
                 }`}
               >
                 <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                <span className="relative flex items-center justify-center gap-2">
+                <span className="relative flex items-center justify-center gap-2 cursor-pointer">
                   <BookOpen className="w-5 h-5" />
                   Bắt đầu học ngay
                 </span>
@@ -146,7 +146,7 @@ const HeroSection = () => {
                     : "bg-white/70 backdrop-blur-sm border-2 border-purple-300 text-slate-700 hover:border-cyan-500 hover:bg-white hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]"
                 }`}
               >
-                <span className="relative flex items-center justify-center gap-2">
+                <span className="relative flex items-center justify-center gap-2 cursor-pointer">
                   <Code className="w-5 h-5" />
                   Thử compiler
                 </span>
@@ -154,284 +154,78 @@ const HeroSection = () => {
             </div>
           </div>
 
-          {/* Right side - Code display */}
           <div className="hidden lg:flex justify-center items-center">
             <div className="relative w-full max-w-lg">
-              {/* Laptop container */}
+              {/* Holographic frame */}
+              <div className="absolute -inset-4 bg-linear-to-r from-cyan-500/20 via-fuchsia-500/20 to-cyan-500/20 blur-2xl animate-pulse"></div>
+
+              {/* Screen Container */}
               <div className="relative">
-                {/* Screen */}
-                <div
-                  className={`relative w-full h-80 rounded-2xl border backdrop-blur-md transition-all duration-300 ${
-                    theme === "dark"
-                      ? "bg-linear-to-br from-slate-800/90 to-slate-900/90 border-cyan-400/40 shadow-[0_0_60px_rgba(34,211,238,0.4)]"
-                      : "bg-linear-to-br from-white/90 to-slate-100/90 border-cyan-500/50 shadow-[0_0_40px_rgba(6,182,212,0.3)]"
-                  }`}
-                >
-                  {/* Window controls */}
-                  <div className="absolute top-4 left-4 flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                {/* Main Screen */}
+                <div className="relative w-full h-90 rounded-lg bg-slate-900/90 backdrop-blur-md border-2 border-cyan-400/60 shadow-[0_0_50px_rgba(34,211,238,0.5),inset_0_0_30px_rgba(34,211,238,0.2)] overflow-hidden">
+                  {/* Top bar */}
+                  <div className="absolute top-0 left-0 right-0 h-10 bg-linear-to-b from-cyan-500/20 to-transparent border-b border-cyan-400/30 flex items-center justify-between px-4">
+                    <div className="flex gap-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
+                    </div>
+                    <div className="text-xs text-cyan-400 font-mono uppercase tracking-wider">
+                      AI_LEARN.exe
+                    </div>
                   </div>
 
-                  {/* Code content */}
-                  <div className="p-8 pt-12 space-y-3 font-mono text-sm">
+                  {/* Code content with enhanced styling */}
+                  <div className="p-8 pt-16 space-y-3 font-mono text-sm">
                     <div className="flex gap-2">
-                      <span
-                        className={
-                          theme === "dark"
-                            ? "text-purple-400"
-                            : "text-purple-600"
-                        }
-                      >
-                        const
-                      </span>
-                      <span
-                        className={
-                          theme === "dark" ? "text-cyan-300" : "text-cyan-600"
-                        }
-                      >
-                        learnAI
-                      </span>
-                      <span
-                        className={
-                          theme === "dark" ? "text-slate-400" : "text-slate-600"
-                        }
-                      >
-                        =
-                      </span>
-                      <span
-                        className={
-                          theme === "dark"
-                            ? "text-emerald-400"
-                            : "text-emerald-600"
-                        }
-                      >
-                        "intelligent"
-                      </span>
+                      <span className="text-fuchsia-400">const</span>
+                      <span className="text-cyan-300">learnAI</span>
+                      <span className="text-slate-400">=</span>
+                      <span className="text-emerald-400">"intelligent"</span>
                     </div>
                     <div className="flex gap-2">
-                      <span
-                        className={
-                          theme === "dark"
-                            ? "text-purple-400"
-                            : "text-purple-600"
-                        }
-                      >
-                        function
-                      </span>
-                      <span
-                        className={
-                          theme === "dark"
-                            ? "text-yellow-300"
-                            : "text-yellow-600"
-                        }
-                      >
-                        detectEmotion
-                      </span>
-                      <span
-                        className={
-                          theme === "dark" ? "text-slate-400" : "text-slate-600"
-                        }
-                      >
-                        (user) {"{"}
-                      </span>
+                      <span className="text-fuchsia-400">function</span>
+                      <span className="text-yellow-300">detectEmotion</span>
+                      <span className="text-slate-400">(user) {"{"}</span>
                     </div>
                     <div className="flex gap-2 pl-6">
-                      <span
-                        className={
-                          theme === "dark" ? "text-cyan-300" : "text-cyan-600"
-                        }
-                      >
-                        return
-                      </span>
-                      <span
-                        className={
-                          theme === "dark" ? "text-pink-400" : "text-pink-600"
-                        }
-                      >
-                        AI.analyze
-                      </span>
-                      <span
-                        className={
-                          theme === "dark" ? "text-slate-400" : "text-slate-600"
-                        }
-                      >
-                        (user)
-                      </span>
+                      <span className="text-cyan-300">return</span>
+                      <span className="text-pink-400">AI.analyze</span>
+                      <span className="text-slate-400">(user)</span>
                     </div>
-                    <div
-                      className={
-                        theme === "dark" ? "text-slate-400" : "text-slate-600"
-                      }
-                    >
-                      {"}"}
-                    </div>
+                    <div className="text-slate-400">{"}"}</div>
                     <div className="mt-4 flex gap-2">
-                      <span
-                        className={
-                          theme === "dark"
-                            ? "text-purple-400"
-                            : "text-purple-600"
-                        }
-                      >
-                        class
-                      </span>
-                      <span
-                        className={
-                          theme === "dark"
-                            ? "text-yellow-300"
-                            : "text-yellow-600"
-                        }
-                      >
-                        SmartLearning
-                      </span>
-                      <span
-                        className={
-                          theme === "dark" ? "text-slate-400" : "text-slate-600"
-                        }
-                      >
-                        {"{"}
-                      </span>
+                      <span className="text-fuchsia-400">class</span>
+                      <span className="text-yellow-300">SmartLearning</span>
+                      <span className="text-slate-400">{"{"}</span>
                     </div>
                     <div className="flex gap-2 pl-6">
-                      <span
-                        className={
-                          theme === "dark" ? "text-cyan-300" : "text-cyan-600"
-                        }
-                      >
-                        adapt
-                      </span>
-                      <span
-                        className={
-                          theme === "dark" ? "text-slate-400" : "text-slate-600"
-                        }
-                      >
-                        () {"{"}
-                      </span>
+                      <span className="text-cyan-300">adapt</span>
+                      <span className="text-slate-400">() {"{"}</span>
                     </div>
                     <div className="flex gap-2 pl-12">
-                      <span
-                        className={
-                          theme === "dark"
-                            ? "text-emerald-400"
-                            : "text-emerald-600"
-                        }
-                      >
-                        this
-                      </span>
-                      <span
-                        className={
-                          theme === "dark" ? "text-slate-400" : "text-slate-600"
-                        }
-                      >
-                        .optimize()
-                      </span>
+                      <span className="text-emerald-400">this</span>
+                      <span className="text-slate-400">.optimize()</span>
                     </div>
                     <div className="flex gap-2 pl-6">
-                      <span
-                        className={
-                          theme === "dark" ? "text-slate-400" : "text-slate-600"
-                        }
-                      >
-                        {"}"}
-                      </span>
+                      <span className="text-slate-400">{"}"}</span>
                     </div>
-                    <div
-                      className={
-                        theme === "dark" ? "text-slate-400" : "text-slate-600"
-                      }
-                    >
-                      {"}"}
-                    </div>
+                    <div className="text-slate-400">{"}"}</div>
                   </div>
 
                   {/* Glowing cursor */}
-                  <div
-                    className={`absolute bottom-8 right-8 w-2 h-5 animate-pulse ${
-                      theme === "dark"
-                        ? "bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]"
-                        : "bg-cyan-600 shadow-[0_0_10px_rgba(6,182,212,0.8)]"
-                    }`}
-                  ></div>
+                  <div className="absolute bottom-8 right-8 w-2 h-5 bg-cyan-400 shadow-[0_0_15px_rgba(34,211,238,1)] animate-pulse"></div>
+
+                  {/* Scanline overlay */}
+                  <div className="absolute inset-0 bg-[linear-gradient(0deg,transparent_50%,rgba(34,211,238,0.03)_50%)] bg-size-[100%_4px] pointer-events-none"></div>
                 </div>
 
-                {/* Laptop base */}
-                <div
-                  className={`relative mt-2 h-6 rounded-b-2xl border-t-0 transition-all duration-300 ${
-                    theme === "dark"
-                      ? "bg-linear-to-b from-slate-800 to-slate-900 border border-purple-500/30"
-                      : "bg-linear-to-b from-slate-200 to-slate-300 border border-purple-300"
-                  }`}
-                >
-                  <div
-                    className={`absolute top-1 left-1/2 -translate-x-1/2 w-16 h-1 rounded-full ${
-                      theme === "dark" ? "bg-slate-700" : "bg-slate-400"
-                    }`}
-                  ></div>
-                </div>
+                {/* Corner decorations */}
+                <div className="absolute -top-2 -left-2 w-8 h-8 border-t-2 border-l-2 border-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.6)]"></div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 border-t-2 border-r-2 border-fuchsia-400 shadow-[0_0_10px_rgba(217,70,239,0.6)]"></div>
+                <div className="absolute -bottom-2 -left-2 w-8 h-8 border-b-2 border-l-2 border-fuchsia-400 shadow-[0_0_10px_rgba(217,70,239,0.6)]"></div>
+                <div className="absolute -bottom-2 -right-2 w-8 h-8 border-b-2 border-r-2 border-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.6)]"></div>
               </div>
-
-              {/* Connecting lines */}
-              <svg className="absolute top-8 left-1/2 -translate-x-1/2 w-40 h-40 opacity-30 pointer-events-none">
-                <line
-                  x1="80"
-                  y1="0"
-                  x2="40"
-                  y2="80"
-                  stroke="url(#gradient1)"
-                  strokeWidth="2"
-                  className="animate-pulse"
-                />
-                <line
-                  x1="80"
-                  y1="0"
-                  x2="120"
-                  y2="80"
-                  stroke="url(#gradient2)"
-                  strokeWidth="2"
-                  className="animate-pulse"
-                  style={{ animationDelay: "0.5s" }}
-                />
-                <defs>
-                  <linearGradient
-                    id="gradient1"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%"
-                  >
-                    <stop
-                      offset="0%"
-                      stopColor={theme === "dark" ? "#a855f7" : "#9333ea"}
-                      stopOpacity="0.8"
-                    />
-                    <stop
-                      offset="100%"
-                      stopColor={theme === "dark" ? "#22d3ee" : "#06b6d4"}
-                      stopOpacity="0.2"
-                    />
-                  </linearGradient>
-                  <linearGradient
-                    id="gradient2"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%"
-                  >
-                    <stop
-                      offset="0%"
-                      stopColor={theme === "dark" ? "#22d3ee" : "#06b6d4"}
-                      stopOpacity="0.8"
-                    />
-                    <stop
-                      offset="100%"
-                      stopColor={theme === "dark" ? "#a855f7" : "#9333ea"}
-                      stopOpacity="0.2"
-                    />
-                  </linearGradient>
-                </defs>
-              </svg>
             </div>
           </div>
         </div>

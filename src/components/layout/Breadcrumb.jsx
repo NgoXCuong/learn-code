@@ -12,7 +12,6 @@ const Breadcrumb = ({ items }) => {
       ? "text-gray-300 hover:text-indigo-400"
       : "text-gray-900 hover:text-indigo-600";
 
-  // Lấy item cuối cùng (trang hiện tại)
   const lastItem = items[items.length - 1];
 
   return (
@@ -22,14 +21,13 @@ const Breadcrumb = ({ items }) => {
         {/* Icon Home */}
         <button
           onClick={() => navigate("/")}
-          className={`flex items-center ${textColor}`}
+          className={`flex items-center cursor-pointer ${textColor}`}
         >
           <Home className="w-4 h-4" />
         </button>
 
         <ChevronRight className="w-4 h-4 text-gray-400" />
 
-        {/* Nếu có nhiều hơn 2 mục thì hiển thị ... */}
         {items.length > 2 && (
           <>
             <MoreHorizontal className="w-4 h-4 text-gray-400" />
@@ -37,7 +35,6 @@ const Breadcrumb = ({ items }) => {
           </>
         )}
 
-        {/* Mục cuối */}
         <span
           className={`font-medium truncate max-w-[120px] ${
             theme === "dark" ? "text-gray-200" : "text-gray-900"
@@ -58,10 +55,11 @@ const Breadcrumb = ({ items }) => {
                 }`}
               />
             )}
+
             {item.href ? (
               <button
                 onClick={() => navigate(item.href)}
-                className={`flex items-center gap-1 ${textColor}`}
+                className={`flex items-center gap-1 cursor-pointer ${textColor}`}
               >
                 {index === 0 ? <Home className="w-4 h-4" /> : null}
                 {item.label}

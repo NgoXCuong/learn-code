@@ -49,30 +49,30 @@ const ResultsModal = ({
   const performance = getPerformanceLevel();
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center p-4 bg-black bg-opacity-50 z-50 animate-fadeIn">
-      <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-scaleIn transition-colors duration-300">
-        <div className="p-8">
-          {/* Close button */}
-          <button
-            onClick={close}
-            className="absolute top-4 right-4 p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
-          >
-            <X className="w-6 h-6" />
-          </button>
-
-          {/* Header */}
-          <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-linear-to-br from-indigo-500 to-purple-600 rounded-3xl mb-4 shadow-2xl">
-              <Trophy className="w-10 h-10 text-white" />
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="bg-white dark:bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
+        <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-6 z-10">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                Kết quả bài thi {performance.emoji}
+              </h2>
+              <div className="flex items-center gap-2">
+                <span className="text-lg text-gray-600 dark:text-gray-400">
+                  {performance.label}
+                </span>
+              </div>
             </div>
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-2">
-              Hoàn thành! {performance.emoji}
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              Kết quả bài thi của bạn
-            </p>
+            <button
+              onClick={close}
+              className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-2"
+            >
+              <X className="w-6 h-6" />
+            </button>
           </div>
+        </div>
 
+        <div className="p-6">
           {/* Score Circle */}
           <div className="flex justify-center mb-6">
             <div className="relative">
@@ -172,14 +172,14 @@ const ResultsModal = ({
           <div className="flex gap-3">
             <button
               onClick={onReview}
-              className="flex-1 py-3 px-6 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition-all flex items-center justify-center gap-2"
+              className="flex-1 py-3 px-6 btn-shimmer cursor-pointer bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition-all flex items-center justify-center gap-2"
             >
               <FileText className="w-5 h-5" />
               Xem chi tiết
             </button>
             <button
               onClick={onGoHome}
-              className="flex-1 py-3 px-6 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all flex items-center justify-center gap-2"
+              className="flex-1 py-3 px-6 btn-shimmer cursor-pointer bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all flex items-center justify-center gap-2"
             >
               <Home className="w-5 h-5" />
               Về trang chủ

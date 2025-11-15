@@ -23,17 +23,26 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
       onClick={() => onClick(challenge)}
       className="btn-shimmer bg-white dark:bg-gray-900 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-md transition-all cursor-pointer relative"
     >
-      {/* Trạng thái */}
-      {isCompleted && (
-        <div className="absolute top-3 right-3 text-green-500">
-          <CheckCircle2 className="w-5 h-5" />
-        </div>
-      )}
-      {isAttempted && !isCompleted && (
-        <div className="absolute top-3 right-3 text-yellow-500">
-          <Clock className="w-5 h-5" />
-        </div>
-      )}
+      {/* Trạng thái + Độ khó */}
+      <div className="absolute top-3 right-3 flex items-center gap-2">
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-semibold ${
+            difficultyColors[challenge.difficulty]
+          }`}
+        >
+          {challenge.difficulty}
+        </span>
+        {isCompleted && (
+          <div className="text-green-500">
+            <CheckCircle2 className="w-5 h-5" />
+          </div>
+        )}
+        {isAttempted && !isCompleted && (
+          <div className="text-yellow-500">
+            <Clock className="w-5 h-5" />
+          </div>
+        )}
+      </div>
 
       {/* Tiêu đề */}
       <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors pr-8">
@@ -57,30 +66,15 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
         ))}
       </div>
 
-      {/* Độ khó + Điểm */}
-      <div className="flex items-center justify-between text-base mb-2">
-        <span
-          className={`px-3 py-1 rounded-full text-sm font-semibold ${
-            difficultyColors[challenge.difficulty]
-          }`}
-        >
-          {challenge.difficulty}
-        </span>
-        <span className="text-blue-600 dark:text-blue-400 font-semibold flex items-center gap-1">
-          <Trophy className="w-4 h-4" />
-          {challenge.points} điểm
-        </span>
-      </div>
-
       {/* Thông tin dưới */}
       <div className="pt-3 border-t border-gray-200 dark:border-gray-700 flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
         <span className="flex items-center gap-1">
           <TrendingUp className="w-3 h-3" />
           {challenge.participants} người tham gia
         </span>
-        <span className="flex items-center gap-1">
-          <MessageSquare className="w-3 h-3" />
-          {challenge.comments} bình luận
+        <span className="text-blue-600 dark:text-blue-400 font-semibold flex items-center gap-1">
+          <Trophy className="w-4 h-4" />
+          {challenge.points} điểm
         </span>
       </div>
     </div>

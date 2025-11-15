@@ -16,7 +16,6 @@ export default function RecentBadges() {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-        <Award className="mr-2 text-yellow-500" size={24} />
         Huy hiệu gần đây
       </h2>
       <div className="grid grid-cols-2 gap-3">

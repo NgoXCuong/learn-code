@@ -5,16 +5,16 @@ import {
   leaderboard,
   dailyQuests,
 } from "@/mock/mockDataChallenge";
-import { ChallengeCard } from "@/components/challenges/ChallengeCard";
 import { DailyQuestsPanel } from "@/components/challenges/DailyQuestsPanel";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
 import { ChallengesFilter } from "@/components/challenges/ChallengesFilter";
 import { ChallengesTabs } from "@/components/challenges/ChallengesTabs";
 import { StatsCards } from "@/components/challenges/StatsCards";
+import ChallengesHeader from "@/components/challenges/ChallengesHeader";
+import ChallengesGrid from "@/components/challenges/ChallengesGrid";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import Breadcrumb from "@/components/layout/Breadcrumb";
-import { useNavigate } from "react-router-dom"; // import navigate
+import { useNavigate } from "react-router-dom";
 
 export default function ChallengesPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,9 +28,7 @@ export default function ChallengesPage() {
   const navigate = useNavigate();
 
   const handleChallengeClick = (challenge) => {
-    navigate(`/challenges/${challenge.id}/compiler`, {
-      state: { challenge }, // truyền luôn dữ liệu challenge qua state
-    });
+    setSelectedChallenge(challenge);
   };
 
   const filteredAndSortedChallenges = useMemo(() => {
@@ -89,37 +87,6 @@ export default function ChallengesPage() {
     return filteredAndSortedChallenges.slice(start, start + itemsPerPage);
   }, [filteredAndSortedChallenges, currentPage]);
 
-  const getPageNumbers = () => {
-    const delta = 2;
-    const range = [];
-    const rangeWithDots = [];
-    let l;
-
-    for (let i = 1; i <= totalPages; i++) {
-      if (
-        i === 1 ||
-        i === totalPages ||
-        (i >= currentPage - delta && i <= currentPage + delta)
-      ) {
-        range.push(i);
-      }
-    }
-
-    for (let i of range) {
-      if (l) {
-        if (i - l === 2) {
-          rangeWithDots.push(l + 1);
-        } else if (i - l !== 1) {
-          rangeWithDots.push("...");
-        }
-      }
-      rangeWithDots.push(i);
-      l = i;
-    }
-
-    return rangeWithDots;
-  };
-
   const clearFilters = () => {
     setSearchQuery("");
     setDifficultyFilter("all");
@@ -142,22 +109,7 @@ export default function ChallengesPage() {
     <div className="bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors min-h-screen">
       <Header />
       <main className="px-6 sm:px-14 lg:px-20 py-8">
-        <Breadcrumb
-          items={[{ label: "Trang chủ", href: "/" }, { label: "Thử thách" }]}
-        />
-
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                Thử thách lập trình
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 mt-1">
-                Rèn luyện kỹ năng và leo bảng xếp hạng cùng mọi người
-              </p>
-            </div>
-          </div>
-        </div>
+        <ChallengesHeader />
 
         <div className="grid lg:grid-cols-12 gap-8">
           <section className="lg:col-span-8 space-y-6">
@@ -180,88 +132,14 @@ export default function ChallengesPage() {
                 hasActiveFilters={hasActiveFilters}
               />
 
-              {paginatedChallenges.length > 0 ? (
-                <>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {paginatedChallenges.map((ch, index) => (
-                      <div
-                        key={ch.id}
-                        className="transform transition-all duration-300 hover:scale-[1.02]"
-                        style={{ animationDelay: `${index * 50}ms` }}
-                      >
-                        <ChallengeCard
-                          challenge={ch}
-                          onClick={handleChallengeClick}
-                          userProgress={userData}
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* === PHÂN TRANG === */}
-                  {totalPages > 1 && (
-                    <div className="flex justify-center items-center mt-8 gap-2 flex-wrap">
-                      {/* Nút Trước */}
-                      <button
-                        disabled={currentPage === 1}
-                        onClick={() => setCurrentPage(currentPage - 1)}
-                        className="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-50 transition-all"
-                      >
-                        ← Trước
-                      </button>
-
-                      {/* Số trang */}
-                      {getPageNumbers().map((page, idx) =>
-                        page === "..." ? (
-                          <span
-                            key={`dots-${idx}`}
-                            className="px-2 text-gray-400 dark:text-gray-500 select-none"
-                          >
-                            ...
-                          </span>
-                        ) : (
-                          <button
-                            key={`page-${page}`}
-                            onClick={() => setCurrentPage(page)}
-                            className={`w-9 h-9 rounded-xl font-medium transition-all duration-200 ${
-                              currentPage === page
-                                ? "bg-linear-to-r from-blue-500 to-indigo-500 text-white shadow-md scale-105"
-                                : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
-                            }`}
-                          >
-                            {page}
-                          </button>
-                        )
-                      )}
-
-                      {/* Nút Sau */}
-                      <button
-                        disabled={currentPage === totalPages}
-                        onClick={() => setCurrentPage(currentPage + 1)}
-                        className="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 disabled:opacity-50 transition-all"
-                      >
-                        Sau →
-                      </button>
-                    </div>
-                  )}
-                </>
-              ) : (
-                <div className="text-center py-12">
-                  <div className="text-6xl mb-4">🔍</div>
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Không tìm thấy thử thách
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
-                    Thử điều chỉnh bộ lọc hoặc tìm kiếm của bạn
-                  </p>
-                  <button
-                    onClick={clearFilters}
-                    className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                  >
-                    Xóa bộ lọc
-                  </button>
-                </div>
-              )}
+              <ChallengesGrid
+                paginatedChallenges={paginatedChallenges}
+                challengeData={userData}
+                onChallengeClick={handleChallengeClick}
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
             </div>
           </section>
 

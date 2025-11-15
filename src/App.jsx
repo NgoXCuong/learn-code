@@ -14,7 +14,7 @@ import { Toaster } from "sonner";
 import { UserCoursesProvider } from "@/context/UserCoursesContext";
 import { ProgressProvider } from "@/context/ProgressContext";
 import Chatbot from "@/components/layout/Chatbot";
-import CodeLearnPlatform from "@/pages/CodeLearnPlatform";
+import ExamCode from "@/pages/ExamCode";
 import Rankings from "@/pages/Rankings";
 import CompilerPage from "@/pages/CompilerPage";
 
@@ -37,7 +37,7 @@ const App = () => {
               <Route path="/courses" element={<Courses />} />
               <Route path="/courses/:id" element={<CourseDetail />} />
 
-              <Route path="/exam" element={<CodeLearnPlatform />} />
+              <Route path="/exam" element={<ExamCode />} />
               <Route path="/exam/:exerciseId/compiler" element={<Compiler />} />
               <Route path="/exam/:examId/feedback" element={<Feedback />} />
 

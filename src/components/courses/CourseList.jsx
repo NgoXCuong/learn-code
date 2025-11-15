@@ -27,7 +27,7 @@ export default function CourseList({
         </p>
         <button
           onClick={clearFilters}
-          className="px-6 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          className="btn-shimmer px-6 py-2 border text-gray-900 dark:text-white border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         >
           Xóa bộ lọc
         </button>

@@ -22,7 +22,7 @@ const FilterButton = ({ isDark, isActive, onClick, children }) => {
     <Button
       variant="ghost"
       onClick={onClick}
-      className={`rounded-full px-4 py-1.5 h-auto text-sm font-medium transition-all duration-200 ${
+      className={`rounded-full px-4 py-1.5 h-auto text-sm font-medium transition-all duration-200 cursor-pointer ${
         isActive ? activeClass : inactiveClass
       }`}
     >
@@ -99,7 +99,7 @@ export default function CourseFilters({
           }
         >
           <SelectTrigger
-            className={`w-full sm:w-[220px] h-12 py-3 px-4 text-base rounded-lg border transition-colors duration-200 ${
+            className={`cursor-pointer w-full sm:w-[220px] h-12 py-3 px-4 text-base rounded-lg border transition-colors duration-200 ${
               isDark
                 ? "bg-gray-900 border-gray-700 text-white"
                 : "bg-white border-gray-300 text-gray-900"
@@ -108,6 +108,7 @@ export default function CourseFilters({
             <span className="mr-2 text-gray-400">Ngôn ngữ:</span>
             <SelectValue placeholder="Chọn chủ đề" />
           </SelectTrigger>
+
           <SelectContent
             className={
               isDark
@@ -115,9 +116,15 @@ export default function CourseFilters({
                 : "bg-white border-gray-200 text-gray-900"
             }
           >
-            <SelectItem value="all">Tất cả</SelectItem>
+            <SelectItem value="all" className="cursor-pointer">
+              Tất cả
+            </SelectItem>
             {languages.map((lang) => (
-              <SelectItem key={lang.id} value={String(lang.id)}>
+              <SelectItem
+                key={lang.id}
+                value={String(lang.id)}
+                className="cursor-pointer"
+              >
                 {lang.name}
               </SelectItem>
             ))}
@@ -136,7 +143,7 @@ export default function CourseFilters({
           >
             Cấp độ:
           </span>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 ">
             {levels.map((level) => (
               <FilterButton
                 key={level.value}

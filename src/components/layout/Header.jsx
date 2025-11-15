@@ -104,7 +104,7 @@ const Header = () => {
                 <Link
                   key={i}
                   to={item.path}
-                  className={`relative group px-4 py-2 rounded-lg transition-all duration-200 ${
+                  className={`relative group px-4 py-2 rounded-lg transition-all duration-200 cursor-pointer ${
                     isActive(item.path)
                       ? "text-indigo-600 dark:text-indigo-400 font-semibold bg-indigo-50 dark:bg-indigo-950/30"
                       : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"

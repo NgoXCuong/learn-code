@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { Book } from "lucide-react";
 import { ProgressContext } from "@/context/ProgressContext";
 import { courses } from "@/mock/profile";
 
@@ -10,7 +9,6 @@ export default function CoursesProgress() {
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 transition-colors">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
-          <Book className="mr-2 text-blue-600 dark:text-blue-400" size={24} />
           Khóa học đang học
         </h2>
         <button className="text-blue-600 dark:text-blue-400 text-base font-medium hover:underline">
