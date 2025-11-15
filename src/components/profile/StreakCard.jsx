@@ -42,7 +42,7 @@ export default function StreakCard() {
   });
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-shadow">
+    <div className="bg-white font-exo dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-shadow">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
           Chuỗi này học tập

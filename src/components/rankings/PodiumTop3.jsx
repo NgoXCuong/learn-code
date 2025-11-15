@@ -12,7 +12,7 @@ export default function PodiumTop3({ users }) {
   if (!users || users.length === 0) return null;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div className="grid grid-cols-1 font-exo md:grid-cols-3 gap-6 mb-8">
       {users.map((u, idx) => (
         <motion.div
           key={u.id}

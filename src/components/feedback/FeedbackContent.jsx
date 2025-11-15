@@ -21,7 +21,7 @@ export default function FeedbackContent({
 }) {
   return (
     <div
-      className={`rounded-2xl overflow-hidden border ${
+      className={`rounded-2xl overflow-hidden border font-exo ${
         isDark ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"
       }`}
     >
@@ -66,7 +66,7 @@ export default function FeedbackContent({
             theme={isDark ? "vs-dark" : "vs-light"}
           />
           <p
-            className={`mt-4 text-lg ${
+            className={`mt-4 text-base ${
               isDark ? "text-gray-400" : "text-gray-600"
             }`}
           >

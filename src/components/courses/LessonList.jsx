@@ -20,7 +20,7 @@ export default function LessonList({ lessons, onLessonClick }) {
   const [openChapter, setOpenChapter] = useState(Object.keys(chapters)[0]);
 
   return (
-    <div>
+    <div className="font-exo">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         Danh sách bài học
       </h1>

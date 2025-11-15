@@ -9,12 +9,12 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className={`relative w-16 h-8 rounded-full transition-colors duration-300 focus:outline-none
+      className={`relative w-12 h-6 rounded-full transition-colors duration-300 focus:outline-none
         ${isDark ? "bg-gray-700" : "bg-yellow-400"}`}
     >
       {/* Circle */}
       <span
-        className={`absolute top-0.5 left-0.5 w-7 h-7 bg-white rounded-full shadow-md flex items-center justify-center transform transition-transform duration-300
+        className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-md flex items-center justify-center transform transition-transform duration-300
           ${isDark ? "translate-x-8" : "translate-x-0"}`}
       >
         {isDark ? (

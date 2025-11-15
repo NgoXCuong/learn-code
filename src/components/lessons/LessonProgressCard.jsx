@@ -9,7 +9,7 @@ export default function LessonProgressCard({
 }) {
   return (
     <div
-      className={`p-4 rounded-xl shadow-md transition-colors duration-300 ${
+      className={`p-4 rounded-xl shadow-md transition-colors duration-300 font-exo ${
         isDark
           ? "bg-linear-to-br from-indigo-800/80 to-purple-800/80 border border-indigo-700/60"
           : "bg-linear-to-br from-indigo-100 to-purple-100 border border-indigo-200"

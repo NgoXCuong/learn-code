@@ -4,7 +4,7 @@ import { Calendar, CheckCircle2 } from "lucide-react";
 export const DailyQuestsPanel = ({ quests }) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md border border-gray-200 dark:border-gray-700">
-      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2">
+      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2 font-exo">
         <Calendar className="w-6 h-6 text-blue-500" />
         Nhiệm vụ hàng ngày
       </h3>
@@ -16,7 +16,7 @@ export const DailyQuestsPanel = ({ quests }) => {
           return (
             <div
               key={quest.id}
-              className={`p-4 rounded-xl border transition-all duration-200 hover:shadow-sm ${
+              className={`p-4 rounded-xl border transition-all duration-200 hover:shadow-sm font-exo ${
                 quest.completed
                   ? "bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-700"
                   : "bg-gray-50 dark:bg-gray-700/40 border-gray-200 dark:border-gray-600"
@@ -24,7 +24,7 @@ export const DailyQuestsPanel = ({ quests }) => {
             >
               <div className="flex items-start justify-between mb-2">
                 <div className="flex-1">
-                  <p className="font-medium text-gray-900 dark:text-white text-base">
+                  <p className="font-bold text-gray-900 dark:text-white text-base">
                     {quest.title}
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">

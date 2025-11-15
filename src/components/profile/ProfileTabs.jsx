@@ -8,7 +8,7 @@ const tabs = [
 
 export default function ProfileTabs({ activeTab, setActiveTab }) {
   return (
-    <div className="flex  space-x-2 sm:space-x-4 mb-8 overflow-x-auto pb-2">
+    <div className="flex font-exo space-x-2 sm:space-x-4 mb-8 overflow-x-auto pb-2">
       {tabs.map((tab) => (
         <button
           key={tab.id}

@@ -8,7 +8,7 @@ export default function FeedbackButtons({
   onNextLesson,
 }) {
   return (
-    <div className="flex flex-col sm:flex-row justify-center items-center gap-6 mt-8 w-full">
+    <div className="flex font-exo flex-col sm:flex-row justify-center items-center gap-6 mt-8 w-full">
       <button
         onClick={onBack}
         className={` btn-shimmer flex items-center justify-center gap-2 w-full cursor-pointer ${

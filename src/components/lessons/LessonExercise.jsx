@@ -26,7 +26,7 @@ export default function LessonExercise({ exercises, courseId, lessonId }) {
   }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 font-exo">
       {exercises.map((ex, index) => (
         <div
           key={ex.id}

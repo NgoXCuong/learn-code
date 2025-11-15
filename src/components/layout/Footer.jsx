@@ -9,7 +9,7 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between text-base text-black dark:text-gray-200 gap-3">
-          <p className="flex items-center gap-1">
+          <p className="flex items-center gap-1 font-exo">
             © 2025{" "}
             <span className="font-semibold text-blue-600 dark:text-blue-400">
               CodePulse
@@ -20,7 +20,7 @@ const Footer = () => {
           </p>
 
           <div className="flex items-center gap-1 text-black dark:text-gray-200">
-            <Sparkles className="w-3 h-3 text-yellow-500" />
+            <Sparkles className="w-3 h-3 text-yellow-500 font-exo" />
             <span>Nghiên cứu khoa học 2025</span>
           </div>
         </div>

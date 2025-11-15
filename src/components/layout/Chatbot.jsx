@@ -32,7 +32,6 @@ const Chatbot = () => {
 
   const chatEndRef = useRef(null);
 
-  // Tự động cuộn xuống cuối khi có tin nhắn mới
   useEffect(() => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -90,8 +89,8 @@ const Chatbot = () => {
     if (text.includes("web"))
       return "Lộ trình Web Developer: HTML → CSS → JavaScript → React → Node.js 🚀";
     if (text.includes("oop"))
-      return "OOP (Lập trình hướng đối tượng) 🎯 gồm 4 nguyên lý: *Encapsulation, Inheritance, Polymorphism, Abstraction.*";
-    return "Cảm ơn bạn! 😊 Tôi có thể giúp bạn với các chủ đề lập trình khác, ví dụ như web, python, hoặc OOP.";
+      return "OOP gồm 4 nguyên lý: Encapsulation, Inheritance, Polymorphism, Abstraction.";
+    return "Cảm ơn bạn! 😊 Tôi có thể giúp bạn với nhiều chủ đề khác.";
   };
 
   const handleQuickReply = (reply) => setInputText(reply);
@@ -104,7 +103,7 @@ const Chatbot = () => {
 
   return (
     <>
-      {/* Nút mở Chatbot */}
+      {/* Button mở chat */}
       <button
         onClick={() => setOpen(!open)}
         className="fixed bottom-6 right-6 bg-linear-to-r from-blue-600 to-cyan-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 z-50 transform hover:scale-110"
@@ -112,9 +111,9 @@ const Chatbot = () => {
         {open ? <X size={26} /> : <MessageCircle size={26} />}
       </button>
 
-      {/* Chatbot Box */}
+      {/* Chatbox */}
       <div
-        className={`fixed bottom-24 right-6 w-96 shadow-2xl rounded-2xl border z-50 flex flex-col transition-all duration-300
+        className={`fixed bottom-24 right-6 w-96 shadow-2xl rounded-sm border z-50 flex flex-col transition-all duration-300
           ${
             isDark
               ? "bg-[#111827] border-gray-700 text-gray-100"
@@ -130,7 +129,7 @@ const Chatbot = () => {
       >
         {/* Header */}
         <div
-          className={`flex items-center justify-between p-4 rounded-t-2xl
+          className={`flex items-center justify-between p-4 rounded-t-sm
           ${
             isDark
               ? "bg-[#1f2937] text-white border-b border-gray-700"
@@ -152,8 +151,8 @@ const Chatbot = () => {
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white"></div>
             </div>
             <div>
-              <h2 className="font-bold text-xl">Trợ lý AI</h2>
-              <p className="text-sm opacity-80">
+              <h2 className="font-exo font-bold text-xl">Trợ lý AI</h2>
+              <p className="text-sm font-exo opacity-80">
                 {isDark ? "Đang hoạt động 🌙" : "Đang hoạt động"}
               </p>
             </div>
@@ -196,9 +195,10 @@ const Chatbot = () => {
                     <User size={18} className="text-white" />
                   )}
                 </div>
+
                 <div>
                   <div
-                    className={`rounded-2xl px-4 py-3 leading-relaxed shadow
+                    className={`rounded-xl px-4 py-3 leading-relaxed shadow font-exo
                     ${
                       m.sender === "user"
                         ? "bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-tr-none"
@@ -209,8 +209,9 @@ const Chatbot = () => {
                   >
                     <p className="text-base whitespace-pre-line">{m.text}</p>
                   </div>
+
                   <p
-                    className={`text-[11px] mt-1 ${
+                    className={`text-[11px] mt-1 font-exo ${
                       isDark ? "text-gray-400" : "text-gray-500"
                     } ${m.sender === "user" ? "text-right" : "text-left"}`}
                   >
@@ -222,7 +223,7 @@ const Chatbot = () => {
           ))}
 
           {isTyping && (
-            <div className="flex justify-start">
+            <div className="flex justify-start font-exo">
               <div className="flex gap-2">
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
@@ -249,7 +250,7 @@ const Chatbot = () => {
           <div ref={chatEndRef} />
         </div>
 
-        {/* Quick Replies */}
+        {/* Quick replies */}
         {messages.length <= 2 && (
           <div
             className={`px-4 py-3 border-t ${
@@ -260,7 +261,7 @@ const Chatbot = () => {
           >
             <div className="flex items-center gap-1 mb-2">
               <Sparkles size={14} className="text-blue-500" />
-              <p className="text-sm font-semibold">
+              <p className="text-sm font-semibold font-exo">
                 {isDark ? "Gợi ý câu hỏi 🌙" : "Gợi ý câu hỏi"}
               </p>
             </div>
@@ -269,7 +270,7 @@ const Chatbot = () => {
                 <button
                   key={i}
                   onClick={() => handleQuickReply(r)}
-                  className={`text-sm px-3 py-1.5 rounded-full border transition
+                  className={`text-sm px-3 py-1.5 rounded-full border transition font-exo
                     ${
                       isDark
                         ? "bg-gray-800 border-gray-600 text-gray-200 hover:bg-gray-700"
@@ -296,7 +297,7 @@ const Chatbot = () => {
               onChange={(e) => setInputText(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Nhập câu hỏi của bạn..."
-              className={`flex-1 border rounded-full px-4 py-2.5 text-base outline-none transition
+              className={`flex-1 border rounded-lg px-4 py-2 text-base outline-none transition font-exo
                 ${
                   isDark
                     ? "border-gray-600 bg-gray-800 text-gray-100 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
@@ -306,14 +307,14 @@ const Chatbot = () => {
             <button
               onClick={handleSendMessage}
               disabled={!inputText.trim()}
-              className="bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white p-2.5 rounded-full transition disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+              className="bg-linear-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white p-3 rounded-full transition disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
             >
               <Send size={20} />
             </button>
           </div>
-          <p className="text-sm text-gray-400 mt-2 text-center">
+          {/* <p className="text-sm text-gray-400 mt-2 text-center font-exo">
             Nhấn Enter để gửi tin nhắn
-          </p>
+          </p> */}
         </div>
       </div>
     </>

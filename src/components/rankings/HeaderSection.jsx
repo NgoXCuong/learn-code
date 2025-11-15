@@ -21,7 +21,7 @@ export default function HeaderSection({
   setPage,
 }) {
   return (
-    <div className="mb-10 rounded-xl p-6 dark:text-gray-200">
+    <div className="mb-10 font-exo rounded-xl p-6 dark:text-gray-200">
       {/* Title */}
       <div className="text-center mb-8">
         <h1 className="text-4xl md:text-5xl font-bold mb-2">Bảng Xếp Hạng</h1>

@@ -89,7 +89,7 @@ export default function LessonCode({ code, language = "java" }) {
   if (!code) return null;
 
   return (
-    <div className="w-full rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+    <div className="w-full rounded-xl font-exo overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       {/* Header */}
       <div
         className={`px-4 py-3 flex justify-between items-center ${
@@ -117,12 +117,12 @@ export default function LessonCode({ code, language = "java" }) {
           <button
             onClick={handleRunCode}
             disabled={isRunning}
-            className={`btn-shimmer relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-base font-medium transition-all overflow-hidden
+            className={`btn-shimmer relative flex items-center gap-2 px-3 py-1 rounded-lg text-base font-medium transition-all overflow-hidden
               ${isRunning ? "opacity-60 cursor-not-allowed" : "hover:scale-105"}
               ${
                 isDark
-                  ? "bg-blue-600 text-white hover:bg-blue-500"
-                  : "bg-blue-500 text-white hover:bg-blue-600"
+                  ? "bg-green-600 text-white hover:bg-green-500"
+                  : "bg-green-500 text-white hover:bg-green-600"
               }`}
           >
             <Play className="w-3.5 h-3.5" />
@@ -166,7 +166,7 @@ export default function LessonCode({ code, language = "java" }) {
           onMount={handleEditorDidMount}
           options={{
             fontSize: 16,
-            fontFamily: "'Fira Code', 'Courier New', monospace",
+            fontFamily: "'Consolas', 'Courier New', monospace", // dùng font có sẵn
             lineNumbers: "on",
             automaticLayout: true,
             minimap: { enabled: false },
@@ -195,7 +195,9 @@ export default function LessonCode({ code, language = "java" }) {
           <Terminal size={16} />
           <span>Kết quả chạy:</span>
         </div>
-        <pre className="whitespace-pre-wrap">{output || "..."}</pre>
+        <pre className="whitespace-pre-wrap font-exo text-base">
+          {output || "..."}
+        </pre>
       </div>
     </div>
   );

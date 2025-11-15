@@ -3,7 +3,7 @@ import { CheckCircle } from "lucide-react";
 
 export default function CourseOutcomes({ outcomes }) {
   return (
-    <section>
+    <section className="font-exo">
       <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         Bạn sẽ học được gì
       </h2>

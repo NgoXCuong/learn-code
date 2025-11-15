@@ -13,7 +13,7 @@ export default function LessonTabs({
 }) {
   return (
     <div
-      className={`rounded-xl shadow-lg mb-8 border ${
+      className={`rounded-xl shadow-lg mb-8 border font-exo ${
         isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
       }`}
     >
@@ -25,7 +25,7 @@ export default function LessonTabs({
       >
         <button
           onClick={() => setActiveTab("content")}
-          className={`flex-1 px-6 py-4 font-medium transition-colors relative ${
+          className={`flex-1 px-6 py-4 font-bold transition-colors relative ${
             activeTab === "content"
               ? isDark
                 ? "text-indigo-400"
@@ -46,7 +46,7 @@ export default function LessonTabs({
         </button>
         <button
           onClick={() => setActiveTab("exercises")}
-          className={`flex-1 px-6 py-4 font-medium transition-colors relative ${
+          className={`flex-1 px-6 py-4 font-bold transition-colors relative ${
             activeTab === "exercises"
               ? isDark
                 ? "text-indigo-400"

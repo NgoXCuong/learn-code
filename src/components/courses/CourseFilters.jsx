@@ -49,7 +49,7 @@ export default function CourseFilters({
   ];
 
   return (
-    <div className="flex flex-col gap-6 mb-10">
+    <div className="flex flex-col gap-6 mb-10 font-exo">
       {/* Tiêu đề & mô tả */}
       <div className="text-center sm:text-left space-y-2">
         <h1

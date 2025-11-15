@@ -15,7 +15,7 @@ export default function LeaderboardList({ paged, currentUser }) {
       animate={{ opacity: 1 }}
       transition={{ delay: 0.7 }}
       className="
-        overflow-hidden rounded-3xl border 
+        overflow-hidden rounded-3xl border font-exo
         bg-white border-gray-300 shadow-xl
         dark:bg-gray-900 dark:border-gray-700
       "
@@ -23,7 +23,7 @@ export default function LeaderboardList({ paged, currentUser }) {
       {/* Header (Desktop) */}
       <div
         className="
-          hidden md:grid grid-cols-12 gap-4 px-6 py-4 text-sm font-bold 
+          hidden md:grid grid-cols-12 o gap-4 px-6 py-4 text-sm font-bold 
           text-gray-600 border-b border-gray-200 bg-gray-50
           dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800
         "

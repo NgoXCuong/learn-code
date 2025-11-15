@@ -52,7 +52,9 @@ export default function LessonContent({ lesson, isDark }) {
 
   return (
     <div
-      className={`prose prose-lg max-w-none ${isDark ? "prose-invert" : ""}`}
+      className={`prose prose-lg font-exo max-w-none ${
+        isDark ? "prose-invert" : ""
+      }`}
     >
       {contentParts.map((part, idx) => {
         if (part.type === "text") {

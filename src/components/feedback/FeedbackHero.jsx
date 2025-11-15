@@ -4,7 +4,7 @@ import { CheckCircle, XCircle } from "lucide-react";
 export default function FeedbackHero({ feedback, isDark }) {
   return (
     <div
-      className={`bg-linear-to-br ${
+      className={`bg-linear-to-br font-exo ${
         isDark
           ? "from-gray-800 via-gray-900 to-gray-800"
           : "from-blue-50 to-indigo-50"

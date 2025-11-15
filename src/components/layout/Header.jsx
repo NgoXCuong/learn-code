@@ -88,10 +88,10 @@ const Header = () => {
             className="flex items-center space-x-3 cursor-pointer"
             onClick={() => navigate("/")}
           >
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-linear-to-r from-indigo-600 to-purple-600 text-white shadow-md hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-linear-to-r from-indigo-600 to-purple-600 text-white shadow-md hover:scale-105 transition-transform">
               <HeartPulse className="w-6 h-6" />
             </div>
-            <h1 className="text-2xl font-extrabold tracking-wide text-black dark:text-white">
+            <h1 className="text-3xl font-bold tracking-wide text-black dark:text-white font-exo">
               CodePulse
             </h1>
           </div>
@@ -99,20 +99,20 @@ const Header = () => {
           {/* ✅ Desktop Menu Chia 3 vùng */}
           <div className="hidden md:flex items-center justify-between flex-1">
             {/* ✅ Vùng giữa - NAV centered */}
-            <nav className="flex items-center justify-center flex-1 space-x-1 mx-8 font-medium">
+            <nav className="flex text-lg items-center justify-center flex-1 space-x-1 mx-8 font-bold font-exo">
               {navItems.map((item, i) => (
                 <Link
                   key={i}
                   to={item.path}
-                  className={`relative group px-4 py-2 rounded-lg transition-all duration-200 cursor-pointer ${
+                  className={`relative group px-4 py-2 rounded-sm transition-all duration-200 cursor-pointer  ${
                     isActive(item.path)
-                      ? "text-indigo-600 dark:text-indigo-400 font-semibold bg-indigo-50 dark:bg-indigo-950/30"
+                      ? "text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/30 font-bold"
                       : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800"
                   }`}
                 >
                   {item.label}
                   <span
-                    className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-500 transition-all duration-300 ${
+                    className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-500 transition-all duration-300 font-bold ${
                       isActive(item.path) ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                   ></span>
@@ -131,12 +131,12 @@ const Header = () => {
                       className="flex items-center space-x-2 cursor-pointer select-none"
                     >
                       <div className="relative">
-                        <div className="w-9 h-9 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-full flex items-center justify-center text-base font-semibold shadow-md">
+                        <div className="w-9 h-9 bg-linear-to-r font-exo from-indigo-600 to-purple-600 text-white rounded-full flex items-center justify-center text-base font-semibold shadow-md">
                           {getUserInitials(user.name)}
                         </div>
                         <span className="absolute -bottom-1 -right-1 w-2.5 h-2.5 bg-green-500 border-2 border-white dark:border-gray-900 rounded-full"></span>
                       </div>
-                      <span className="text-base font-semibold text-gray-900 dark:text-gray-100 hidden lg:inline">
+                      <span className="text-base font-semibold font-exo text-gray-900 dark:text-gray-100 hidden lg:inline">
                         {user.name}
                       </span>
                       <ChevronDown
@@ -147,11 +147,11 @@ const Header = () => {
                     </button>
 
                     {menuOpen && (
-                      <div className="absolute right-0 mt-3 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl py-2 animate-fade-in">
+                      <div className="absolute right-0 mt-3 w-48 bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-lg shadow-xl py-2 animate-fade-in">
                         <Link
                           to="/profile"
                           onClick={() => setMenuOpen(false)}
-                          className={`block w-full text-left px-4 py-2 text-base rounded transition-colors ${
+                          className={`block w-full text-left px-4 py-2 text-base rounded transition-colors font-exo ${
                             isActive("/profile")
                               ? "bg-indigo-50 dark:bg-gray-700 text-indigo-600 dark:text-indigo-400 font-semibold"
                               : "hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-200"
@@ -161,7 +161,7 @@ const Header = () => {
                         </Link>
 
                         <div className="px-4 py-2 flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">
-                          <span className="text-base text-gray-900 dark:text-gray-200">
+                          <span className="text-base font-exo text-gray-900 dark:text-gray-200">
                             Chế độ
                           </span>
                           <DarkModeToggle />
@@ -169,7 +169,7 @@ const Header = () => {
 
                         <button
                           onClick={handleLogout}
-                          className="btn-shimmer block w-full text-left px-4 py-2 text-base text-red-600 hover:bg-red-50 dark:hover:bg-gray-700 dark:text-red-400 rounded transition-colors"
+                          className="btn-shimmer font-exo block w-full text-left px-4 py-2 text-base text-red-600 hover:bg-red-50 dark:hover:bg-gray-700 dark:text-red-400 rounded transition-colors"
                         >
                           Đăng xuất
                         </button>
@@ -182,7 +182,7 @@ const Header = () => {
                   <DarkModeToggle />
                   <Link
                     to="/login"
-                    className={`btn-shimmer relative px-4 py-2 font-semibold text-base rounded-lg border transition-all duration-300 ${
+                    className={`btn-shimmer relative px-4 py-2 font-exo font-bold text-base rounded-sm border transition-all duration-300 ${
                       isActive("/login")
                         ? "bg-indigo-600 text-white border-indigo-600"
                         : "border-indigo-500 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-gray-800 dark:text-indigo-400 dark:border-indigo-400"
@@ -192,7 +192,7 @@ const Header = () => {
                   </Link>
                   <Link
                     to="/register"
-                    className={`btn-shimmer relative px-4 py-2 font-semibold text-base rounded-lg shadow-md transition-all duration-300 ${
+                    className={`btn-shimmer relative px-4 py-2 font-exo font-bold text-base rounded-sm shadow-md transition-all duration-300 ${
                       isActive("/register")
                         ? "bg-indigo-700 text-white"
                         : "bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600"
@@ -210,7 +210,7 @@ const Header = () => {
             <DarkModeToggle />
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
+              className="p-2 rounded-sm hover:bg-gray-200 dark:hover:bg-gray-700 transition-all"
             >
               {mobileOpen ? (
                 <X className="w-6 h-6 text-gray-700 dark:text-gray-200" />
@@ -230,7 +230,7 @@ const Header = () => {
         >
           <div className="px-6 sm:px-14 py-4 space-y-2">
             {user && (
-              <p className="px-4 py-2 text-base font-semibold text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700">
+              <p className="px-4 py-2 text-base font-exo font-bold text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700">
                 👋 Xin chào, {user.name}
               </p>
             )}
@@ -240,7 +240,7 @@ const Header = () => {
                 key={i}
                 to={item.path}
                 onClick={() => setMobileOpen(false)}
-                className={`block px-4 py-3 rounded-lg transition-all duration-200 font-medium ${
+                className={`block px-4 py-3 rounded-sm transition-all duration-200 font-exo font-bold ${
                   isActive(item.path)
                     ? "bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400"
                     : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -256,7 +256,7 @@ const Header = () => {
                 <Link
                   to="/profile"
                   onClick={() => setMobileOpen(false)}
-                  className={`block px-4 py-3 rounded-lg transition-all duration-200 font-medium ${
+                  className={`block px-4 py-3 rounded-sm transition-all duration-200 font-exo font-bold ${
                     isActive("/profile")
                       ? "bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400"
                       : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -266,7 +266,7 @@ const Header = () => {
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="btn-shimmer w-full text-left px-4 py-3 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium"
+                  className="btn-shimmer font-exo font-bold w-full text-left px-4 py-3 rounded-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-gray-700 transition-all duration-200 "
                 >
                   Đăng xuất
                 </button>
@@ -277,14 +277,14 @@ const Header = () => {
                 <Link
                   to="/login"
                   onClick={() => setMobileOpen(false)}
-                  className="btn-shimmer block px-4 py-3 rounded-lg text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all duration-200 font-medium border border-indigo-600 dark:border-indigo-400 text-center"
+                  className="btn-shimmer font-exo font-bold block px-4 py-3 rounded-sm text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-gray-700 transition-all duration-200 border border-indigo-600 dark:border-indigo-400 text-center"
                 >
                   Đăng nhập
                 </Link>
                 <Link
                   to="/register"
                   onClick={() => setMobileOpen(false)}
-                  className="btn-shimmer block px-4 py-3 rounded-lg bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all duration-200 font-medium text-center"
+                  className="btn-shimmer font-exo font-bold block px-4 py-3 rounded-sm bg-indigo-600 dark:bg-indigo-500 text-white hover:bg-indigo-700 dark:hover:bg-indigo-600 transition-all duration-200  text-center"
                 >
                   Đăng ký
                 </Link>

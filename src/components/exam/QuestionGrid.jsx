@@ -8,7 +8,7 @@ const QuestionGrid = ({
   isReviewMode,
 }) => {
   return (
-    <div className="grid grid-cols-5 gap-2">
+    <div className="grid grid-cols-5 gap-2 font-exo">
       {quizQuestions.map((q, idx) => {
         const isCurrent = idx === currentQuestion;
         const isAnswered = answers[q.id] !== undefined;

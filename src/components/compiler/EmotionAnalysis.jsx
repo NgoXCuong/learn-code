@@ -9,7 +9,7 @@ const EmotionAnalysis = () => {
         <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30">
           <Brain className="w-5 h-5 text-purple-600 dark:text-purple-400" />
         </div>
-        <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+        <h3 className="text-xl font-exo font-bold text-gray-900 dark:text-white">
           Phân tích AI
         </h3>
       </div>
@@ -22,7 +22,7 @@ const EmotionAnalysis = () => {
         </div>
 
         {/* Nội dung bên phải */}
-        <div className="flex flex-col justify-center flex-1">
+        <div className="flex flex-col justify-center flex-1 font-exo">
           <h3 className="text-xl font-bold mb-1">Tích cực</h3>
           <p className="text-base mb-1">Bạn đang tập trung tốt!</p>
           <p className="text-base italic text-yellow-800 dark:text-yellow-200">

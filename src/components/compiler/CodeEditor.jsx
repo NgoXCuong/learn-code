@@ -64,13 +64,13 @@ const CodeEditor = ({
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
 
           {/* ✅ Sử dụng extension chuẩn */}
-          <span className="ml-4 text-base font-medium text-gray-900 dark:text-gray-100">
+          <span className="ml-4 text-base font-exo text-gray-900 dark:text-gray-100">
             main.{getFileExtension()}
           </span>
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 font-exo">
           {/* Select Language */}
           <Select value={language} onValueChange={onLanguageChange}>
             <SelectTrigger
@@ -132,7 +132,7 @@ const CodeEditor = ({
           onChange={onCodeChange}
           options={{
             fontSize: 14,
-            fontFamily: "'Fira Code', monospace",
+            fontFamily: "'Consolas', 'Courier New', monospace", // dùng font có sẵn
             lineNumbers: "on",
             automaticLayout: true,
             minimap: { enabled: true },

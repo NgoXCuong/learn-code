@@ -9,13 +9,13 @@ const Breadcrumb = ({ items }) => {
 
   const textColor =
     theme === "dark"
-      ? "text-gray-300 hover:text-indigo-400"
-      : "text-gray-900 hover:text-indigo-600";
+      ? "text-gray-300 hover:text-indigo-400 font-exo"
+      : "text-gray-900 hover:text-indigo-600 font-exo";
 
   const lastItem = items[items.length - 1];
 
   return (
-    <nav className="flex items-center space-x-1 sm:space-x-2 text-base mb-6 transition-colors">
+    <nav className="flex items-center space-x-1 sm:space-x-2 text-base mb-6 transition-colors font-exo">
       {/* --- Mobile --- */}
       <div className="flex items-center sm:hidden space-x-1">
         {/* Icon Home */}
@@ -36,7 +36,7 @@ const Breadcrumb = ({ items }) => {
         )}
 
         <span
-          className={`font-medium truncate max-w-[120px] ${
+          className={`font-medium truncate max-w-[120px] font-exo ${
             theme === "dark" ? "text-gray-200" : "text-gray-900"
           }`}
         >
@@ -45,7 +45,7 @@ const Breadcrumb = ({ items }) => {
       </div>
 
       {/* --- Desktop --- */}
-      <div className="hidden sm:flex items-center space-x-2">
+      <div className="hidden sm:flex items-center space-x-2 font-exo">
         {items.map((item, index) => (
           <React.Fragment key={index}>
             {index > 0 && (
@@ -66,7 +66,7 @@ const Breadcrumb = ({ items }) => {
               </button>
             ) : (
               <span
-                className={`font-medium ${
+                className={`font-medium font-exo ${
                   theme === "dark" ? "text-gray-200" : "text-gray-900"
                 }`}
               >

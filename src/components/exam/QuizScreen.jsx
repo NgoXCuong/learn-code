@@ -99,7 +99,7 @@ export default function QuizScreen({
 
   return (
     // Thêm dark: class cho các phần chính
-    <div className="flex flex-1 overflow-hidden bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-500">
+    <div className="flex font-exo flex-1 overflow-hidden bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-500">
       {/* Sidebar */}
       <aside className="hidden lg:flex flex-col w-80 bg-white dark:bg-gray-800 shadow-md p-6 overflow-y-auto fixed left-0 top-16  bottom-16 transition-colors duration-300">
         <h3 className="font-bold mb-4 text-lg text-gray-800 dark:text-gray-100">
@@ -130,16 +130,6 @@ export default function QuizScreen({
           </button>
         ) : (
           <div className="mt-6 space-y-3">
-            {/* {unansweredCount > 0 && (
-              <div className="p-3 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg">
-                <div className="flex items-center gap-2 text-orange-700 dark:text-orange-300">
-                  <AlertTriangle className="w-4 h-4" />
-                  <span className="text-sm font-medium">
-                    Còn {unansweredCount} câu chưa làm
-                  </span>
-                </div>
-              </div>
-            )} */}
             <button
               onClick={handleSubmitClick}
               className="w-full py-3 cursor-pointer hover:scale-105 transition bg-linear-to-r btn-shimmer from-green-500 to-emerald-600 dark:from-green-600 dark:to-emerald-700 text-white rounded-lg font-semibold shadow-md flex items-center justify-center gap-2  duration-300"
@@ -278,7 +268,7 @@ export default function QuizScreen({
 // ===================== COMPONENTS PHỤ (Dark Mode) =====================
 
 const NavigationButtons = ({ currentQuestion, quizLength, prev, next }) => (
-  <div className="flex gap-8 mt-8">
+  <div className="flex gap-8 mt-8 font-exo">
     <button
       onClick={prev}
       disabled={currentQuestion === 0}

@@ -12,7 +12,7 @@ export default function CourseHero({
   const navigate = useNavigate();
 
   return (
-    <div className="relative h-auto md:h-96 overflow-hidden rounded-2xl mt-6">
+    <div className="relative h-auto md:h-96 overflow-hidden rounded-2xl mt-6 font-exo">
       {/* Ảnh nền */}
       <img
         src={course.image}

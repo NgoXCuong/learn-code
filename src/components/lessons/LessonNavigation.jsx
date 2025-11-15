@@ -10,7 +10,7 @@ export default function LessonNavigation({
   navigate,
 }) {
   return (
-    <div className="flex justify-between items-center mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+    <div className="flex justify-between font-exo items-center mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
       {prevLesson ? (
         <button
           onClick={() =>
@@ -24,7 +24,7 @@ export default function LessonNavigation({
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           <div className="text-left">
-            <div className="text-sm text-gray-500 dark:text-gray-400 mb-0.5">
+            <div className="text-base text-gray-500 dark:text-gray-400 mb-0.5">
               Bài trước: {prevLesson.title}
             </div>
           </div>
@@ -43,7 +43,7 @@ export default function LessonNavigation({
             dark:bg-indigo-600 dark:hover:bg-indigo-500 transition-all duration-200 shadow-md hover:shadow-lg"
         >
           <div className="text-right">
-            <div className="text-sm text-white mb-0.5">
+            <div className="text-base text-white mb-0.5">
               Bài tiếp theo: {nextLesson.title}
             </div>
           </div>

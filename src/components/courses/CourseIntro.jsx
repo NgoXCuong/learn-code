@@ -2,7 +2,7 @@ import React from "react";
 
 export default function CourseIntro({ intro }) {
   return (
-    <section>
+    <section className="font-exo">
       <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
         Giới thiệu khóa học
       </h2>

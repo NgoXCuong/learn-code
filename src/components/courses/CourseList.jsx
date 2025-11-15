@@ -17,7 +17,7 @@ export default function CourseList({
 
   if (!courses || courses.length === 0) {
     return (
-      <div className="text-center py-12">
+      <div className="text-center py-12 font-exo">
         <div className="text-6xl mb-4">🔍</div>
         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
           Không tìm thấy khóa học

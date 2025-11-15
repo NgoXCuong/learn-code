@@ -7,8 +7,8 @@ export default function ProblemContent({ exercise, isDark }) {
   return (
     <div className="space-y-6">
       {/* Mô tả bài toán */}
-      <div>
-        <div className="flex items-center gap-2 mb-3">
+      <div className="font-exo">
+        <div className="flex items-center  gap-2 mb-3">
           <div className="p-2 rounded-lg bg-indigo-100 dark:bg-indigo-900/30">
             <Lightbulb className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
           </div>
@@ -26,8 +26,8 @@ export default function ProblemContent({ exercise, isDark }) {
       </div>
 
       {/* Ví dụ */}
-      <div>
-        <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+      <div className="font-exo">
+        <h3 className="text-lg  font-bold text-gray-900 dark:text-white mb-2">
           Ví dụ:
         </h3>
         <div
@@ -49,8 +49,8 @@ export default function ProblemContent({ exercise, isDark }) {
       </div>
 
       {/* Ràng buộc */}
-      <div>
-        <h3 className="text-base font-bold text-gray-900 dark:text-white mb-2">
+      <div className="font-exo">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
           Ràng buộc:
         </h3>
         <ul
@@ -72,10 +72,10 @@ export default function ProblemContent({ exercise, isDark }) {
             : "bg-amber-50 border-amber-200"
         }`}
       >
-        <div className="flex items-start gap-2">
+        <div className="flex items-start gap-2 font-exo">
           <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-500 shrink-0 mt-0.5" />
           <div>
-            <h3 className="text-base font-bold text-amber-900 dark:text-amber-300 mb-1">
+            <h3 className="text-lg font-bold text-amber-900 dark:text-amber-300 mb-1">
               Gợi ý
             </h3>
             <p className="text-base text-amber-800 dark:text-amber-400">

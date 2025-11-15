@@ -12,7 +12,7 @@ const QuestionBlock = ({
 
   return (
     <>
-      <div className="flex items-start gap-4 mb-6">
+      <div className="flex items-start gap-4 mb-6 font-exo">
         <div className="w-14 h-14 bg-linear-to-br from-blue-500 to-indigo-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md shrink-0">
           {currentQuestion + 1}
         </div>

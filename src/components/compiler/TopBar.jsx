@@ -27,7 +27,7 @@ export default function TopBar({
         </div>
 
         {currentExercise && (
-          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 px-4 sm:px-6 md:px-14 lg:px-20">
+          <div className="flex flex-col font-exo sm:flex-row sm:items-start sm:justify-between gap-3 px-4 sm:px-6 md:px-14 lg:px-20">
             <div className="flex-1">
               <h1 className="text-xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-1">
                 {currentExercise.title}

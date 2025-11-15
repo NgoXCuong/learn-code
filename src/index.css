@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --font-exo: "Exo 2", sans-serif;
+}
+
 html,
 body,
 #root {

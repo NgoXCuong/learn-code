@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ thêm dòng này
+import { useNavigate } from "react-router-dom";
 import {
   X,
   Trophy,
@@ -15,21 +15,20 @@ import {
 } from "lucide-react";
 
 export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
-  const navigate = useNavigate(); // ✅ khởi tạo hook điều hướng
+  const navigate = useNavigate();
 
   const [showHints, setShowHints] = useState(false);
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [showAiHelp, setShowAiHelp] = useState(false);
 
   const handleClick = () => {
-    // ✅ Điều hướng sang trang compiler và truyền dữ liệu challenge
     navigate(`/challenges/${challenge.id}/compiler`, {
       state: { challenge },
     });
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-exo">
       <div className="bg-white dark:bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-xl border border-gray-200 dark:border-gray-700">
         {/* HEADER */}
         <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-6 z-10">
@@ -38,6 +37,7 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                 {challenge.title}
               </h2>
+
               <div className="flex flex-wrap items-center gap-3">
                 <span
                   className={`px-3 py-1 rounded-full text-sm font-semibold ${
@@ -50,16 +50,19 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
                 >
                   {challenge.difficulty}
                 </span>
+
                 <span className="text-blue-600 dark:text-blue-400 font-bold flex items-center gap-1">
                   <Trophy className="w-4 h-4" />
                   {challenge.points} điểm
                 </span>
+
                 <span className="text-base text-gray-600 dark:text-gray-400 flex items-center gap-1">
                   <Clock className="w-4 h-4" />
                   Trung bình: {challenge.avgTime}
                 </span>
               </div>
             </div>
+
             <button
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 p-2"
@@ -71,7 +74,7 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
 
         {/* BODY */}
         <div className="p-6 space-y-6">
-          {/* Mô tả */}
+          {/* Description */}
           <div>
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
               Mô tả
@@ -86,7 +89,7 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
             {challenge.tags.map((tag, i) => (
               <span
                 key={i}
-                className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full text-base border border-gray-200 dark:border-gray-700"
+                className="text-base bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700"
               >
                 {tag}
               </span>
@@ -103,6 +106,7 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
                 {challenge.successRate}%
               </p>
             </div>
+
             <div className="bg-purple-50 dark:bg-gray-800 rounded-lg p-4 border border-purple-100 dark:border-gray-700">
               <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
                 Người tham gia
@@ -113,7 +117,7 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
             </div>
           </div>
 
-          {/* Gợi ý */}
+          {/* Hints */}
           {challenge.hints.length > 0 && (
             <div className="border border-yellow-200 dark:border-yellow-700 rounded-lg p-4 bg-yellow-50 dark:bg-yellow-900/20">
               <button
@@ -145,11 +149,15 @@ export const ChallengeDetailModal = ({ challenge, onClose, userProgress }) => {
             </div>
           )}
 
-          {/* Nút hành động */}
+          {/* Action Button */}
           <div className="flex gap-3">
             <button
               onClick={handleClick}
-              className="flex-1 btn-shimmer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all shadow-sm hover:shadow-md"
+              className="
+                flex-1 btn-shimmer bg-blue-600 hover:bg-blue-700 
+                text-white font-semibold py-3 rounded-lg 
+                transition-all shadow-sm hover:shadow-md
+              "
             >
               Bắt đầu thử thách
             </button>
