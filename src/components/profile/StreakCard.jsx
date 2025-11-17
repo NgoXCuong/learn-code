@@ -1,4 +1,11 @@
 import React, { useState } from "react";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
 export default function StreakCard() {
   const [selectedYear, setSelectedYear] = useState(2025);
@@ -106,17 +113,21 @@ export default function StreakCard() {
 
         {/* Year Selection Dropdown */}
         <div className="shrink-0">
-          <select
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-            className="w-20 py-2 px-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm font-medium focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          <Select
+            value={selectedYear.toString()} // chuyển sang string
+            onValueChange={(val) => setSelectedYear(parseInt(val))}
           >
-            {[2025, 2024, 2023, 2022, 2021].map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger className="w-24">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="min-w-20 text-gray-700 dark:text-white">
+              {[2025, 2024, 2023, 2022, 2021].map((year) => (
+                <SelectItem key={year} value={year.toString()}>
+                  {year}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
       </div>
 

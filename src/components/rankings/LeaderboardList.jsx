@@ -15,7 +15,7 @@ export default function LeaderboardList({ paged, currentUser }) {
       animate={{ opacity: 1 }}
       transition={{ delay: 0.7 }}
       className="
-        overflow-hidden rounded-3xl border font-exo
+        overflow-hidden rounded-lg border font-exo
         bg-white border-gray-300 shadow-xl
         dark:bg-gray-900 dark:border-gray-700
       "

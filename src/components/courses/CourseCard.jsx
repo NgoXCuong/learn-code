@@ -48,7 +48,7 @@ export default function CourseCard({
 
   return (
     <div
-      className={`group relative font-exo flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-105 cursor-pointer ${
+      className={`group relative shadow-gray-400 font-exo flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-105 cursor-pointer ${
         darkMode
           ? "bg-gray-800 border-gray-700 hover:border-blue-500 hover:shadow-purple-500/20"
           : "bg-white border-gray-200 hover:border-blue-500 hover:shadow-lg"

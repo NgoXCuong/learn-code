@@ -83,7 +83,7 @@ export default function CourseFilters({
             placeholder="Tìm kiếm theo tên khóa học..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className={`pl-11 pr-4 py-3  text-base rounded-lg transition-colors duration-200 ${
+            className={`pl-11 pr-4 py-3 text-base rounded-lg transition-colors duration-200 ${
               isDark
                 ? "bg-gray-900 border-gray-700 text-white placeholder:text-gray-500 focus:border-purple-500"
                 : "bg-white border-gray-300 text-gray-900 placeholder:text-gray-500 focus:border-purple-500"

@@ -123,7 +123,7 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 mb-12">
               <button
                 onClick={() => navigate("/courses")}
-                className={`group relative w-full sm:w-auto px-8 py-4 rounded-xl font-exo font-semibold text-base overflow-hidden transition-all duration-300 hover:scale-105 active:scale-100 ${
+                className={`group relative w-full sm:w-auto px-8 py-4 rounded-lg font-exo font-semibold text-base overflow-hidden transition-all duration-300 hover:scale-105 active:scale-100 ${
                   theme === "dark"
                     ? "bg-linear-to-r from-purple-600 to-cyan-600 text-white hover:shadow-[0_0_30px_rgba(168,85,247,0.6)]"
                     : "bg-linear-to-r from-purple-600 to-cyan-600 text-white hover:shadow-[0_0_30px_rgba(147,51,234,0.5)]"
@@ -138,7 +138,7 @@ const HeroSection = () => {
 
               <button
                 onClick={() => navigate("/compiler")}
-                className={`group relative w-full sm:w-auto px-8 py-4 rounded-xl font-exo font-semibold text-base overflow-hidden transition-all duration-300 active:scale-95 ${
+                className={`group relative w-full sm:w-auto px-8 py-4 rounded-lg font-exo font-semibold text-base overflow-hidden transition-all duration-300 active:scale-95 ${
                   theme === "dark"
                     ? "bg-slate-800/50 backdrop-blur-sm border-2 border-purple-500/30 text-slate-200 hover:border-cyan-400/60 hover:bg-slate-800/70 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]"
                     : "bg-white/70 backdrop-blur-sm border-2 border-purple-300 text-slate-700 hover:border-cyan-500 hover:bg-white hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]"

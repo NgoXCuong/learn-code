@@ -113,7 +113,7 @@ export default function ChallengesPage() {
 
         <div className="grid lg:grid-cols-12 gap-8">
           <section className="lg:col-span-8 space-y-6">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-100 dark:border-gray-700">
               <ChallengesTabs
                 activeTab={activeTab}
                 setActiveTab={setActiveTab}

@@ -21,7 +21,7 @@ export default function HeaderSection({
   setPage,
 }) {
   return (
-    <div className="mb-10 font-exo rounded-xl p-6 dark:text-gray-200">
+    <div className="mb-10 font-exo rounded-lg p-6 dark:text-gray-200">
       {/* Title */}
       <div className="text-center mb-8">
         <h1 className="text-4xl md:text-5xl font-bold mb-2">Bảng Xếp Hạng</h1>
@@ -45,7 +45,7 @@ export default function HeaderSection({
             className="
     grid grid-cols-3 lg:flex 
     bg-gray-100 dark:bg-gray-800/60
-    rounded-xl p-2
+    rounded-lg p-2
     shadow-inner border border-gray-200 dark:border-gray-700
   "
           >
@@ -94,7 +94,7 @@ export default function HeaderSection({
           >
             <SelectTrigger
               className="
-                w-[200px] rounded-xl 
+                w-[200px] rounded-lg 
                 bg-white dark:bg-gray-800
                 border-gray-300 dark:border-gray-700
                 text-gray-900 dark:text-gray-200
@@ -128,7 +128,7 @@ export default function HeaderSection({
               }}
               placeholder="Tìm người học..."
               className="
-                pl-10 py-3 rounded-xl text-base 
+                pl-10 py-3 rounded-lg text-base 
                 bg-white dark:bg-gray-800
                 border-gray-300 dark:border-gray-700
                 text-gray-900 dark:text-gray-200

@@ -23,11 +23,11 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
       onClick={() => onClick(challenge)}
       className="
         btn-shimmer relative cursor-pointer
-        bg-white dark:bg-gray-900 
+        bg-white dark:bg-gray-900 shadow-gray-400
         border border-gray-200 dark:border-gray-700 
         hover:border-blue-500 dark:hover:border-blue-400
         hover:shadow-lg transition-all
-        rounded-xl p-5
+        rounded-lg p-5
       "
     >
       {/* Status + Difficulty */}

@@ -19,14 +19,20 @@ export default function PodiumTop3({ users }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 + idx * 0.1 }}
-          className="btn-shimmer
-            relative overflow-hidden rounded-3xl border 
-            border-gray-300 dark:border-gray-700 
-            bg-white dark:bg-gray-900 
-            shadow-xl hover:scale-105 
-            transition-all duration-300
-          "
+          className="btn-shimmer relative overflow-hidden rounded-xl border 
+    border-gray-300 dark:border-gray-700 
+    bg-white dark:bg-gray-900 
+    shadow-xl hover:scale-105 
+    transition-all duration-300"
         >
+          {/* Streak top-left */}
+          {u.streak > 0 && (
+            <div className="absolute top-2 left-2 flex items-center gap-1 bg-orange-500 dark:bg-orange-400 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10">
+              <Flame className="w-3 h-3" />
+              <span>{u.streak} ngày</span>
+            </div>
+          )}
+
           {/* Background icon */}
           <div className="absolute top-0 right-0 w-20 h-20 opacity-10">
             {idx === 0 && <Trophy className="w-full h-full text-yellow-500" />}
@@ -35,7 +41,7 @@ export default function PodiumTop3({ users }) {
           </div>
 
           <div className="relative p-6">
-            {/* Avatar + Rank */}
+            {/* Avatar + Rank + Name */}
             <div className="flex flex-col items-center mb-4">
               <img
                 src={u.avatarUrl}
@@ -48,18 +54,15 @@ export default function PodiumTop3({ users }) {
 
               <div
                 className={classNames(
-                  "text-4xl font-bold mt-4",
+                  "flex items-center gap-2 font-bold mt-4 text-gray-900 dark:text-gray-100",
                   idx === 0 && "text-yellow-500",
                   idx === 1 && "text-gray-500",
                   idx === 2 && "text-amber-600"
                 )}
               >
-                #{u.rank}
+                <span className="text-2xl">#{u.rank}</span>
+                <span className="text-xl font-semibold">{u.name}</span>
               </div>
-
-              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-2">
-                {u.name}
-              </h3>
 
               <span
                 className={classNames(
@@ -88,13 +91,6 @@ export default function PodiumTop3({ users }) {
                 <span>•</span>
                 <span>{u.accuracy}% đúng</span>
               </div>
-
-              {u.streak > 0 && (
-                <div className="flex items-center justify-center gap-1 text-orange-500 dark:text-orange-400">
-                  <Flame className="w-4 h-4" />
-                  <span className="text-sm font-semibold">{u.streak} ngày</span>
-                </div>
-              )}
             </div>
           </div>
         </motion.div>

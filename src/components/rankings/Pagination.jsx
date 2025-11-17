@@ -30,7 +30,7 @@ export default function Pagination({
           disabled={currentPage === 1}
           onClick={onPrev}
           className="
-            flex items-center gap-2 rounded-xl px-4 py-2
+            flex items-center gap-2 rounded-lg px-4 py-2
             text-gray-700 dark:text-gray-200
             border-gray-300 dark:border-gray-600
             bg-white dark:bg-gray-800
@@ -48,11 +48,11 @@ export default function Pagination({
           disabled={currentPage === totalPages}
           onClick={onNext}
           className="
-            flex items-center gap-2 rounded-xl px-4 py-2
+            flex items-center gap-2 rounded-lg px-4 py-2
             text-gray-700 dark:text-gray-200
             border-gray-300 dark:border-gray-600
             bg-white dark:bg-gray-800
-            hover:bg-gray-100 dark:hover:bg-gray-700
+            hover:bg-blue-200 dark:hover:bg-gray-700
             disabled:opacity-50 disabled:cursor-not-allowed
           "
         >

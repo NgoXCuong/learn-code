@@ -113,7 +113,7 @@ const Chatbot = () => {
 
       {/* Chatbox */}
       <div
-        className={`fixed bottom-24 right-6 w-96 shadow-2xl rounded-sm border z-50 flex flex-col transition-all duration-300
+        className={`fixed bottom-24 right-6 w-96 shadow-2xl rounded-lg border z-50 flex flex-col transition-all duration-300
           ${
             isDark
               ? "bg-[#111827] border-gray-700 text-gray-100"
@@ -129,7 +129,7 @@ const Chatbot = () => {
       >
         {/* Header */}
         <div
-          className={`flex items-center justify-between p-4 rounded-t-sm
+          className={`flex items-center justify-between p-4 rounded-t-lg
           ${
             isDark
               ? "bg-[#1f2937] text-white border-b border-gray-700"
@@ -198,7 +198,7 @@ const Chatbot = () => {
 
                 <div>
                   <div
-                    className={`rounded-xl px-4 py-3 leading-relaxed shadow font-exo
+                    className={`rounded-lg px-4 py-3 leading-relaxed shadow font-exo
                     ${
                       m.sender === "user"
                         ? "bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-tr-none"

@@ -3,20 +3,20 @@ import { Calendar, CheckCircle2 } from "lucide-react";
 
 export const DailyQuestsPanel = ({ quests }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md border border-gray-200 dark:border-gray-700">
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
       <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2 font-exo">
         <Calendar className="w-6 h-6 text-blue-500" />
         Nhiệm vụ hàng ngày
       </h3>
 
-      <div className="space-y-3">
+      <div className="space-y-4 ">
         {quests.map((quest) => {
           const progress = Math.min((quest.progress / quest.target) * 100, 100);
 
           return (
             <div
               key={quest.id}
-              className={`p-4 rounded-xl border transition-all duration-200 hover:shadow-sm font-exo ${
+              className={`p-4 rounded-lg border shadow-gray-500 transition-all duration-200 hover:shadow-sm hover:scale-101 font-exo ${
                 quest.completed
                   ? "bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-700"
                   : "bg-gray-50 dark:bg-gray-700/40 border-gray-200 dark:border-gray-600"

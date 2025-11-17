@@ -40,7 +40,7 @@ export default function ProfileSidebar({ user, darkMode }) {
   const xpProgress = (user.xp / user.nextLevelXp) * 100;
 
   return (
-    <div className="min-h-screen font-exo">
+    <div className="min-h-screen font-exo ">
       {/* Toast */}
       {showToast && (
         <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-down">
@@ -48,7 +48,7 @@ export default function ProfileSidebar({ user, darkMode }) {
         </div>
       )}
 
-      <div className="max-w-md mx-auto">
+      <div className="max-w-md mx-auto hover:shadow-2xl shadow-xl rounded-2xl">
         <div
           className={`${
             darkMode

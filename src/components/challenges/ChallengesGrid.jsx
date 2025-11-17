@@ -9,9 +9,7 @@ const ChallengesGrid = ({
   currentPage,
   setCurrentPage,
 }) => {
-  // ---------------------------------------------------------
   // Tạo danh sách số trang (có dấu ...)
-  // ---------------------------------------------------------
   const getPageNumbers = () => {
     const delta = 2;
     let pages = [];
@@ -44,9 +42,7 @@ const ChallengesGrid = ({
     return result;
   };
 
-  // ---------------------------------------------------------
   // Trạng thái không có dữ liệu
-  // ---------------------------------------------------------
   if (paginatedChallenges.length === 0) {
     return (
       <div className="text-center py-16">
@@ -61,7 +57,7 @@ const ChallengesGrid = ({
         <button
           onClick={() => window.location.reload()}
           className="mt-5 px-6 py-2 border border-gray-300 dark:border-gray-600
-            rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+  rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white transition-colors"
         >
           Xóa bộ lọc
         </button>
@@ -69,9 +65,7 @@ const ChallengesGrid = ({
     );
   }
 
-  // ---------------------------------------------------------
   // Hiển thị grid + phân trang
-  // ---------------------------------------------------------
   return (
     <>
       {/* GRID */}
@@ -119,7 +113,7 @@ const ChallengesGrid = ({
               <button
                 key={page}
                 onClick={() => setCurrentPage(page)}
-                className={`w-9 h-9 rounded-xl font-medium transition-all duration-200 ${
+                className={`w-9 h-9 rounded-lg font-medium transition-all duration-200 ${
                   currentPage === page
                     ? "bg-linear-to-r from-blue-500 to-indigo-500 text-white shadow-md scale-105"
                     : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
