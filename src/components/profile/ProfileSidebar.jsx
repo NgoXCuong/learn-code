@@ -48,13 +48,13 @@ export default function ProfileSidebar({ user, darkMode }) {
         </div>
       )}
 
-      <div className="max-w-md mx-auto hover:shadow-2xl shadow-xl rounded-2xl">
+      <div className="max-w-md mx-auto hover:shadow-2xl shadow-xl rounded-lg">
         <div
           className={`${
             darkMode
               ? "bg-linear-to-br from-slate-800/80 to-slate-900/80 border-slate-700/50"
               : "bg-white border-gray-200"
-          } backdrop-blur-xl border rounded-3xl overflow-hidden shadow-2xl`}
+          } backdrop-blur-xl border rounded-lg overflow-hidden shadow-2xl`}
         >
           {/* Cover */}
           <div className="relative h-40 overflow-hidden group">
@@ -66,7 +66,7 @@ export default function ProfileSidebar({ user, darkMode }) {
 
             <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/60"></div>
 
-            <label className="absolute top-3 right-3 bg-black/40 hover:bg-black/60 backdrop-blur-md text-white px-3 py-2 rounded-xl cursor-pointer transition-all duration-300 hover:scale-105 flex items-center gap-2">
+            <label className="absolute top-3 right-3 bg-black/40 hover:bg-black/60 backdrop-blur-md text-white px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 flex items-center gap-2">
               <Camera size={16} />
               <span className="text-sm font-medium">Đổi ảnh bìa</span>
               <input
@@ -202,7 +202,7 @@ export default function ProfileSidebar({ user, darkMode }) {
               <div
                 className={`${
                   darkMode ? "bg-slate-700/50" : "bg-blue-50"
-                } rounded-2xl p-4 text-center hover:scale-105 transition-transform`}
+                } rounded-lg p-4 text-center hover:scale-105 transition-transform`}
               >
                 <TrendingUp className="w-6 h-6 mx-auto mb-2 text-blue-500" />
                 <p
@@ -224,7 +224,7 @@ export default function ProfileSidebar({ user, darkMode }) {
               <div
                 className={`${
                   darkMode ? "bg-slate-700/50" : "bg-orange-50"
-                } rounded-2xl p-4 text-center hover:scale-105 transition-transform`}
+                } rounded-lg p-4 text-center hover:scale-105 transition-transform`}
               >
                 <Flame className="w-6 h-6 mx-auto mb-2 text-orange-500" />
                 <p
@@ -246,7 +246,7 @@ export default function ProfileSidebar({ user, darkMode }) {
               <div
                 className={`${
                   darkMode ? "bg-slate-700/50" : "bg-green-50"
-                } rounded-2xl p-4 text-center hover:scale-105 transition-transform`}
+                } rounded-lg p-4 text-center hover:scale-105 transition-transform`}
               >
                 <Award className="w-6 h-6 mx-auto mb-2 text-green-500" />
                 <p
@@ -285,12 +285,12 @@ export default function ProfileSidebar({ user, darkMode }) {
                       darkMode
                         ? "bg-slate-700/30 hover:bg-slate-700/50"
                         : "bg-gray-50 hover:bg-gray-100"
-                    } rounded-xl p-3 flex items-center gap-3 hover:scale-[1.02] transition-all cursor-pointer`}
+                    } rounded-lg p-3 flex items-center gap-3 hover:scale-[1.02] transition-all cursor-pointer`}
                   >
                     <div
                       className={`${
                         darkMode ? "bg-slate-800" : "bg-white"
-                      } w-12 h-12 rounded-xl flex items-center justify-center shadow-lg`}
+                      } w-12 h-12 rounded-lg flex items-center justify-center shadow-lg`}
                     >
                       <ach.icon className={ach.color} size={24} />
                     </div>

@@ -8,10 +8,13 @@ export default function LessonSidebar({
   currentLessonId,
   navigate,
   isDark,
+  isOpen,
 }) {
   return (
     <aside
-      className={`fixed lg:sticky font-exo top-[57px] left-0 h-[calc(100vh-57px)] w-64 lg:w-72 border-r overflow-y-auto transition-transform duration-300 z-30 ${
+      className={`fixed lg:sticky font-exo top-[57px] left-0 h-[calc(100vh-57px)] w-64 lg:w-72 border-r overflow-y-auto transition-transform duration-300 z-30 transform ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      } lg:translate-x-0 ${
         isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
       }`}
     >

@@ -41,12 +41,12 @@ export default function LeaderboardList({ paged, currentUser }) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           className="flex flex-col items-center justify-center py-16 
-                     text-gray-500 dark:text-gray-400"
+                     text-gray-700 dark:text-gray-400"
         >
           <div className="text-9xl mb-4">🔍</div>
-          <p className="text-lg font-medium">Không tìm thấy người học nào</p>
-          <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
-            Thử thay đổi từ khóa hoặc bộ lọc
+          <p className="text-xl font-medium">Không tìm thấy người học nào</p>
+          <p className="text-base text-gray-400 dark:text-gray-500 mt-1">
+            Thử thay đổi từ khóa tìm kiếm
           </p>
         </motion.div>
       ) : (

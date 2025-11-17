@@ -14,7 +14,7 @@ const getRarityColor = (rarity) => {
 
 export default function BadgesTab() {
   return (
-    <div className="bg-white font-exo dark:bg-gray-800 rounded-xl shadow-sm p-6">
+    <div className="bg-white font-exo dark:bg-gray-800 rounded-lg shadow-sm p-6">
       <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
         Bộ sưu tập huy hiệu
       </h2>
@@ -27,7 +27,7 @@ export default function BadgesTab() {
             <div
               className={`bg-linear-to-br ${getRarityColor(
                 badge.rarity
-              )} rounded-2xl p-6 text-center transition-all hover:scale-105 cursor-pointer shadow-lg`}
+              )} rounded-lg p-6 text-center transition-all hover:scale-105 cursor-pointer shadow-lg`}
             >
               <div className="text-6xl mb-3">{badge.icon}</div>
               <div className="text-white font-bold text-xl mb-1">

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { Menu } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Breadcrumb from "@/components/layout/Breadcrumb";
@@ -23,7 +24,7 @@ export default function LessonPage() {
   const [course, setCourse] = useState(null);
   const [lesson, setLesson] = useState(null);
   const [exercises, setExercises] = useState([]);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [expandedChapters, setExpandedChapters] = useState([]);
   const [activeTab, setActiveTab] = useState("content");
 
@@ -106,6 +107,12 @@ export default function LessonPage() {
       }`}
     >
       <Header />
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 lg:hidden z-20"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
       <div className="flex">
         <LessonSidebar
           chapters={chapters}
@@ -114,19 +121,28 @@ export default function LessonPage() {
           currentLessonId={lessonId}
           navigate={navigate}
           isDark={isDark}
+          isOpen={sidebarOpen}
         />
 
         <main className="flex-1 px-4 sm:px-6 md:px-14 lg:px-20 py-6">
-          <Breadcrumb
-            items={[
-              { label: "Trang chủ", href: "/" },
-              { label: "Khóa học", href: "/courses" },
-              { label: course.title, href: `/courses/${courseId}` },
-              { label: lesson.title },
-            ]}
-          />
+          <div className="flex items-center justify-between mb-4">
+            <Breadcrumb
+              items={[
+                { label: "Trang chủ", href: "/" },
+                { label: "Khóa học", href: "/courses" },
+                { label: course.title, href: `/courses/${courseId}` },
+                { label: lesson.title },
+              ]}
+            />
+            <button
+              className="lg:hidden p-2 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              onClick={() => setSidebarOpen(true)}
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
 
-          <div className="mt-8 mb-4 border-b border-gray-200 dark:border-gray-700 pb-4 flex flex-col lg:flex-row justify-between items-start gap-6">
+          <div className="mb-4 border-b border-gray-200 dark:border-gray-700 pb-4 flex flex-col lg:flex-row justify-between items-start gap-6">
             <div className="flex-1">
               <h1 className="text-3xl sm:text-4xl font-bold mb-2 leading-tight">
                 {lesson.title}

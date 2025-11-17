@@ -49,7 +49,7 @@ export default function StreakCard() {
   });
 
   return (
-    <div className="bg-white font-exo dark:bg-gray-800 rounded-2xl shadow-xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-shadow">
+    <div className="bg-white font-exo dark:bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-100 dark:border-gray-700 hover:shadow-2xl transition-shadow">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
           Chuỗi này học tập
@@ -117,12 +117,16 @@ export default function StreakCard() {
             value={selectedYear.toString()} // chuyển sang string
             onValueChange={(val) => setSelectedYear(parseInt(val))}
           >
-            <SelectTrigger className="w-24">
+            <SelectTrigger className="w-24 bg-white dark:bg-gray-700 dark:text-gray-50 border-none">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent className="min-w-20 text-gray-700 dark:text-white">
+            <SelectContent className="min-w-20 ">
               {[2025, 2024, 2023, 2022, 2021].map((year) => (
-                <SelectItem key={year} value={year.toString()}>
+                <SelectItem
+                  key={year}
+                  value={year.toString()}
+                  className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-600 focus:bg-gray-100 dark:focus:bg-gray-600"
+                >
                   {year}
                 </SelectItem>
               ))}

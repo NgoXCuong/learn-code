@@ -34,7 +34,7 @@ export default function FeedbackStats({ feedback, isDark }) {
       {cards.map(({ icon: Icon, color, label, value }, i) => (
         <div
           key={i}
-          className={`p-6 rounded-2xl border backdrop-blur-md transition-all duration-300 
+          className={`p-6 rounded-lg border backdrop-blur-md transition-all duration-300 
             flex justify-between items-center group cursor-default
             ${
               isDark

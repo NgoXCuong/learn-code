@@ -82,39 +82,41 @@ export default function Rankings() {
 
   // ---------- RETURN UI ----------
   return (
-    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black flex flex-col">
       <Header />
-      <div className="container mx-auto px-4 py-8">
-        {/* ✅ Header (Search + Filters + Tabs) */}
-        <HeaderSection
-          search={search}
-          setSearch={setSearch}
-          timeframe={timeframe}
-          setTimeframe={setTimeframe}
-          course={course}
-          setCourse={setCourse}
-          sortBy={sortBy}
-          setSortBy={setSortBy}
-          setPage={setPage}
-        />
+      <div className="flex-1 flex flex-col">
+        <div className="container mx-auto px-4 py-8 flex-1">
+          {/* ✅ Header (Search + Filters + Tabs) */}
+          <HeaderSection
+            search={search}
+            setSearch={setSearch}
+            timeframe={timeframe}
+            setTimeframe={setTimeframe}
+            course={course}
+            setCourse={setCourse}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            setPage={setPage}
+          />
 
-        {/* ✅ Current User Card */}
-        {/* <CurrentUserCard currentUser={currentUser} /> */}
+          {/* ✅ Current User Card */}
+          {/* <CurrentUserCard currentUser={currentUser} /> */}
 
-        {/* ✅ Top 3 podium */}
-        <PodiumTop3 users={withRanks.slice(0, 3)} />
+          {/* ✅ Top 3 podium */}
+          <PodiumTop3 users={withRanks.slice(0, 3)} />
 
-        {/* ✅ List users */}
-        <LeaderboardList paged={paged} currentUser={currentUser} />
+          {/* ✅ List users */}
+          <LeaderboardList paged={paged} currentUser={currentUser} />
 
-        {/* ✅ Pagination */}
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          totalUsers={withRanks.length}
-          onPrev={() => setPage((p) => Math.max(1, p - 1))}
-          onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
-        />
+          {/* ✅ Pagination */}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalUsers={withRanks.length}
+            onPrev={() => setPage((p) => Math.max(1, p - 1))}
+            onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
+          />
+        </div>
       </div>
       <Footer />
     </div>

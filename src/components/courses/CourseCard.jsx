@@ -48,7 +48,7 @@ export default function CourseCard({
 
   return (
     <div
-      className={`group relative shadow-gray-400 font-exo flex flex-col rounded-2xl overflow-hidden border transition-all duration-300 hover:scale-105 cursor-pointer ${
+      className={`group relative shadow-gray-400 font-exo flex flex-col rounded-lg overflow-hidden border transition-all duration-300 hover:scale-105 cursor-pointer ${
         darkMode
           ? "bg-gray-800 border-gray-700 hover:border-blue-500 hover:shadow-purple-500/20"
           : "bg-white border-gray-200 hover:border-blue-500 hover:shadow-lg"
@@ -98,13 +98,13 @@ export default function CourseCard({
                   onEnroll(course.id);
                 }
               }}
-              className={`btn-shimmer relative px-6 py-2 font-semibold rounded-full shadow-lg transition-all duration-200 hover:scale-105 overflow-hidden cursor-pointer
+              className={`btn-shimmer relative px-6 py-2 font-semibold rounded-sm shadow-lg transition-all duration-200 hover:scale-105 overflow-hidden cursor-pointer
       ${
         !user
-          ? "bg-orange-600 text-white hover:bg-orange-700" // Đăng nhập để bắt đầu
+          ? "bg-orange-600 text-white hover:bg-orange-800" // Đăng nhập để bắt đầu
           : course.progress === 0
-          ? "bg-blue-600 text-white hover:bg-blue-700" // Trạng thái: Bắt đầu học
-          : "bg-purple-600 text-white hover:bg-purple-700" // Trạng thái: Tiếp tục học
+          ? "bg-blue-600 text-white hover:bg-blue-800" // Trạng thái: Bắt đầu học
+          : "bg-green-600 text-white hover:bg-green-700" // Trạng thái: Tiếp tục học
       }`}
             >
               <span className="relative flex items-center justify-center gap-2">

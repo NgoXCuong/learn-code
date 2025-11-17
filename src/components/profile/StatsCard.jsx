@@ -35,7 +35,7 @@ export default function StatsCards() {
       {statsData.map((stat, index) => (
         <div
           key={index}
-          className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-xl p-5 shadow-sm hover:shadow-md transition-all"
+          className="flex items-center gap-4 bg-white dark:bg-gray-800 rounded-lg p-5 shadow-sm hover:shadow-md transition-all"
         >
           <stat.icon className={`${stat.color} w-10 h-10 shrink-0`} />
           <div className="flex flex-col">

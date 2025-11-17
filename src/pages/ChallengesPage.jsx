@@ -108,7 +108,7 @@ export default function ChallengesPage() {
   return (
     <div className="bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors min-h-screen">
       <Header />
-      <main className="px-6 sm:px-14 lg:px-20 py-8">
+      <main className="px-6 sm:px-14 lg:px-20 py-6">
         <ChallengesHeader />
 
         <div className="grid lg:grid-cols-12 gap-8">

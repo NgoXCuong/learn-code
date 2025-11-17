@@ -14,7 +14,7 @@ const getRarityColor = (rarity) => {
 
 export default function RecentBadges() {
   return (
-    <div className="bg-white font-exo dark:bg-gray-800 rounded-xl hover:shadow-2xl shadow-xl p-6">
+    <div className="bg-white font-exo dark:bg-gray-800 rounded-lg hover:shadow-2xl shadow-xl p-6">
       <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
         Huy hiệu gần đây
       </h2>
@@ -27,7 +27,7 @@ export default function RecentBadges() {
             <div
               className={`bg-linear-to-br ${getRarityColor(
                 badge.rarity
-              )} rounded-xl p-4 text-center transition-all hover:scale-105 cursor-pointer`}
+              )} rounded-lg p-4 text-center transition-all hover:scale-105 cursor-pointer`}
             >
               <div className="text-4xl mb-2">{badge.icon}</div>
               <div className="text-white font-bold text-base">{badge.name}</div>

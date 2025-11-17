@@ -21,7 +21,7 @@ export default function FeedbackContent({
 }) {
   return (
     <div
-      className={`rounded-2xl overflow-hidden border font-exo ${
+      className={`rounded-lg overflow-hidden border font-exo ${
         isDark ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"
       }`}
     >
@@ -82,7 +82,7 @@ export default function FeedbackContent({
           {feedback.suggestions.map((s, i) => (
             <div
               key={i}
-              className={`p-5 rounded-xl border ${
+              className={`p-5 rounded-lg border ${
                 isDark
                   ? "bg-linear-to-br from-purple-900/20 to-pink-900/20 border-purple-800/30"
                   : "bg-linear-to-br from-purple-50 to-pink-50 border-purple-200"

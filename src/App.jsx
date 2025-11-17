@@ -13,10 +13,65 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "sonner";
 import { UserCoursesProvider } from "@/context/UserCoursesContext";
 import { ProgressProvider } from "@/context/ProgressContext";
+import { LoadingProvider } from "@/context/LoadingContext";
 import Chatbot from "@/components/layout/Chatbot";
 import ExamCode from "@/pages/ExamCode";
 import Rankings from "@/pages/Rankings";
 import CompilerPage from "@/pages/CompilerPage";
+import { Loadding } from "@/components/layout/Loadding";
+
+const AppRoutes = () => {
+  return (
+    <LoadingProvider>
+      <Routes>
+        {/* Auth */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+
+        {/* Home / Courses */}
+        <Route path="/" element={<Home />} />
+        <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:id" element={<CourseDetail />} />
+
+        <Route path="/exam" element={<ExamCode />} />
+        <Route path="/exam/:exerciseId/compiler" element={<Compiler />} />
+        <Route path="/exam/:examId/feedback" element={<Feedback />} />
+
+        <Route
+          path="/courses/:courseId/lessons/:lessonId"
+          element={<LessonPage />}
+        />
+        <Route
+          path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId"
+          element={<Compiler />}
+        />
+
+        {/* Compiler trực tiếp từ trang chủ */}
+        <Route path="/compiler" element={<CompilerPage />} />
+
+        <Route
+          path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId/feedback"
+          element={<Feedback />}
+        />
+
+        <Route path="/profile" element={<ProfilePage />} />
+
+        <Route path="/challenges" element={<ChallengesPage />} />
+        <Route
+          path="/challenges/:challengeId/compiler"
+          element={<Compiler />}
+        />
+        <Route
+          path="/challenges/:challengeId/feedback"
+          element={<Feedback />}
+        />
+
+        <Route path="/ranks" element={<Rankings />} />
+      </Routes>
+      <Loadding />
+    </LoadingProvider>
+  );
+};
 
 const App = () => {
   return (
@@ -27,51 +82,7 @@ const App = () => {
           <Toaster richColors position="top-center" reverseOrder={false} />
 
           <BrowserRouter>
-            <Routes>
-              {/* Auth */}
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-
-              {/* Home / Courses */}
-              <Route path="/" element={<Home />} />
-              <Route path="/courses" element={<Courses />} />
-              <Route path="/courses/:id" element={<CourseDetail />} />
-
-              <Route path="/exam" element={<ExamCode />} />
-              <Route path="/exam/:exerciseId/compiler" element={<Compiler />} />
-              <Route path="/exam/:examId/feedback" element={<Feedback />} />
-
-              <Route
-                path="/courses/:courseId/lessons/:lessonId"
-                element={<LessonPage />}
-              />
-              <Route
-                path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId"
-                element={<Compiler />}
-              />
-
-              {/* Compiler trực tiếp từ trang chủ */}
-              <Route path="/compiler" element={<CompilerPage />} />
-
-              <Route
-                path="/courses/:courseId/lessons/:lessonId/exercise/:exerciseId/feedback"
-                element={<Feedback />}
-              />
-
-              <Route path="/profile" element={<ProfilePage />} />
-
-              <Route path="/challenges" element={<ChallengesPage />} />
-              <Route
-                path="/challenges/:challengeId/compiler"
-                element={<Compiler />}
-              />
-              <Route
-                path="/challenges/:challengeId/feedback"
-                element={<Feedback />}
-              />
-
-              <Route path="/ranks" element={<Rankings />} />
-            </Routes>
+            <AppRoutes />
           </BrowserRouter>
           <Chatbot />
         </div>

@@ -29,7 +29,7 @@ export default function FeedbackTabs({ isDark, activeTab, setActiveTab }) {
           <button
             key={id}
             onClick={() => setActiveTab(id)}
-            className={`btn-shimmer flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap ${getTabClasses(
+            className={`btn-shimmer flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 whitespace-nowrap ${getTabClasses(
               isActive
             )}`}
           >

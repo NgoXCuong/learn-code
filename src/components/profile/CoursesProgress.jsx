@@ -6,7 +6,7 @@ export default function CoursesProgress() {
   const { getCourseProgress } = useContext(ProgressContext);
 
   return (
-    <div className="bg-white font-exo hover:shadow-2xl shadow-xl dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 transition-colors">
+    <div className="bg-white font-exo hover:shadow-2xl shadow-xl dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 transition-colors">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
           Khóa học đang học
@@ -25,7 +25,7 @@ export default function CoursesProgress() {
           return (
             <div
               key={course.id}
-              className="bg-gray-50 dark:bg-gray-700 rounded-xl p-4 hover:shadow-md hover:border-blue-300 dark:hover:border-blue-500 transition-all cursor-pointer group border border-transparent"
+              className="bg-gray-50 dark:bg-gray-700 rounded-lg p-2 hover:shadow-md hover:border-blue-300 dark:hover:border-blue-500 transition-all cursor-pointer group border border-transparent"
             >
               <div className="flex items-start space-x-4">
                 <div className="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-lg flex items-center justify-center text-3xl text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform">

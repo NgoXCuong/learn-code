@@ -22,7 +22,7 @@ export const COURSES = [
 export const TIMEFRAMES = [
   { id: "weekly", label: "Top Tuần", icon: Zap },
   { id: "monthly", label: "Top Tháng", icon: TrendingUp },
-  { id: "all", label: "Toàn Thời Gian", icon: Award },
+  { id: "all", label: "Tất cả", icon: Award },
 ];
 
 // ---------- Level Styling ----------
