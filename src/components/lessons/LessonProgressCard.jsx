@@ -11,15 +11,15 @@ export default function LessonProgressCard({
     <div
       className={`p-4 rounded-xl shadow-md transition-colors duration-300 font-exo ${
         isDark
-          ? "bg-linear-to-br from-indigo-800/80 to-purple-800/80 border border-indigo-700/60"
-          : "bg-linear-to-br from-indigo-100 to-purple-100 border border-indigo-200"
+          ? "bg-linear-to-br from-indigo-600/20 to-purple-800 border border-indigo-500/50"
+          : "bg-linear-to-br from-indigo-300 to-purple-100 border border-indigo-200"
       }`}
     >
       {/* Progress */}
       <div className="mb-3">
         <div className="flex justify-between items-center mb-1">
           <span
-            className={`text-base font-medium ${
+            className={`text-base font-semibold ${
               isDark ? "text-gray-200" : "text-gray-800"
             }`}
           >
@@ -27,22 +27,24 @@ export default function LessonProgressCard({
           </span>
           <span
             className={`text-xl font-bold ${
-              isDark ? "text-indigo-300" : "text-indigo-600"
+              // Thay đổi màu text số % sáng hơn 1 chút
+              isDark ? "text-cyan-300 drop-shadow-sm" : "text-indigo-600"
             }`}
           >
             {progressPercent}%
           </span>
         </div>
+
+        {/* Thanh Background (xám mờ) */}
         <div
-          className={`w-full h-3 rounded-full overflow-hidden ${
-            isDark ? "bg-gray-700/50" : "bg-gray-200"
+          className={`w-full h-2 rounded-full overflow-hidden ${
+            isDark ? "bg-gray-400" : "bg-gray-200"
           }`}
         >
+          {/* --- PHẦN CHỈNH SỬA CHÍNH Ở ĐÂY --- */}
           <div
             className={`h-full rounded-full transition-all duration-500 ease-out ${
-              isDark
-                ? "bg-linear-to-r from-indigo-500 to-purple-500"
-                : "bg-indigo-500"
+              isDark ? "bg-green-500" : "bg-indigo-500"
             }`}
             style={{ width: `${progressPercent}%` }}
           ></div>
@@ -64,8 +66,10 @@ export default function LessonProgressCard({
         </span>
         <div className="flex items-center gap-2">
           <CheckCircle2
-            className={`w-4 h-4 ${
-              isDark ? "text-green-400" : "text-green-600"
+            className={`w-5 h-5 ${
+              isDark
+                ? "text-green-400 drop-shadow-[0_0_5px_rgba(74,222,128,0.5)]"
+                : "text-green-600" // Thêm glow nhẹ cho icon
             }`}
           />
           <span

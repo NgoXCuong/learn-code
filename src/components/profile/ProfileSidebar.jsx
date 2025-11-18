@@ -199,21 +199,25 @@ export default function ProfileSidebar({ user, darkMode }) {
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-3 mb-6">
+              {/* Cấp độ */}
               <div
                 className={`${
                   darkMode ? "bg-slate-700/50" : "bg-blue-50"
                 } rounded-lg p-4 text-center hover:scale-105 transition-transform`}
               >
-                <TrendingUp className="w-6 h-6 mx-auto mb-2 text-blue-500" />
+                {/* Wrapper: Flex row để icon nằm cạnh số */}
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <TrendingUp className="w-6 h-6 text-blue-500" />
+                  <p
+                    className={`text-3xl font-bold ${
+                      darkMode ? "text-white" : "text-gray-900"
+                    }`}
+                  >
+                    {user.level}
+                  </p>
+                </div>
                 <p
-                  className={`text-3xl font-bold ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  {user.level}
-                </p>
-                <p
-                  className={`text-sm ${
+                  className={`text-base ${
                     darkMode ? "text-gray-400" : "text-gray-600"
                   }`}
                 >
@@ -221,21 +225,24 @@ export default function ProfileSidebar({ user, darkMode }) {
                 </p>
               </div>
 
+              {/* Streak (Ngày) */}
               <div
                 className={`${
                   darkMode ? "bg-slate-700/50" : "bg-orange-50"
                 } rounded-lg p-4 text-center hover:scale-105 transition-transform`}
               >
-                <Flame className="w-6 h-6 mx-auto mb-2 text-orange-500" />
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <Flame className="w-6 h-6 text-orange-500" />
+                  <p
+                    className={`text-3xl font-bold ${
+                      darkMode ? "text-white" : "text-gray-900"
+                    }`}
+                  >
+                    {user.streak}
+                  </p>
+                </div>
                 <p
-                  className={`text-3xl font-bold ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  {user.streak}
-                </p>
-                <p
-                  className={`text-sm ${
+                  className={`text-base ${
                     darkMode ? "text-gray-400" : "text-gray-600"
                   }`}
                 >
@@ -243,21 +250,24 @@ export default function ProfileSidebar({ user, darkMode }) {
                 </p>
               </div>
 
+              {/* Thành tích */}
               <div
                 className={`${
                   darkMode ? "bg-slate-700/50" : "bg-green-50"
                 } rounded-lg p-4 text-center hover:scale-105 transition-transform`}
               >
-                <Award className="w-6 h-6 mx-auto mb-2 text-green-500" />
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <Award className="w-6 h-6 text-green-500" />
+                  <p
+                    className={`text-3xl font-bold ${
+                      darkMode ? "text-white" : "text-gray-900"
+                    }`}
+                  >
+                    {achievements.length}
+                  </p>
+                </div>
                 <p
-                  className={`text-3xl font-bold ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
-                  {achievements.length}
-                </p>
-                <p
-                  className={`text-sm ${
+                  className={`text-base ${
                     darkMode ? "text-gray-400" : "text-gray-600"
                   }`}
                 >

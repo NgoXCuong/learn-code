@@ -78,10 +78,19 @@ export default function HeaderSection({
         </Tabs>
 
         {/* Search + Course Filter */}
-        <div className="flex flex-wrap items-center gap-4">
-          <div className="flex items-center gap-2 text-muted-foreground dark:text-gray-300 font-medium">
-            <Filter className="w-5 h-5" />
-            Lọc:
+        <div className="flex flex-col sm:flex-row gap-3">
+          {/* Search Input */}
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
+            <Input
+              value={search}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPage(1);
+              }}
+              placeholder="Tìm người học..."
+              className="pl-10 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+            />
           </div>
 
           {/* Course Select */}
@@ -92,50 +101,17 @@ export default function HeaderSection({
               setPage(1);
             }}
           >
-            <SelectTrigger
-              className="
-                w-[200px] rounded-lg 
-                bg-white dark:bg-gray-800
-                border-gray-300 dark:border-gray-700
-                text-gray-900 dark:text-gray-200
-                font-medium
-              "
-            >
+            <SelectTrigger className="w-[150px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
               <SelectValue placeholder="Chọn khóa học" />
             </SelectTrigger>
-
-            <SelectContent className="bg-white  dark:bg-gray-800 dark:text-gray-200 border-none">
+            <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
               {COURSES.map((c) => (
-                <SelectItem
-                  key={c.id}
-                  value={c.id}
-                  className="dark:hover:bg-gray-700"
-                >
+                <SelectItem key={c.id} value={c.id}>
                   {c.label}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-
-          {/* Search Input */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-300 w-5 h-5" />
-            <Input
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(1);
-              }}
-              placeholder="Tìm người học..."
-              className="
-                pl-10 py-3 rounded-lg text-base 
-                bg-white dark:bg-gray-800
-                border-gray-300 dark:border-gray-700
-                text-gray-900 dark:text-gray-200
-                w-[220px]
-              "
-            />
-          </div>
         </div>
       </div>
     </div>

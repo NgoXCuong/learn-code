@@ -1,53 +1,133 @@
-import { useState, useMemo } from "react";
-import {
-  ChevronLeft,
-  Code,
-  Zap,
-  Clock,
-  ArrowRight,
-  Search,
-} from "lucide-react";
+import React, { useState, useMemo } from "react";
+import { ChevronLeft, Code, Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useProgress } from "@/context/ProgressContext";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import ExerciseCard from "./ExerciseCard";
+import { usePagination } from "@/hooks/usePagination";
 
 export default function ExercisesScreen({ codingExercises, goHome }) {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredExercises = useMemo(() => {
-    const q = searchQuery.toLowerCase();
-    return codingExercises.filter(
-      (ex) =>
-        q === "" ||
-        ex.title.toLowerCase().includes(q) ||
-        ex.description.toLowerCase().includes(q)
-    );
-  }, [codingExercises, searchQuery]);
+  // Pagination
+  const itemsPerPage = 9; // 3x3 grid
 
-  const diffStyles = {
-    Dễ: {
-      badge:
-        "bg-green-100 text-green-700 border-green-300 dark:bg-green-900 dark:text-green-300 dark:border-green-700",
-      gradient: "from-green-500 to-emerald-600",
-      shadow: "hover:shadow-green-200 dark:hover:shadow-green-900",
-    },
-    "Trung bình": {
-      badge:
-        "bg-yellow-100 text-yellow-700 border-yellow-300 dark:bg-yellow-900 dark:text-yellow-300 dark:border-yellow-700",
-      gradient: "from-yellow-500 to-orange-600",
-      shadow: "hover:shadow-yellow-200 dark:hover:shadow-yellow-900",
-    },
-    Khó: {
-      badge:
-        "bg-red-100 text-red-700 border-red-300 dark:bg-red-900 dark:text-red-300 dark:border-red-700",
-      gradient: "from-red-500 to-pink-600",
-      shadow: "hover:shadow-red-200 dark:hover:shadow-red-900",
-    },
-  };
+  // Import progress context
+  const { isExerciseCompleted } = useProgress();
+
+  // Filter states
+  const [difficultyFilters, setDifficultyFilters] = useState([]);
+  const [statusFilters, setStatusFilters] = useState([]);
+  const [sortBy, setSortBy] = useState("oldest");
+
+  // Create filters array for pagination hook
+  const filters = [searchQuery, difficultyFilters, statusFilters, sortBy];
+
+  // Available options
+  const difficulties = ["Dễ", "Trung bình", "Khó"];
+  const statuses = ["Chưa làm", "Đã hoàn thành"]; // No "Đang thử" since no tracking
+
+  const filteredAndSortedExercises = useMemo(() => {
+    let filtered = codingExercises;
+
+    // Search filter
+    const q = searchQuery.toLowerCase();
+    if (q) {
+      filtered = filtered.filter(
+        (ex) =>
+          ex.title.toLowerCase().includes(q) ||
+          ex.description.toLowerCase().includes(q) ||
+          ex.tags?.some((tag) => tag.toLowerCase().includes(q))
+      );
+    }
+
+    // Difficulty filter
+    if (difficultyFilters.length > 0) {
+      filtered = filtered.filter((ex) =>
+        difficultyFilters.includes(ex.difficulty)
+      );
+    }
+
+    // Status filter
+    if (statusFilters.length > 0) {
+      filtered = filtered.filter((ex) => {
+        const completed = isExerciseCompleted(ex.id);
+        const status = completed ? "Đã hoàn thành" : "Chưa làm";
+        return statusFilters.includes(status);
+      });
+    }
+
+    // Sorting
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case "newest":
+          return b.id - a.id;
+        case "oldest":
+          return a.id - b.id;
+        case "difficulty-asc":
+          return (
+            difficulties.indexOf(a.difficulty) -
+            difficulties.indexOf(b.difficulty)
+          );
+        case "difficulty-desc":
+          return (
+            difficulties.indexOf(b.difficulty) -
+            difficulties.indexOf(a.difficulty)
+          );
+        case "exp-desc":
+          return b.exp - a.exp;
+        case "time-asc":
+          return a.timeEstimate.localeCompare(b.timeEstimate);
+        default:
+          return 0;
+      }
+    });
+
+    return filtered;
+  }, [
+    codingExercises,
+    searchQuery,
+    difficultyFilters,
+    statusFilters,
+    sortBy,
+    isExerciseCompleted,
+  ]);
+
+  // Use pagination hook
+  const {
+    currentPage,
+    totalPages,
+    currentItems: currentExercises,
+    handlePageChange,
+    getPageNumbers,
+  } = usePagination(filteredAndSortedExercises, itemsPerPage, filters);
 
   const openExercise = (exercise) => {
     navigate(`/exam/${exercise.id}/compiler`, {
       state: { exercise, exercises: codingExercises },
     });
+  };
+
+  const handleDifficultyChange = (diff) => {
+    setDifficultyFilters((prev) =>
+      prev.includes(diff) ? prev.filter((d) => d !== diff) : [...prev, diff]
+    );
+  };
+
+  const handleStatusChange = (status) => {
+    setStatusFilters((prev) =>
+      prev.includes(status)
+        ? prev.filter((s) => s !== status)
+        : [...prev, status]
+    );
   };
 
   return (
@@ -63,7 +143,8 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
               Bài Tập
             </h2>
             <p className="text-base text-gray-500 dark:text-gray-400 mt-1">
-              {filteredExercises.length}/{codingExercises.length} bài tập
+              {filteredAndSortedExercises.length}/{codingExercises.length} bài
+              tập
             </p>
           </div>
 
@@ -72,6 +153,7 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
             className="
               flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition
               bg-gray-100 hover:bg-gray-200 text-gray-700
+              dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200
             "
           >
             <ChevronLeft className="w-4 h-4" />
@@ -80,103 +162,161 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
         </div>
 
         {/* SEARCH */}
-        <div className="mt-4 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-300 w-5 h-5" />
-          <input
-            type="text"
-            placeholder="Tìm bài tập theo tiêu đề hoặc mô tả..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="
-              w-full pl-10 pr-4 py-2 rounded-lg transition
-              border border-gray-300 bg-white
-              focus:ring-2 focus:ring-indigo-500
-              dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200
-            "
-          />
+        <div className="mt-4 flex flex-col sm:flex-row gap-3">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
+            <Input
+              type="text"
+              placeholder="Tìm bài tập theo tiêu đề hoặc mô tả..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+            />
+          </div>
+
+          <Select value={sortBy} onValueChange={setSortBy}>
+            <SelectTrigger className="w-[250px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+              <span className="mr-2 text-gray-400">Sắp xếp:</span>
+              <SelectValue placeholder="Sắp xếp theo" />
+            </SelectTrigger>
+            <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+              <SelectItem value="oldest">Cũ nhất</SelectItem>
+              <SelectItem value="newest">Mới nhất</SelectItem>
+              <SelectItem value="difficulty-asc">Độ khó tăng dần</SelectItem>
+              <SelectItem value="difficulty-desc">Độ khó giảm dần</SelectItem>
+              <SelectItem value="exp-desc">Exp cao nhất</SelectItem>
+              <SelectItem value="time-asc">Thời gian ít nhất</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* FILTERS */}
+        <div className="mt-4 flex flex-wrap items-center gap-20 ">
+          <div className="flex items-center gap-4">
+            <label className="text-base font-semibold text-gray-700 dark:text-gray-300 min-w-fit">
+              Độ khó:
+            </label>
+            <div className="flex gap-4">
+              {difficulties.map((diff) => (
+                <label
+                  key={diff}
+                  className="flex items-center gap-1 cursor-pointer"
+                >
+                  <input
+                    type="checkbox"
+                    checked={difficultyFilters.includes(diff)}
+                    onChange={() => handleDifficultyChange(diff)}
+                    className="rounded"
+                  />
+                  <span className="text-base text-gray-700 dark:text-gray-300">
+                    {diff}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <label className="text-base font-semibold text-gray-700 dark:text-gray-300 min-w-fit">
+              Trạng thái:
+            </label>
+            <div className="flex gap-4">
+              {statuses.map((status) => (
+                <label
+                  key={status}
+                  className="flex items-center gap-1 cursor-pointer"
+                >
+                  <input
+                    type="checkbox"
+                    checked={statusFilters.includes(status)}
+                    onChange={() => handleStatusChange(status)}
+                    className="rounded"
+                  />
+                  <span className="text-base text-gray-700 dark:text-gray-300">
+                    {status}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
       {/* GRID */}
-      {filteredExercises.length === 0 ? (
+      {filteredAndSortedExercises.length === 0 ? (
         <div
           className="
             text-center p-12 rounded-xl shadow
             bg-white dark:bg-gray-800
           "
         >
-          <Code className="w-14 h-14 text-gray-300 dark:text-gray-500 mx-auto mb-4 animate-pulse" />
-          <p className="text-gray-600 dark:text-gray-300 font-medium">
-            Không tìm thấy bài tập phù hợp
-          </p>
-          <p className="text-base text-gray-500 dark:text-gray-400 mt-1">
-            Hãy thử nhập từ khóa khác
+          <div className="text-8xl mb-4">🔍</div>
+          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+            Không tìm thấy bài tập
+          </h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-4 text-lg">
+            Thử điều chỉnh bộ lọc hoặc tìm kiếm của bạn
           </p>
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-10">
-          {filteredExercises.map((ex) => {
-            const style = diffStyles[ex.difficulty] || diffStyles["Dễ"];
-            return (
-              <div
-                key={ex.id}
-                onClick={() => openExercise(ex)}
-                className={`btn-shimmer
-                  cursor-pointer p-5 rounded-xl border shadow-md transform transition
-                  bg-white border-gray-100
-                  dark:bg-gray-800 dark:border-gray-700
-                  hover:-translate-y-1 hover:shadow-xl
-                  ${style.shadow}
-                `}
+        <>
+          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-10">
+            {currentExercises.map((ex) => (
+              <ExerciseCard
+                key={ex.uniqueKey}
+                exercise={ex}
+                isCompleted={isExerciseCompleted(ex.id)}
+                onClick={openExercise}
+              />
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center mt-8 gap-2 flex-wrap">
+              {/* Nút Trước */}
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 transition-all"
               >
-                <div className="flex justify-between items-center mb-3">
-                  <div
-                    className={`
-                      w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold
-                      bg-linear-to-br ${style.gradient}
-                    `}
-                  >
-                    #{ex.id}
-                  </div>
+                ← Trước
+              </button>
 
+              {/* Danh sách số trang */}
+              {getPageNumbers().map((page, i) =>
+                page === "..." ? (
                   <span
-                    className={`px-2 py-0.5 text-sm rounded-full border ${style.badge}`}
+                    key={`dots-${i}`}
+                    className="px-2 text-gray-400 dark:text-gray-500 select-none"
                   >
-                    {ex.difficulty}
+                    …
                   </span>
-                </div>
+                ) : (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`w-9 h-9 rounded-xl font-medium transition-all duration-200 ${
+                      currentPage === page
+                        ? "bg-linear-to-r from-blue-400 to-blue-600 text-white shadow-md scale-105"
+                        : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-800"
+                    }`}
+                  >
+                    {page}
+                  </button>
+                )
+              )}
 
-                <h3 className="font-semibold text-gray-800 dark:text-gray-100 line-clamp-2 mb-2">
-                  {ex.title}
-                </h3>
-                <p className="text-gray-500 dark:text-gray-400 text-base line-clamp-2 mb-3">
-                  {ex.description}
-                </p>
-
-                <div
-                  className="
-    flex justify-between items-center text-sm border-t pt-3
-    border-gray-200 dark:border-gray-700
-  "
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-medium">
-                      <Zap className="w-3 h-3" /> +{ex.exp}
-                    </span>
-                    <span className="flex items-center gap-1 text-gray-500 dark:text-gray-400">
-                      <Clock className="w-3 h-3" /> {ex.timeEstimate}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-1 text-indigo-500 dark:text-indigo-400 font-medium">
-                    <span>Bắt đầu</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              {/* Nút Sau */}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 transition-all"
+              >
+                Sau →
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

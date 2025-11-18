@@ -311,29 +311,27 @@ export default function Compiler() {
           </div>
         )}
 
-        <div className="relative">
-          <ResizableDivider
-            onResize={(e) =>
-              setLeftWidth(
-                Math.min(Math.max(e.clientX, 300), window.innerWidth - 400)
-              )
-            }
-            orientation="vertical"
-            isDark={isDark}
-          />
-          {!showProblem && (
-            <button
-              onClick={() => setShowProblem(true)}
-              className={`absolute top-1/2 -translate-y-1/2 left-0 p-1.5 rounded-lg transition-colors z-20 ${
-                isDark
-                  ? "bg-gray-800 hover:bg-gray-700 text-gray-300"
-                  : "bg-white hover:bg-gray-100 text-gray-600"
-              }`}
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          )}
-        </div>
+        <ResizableDivider
+          onResize={(e) =>
+            setLeftWidth(
+              Math.min(Math.max(e.clientX, 300), window.innerWidth - 400)
+            )
+          }
+          orientation="vertical"
+          isDark={isDark}
+        />
+        {!showProblem && (
+          <button
+            onClick={() => setShowProblem(true)}
+            className={`absolute top-1/2 -translate-y-1/2 left-0 p-1.5 rounded-lg transition-colors z-20 ${
+              isDark
+                ? "bg-gray-800 hover:bg-gray-700 text-gray-300"
+                : "bg-white hover:bg-gray-100 text-gray-600"
+            }`}
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        )}
 
         {/* Editor */}
         <div className="flex-1 flex flex-col min-w-0">

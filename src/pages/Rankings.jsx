@@ -30,6 +30,13 @@ export default function Rankings() {
     });
   }, [timeframe]);
 
+  // ----- GET TOP 3 (GLOBAL) -----
+  const top3Global = useMemo(() => {
+    const clone = [...scoredUsers];
+    clone.sort((a, b) => b.tfXp - a.tfXp); // Always sort by XP desc for top 3
+    return clone.slice(0, 3).map((u, idx) => ({ ...u, rank: idx + 1 }));
+  }, [scoredUsers]);
+
   // ----- FILTER -----
   const filtered = useMemo(() => {
     return scoredUsers
@@ -103,7 +110,7 @@ export default function Rankings() {
           {/* <CurrentUserCard currentUser={currentUser} /> */}
 
           {/* ✅ Top 3 podium */}
-          <PodiumTop3 users={withRanks.slice(0, 3)} />
+          <PodiumTop3 users={top3Global} />
 
           {/* ✅ List users */}
           <LeaderboardList paged={paged} currentUser={currentUser} />

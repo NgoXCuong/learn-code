@@ -44,10 +44,10 @@ export default function LessonExercise({ exercises, courseId, lessonId }) {
                 {index + 1}
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                   {ex.title}
                 </h3>
-                <p className="text-base text-gray-600 dark:text-gray-400 mt-1 line-clamp-1">
+                <p className="text-lg text-gray-600 dark:text-gray-400 mt-1 line-clamp-1">
                   {ex.description}
                 </p>
               </div>
@@ -65,18 +65,9 @@ export default function LessonExercise({ exercises, courseId, lessonId }) {
           {expandedExerciseId === ex.id && (
             <div className="border-t border-gray-200 dark:border-gray-700 p-5 bg-gray-50/50 dark:bg-gray-900/30">
               <div className="space-y-4">
-                <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">
-                    Đề bài:
-                  </h4>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">
-                    {ex.description}
-                  </p>
-                </div>
-
                 {ex.example_code && (
                   <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50">
-                    <p className="text-base text-blue-900 dark:text-blue-200">
+                    <p className="text-lg text-blue-900 dark:text-blue-200">
                       <span className="font-semibold">💡 Gợi ý:</span>{" "}
                       {ex.example_code}
                     </p>

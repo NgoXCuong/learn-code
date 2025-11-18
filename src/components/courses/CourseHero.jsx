@@ -73,7 +73,7 @@ export default function CourseHero({
             <div className="btn-shimmer bg-linear-to-br from-purple-500 via-pink-500 to-rose-500 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
               <div className="space-y-5 text-center md:text-left">
                 <div>
-                  <h3 className="text-white text-sm sm:text-base font-semibold mb-2 flex items-center justify-center md:justify-start gap-2">
+                  <h3 className="text-white text-base sm:text-lg font-semibold mb-2 flex items-center justify-center md:justify-start gap-2">
                     <Flame className="w-4 h-4" /> Tiến độ khóa học
                   </h3>
                   <div className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-3">
@@ -93,13 +93,13 @@ export default function CourseHero({
                     <div className="text-white font-bold text-xl">
                       {completedCount}
                     </div>
-                    <div className="text-white/80 text-sm">Hoàn thành</div>
+                    <div className="text-white/80 text-base">Hoàn thành</div>
                   </div>
                   <div className="bg-white/20 backdrop-blur rounded-xl p-3 text-center">
                     <div className="text-white font-bold text-xl">
                       {inProgressCount}
                     </div>
-                    <div className="text-white/80 text-sm">Đang học</div>
+                    <div className="text-white/80 text-base">Đang học</div>
                   </div>
                 </div>
 

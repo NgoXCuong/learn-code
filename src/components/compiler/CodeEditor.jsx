@@ -50,7 +50,7 @@ const CodeEditor = ({
   }, []);
 
   return (
-    <Card className="flex flex-col flex-1 overflow-hidden rounded-xl shadow-lg border-0 min-h-0">
+    <Card className="flex flex-col flex-1 overflow-hidden rounded-xl shadow-lg border-0 min-h-0 gap-1 py-0">
       {/* Header */}
       <div
         className={`px-4 py-1 flex justify-between items-center ${

@@ -6,8 +6,8 @@ export default function HomeScreen({ startQuiz, startExercises }) {
       className="bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 font-exo
                     dark:from-gray-900 dark:via-gray-800 dark:to-black"
     >
-      <div className="container mx-auto px-8 xl:px-0 py-11 max-w-7xl">
-        <div className="text-center mb-16 space-y-6">
+      <div className="container mx-auto px-8 xl:px-0 py-20 pb-15 max-w-7xl">
+        <div className="text-center mb-12 space-y-4">
           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-gray-50 leading-tight">
             Trung Tâm Kiểm Tra Kỹ Năng Lập Trình
           </h1>
@@ -33,19 +33,18 @@ export default function HomeScreen({ startQuiz, startExercises }) {
                     Trắc nghiệm Kiến thức
                   </h2>
                   <div className="px-4 py-2 bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200 rounded-full text-sm font-bold">
-                    10 câu hỏi
+                    25 câu hỏi
                   </div>
                 </div>
 
                 <p className="text-gray-600 dark:text-gray-300 text-lg mb-8 leading-relaxed">
-                  Kiểm tra kiến thức HTML, CSS, JavaScript với bài trắc nghiệm
-                  toàn diện. Nhận phản hồi chi tiết và điểm kinh nghiệm sau mỗi
-                  bài thi.
+                  Kiểm tra kiến thức lập trình với bài trắc nghiệm toàn diện.
+                  Nhận phản hồi chi tiết và điểm kinh nghiệm sau mỗi bài thi.
                 </p>
 
                 <div className="space-y-3 mb-8">
                   {[
-                    "10 câu hỏi đa dạng về web development",
+                    "25 câu hỏi đa dạng về lập trình",
                     "Giải thích chi tiết cho mỗi đáp án",
                     "Hệ thống đánh giá 5 cấp độ",
                     "Gợi ý học tập cá nhân hóa",
@@ -93,7 +92,7 @@ export default function HomeScreen({ startQuiz, startExercises }) {
                     Bài tập Lập trình
                   </h2>
                   <div className="px-4 py-2 bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-200 rounded-full text-sm font-bold">
-                    12 bài tập
+                    10 bài tập
                   </div>
                 </div>
 
@@ -104,7 +103,7 @@ export default function HomeScreen({ startQuiz, startExercises }) {
 
                 <div className="space-y-3 mb-8">
                   {[
-                    "12 bài tập thuật toán đa cấp độ",
+                    "30 bài tập đa cấp độ kỹ năng",
                     "Code trực tiếp trên trình soạn thảo",
                     "Test cases tự động kiểm tra",
                     "Ước tính thời gian hoàn thành",

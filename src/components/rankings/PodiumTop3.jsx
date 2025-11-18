@@ -27,7 +27,7 @@ export default function PodiumTop3({ users }) {
         >
           {/* Streak top-left */}
           {u.streak > 0 && (
-            <div className="absolute top-2 left-2 flex items-center gap-1 bg-orange-500 dark:bg-orange-400 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md z-10">
+            <div className="absolute top-2 left-2 flex items-center gap-1 bg-orange-500 dark:bg-orange-400 text-white text-sm font-semibold px-2 py-1 rounded-full shadow-md z-10">
               <Flame className="w-3 h-3" />
               <span>{u.streak} ngày</span>
             </div>
@@ -81,12 +81,12 @@ export default function PodiumTop3({ users }) {
                 <span className="font-bold text-lg">
                   {numberWithCommas(u.tfXp)}
                 </span>
-                <span className="text-sm text-gray-500 dark:text-gray-400">
+                <span className="text-lg text-gray-500 dark:text-gray-400">
                   XP
                 </span>
               </div>
 
-              <div className="flex items-center justify-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+              <div className="flex items-center justify-center gap-4 text-base text-gray-600 dark:text-gray-400">
                 <span>{u.tfCompleted} bài</span>
                 <span>•</span>
                 <span>{u.accuracy}% đúng</span>

@@ -9,7 +9,7 @@ const HeroContent = () => {
 
   return (
     <div className="text-center lg:text-left">
-      <h1 className="font-exo font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6">
+      <h1 className="font-exo font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6">
         <span
           className={`block mb-3 transition-all duration-300 ${
             theme === "dark"
@@ -32,11 +32,11 @@ const HeroContent = () => {
       </h1>
 
       <p
-        className={`font-exo text-lg sm:text-xl mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed transition-colors duration-300 ${
+        className={`font-exo text-lg sm:text-2xl mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed transition-colors duration-300 ${
           theme === "dark" ? "text-slate-300" : "text-slate-700"
         }`}
       >
-        Nền tảng học lập trình hiện đại với AI dự đoán cảm xúc real-time,
+        Nền tảng học lập trình hiện đại với AI dự đoán cảm xúc
         <br className="hidden sm:block" />
         <span
           className={
@@ -50,7 +50,7 @@ const HeroContent = () => {
       </p>
 
       {/* BUTTONS */}
-      <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 mb-12">
+      <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 mb-4">
         <button
           onClick={() => navigate("/courses")}
           className={`group relative w-full sm:w-auto px-8 py-4 rounded-lg font-exo font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-105 active:scale-100 ${

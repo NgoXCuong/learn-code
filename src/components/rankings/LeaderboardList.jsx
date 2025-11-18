@@ -23,7 +23,7 @@ export default function LeaderboardList({ paged, currentUser }) {
       {/* Header (Desktop) */}
       <div
         className="
-          hidden md:grid grid-cols-12 o gap-4 px-6 py-4 text-sm font-bold 
+          hidden md:grid grid-cols-12 o gap-4 px-6 py-4 text-base font-bold 
           text-gray-600 border-b border-gray-200 bg-gray-50
           dark:text-gray-300 dark:border-gray-700 dark:bg-gray-800
         "
@@ -100,7 +100,7 @@ export default function LeaderboardList({ paged, currentUser }) {
                     <div className="flex items-center gap-2 mt-1">
                       <span
                         className={classNames(
-                          "text-xs px-2 py-0.5 rounded-full font-medium text-white bg-linear-to-r",
+                          "text-sm px-2 py-0.5 rounded-full font-medium text-white bg-linear-to-r",
                           LEVEL_COLORS[u.level]
                         )}
                       >
@@ -108,8 +108,8 @@ export default function LeaderboardList({ paged, currentUser }) {
                       </span>
 
                       {u.streak > 0 && (
-                        <span className="flex items-center gap-1 text-xs text-orange-500">
-                          <Flame className="w-3 h-3" /> {u.streak}d
+                        <span className="flex items-center gap-1 text-sm text-orange-500">
+                          <Flame className="w-3 h-3" /> {u.streak} ngày
                         </span>
                       )}
                     </div>
@@ -148,7 +148,7 @@ export default function LeaderboardList({ paged, currentUser }) {
                   <p className="font-semibold text-gray-900 dark:text-gray-100">
                     {u.name}
                   </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     {numberWithCommas(u.tfXp)} XP · {u.accuracy}%
                   </p>
                 </div>

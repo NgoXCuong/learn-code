@@ -59,7 +59,7 @@ export default function TopBar({
               <button
                 onClick={() => prevExercise && navigate(prevExercise)}
                 disabled={!prevExercise}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-base font-medium transition-all ${
+                className={`flex items-center gap-1 px-3 py-1 rounded-lg text-base font-medium transition-all ${
                   !prevExercise
                     ? isDark
                       ? "bg-gray-800 text-gray-600 cursor-not-allowed"
@@ -88,7 +88,7 @@ export default function TopBar({
                     : alert("🎉 Bạn đã hoàn thành tất cả bài tập!")
                 }
                 disabled={!nextExercise}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-base font-medium transition-all ${
+                className={`flex items-center gap-1 px-3 py-1 rounded-lg text-base font-medium transition-all ${
                   !nextExercise
                     ? isDark
                       ? "bg-gray-800 text-gray-600 cursor-not-allowed"
@@ -98,7 +98,9 @@ export default function TopBar({
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
-                <span className="hidden sm:inline">Bài tiếp</span>
+                <span className="hidden sm:inline hover:text-gray-900">
+                  Bài tiếp
+                </span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>

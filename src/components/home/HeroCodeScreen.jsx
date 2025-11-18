@@ -10,7 +10,7 @@ const HeroCodeScreen = () => {
         <div className="absolute -inset-4 bg-linear-to-r from-cyan-500/20 via-fuchsia-500/20 to-cyan-500/20 blur-2xl animate-pulse"></div>
 
         <div className="relative">
-          <div className="relative w-full h-90 rounded-lg bg-slate-900/90 backdrop-blur-md border-2 border-cyan-400/60 shadow-[0_0_50px_rgba(34,211,238,0.5),inset_0_0_30px_rgba(34,211,238,0.2)] overflow-hidden">
+          <div className="relative w-full h-100 rounded-lg bg-slate-900/90 backdrop-blur-md border-2 border-cyan-400/60 shadow-[0_0_50px_rgba(34,211,238,0.5),inset_0_0_30px_rgba(34,211,238,0.2)] overflow-hidden">
             {/* TOP BAR */}
             <div className="absolute top-0 left-0 right-0 h-10 bg-linear-to-b from-cyan-500/20 to-transparent border-b border-cyan-400/30 flex items-center justify-between px-4">
               <div className="flex gap-2">
@@ -19,13 +19,13 @@ const HeroCodeScreen = () => {
                 <div className="w-3 h-3 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
               </div>
 
-              <div className="text-xs font-mono text-cyan-400 uppercase tracking-wider">
-                AI_LEARN.exe
+              <div className="text-base font-mono text-cyan-400 uppercase tracking-wider">
+                AI_LEARN.js
               </div>
             </div>
 
             {/* CODE AREA */}
-            <div className="p-8 pt-16 space-y-3 font-mono text-sm">
+            <div className="p-8 pt-16 space-y-3 font-mono text-base">
               <div className="flex gap-2">
                 <span className="text-fuchsia-400">const</span>
                 <span className="text-cyan-300">learnAI</span>

@@ -38,7 +38,7 @@ export default function LessonList({ lessons, onLessonClick }) {
         Danh sách bài học
       </h1>
       <div className="w-full p-6 rounded-xl bg-white dark:bg-gray-800 shadow-md transition-all">
-        <div className="space-y-6">
+        <div className="space-y-6 ">
           {Object.keys(chapters).map((chapterName, chapterIndex) => {
             const lessonsInChapter = chapters[chapterName];
             const completedCount = lessonsInChapter.filter(
@@ -53,20 +53,20 @@ export default function LessonList({ lessons, onLessonClick }) {
             return (
               <div
                 key={chapterName}
-                className="border-l-4 border-blue-500 pl-4 pb-4 bg-gray-50 dark:bg-gray-900 rounded-lg mb-6"
+                className="border-l-4 border-blue-500 pl-4 pb-4  bg-gray-50 dark:bg-gray-900 rounded-lg mb-6"
               >
                 {/* HEADER CHƯƠNG */}
                 <button
                   onClick={() => toggleChapter(chapterName)}
-                  className="w-full flex flex-col gap-1 mb-4 text-left hover:bg-blue-50 dark:hover:bg-blue-900/20 p-2 rounded-lg transition-colors"
+                  className="w-full flex flex-col  mb-4 text-left hover:bg-blue-50 dark:hover:bg-blue-900/20 p-2 rounded-lg transition-colors"
                 >
                   <div className="flex items-center gap-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
                     {isOpen ? (
-                      <ChevronDown className="w-5 h-5 text-blue-600" />
+                      <ChevronDown className="w-6 h-6 text-blue-600" />
                     ) : (
-                      <ChevronRight className="w-5 h-5 text-blue-600" />
+                      <ChevronRight className="w-6 h-6 text-blue-600" />
                     )}
-                    <span>
+                    <span className="font-bold text-xl">
                       {chapterIndex + 1}. {chapterName}
                     </span>
                     {completedCount === lessonsInChapter.length && (
@@ -92,9 +92,9 @@ export default function LessonList({ lessons, onLessonClick }) {
                           ?.replace(/\s+/g, " ")
                           .trim()
                           .split(" ")
-                          .slice(0, 20)
+                          .slice(0, 15)
                           .join(" ") +
-                        (lesson.content.split(" ").length > 20 ? "…" : "");
+                        (lesson.content.split(" ").length > 15 ? "…" : "");
 
                       const exerciseCount = mockExercises.filter(
                         (ex) => ex.lesson_id === lesson.id
@@ -106,7 +106,7 @@ export default function LessonList({ lessons, onLessonClick }) {
                           onClick={() =>
                             !isLocked && onLessonClick?.(lesson.id)
                           }
-                          className={`flex flex-col gap-2 p-3 text-base rounded-lg transition-all border-l-4 ${
+                          className={`flex flex-col gap-2 p-3 text-lg rounded-lg transition-all border-l-4 ${
                             isCurrent
                               ? "bg-blue-100 dark:bg-blue-900/50 border-blue-500 shadow-blue-200/50 dark:shadow-blue-900/20"
                               : "bg-green-50 dark:bg-green-900/20 border-green-400"
@@ -119,21 +119,21 @@ export default function LessonList({ lessons, onLessonClick }) {
                           {/* Header bài học */}
                           <div className="flex items-start gap-3 justify-between">
                             <div className="flex items-start gap-3 flex-1 min-w-0">
-                              <div className="mt-0.5">
+                              <div className="mt-2">
                                 {isLocked ? (
-                                  <Lock className="w-4 h-4 text-gray-400" />
+                                  <Lock className="w-6 h-6 text-gray-400" />
                                 ) : isDone ? (
-                                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                                  <CheckCircle2 className="w-6 h-6 text-green-500" />
                                 ) : (
-                                  <PlayCircle className="w-4 h-4 text-purple-500" />
+                                  <PlayCircle className="w-6 h-6 text-blue-500" />
                                 )}
                               </div>
 
                               <div className="flex-1 min-w-0">
-                                <h4 className="font-medium text-gray-900 dark:text-gray-100">
+                                <h1 className=" text-gray-900 text-lg font-semibold dark:text-gray-100">
                                   {lesson.title}
-                                </h4>
-                                <p className="text-gray-500 dark:text-gray-400 text-sm mt-1 leading-relaxed">
+                                </h1>
+                                <p className="text-gray-700 dark:text-gray-400 text-base mt-1 leading-relaxed">
                                   {shortContent}
                                 </p>
                               </div>
@@ -147,38 +147,38 @@ export default function LessonList({ lessons, onLessonClick }) {
                           {/* Meta info + Progress */}
                           <div className="flex items-center justify-between ml-7 flex-wrap">
                             {/* Thông tin bài học bên trái */}
-                            <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 flex-wrap">
+                            <div className="flex items-center gap-2 text-base text-gray-700 dark:text-gray-400 flex-wrap">
                               <div className="flex items-center gap-1">
-                                <Clock className="w-3 h-3" />
+                                <Clock className="w-4 h-4" />
                                 <span>{lesson.readTime}</span>
                               </div>
 
                               <span>•</span>
 
                               <div className="flex items-center gap-1">
-                                <Code2 className="w-3 h-3" />
+                                <Code2 className="w-4 h-4" />
                                 <span>{lesson.language}</span>
                               </div>
 
                               <span>•</span>
 
                               <div className="flex items-center gap-1">
-                                <ListChecks className="w-3 h-3" />
+                                <ListChecks className="w-4 h-4" />
                                 <span>{exerciseCount} bài tập</span>
                               </div>
                             </div>
 
                             {/* Progress bar bên phải */}
-                            <div className="flex items-center gap-2 min-w-[120px]">
-                              <span className="text-sm font-medium text-purple-500 dark:text-purple-400 whitespace-nowrap">
+                            <div className="flex items-center gap-2 min-w-[150px]">
+                              <span className="text-base font-medium text-blue-500 dark:text-blue-300 whitespace-nowrap">
                                 {lesson.progress}%
                               </span>
-                              <div className="relative flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                              <div className="relative flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                                 <div
                                   className={`absolute left-0 top-0 h-full rounded-full transition-all duration-500 ${
                                     lesson.progress >= 100
                                       ? "bg-green-500"
-                                      : "bg-purple-500"
+                                      : "bg-blue-500"
                                   }`}
                                   style={{ width: `${lesson.progress}%` }}
                                 />

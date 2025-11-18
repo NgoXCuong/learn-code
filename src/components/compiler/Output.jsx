@@ -15,7 +15,7 @@ const Output = ({ output }) => {
       {/* Header với icon */}
       <div className="flex items-center gap-2 mb-2 font-exo">
         <SquareTerminal className="w-5 h-5 text-purple-500 " />
-        <h3 className="font-bold  text-lg">Output:</h3>
+        <h3 className="font-bold  text-xl">Output:</h3>
       </div>
 
       <pre className="whitespace-pre-wrap">{output || "// Chưa chạy code"}</pre>

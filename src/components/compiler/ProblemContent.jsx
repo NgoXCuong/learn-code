@@ -17,7 +17,7 @@ export default function ProblemContent({ exercise, isDark }) {
           </h2>
         </div>
         <p
-          className={`text-base leading-relaxed ${
+          className={`text-lg leading-relaxed ${
             isDark ? "text-gray-300" : "text-gray-700"
           }`}
         >

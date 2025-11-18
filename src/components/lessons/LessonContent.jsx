@@ -52,7 +52,7 @@ export default function LessonContent({ lesson, isDark }) {
 
   return (
     <div
-      className={`prose prose-lg font-exo max-w-none ${
+      className={`prose prose-lg font-exo text-lg max-w-none ${
         isDark ? "prose-invert" : ""
       }`}
     >
@@ -111,7 +111,7 @@ export default function LessonContent({ lesson, isDark }) {
           </button>
         </div>
         {isLessonRead(lesson.id) && (
-          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-2">
+          <p className="text-center text-base text-gray-500 dark:text-gray-400 mt-2">
             Bạn đã hoàn thành bài học này!
           </p>
         )}

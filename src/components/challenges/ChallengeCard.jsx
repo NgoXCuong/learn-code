@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  Trophy,
+  Zap,
   TrendingUp,
   MessageSquare,
   CheckCircle2,
@@ -34,7 +34,7 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
       <div className="absolute top-3 right-3 flex items-center gap-2">
         <span
           className={`
-            font-exo text-xs font-semibold px-2 py-1 rounded-full 
+            font-exo text-base font-medium px-2 rounded-lg 
             ${difficultyColors[challenge.difficulty]}
           `}
         >
@@ -55,21 +55,21 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
       </div>
 
       {/* Title */}
-      <h3
+      <h1
         className="
-          font-exo text-xl font-semibold 
+          font-exo text-xl font-bold
           text-gray-900 dark:text-gray-100 
           mb-2 pr-10 transition-colors
           hover:text-blue-600 dark:hover:text-blue-400
         "
       >
         {challenge.title}
-      </h3>
+      </h1>
 
       {/* Description */}
       <p
         className="
-          font-exo text-base 
+          font-exo text-lg 
           text-gray-600 dark:text-gray-400 
           mb-3 line-clamp-2
         "
@@ -83,10 +83,10 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
           <span
             key={i}
             className="
-              font-exo text-sm 
+              font-exo text-base 
               bg-gray-100 dark:bg-gray-800 
-              text-gray-700 dark:text-gray-300 
-              px-2 py-1 rounded-full 
+              text-gray-800 dark:text-gray-300 
+              px-2  rounded-lg 
               border border-gray-200 dark:border-gray-700
             "
           >
@@ -100,7 +100,7 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
         className="
           font-exo pt-3 border-t border-gray-200 dark:border-gray-700 
           flex items-center justify-between 
-          text-sm text-gray-500 dark:text-gray-400
+          text-base text-gray-500 dark:text-gray-400
         "
       >
         <span className="flex items-center gap-1">
@@ -114,8 +114,8 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
             text-blue-600 dark:text-blue-400
           "
         >
-          <Trophy className="w-4 h-4" />
-          {challenge.points} điểm
+          <Zap className="w-4 h-4" />
+          {challenge.points} XP
         </span>
       </div>
     </div>

@@ -17,7 +17,7 @@ export default function Pagination({
         dark:bg-gray-900 dark:border-gray-700
       "
     >
-      <p className="text-sm text-gray-700 dark:text-gray-300">
+      <p className="text-base text-gray-700 dark:text-gray-300">
         Trang <span className="font-bold">{currentPage}</span> /
         <span className="font-bold">{totalPages}</span> ·
         <span className="font-bold ml-1">{totalUsers}</span> người học
@@ -26,7 +26,7 @@ export default function Pagination({
       <div className="flex gap-2">
         <Button
           variant="outline"
-          size="sm"
+          size="base"
           disabled={currentPage === 1}
           onClick={onPrev}
           className="
@@ -44,7 +44,7 @@ export default function Pagination({
 
         <Button
           variant="outline"
-          size="sm"
+          size="base"
           disabled={currentPage === totalPages}
           onClick={onNext}
           className="

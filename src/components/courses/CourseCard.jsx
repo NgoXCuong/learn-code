@@ -41,9 +41,9 @@ export default function CourseCard({
   };
 
   const getProgressStatus = (progress) => {
-    if (progress === 0) return { text: "Chưa học", color: "text-gray-400" };
-    if (progress < 100) return { text: "Đang học", color: "text-blue-400" };
-    return { text: "Hoàn thành", color: "text-green-400" };
+    if (progress === 0) return { text: "Chưa học", color: "text-gray-500" };
+    if (progress < 100) return { text: "Đang học", color: "text-blue-600" };
+    return { text: "Hoàn thành", color: "text-green-600" };
   };
 
   return (
@@ -138,7 +138,7 @@ export default function CourseCard({
         </div>
 
         <h3
-          className={`text-xl font-semibold line-clamp-2 ${
+          className={`text-2xl font-semibold line-clamp-2 ${
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
@@ -146,7 +146,7 @@ export default function CourseCard({
         </h3>
 
         <p
-          className={`text-base line-clamp-2 ${
+          className={`text-lg line-clamp-2 ${
             darkMode ? "text-gray-300" : "text-gray-600"
           }`}
         >
@@ -194,7 +194,7 @@ export default function CourseCard({
               ${
                 course.progress === 100
                   ? "[&>div]:bg-green-600"
-                  : "[&>div]:bg-blue-500"
+                  : "[&>div]:bg-blue-600"
               }`}
             />
           </div>

@@ -24,10 +24,10 @@ export const DailyQuestsPanel = ({ quests }) => {
             >
               <div className="flex items-start justify-between mb-2">
                 <div className="flex-1">
-                  <p className="font-bold text-gray-900 dark:text-white text-base">
+                  <p className="font-bold text-gray-900 dark:text-white text-xl">
                     {quest.title}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  <p className="text-base text-gray-600 dark:text-gray-400 mt-1">
                     Phần thưởng:{" "}
                     <span className="text-yellow-600 dark:text-yellow-400 font-semibold">
                       +{quest.reward} XP
@@ -40,7 +40,7 @@ export const DailyQuestsPanel = ({ quests }) => {
               </div>
 
               <div className="mt-3">
-                <div className="flex justify-between text-sm mb-1">
+                <div className="flex justify-between text-base mb-1">
                   <span className="text-gray-600 dark:text-gray-400">
                     Tiến độ: {quest.progress}/{quest.target}
                   </span>

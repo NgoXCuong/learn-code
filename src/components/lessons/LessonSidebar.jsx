@@ -72,7 +72,7 @@ export default function LessonSidebar({
                           className={`flex-1 flex items-center gap-2 p-2.5 rounded-lg text-left text-base transition-colors ${
                             isCurrentLesson
                               ? isDark
-                                ? "bg-indigo-600 text-white border-l-4 border-indigo-300"
+                                ? "bg-indigo-700 text-white border-l-4 border-indigo-300"
                                 : "bg-indigo-100 text-indigo-900 border-l-4 border-indigo-300"
                               : isDark
                               ? "hover:bg-gray-700 text-gray-300"

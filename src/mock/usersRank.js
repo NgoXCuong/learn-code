@@ -1,5 +1,3 @@
-// ---------- Mock Data ----------
-
 export const COURSES = [
   { id: "html-css", label: "HTML/CSS" },
   { id: "javascript", label: "JavaScript" },

@@ -25,7 +25,7 @@ export default function LessonTabs({
       >
         <button
           onClick={() => setActiveTab("content")}
-          className={`flex-1 px-6 py-4 font-bold transition-colors relative ${
+          className={`flex-1 px-6 py-4 font-bold text-lg transition-colors relative ${
             activeTab === "content"
               ? isDark
                 ? "text-indigo-400"
@@ -46,7 +46,7 @@ export default function LessonTabs({
         </button>
         <button
           onClick={() => setActiveTab("exercises")}
-          className={`flex-1 px-6 py-4 font-bold transition-colors relative ${
+          className={`flex-1 px-6 py-4 font-bold text-lg transition-colors relative ${
             activeTab === "exercises"
               ? isDark
                 ? "text-indigo-400"

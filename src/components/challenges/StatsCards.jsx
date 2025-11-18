@@ -8,7 +8,7 @@ export const StatsCards = ({ totalParticipants, avgSuccess }) => {
       <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-md border border-gray-100 dark:border-gray-700 transition-all hover:shadow-lg">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
+            <p className="text-lg text-gray-600 dark:text-gray-400 mb-1">
               Tổng người tham gia
             </p>
             <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
@@ -25,7 +25,7 @@ export const StatsCards = ({ totalParticipants, avgSuccess }) => {
       <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-md border border-gray-100 dark:border-gray-700 transition-all hover:shadow-lg">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
+            <p className="text-lg text-gray-600 dark:text-gray-400 mb-1">
               Tỷ lệ thành công TB
             </p>
             <p className="text-2xl font-bold text-green-600 dark:text-green-400">
