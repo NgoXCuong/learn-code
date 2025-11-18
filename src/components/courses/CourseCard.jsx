@@ -103,8 +103,8 @@ export default function CourseCard({
         !user
           ? "bg-orange-600 text-white hover:bg-orange-800" // Đăng nhập để bắt đầu
           : course.progress === 0
-          ? "bg-blue-600 text-white hover:bg-blue-800" // Trạng thái: Bắt đầu học
-          : "bg-green-600 text-white hover:bg-green-700" // Trạng thái: Tiếp tục học
+          ? "bg-green-600 text-white hover:bg-green-700" // Trạng thái: Bắt đầu học
+          : " bg-blue-600 text-white hover:bg-blue-800" // Trạng thái: Tiếp tục học
       }`}
             >
               <span className="relative flex items-center justify-center gap-2">
@@ -190,7 +190,12 @@ export default function CourseCard({
 
             <Progress
               value={course.progress}
-              className="h-2 bg-gray-200 dark:bg-gray-700 [&>div]:bg-green-500 transition-all"
+              className={`h-2 bg-gray-200 dark:bg-gray-700 transition-all [&>div]:transition-all
+              ${
+                course.progress === 100
+                  ? "[&>div]:bg-green-600"
+                  : "[&>div]:bg-blue-500"
+              }`}
             />
           </div>
         )}

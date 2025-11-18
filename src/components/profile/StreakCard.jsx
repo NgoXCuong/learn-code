@@ -114,7 +114,7 @@ export default function StreakCard() {
         {/* Year Selection Dropdown */}
         <div className="shrink-0">
           <Select
-            value={selectedYear.toString()} // chuyển sang string
+            value={selectedYear.toString()}
             onValueChange={(val) => setSelectedYear(parseInt(val))}
           >
             <SelectTrigger className="w-24 bg-white dark:bg-gray-700 dark:text-gray-50 border-none">
@@ -125,7 +125,7 @@ export default function StreakCard() {
                 <SelectItem
                   key={year}
                   value={year.toString()}
-                  className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-600 focus:bg-gray-100 dark:focus:bg-gray-600"
+                  className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-600 focus:bg-gray-600 dark:focus:bg-gray-600"
                 >
                   {year}
                 </SelectItem>

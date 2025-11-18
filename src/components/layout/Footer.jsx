@@ -20,7 +20,6 @@ const Footer = () => {
           </p>
 
           <div className="flex items-center gap-1 text-black dark:text-gray-200">
-            <Sparkles className="w-3 h-3 text-yellow-500 font-exo" />
             <span>Nghiên cứu khoa học 2025</span>
           </div>
         </div>

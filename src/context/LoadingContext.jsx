@@ -20,7 +20,7 @@ const LoadingContextInner = ({ children }) => {
     setIsLoading(true);
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 500); // Faster loading duration
+    }, 250); // Faster loading duration
 
     return () => clearTimeout(timer);
   }, [location.pathname]);
