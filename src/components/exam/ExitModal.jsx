@@ -4,12 +4,12 @@ import { AlertTriangle, X } from "lucide-react";
 const ExitModal = ({ show, close, answeredCount, total, confirm }) => {
   if (!show) return null;
   return (
-    <div className="fixed inset-0 font-exo bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0   bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-900 rounded-2xl max-w-md w-full overflow-y-auto shadow-xl">
         <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-6 z-10">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                 Xác nhận thoát
               </h2>
             </div>
@@ -23,6 +23,7 @@ const ExitModal = ({ show, close, answeredCount, total, confirm }) => {
         </div>
 
         <div className="p-6">
+          zzz
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 bg-orange-100 dark:bg-orange-700 rounded-full flex items-center justify-center">
               <AlertTriangle className="w-6 h-6 text-orange-600 dark:text-orange-300" />

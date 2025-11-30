@@ -34,7 +34,7 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
       <div className="absolute top-3 right-3 flex items-center gap-2">
         <span
           className={`
-            font-exo text-base font-medium px-2 rounded-lg 
+              text-sm font-medium px-2 rounded-lg 
             ${difficultyColors[challenge.difficulty]}
           `}
         >
@@ -57,7 +57,7 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
       {/* Title */}
       <h1
         className="
-          font-exo text-xl font-bold
+            text-lg font-bold
           text-gray-900 dark:text-gray-100 
           mb-2 pr-10 transition-colors
           hover:text-blue-600 dark:hover:text-blue-400
@@ -69,7 +69,7 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
       {/* Description */}
       <p
         className="
-          font-exo text-lg 
+            text-base 
           text-gray-600 dark:text-gray-400 
           mb-3 line-clamp-2
         "
@@ -83,7 +83,7 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
           <span
             key={i}
             className="
-              font-exo text-base 
+                text-sm 
               bg-gray-100 dark:bg-gray-800 
               text-gray-800 dark:text-gray-300 
               px-2  rounded-lg 
@@ -98,9 +98,9 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
       {/* Footer Info */}
       <div
         className="
-          font-exo pt-3 border-t border-gray-200 dark:border-gray-700 
+            pt-3 border-t border-gray-200 dark:border-gray-700 
           flex items-center justify-between 
-          text-base text-gray-500 dark:text-gray-400
+          text-sm text-gray-500 dark:text-gray-400
         "
       >
         <span className="flex items-center gap-1">
@@ -115,7 +115,7 @@ export const ChallengeCard = ({ challenge, onClick, userProgress }) => {
           "
         >
           <Zap className="w-4 h-4" />
-          {challenge.points} XP
+          {challenge.points} EXP
         </span>
       </div>
     </div>

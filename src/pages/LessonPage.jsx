@@ -6,13 +6,15 @@ import Footer from "@/components/layout/Footer";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { ThemeContext } from "@/context/ThemeContext";
 import { ProgressContext } from "@/context/ProgressContext";
-import { mockLessons } from "@/mock/lessons";
-import { mockCourses } from "@/mock/courses";
-import { mockExercises } from "@/mock/exercises";
+import { fetchCourseById, fetchLessonsByCourse } from "@/api/coursesApi";
+import { fetchLessonById } from "@/api/coursesApi";
+import { fetchExercisesByLesson } from "@/api/coursesApi";
 import LessonProgressCard from "@/components/lessons/LessonProgressCard";
 import LessonSidebar from "@/components/lessons/LessonSidebar";
 import LessonTabs from "@/components/lessons/LessonTabs";
 import LessonNavigation from "@/components/lessons/LessonNavigation";
+import { Loading } from "@/components/layout/Loading";
+import { toast } from "sonner";
 
 export default function LessonPage() {
   const { courseId, lessonId } = useParams();
@@ -24,24 +26,44 @@ export default function LessonPage() {
   const [course, setCourse] = useState(null);
   const [lesson, setLesson] = useState(null);
   const [exercises, setExercises] = useState([]);
+  const [allLessons, setAllLessons] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [expandedChapters, setExpandedChapters] = useState([]);
   const [activeTab, setActiveTab] = useState("content");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Load dữ liệu course, lesson và exercises
   useEffect(() => {
-    const c = mockCourses.find((c) => c.id.toString() === courseId);
-    setCourse(c);
+    const loadLessonData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
 
-    const l = mockLessons.find(
-      (l) => l.id.toString() === lessonId && l.course_id.toString() === courseId
-    );
-    setLesson(l);
+        // Load data in parallel
+        const [courseData, lessonsData, lessonData, exercisesData] =
+          await Promise.all([
+            fetchCourseById(Number(courseId)),
+            fetchLessonsByCourse(Number(courseId)),
+            fetchLessonById(Number(lessonId)),
+            fetchExercisesByLesson(Number(lessonId)),
+          ]);
 
-    const exs = mockExercises.filter(
-      (ex) => ex.lesson_id.toString() === lessonId
-    );
-    setExercises(exs);
+        setCourse(courseData);
+        setAllLessons(lessonsData);
+        setLesson(lessonData);
+        setExercises(exercisesData);
+      } catch (err) {
+        console.error("Error loading lesson data:", err);
+        setError("Không thể tải dữ liệu bài học");
+        toast.error("Không thể tải dữ liệu bài học");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadLessonData();
   }, [courseId, lessonId]);
 
   // Auto expand chapter
@@ -53,17 +75,58 @@ export default function LessonPage() {
     }
   }, [lesson]);
 
-  if (!lesson || !course) {
+  // Loading state
+  if (loading) {
     return (
       <div
         className={`min-h-screen flex items-center justify-center ${
           isDark ? "bg-gray-900" : "bg-gray-50"
         }`}
       >
-        <div className="text-center text-gray-500">Đang tải bài học...</div>
+        <Loading />
       </div>
     );
   }
+
+  // Error state
+  if (error) {
+    return (
+      <div
+        className={`min-h-screen flex items-center justify-center ${
+          isDark ? "bg-gray-900" : "bg-gray-50"
+        }`}
+      >
+        <div className="text-center py-12">
+          <div className="text-red-500 mb-4">
+            <svg
+              className="mx-auto h-12 w-12"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+              />
+            </svg>
+          </div>
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
+            {error}
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+          >
+            Thử lại
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!lesson || !course) return null;
 
   // Tính toán progress và navigation
   const completedExercises = exercises.filter((ex) =>
@@ -74,9 +137,6 @@ export default function LessonPage() {
     ? Math.round((completedExercises / totalExercises) * 100)
     : 0;
 
-  const allLessons = mockLessons.filter(
-    (l) => l.course_id.toString() === courseId
-  );
   const currentIndex = allLessons.findIndex(
     (l) => l.id.toString() === lessonId
   );
@@ -122,9 +182,11 @@ export default function LessonPage() {
           navigate={navigate}
           isDark={isDark}
           isOpen={sidebarOpen}
+          isCollapsed={sidebarCollapsed}
+          setIsCollapsed={setSidebarCollapsed}
         />
 
-        <main className="flex-1 px-4 sm:px-6 md:px-14 lg:px-20 py-6">
+        <main className="flex-1 px-4 sm:px-6 md:px-8 lg:px-12 py-6 min-w-0">
           <div className="flex items-center justify-between mb-4">
             <Breadcrumb
               items={[
@@ -144,10 +206,10 @@ export default function LessonPage() {
 
           <div className="mb-4 border-b border-gray-200 dark:border-gray-700 pb-4 flex flex-col lg:flex-row justify-between items-start gap-6">
             <div className="flex-1">
-              <h1 className="text-3xl sm:text-4xl font-bold mb-2 leading-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold mb-2 leading-tight">
                 {lesson.title}
               </h1>
-              <p className="text-lg mb-3">
+              <p className="text-base mb-3">
                 Thuộc khóa học:{" "}
                 <Link
                   to={`/courses/${course.id}`}
@@ -157,10 +219,10 @@ export default function LessonPage() {
                 </Link>
               </p>
             </div>
-            <div className="w-full lg:w-80 shrink-0">
+            <div className="w-full lg:w-80 lg:shrink">
               <LessonProgressCard
                 isDark={isDark}
-                progressPercent={progressPercent}
+                lesson={lesson}
                 completedExercises={completedExercises}
                 totalExercises={totalExercises}
               />

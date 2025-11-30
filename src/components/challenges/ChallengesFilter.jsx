@@ -22,7 +22,7 @@ export const ChallengesFilter = ({
   hasActiveFilters,
 }) => {
   return (
-    <div className="mb-6 space-y-4 font-exo">
+    <div className="mb-6 space-y-4  ">
       {/* Filter Row */}
       <div className="flex flex-col sm:flex-row gap-5">
         {/* Search Bar */}
@@ -33,13 +33,13 @@ export const ChallengesFilter = ({
             placeholder="Tìm kiếm thử thách..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 placeholder:text-base text-lg border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+            className="pl-10 placeholder:text-base text-base border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
           />
         </div>
 
         {/* Difficulty Filter */}
         <Select value={difficultyFilter} onValueChange={setDifficultyFilter}>
-          <SelectTrigger className="w-[150px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-base">
+          <SelectTrigger className="w-[150px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm">
             <SelectValue placeholder="Tất cả độ khó" />
           </SelectTrigger>
           <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
@@ -52,7 +52,7 @@ export const ChallengesFilter = ({
 
         {/* Sort Filter */}
         <Select value={sortBy} onValueChange={setSortBy}>
-          <SelectTrigger className="w-[180px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-base">
+          <SelectTrigger className="w-[180px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm">
             <SelectValue placeholder="Sắp xếp theo" />
           </SelectTrigger>
           <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
@@ -77,11 +77,11 @@ export const ChallengesFilter = ({
 
       {/* Active Filters Badge */}
       {hasActiveFilters && (
-        <div className="flex flex-wrap gap-2 text-base">
+        <div className="flex flex-wrap gap-2 text-sm">
           {searchQuery && (
             <Badge
               variant="secondary"
-              className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-base"
+              className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-sm"
             >
               Tìm kiếm: "{searchQuery}"
             </Badge>
@@ -90,7 +90,7 @@ export const ChallengesFilter = ({
           {difficultyFilter !== "all" && (
             <Badge
               variant="secondary"
-              className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-base"
+              className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 text-sm"
             >
               Độ khó: {difficultyFilter}
             </Badge>

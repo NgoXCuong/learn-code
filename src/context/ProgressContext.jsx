@@ -54,7 +54,7 @@ export const ProgressProvider = ({ children }) => {
   };
 
   // Lesson progress methods
-  const markLessonAsRead = (lessonId) => {
+  const markLessonAsRead = (lessonId, mockLessons, mockCourses) => {
     setLessonProgress((prev) => ({
       ...prev,
       [lessonId]: {
@@ -65,10 +65,12 @@ export const ProgressProvider = ({ children }) => {
     }));
 
     // Update course progress when lesson is read
-    updateCourseProgressFromLessons();
+    if (mockLessons && mockCourses) {
+      updateCourseProgressFromLessons(mockLessons, mockCourses);
+    }
   };
 
-  const markLessonAsUnread = (lessonId) => {
+  const markLessonAsUnread = (lessonId, mockLessons, mockCourses) => {
     setLessonProgress((prev) => ({
       ...prev,
       [lessonId]: {
@@ -78,7 +80,9 @@ export const ProgressProvider = ({ children }) => {
       },
     }));
 
-    updateCourseProgressFromLessons();
+    if (mockLessons && mockCourses) {
+      updateCourseProgressFromLessons(mockLessons, mockCourses);
+    }
   };
 
   const isLessonRead = (lessonId) => {
@@ -86,7 +90,14 @@ export const ProgressProvider = ({ children }) => {
   };
 
   // Exercise progress methods
-  const markExerciseAsCompleted = (exerciseId, lessonId, courseId) => {
+  const markExerciseAsCompleted = (
+    exerciseId,
+    lessonId,
+    courseId,
+    mockExercises,
+    mockLessons,
+    mockCourses
+  ) => {
     setExerciseProgress((prev) => ({
       ...prev,
       [exerciseId]: {
@@ -97,11 +108,22 @@ export const ProgressProvider = ({ children }) => {
     }));
 
     // Update lesson and course progress when exercise is completed
-    updateLessonProgressFromExercises(lessonId);
-    updateCourseProgressFromLessons();
+    if (mockExercises) {
+      updateLessonProgressFromExercises(lessonId, mockExercises);
+    }
+    if (mockLessons && mockCourses) {
+      updateCourseProgressFromLessons(mockLessons, mockCourses);
+    }
   };
 
-  const markExerciseAsIncomplete = (exerciseId, lessonId, courseId) => {
+  const markExerciseAsIncomplete = (
+    exerciseId,
+    lessonId,
+    courseId,
+    mockExercises,
+    mockLessons,
+    mockCourses
+  ) => {
     setExerciseProgress((prev) => ({
       ...prev,
       [exerciseId]: {
@@ -111,8 +133,12 @@ export const ProgressProvider = ({ children }) => {
       },
     }));
 
-    updateLessonProgressFromExercises(lessonId);
-    updateCourseProgressFromLessons();
+    if (mockExercises) {
+      updateLessonProgressFromExercises(lessonId, mockExercises);
+    }
+    if (mockLessons && mockCourses) {
+      updateCourseProgressFromLessons(mockLessons, mockCourses);
+    }
   };
 
   const isExerciseCompleted = (exerciseId) => {
@@ -120,11 +146,7 @@ export const ProgressProvider = ({ children }) => {
   };
 
   // Helper function to update course progress based on lesson completion
-  const updateCourseProgressFromLessons = () => {
-    // Import mock data to calculate course progress
-    const mockLessons = require("../mock/lessons").mockLessons;
-    const mockCourses = require("../mock/courses").mockCourses;
-
+  const updateCourseProgressFromLessons = (mockLessons, mockCourses) => {
     // Calculate progress for each course based on completed lessons
     mockCourses.forEach((course) => {
       const courseLessons = mockLessons.filter(
@@ -143,10 +165,7 @@ export const ProgressProvider = ({ children }) => {
   };
 
   // Helper function to update lesson progress based on exercise completion
-  const updateLessonProgressFromExercises = (lessonId) => {
-    // Import mock data to calculate lesson progress
-    const mockExercises = require("../mock/exercises").mockExercises;
-
+  const updateLessonProgressFromExercises = (lessonId, mockExercises) => {
     // Calculate progress for the lesson based on completed exercises
     const lessonExercises = mockExercises.filter(
       (ex) => ex.lesson_id === lessonId

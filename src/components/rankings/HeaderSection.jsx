@@ -9,23 +9,23 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TIMEFRAMES, COURSES } from "@/utils/utilsRanking";
+import { TIMEFRAMES, LANGUAGES } from "@/utils/utilsRanking";
 
 export default function HeaderSection({
   search,
   setSearch,
   timeframe,
   setTimeframe,
-  course,
-  setCourse,
+  language,
+  setLanguage,
   setPage,
 }) {
   return (
-    <div className="mb-10 font-exo rounded-lg p-6 dark:text-gray-200">
+    <div className="mb-10 rounded-lg p-6 dark:text-gray-200">
       {/* Title */}
       <div className="text-center mb-8">
-        <h1 className="text-4xl md:text-5xl font-bold mb-2">Bảng Xếp Hạng</h1>
-        <p className="text-muted-foreground text-lg dark:text-gray-400">
+        <h1 className="text-3xl md:text-4xl font-bold mb-2">Bảng Xếp Hạng</h1>
+        <p className="text-muted-foreground text-base dark:text-gray-400">
           Cạnh tranh và chinh phục đỉnh cao cùng cộng đồng
         </p>
       </div>
@@ -93,21 +93,21 @@ export default function HeaderSection({
             />
           </div>
 
-          {/* Course Select */}
+          {/* Language Select */}
           <Select
-            value={course}
+            value={language}
             onValueChange={(value) => {
-              setCourse(value);
+              setLanguage(value);
               setPage(1);
             }}
           >
             <SelectTrigger className="w-[150px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-              <SelectValue placeholder="Chọn khóa học" />
+              <SelectValue placeholder="Chọn ngôn ngữ" />
             </SelectTrigger>
             <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-              {COURSES.map((c) => (
-                <SelectItem key={c.id} value={c.id}>
-                  {c.label}
+              {LANGUAGES.map((lang) => (
+                <SelectItem key={lang.id} value={lang.id}>
+                  {lang.label}
                 </SelectItem>
               ))}
             </SelectContent>

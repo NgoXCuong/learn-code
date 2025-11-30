@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useLoading } from "@/context/LoadingContext";
 import { ThemeContext } from "@/context/ThemeContext";
 
-export function Loadding() {
+export function Loading() {
   const { isLoading } = useLoading();
   const { theme } = useContext(ThemeContext);
 

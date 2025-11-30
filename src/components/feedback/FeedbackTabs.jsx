@@ -21,7 +21,7 @@ export default function FeedbackTabs({ isDark, activeTab, setActiveTab }) {
   };
 
   return (
-    <div className="flex gap-2 m-4 overflow-x-auto pb-2 no-scrollbar font-exo">
+    <div className="flex gap-2  overflow-x-auto pb-2 no-scrollbar  ">
       {tabs.map(({ id, icon: Icon, label }) => {
         const isActive = id === activeTab;
 
@@ -29,7 +29,7 @@ export default function FeedbackTabs({ isDark, activeTab, setActiveTab }) {
           <button
             key={id}
             onClick={() => setActiveTab(id)}
-            className={`btn-shimmer flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 whitespace-nowrap ${getTabClasses(
+            className={`btn-shimmer text-base flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap ${getTabClasses(
               isActive
             )}`}
           >

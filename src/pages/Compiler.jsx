@@ -1,3 +1,8 @@
+// ==============================================================
+// Trang Compiler.jsx — Trang biên dịch code với bài tập đi kèm
+// Có bài tập, mô tả, trình soạn thảo code và output
+// ==============================================================
+
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -8,16 +13,19 @@ import EmotionAnalysis from "@/components/compiler/EmotionAnalysis";
 import { ThemeContext } from "@/context/ThemeContext";
 import { AuthContext } from "@/context/AuthContext";
 import { ProgressContext } from "@/context/ProgressContext";
-import { mockCourses } from "@/mock/courses";
-import { mockLessons } from "@/mock/lessons";
-import { mockExercises } from "@/mock/exercises";
-import { challenges as mockChallenges } from "@/mock/mockDataChallenge";
+import {
+  fetchCourseById,
+  fetchLessonsByCourse,
+  fetchExercisesByLesson,
+} from "@/api/coursesApi";
+import { fetchChallengeById } from "@/api/challengesApi";
+import { submitExercise } from "@/api/coursesApi";
 import ProblemContent from "@/components/compiler/ProblemContent";
 import ResizableDivider from "@/components/compiler/ResizableDivider";
 import TopBar from "@/components/compiler/TopBar";
-import { submitExercise } from "@/mock/mockRunAndSubmit";
 import { toast } from "sonner";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Loading } from "@/components/layout/Loading";
 
 export default function Compiler() {
   const { courseId, lessonId, exerciseId, challengeId, examId } = useParams();
@@ -47,6 +55,8 @@ export default function Compiler() {
   const [output, setOutput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [languages] = useState([
     "javascript",
@@ -72,71 +82,83 @@ export default function Compiler() {
 
   // Load bài từ Exam / Challenge / Course-Lesson
   useEffect(() => {
-    // --- Exam ---
-    if (examId) {
-      const selectedExam = mockExercises.find(
-        (ex) => ex.id.toString() === examId
-      );
-      if (selectedExam) {
-        setCurrentCourse({ id: "exam", title: "Bài kiểm tra" });
-        setCurrentLesson({ id: selectedExam.id, title: selectedExam.title });
-        if (passedExercises.length > 0) {
-          setExercises(passedExercises);
-          setCurrentExercise(passedExercise || selectedExam);
-        } else {
-          setExercises([selectedExam]);
-          setCurrentExercise(selectedExam);
+    const loadExerciseData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // --- Exam ---
+        if (examId) {
+          // For exam, use passed data or fetch from API
+          if (passedExercise) {
+            setCurrentCourse({ id: "exam", title: "Bài kiểm tra" });
+            setCurrentLesson({
+              id: passedExercise.id,
+              title: passedExercise.title,
+            });
+            setExercises(
+              passedExercises.length > 0 ? passedExercises : [passedExercise]
+            );
+            setCurrentExercise(passedExercise);
+            setCurrentCode(passedExercise.example_code || "");
+            setSelectedLanguage(passedExercise.language || "javascript");
+          }
+          return;
         }
-        setCurrentCode((passedExercise || selectedExam).example_code || "");
-        setSelectedLanguage(
-          (passedExercise || selectedExam).language || "javascript"
-        );
-      }
-      return;
-    }
 
-    // --- Challenge ---
-    if (challengeId) {
-      const selectedChallenge = mockChallenges.find(
-        (ch) => ch.id.toString() === challengeId
-      );
-      if (selectedChallenge) {
-        setCurrentCourse({ id: "challenges", title: "Thử thách" });
-        setCurrentLesson({
-          id: selectedChallenge.id,
-          title: selectedChallenge.title,
-        });
-        setExercises([selectedChallenge]);
-        setCurrentExercise(selectedChallenge);
-        setCurrentCode(selectedChallenge.example_code || "");
-        setSelectedLanguage(selectedChallenge.language || "javascript");
-      }
-      return;
-    }
+        // --- Challenge ---
+        if (challengeId) {
+          const selectedChallenge = await fetchChallengeById(
+            Number(challengeId)
+          );
+          if (selectedChallenge) {
+            setCurrentCourse({ id: "challenges", title: "Thử thách" });
+            setCurrentLesson({
+              id: selectedChallenge.id,
+              title: selectedChallenge.title,
+            });
+            setExercises([selectedChallenge]);
+            setCurrentExercise(selectedChallenge);
+            setCurrentCode(selectedChallenge.example_code || "");
+            setSelectedLanguage(selectedChallenge.language || "javascript");
+          }
+          return;
+        }
 
-    // --- Course / Lesson / Exercise ---
-    if (!currentCourse) {
-      const c = mockCourses.find((c) => c.id.toString() === courseId);
-      setCurrentCourse(c);
-    }
-    if (!currentLesson) {
-      const l = mockLessons.find(
-        (l) =>
-          l.id.toString() === lessonId && l.course_id.toString() === courseId
-      );
-      setCurrentLesson(l);
-    }
-    if (!passedExercise) {
-      const exs = mockExercises.filter(
-        (e) => e.lesson_id.toString() === lessonId
-      );
-      setExercises(exs);
-      const selectedEx =
-        exs.find((e) => e.id.toString() === exerciseId) || exs[0];
-      setCurrentExercise(selectedEx);
-      setCurrentCode(selectedEx?.example_code || "");
-      setSelectedLanguage(selectedEx?.language || "javascript");
-    }
+        // --- Course / Lesson / Exercise ---
+        if (courseId && lessonId && exerciseId) {
+          const [courseData, exercisesData] = await Promise.all([
+            fetchCourseById(Number(courseId)),
+            fetchExercisesByLesson(Number(lessonId)),
+          ]);
+
+          setCurrentCourse(courseData);
+
+          // Find lesson from exercises (assuming lesson info is in exercise data)
+          const selectedEx =
+            exercisesData.find((e) => e.id.toString() === exerciseId) ||
+            exercisesData[0];
+          if (selectedEx) {
+            setCurrentLesson({
+              id: selectedEx.lesson_id,
+              title: `Lesson ${selectedEx.lesson_id}`,
+            });
+            setExercises(exercisesData);
+            setCurrentExercise(selectedEx);
+            setCurrentCode(selectedEx.example_code || "");
+            setSelectedLanguage(selectedEx.language || "javascript");
+          }
+        }
+      } catch (err) {
+        console.error("Error loading exercise data:", err);
+        setError("Không thể tải dữ liệu bài tập");
+        toast.error("Không thể tải dữ liệu bài tập");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadExerciseData();
   }, [courseId, lessonId, exerciseId, challengeId, examId]);
 
   // --- Helper ---
@@ -247,6 +269,67 @@ export default function Compiler() {
   const currentExIndex = exercises.findIndex(
     (ex) => ex.id === currentExercise?.id
   );
+
+  if (loading) {
+    return (
+      <div
+        className={`flex flex-col h-screen ${
+          isDark
+            ? "bg-linear-to-br from-gray-900 via-gray-800 to-black"
+            : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100"
+        }`}
+      >
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <Loading />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div
+        className={`flex flex-col h-screen ${
+          isDark
+            ? "bg-linear-to-br from-gray-900 via-gray-800 to-black"
+            : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100"
+        }`}
+      >
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center py-12">
+            <div className="text-red-500 mb-4">
+              <svg
+                className="mx-auto h-12 w-12"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
+                />
+              </svg>
+            </div>
+            <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
+              {error}
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            >
+              Thử lại
+            </button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div

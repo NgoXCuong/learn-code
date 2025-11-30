@@ -15,9 +15,9 @@ const InfoBox = ({ number, label, color }) => {
   };
   return (
     <div
-      className={`p-3 font-exo rounded-lg text-center border transition-colors duration-300 ${colorClasses[color].wrapper}`}
+      className={`p-3   rounded-lg text-center border transition-colors duration-300 ${colorClasses[color].wrapper}`}
     >
-      <div className={`text-2xl font-bold ${colorClasses[color].text}`}>
+      <div className={`text-xl font-bold ${colorClasses[color].text}`}>
         {number}
       </div>
       <div className="text-sm text-gray-600 dark:text-gray-300">{label}</div>

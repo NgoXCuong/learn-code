@@ -41,14 +41,14 @@ export default function ExerciseCard({ exercise, isCompleted, onClick }) {
         <div className="flex items-center gap-2">
           <div
             className={`
-      w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold
+      w-8 h-8 rounded-lg text-white flex items-center justify-center font-bold
       bg-linear-to-br ${style.gradient}
     `}
           >
             #{exercise.id}
           </div>
 
-          <h3 className="font-semibold text-xl text-gray-800 dark:text-gray-100 line-clamp-2 flex items-center gap-2">
+          <h3 className="font-bold text-lg text-gray-800 dark:text-gray-100 line-clamp-2 flex items-center gap-2">
             {exercise.title}
             {isCompleted && <CheckCircle className="w-4 h-4 text-green-500" />}
           </h3>
@@ -82,7 +82,7 @@ export default function ExerciseCard({ exercise, isCompleted, onClick }) {
 
       <div
         className="
-          flex justify-between items-center text-base border-t pt-3
+          flex justify-between items-center text-sm border-t pt-3
           border-gray-200 dark:border-gray-700
         "
       >

@@ -2,15 +2,15 @@ import React from "react";
 
 export default function CourseIntro({ intro }) {
   return (
-    <section className="font-exo">
-      <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        Giới thiệu khóa học
-      </h2>
-      <div className="text-lg bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 space-y-4 transition-all">
+    <section className=" ">
+      <div className="text-base bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 space-y-4 transition-all">
+        <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+          Giới thiệu khóa học
+        </h2>
         {intro.description.map((text, index) => (
           <p
             key={index}
-            className="text-gray-700 dark:text-gray-300 leading-relaxed"
+            className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm"
           >
             {text}
           </p>

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import { Edit2, User, Camera, Award, Flame, TrendingUp } from "lucide-react";
 
-import { achievements } from "@/mock/profile";
-
-export default function ProfileSidebar({ user, darkMode }) {
+export default function ProfileSidebar({ user, darkMode, achievements = [] }) {
   const [avatar, setAvatar] = useState(user.avatar);
   const [cover, setCover] = useState(user.cover);
   const [name, setName] = useState(user.name);
@@ -40,7 +38,7 @@ export default function ProfileSidebar({ user, darkMode }) {
   const xpProgress = (user.xp / user.nextLevelXp) * 100;
 
   return (
-    <div className="min-h-screen font-exo ">
+    <div className="min-h-screen   ">
       {/* Toast */}
       {showToast && (
         <div className="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-down">
@@ -66,7 +64,7 @@ export default function ProfileSidebar({ user, darkMode }) {
 
             <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-black/60"></div>
 
-            <label className="absolute top-3 right-3 bg-black/40 hover:bg-black/60 backdrop-blur-md text-white px-3 py-2 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 flex items-center gap-2">
+            <label className="absolute top-3 right-3 bg-black/40 hover:bg-black/60 backdrop-blur-md text-white px-3 py-1.5 rounded-lg cursor-pointer transition-all duration-300 hover:scale-105 flex items-center gap-2">
               <Camera size={16} />
               <span className="text-sm font-medium">Đổi ảnh bìa</span>
               <input
@@ -120,7 +118,7 @@ export default function ProfileSidebar({ user, darkMode }) {
                     if (name !== user.name) toast("Đã lưu tên mới!");
                   }}
                   autoFocus
-                  className={`text-3xl font-bold bg-transparent border-b-2 ${
+                  className={`text-xl font-bold bg-transparent border-b-2 ${
                     darkMode
                       ? "border-slate-600 text-white"
                       : "border-gray-300 text-gray-900"
@@ -128,7 +126,7 @@ export default function ProfileSidebar({ user, darkMode }) {
                 />
               ) : (
                 <h2
-                  className={`text-3xl font-bold cursor-pointer hover:text-blue-500 ${
+                  className={`text-xl font-bold cursor-pointer hover:text-blue-500 ${
                     darkMode ? "text-white" : "text-gray-900"
                   }`}
                   onClick={() => setEditingName(true)}
@@ -151,11 +149,11 @@ export default function ProfileSidebar({ user, darkMode }) {
                     darkMode
                       ? "border-slate-600 text-gray-300"
                       : "border-gray-300 text-gray-600"
-                  } text-base focus:outline-none focus:border-blue-500 resize-none text-center`}
+                  } text-sm focus:outline-none focus:border-blue-500 resize-none text-center`}
                 />
               ) : (
                 <p
-                  className={`text-base mt-2 cursor-pointer hover:text-blue-500 ${
+                  className={`text-sm mt-2 cursor-pointer hover:text-blue-500 ${
                     darkMode ? "text-gray-400" : "text-gray-600"
                   }`}
                   onClick={() => setEditingBio(true)}
@@ -209,7 +207,7 @@ export default function ProfileSidebar({ user, darkMode }) {
                 <div className="flex items-center justify-center gap-2 mb-1">
                   <TrendingUp className="w-6 h-6 text-blue-500" />
                   <p
-                    className={`text-3xl font-bold ${
+                    className={`text-xl font-bold ${
                       darkMode ? "text-white" : "text-gray-900"
                     }`}
                   >
@@ -234,7 +232,7 @@ export default function ProfileSidebar({ user, darkMode }) {
                 <div className="flex items-center justify-center gap-2 mb-1">
                   <Flame className="w-6 h-6 text-orange-500" />
                   <p
-                    className={`text-3xl font-bold ${
+                    className={`text-xl font-bold ${
                       darkMode ? "text-white" : "text-gray-900"
                     }`}
                   >
@@ -259,7 +257,7 @@ export default function ProfileSidebar({ user, darkMode }) {
                 <div className="flex items-center justify-center gap-2 mb-1">
                   <Award className="w-6 h-6 text-green-500" />
                   <p
-                    className={`text-3xl font-bold ${
+                    className={`text-xl font-bold ${
                       darkMode ? "text-white" : "text-gray-900"
                     }`}
                   >
@@ -283,7 +281,7 @@ export default function ProfileSidebar({ user, darkMode }) {
                   darkMode ? "text-gray-300" : "text-gray-700"
                 }`}
               >
-                <Award size={24} />
+                <Award size={20} />
                 Thành tích nổi bật
               </h3>
 
@@ -314,7 +312,7 @@ export default function ProfileSidebar({ user, darkMode }) {
                         {ach.title}
                       </div>
                       <div
-                        className={`text-base mt-0.5 ${
+                        className={`text-sm mt-0.5 ${
                           darkMode ? "text-gray-400" : "text-gray-500"
                         }`}
                       >

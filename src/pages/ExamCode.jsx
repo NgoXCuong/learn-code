@@ -1,29 +1,51 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import HomeScreen from "@/components/exam/HomeScreen";
+import CourseSelectionScreen from "@/components/exam/CourseSelectionScreen";
 import QuizScreen from "@/components/exam/QuizScreen";
 // import ResultsScreen from "@/components/exam/ResultsScreen";
 import ExercisesScreen from "@/components/exam/ExercisesScreen";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { quizQuestions } from "@/mock/quizQuestions";
-import { codingExercises } from "@/mock/codingExercises";
+import { fetchBasicQuiz, fetchAdvancedTasks } from "@/api/examApi";
+import { fetchChallenges } from "@/api/challengesApi";
 import { useQuizTimer } from "@/utils/useQuizTimer";
+import { Loading } from "@/components/layout/Loading";
+import { toast } from "sonner";
 
 const TIME_LIMIT = 600;
 
 export default function ExamCode() {
   const navigate = useNavigate();
-  const [appState, setAppState] = useState("home");
+  const [appState, setAppState] = useState("courseSelection");
+  const [selectedCourse, setSelectedCourse] = useState(null);
   const [questions, setQuestions] = useState([]);
+  const [codingExercises, setCodingExercises] = useState([]);
   const [answers, setAnswers] = useState({});
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [isReviewMode, setIsReviewMode] = useState(false);
   const [isTimerActive, setIsTimerActive] = useState(false);
   const [timeSpent, setTimeSpent] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleTimeTick = useCallback((time) => setTimeSpent(time), []);
   useQuizTimer(isTimerActive, handleTimeTick);
+
+  // Load coding exercises on component mount
+  useEffect(() => {
+    const loadCodingExercises = async () => {
+      try {
+        const exercises = await fetchChallenges();
+        setCodingExercises(exercises);
+      } catch (err) {
+        console.error("Error loading coding exercises:", err);
+        toast.error("Không thể tải bài tập coding");
+      }
+    };
+
+    loadCodingExercises();
+  }, []);
 
   const resetState = () => {
     setAnswers({});
@@ -35,14 +57,36 @@ export default function ExamCode() {
 
   const startQuiz = () => {
     resetState();
-    setQuestions(quizQuestions);
     setAppState("quiz");
-    setIsTimerActive(true);
+  };
+
+  const onCourseSelect = async (course) => {
+    try {
+      setLoading(true);
+      setSelectedCourse(course);
+
+      // Load quiz questions for the selected course
+      const quizData = await fetchBasicQuiz(course.id);
+      setQuestions(quizData.questions || []);
+
+      setAppState("home");
+    } catch (err) {
+      console.error("Error loading course data:", err);
+      setError("Không thể tải dữ liệu bài thi");
+      toast.error("Không thể tải dữ liệu bài thi");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const goHome = () => {
     resetState();
     setAppState("home");
+  };
+
+  const goToCourseSelection = () => {
+    resetState();
+    setAppState("courseSelection");
   };
 
   const goToResults = () => setAppState("results");
@@ -93,7 +137,22 @@ export default function ExamCode() {
   };
 
   const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="flex justify-center items-center py-12">
+          <Loading />
+        </div>
+      );
+    }
+
     switch (appState) {
+      case "courseSelection":
+        return (
+          <CourseSelectionScreen
+            onCourseSelect={onCourseSelect}
+            goHome={goHome}
+          />
+        );
       case "quiz":
         return (
           <QuizScreen
@@ -110,24 +169,17 @@ export default function ExamCode() {
             jumpToQuestion={jumpToQuestion}
             isReviewMode={isReviewMode}
             timeLimit={TIME_LIMIT}
+            goToCourseSelection={goToCourseSelection}
           />
         );
-      // case "results":
-      //   return (
-      //     <ResultsScreen
-      //       questions={questions}
-      //       answers={answers}
-      //       timeSpent={timeSpent}
-      //       onReview={reviewAnswers}
-      //       onGoHome={goHome}
-      //     />
-      //   );
+
       case "exercises":
         return (
           <ExercisesScreen
             codingExercises={codingExercises}
             openExercise={openExercise} // Chuyển trang compiler
             goHome={goHome}
+            goToCourseSelection={goToCourseSelection}
           />
         );
       case "home":

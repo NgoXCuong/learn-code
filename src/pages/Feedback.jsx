@@ -3,31 +3,59 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ThemeContext } from "@/context/ThemeContext";
-import { mockCourses } from "@/mock/courses";
+import { fetchCourses } from "@/api/coursesApi";
 import FeedbackHero from "@/components/feedback/FeedbackHero";
 import FeedbackStats from "@/components/feedback/FeedbackStats";
 import FeedbackTabs from "@/components/feedback/FeedbackTabs";
 import FeedbackContent from "@/components/feedback/FeedbackContent";
 import FeedbackButtons from "@/components/feedback/FeedbackButtons";
+import { Loading } from "@/components/layout/Loading";
+import { toast } from "sonner";
 
 export default function Feedback() {
   const { theme } = useContext(ThemeContext);
   const { state } = useLocation();
   const isDark = theme === "dark";
   const [activeTab, setActiveTab] = useState("feedback");
+  const [courses, setCourses] = useState([]);
+  const [nextLesson, setNextLesson] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // For next lesson navigation
   const { courseId, lessonId } = useParams();
   const navigateNext = useNavigate();
-  const courses = mockCourses;
-  let nextLesson = null;
-  if (courses.length > 0 && courseId && lessonId) {
-    const course = courses.find((c) => c.id === courseId);
-    if (course && course.lessons) {
-      const currentIndex = course.lessons.findIndex((l) => l.id === lessonId);
-      nextLesson = course.lessons[currentIndex + 1];
-    }
-  }
+
+  // Load courses and find next lesson
+  useEffect(() => {
+    const loadCoursesData = async () => {
+      if (!courseId || !lessonId) return;
+
+      try {
+        setLoading(true);
+        const coursesData = await fetchCourses();
+        setCourses(coursesData);
+
+        // Find next lesson
+        const course = coursesData.find((c) => c.id.toString() === courseId);
+        if (course && Array.isArray(course.lessons)) {
+          const currentIndex = course.lessons.findIndex(
+            (l) => l.id.toString() === lessonId
+          );
+          if (currentIndex !== -1) {
+            const nextLessonData = course.lessons[currentIndex + 1];
+            setNextLesson(nextLessonData || null);
+          }
+        }
+      } catch (err) {
+        console.error("Error loading courses data:", err);
+        toast.error("Không thể tải dữ liệu khóa học");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCoursesData();
+  }, [courseId, lessonId]);
 
   // Get feedback from state or use default
   const passedFeedback = state?.feedback;
@@ -81,6 +109,24 @@ export default function Feedback() {
 
   const navigate = () => window.history.back();
 
+  if (loading) {
+    return (
+      <div
+        className={`flex flex-col min-h-screen transition-colors duration-300 ${
+          isDark
+            ? "dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black text-gray-100"
+            : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 text-gray-900"
+        }`}
+      >
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <Loading />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div
       className={`flex flex-col min-h-screen transition-colors duration-300 ${
@@ -113,7 +159,7 @@ export default function Feedback() {
             onBack={navigate}
             nextLesson={nextLesson}
             onNextLesson={() =>
-              navigateNext(`/courses/${courseId}/lessons/${nextLesson.id}`)
+              navigateNext(`/courses/${courseId}/lessons/${nextLesson?.id}`)
             }
           />
         </div>

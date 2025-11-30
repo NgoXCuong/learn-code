@@ -1,3 +1,8 @@
+// ==============================================================
+// Trang CompilerPage.jsx — Trang biên dịch code độc lập
+// Không có bài tập đi kèm, chỉ có trình soạn thảo code và output
+// =============================================================
+
 import React, { useEffect, useState, useContext, useRef } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import Header from "@/components/layout/Header";
@@ -110,11 +115,6 @@ export default function CompilerPage() {
     }
   };
 
-  const breadcrumbItems = [
-    { label: "Trang chủ", href: "/" },
-    { label: "Compiler", href: "/compiler" },
-  ];
-
   const currentExIndex = exercises.findIndex(
     (ex) => ex.id === currentExercise?.id
   );
@@ -128,28 +128,8 @@ export default function CompilerPage() {
       }`}
     >
       <Header />
-
-      <TopBar
-        breadcrumbItems={breadcrumbItems}
-        currentExercise={currentExercise}
-        exercises={exercises}
-        currentExIndex={currentExIndex}
-        navigate={(pathOrId) => {
-          if (typeof pathOrId === "string") navigate(pathOrId);
-          else if (typeof pathOrId === "object") {
-            navigate("/compiler", { state: { exercise: pathOrId, exercises } });
-            setCurrentExercise(pathOrId);
-            setCurrentCode(pathOrId.example_code || "");
-            setSelectedLanguage(pathOrId.language || "javascript");
-          }
-        }}
-        courseId={courseId}
-        lessonId={lessonId}
-        isDark={isDark}
-      />
-
       {/* Layout Editor + Output + Resize */}
-      <div ref={containerRef} className="flex flex-1 overflow-hidden">
+      <div ref={containerRef} className="flex flex-1 mt-4 overflow-hidden">
         {/* ✅ Editor */}
         <div className="flex flex-col border-r" style={{ width: editorWidth }}>
           <CodeEditor

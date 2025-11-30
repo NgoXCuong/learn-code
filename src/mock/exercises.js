@@ -1,1177 +1,645 @@
 export const mockExercises = [
+  // ======================================================
+  // CHƯƠNG 1: GIỚI THIỆU CƠ BẢN
+  // ======================================================
+
+  // Lesson 1: Giới thiệu về JavaScript
   {
     id: 1,
     lesson_id: 1,
-    title: "In ra Console",
+    title: "Chương trình đầu tiên",
     description:
-      "Sử dụng 'console.log()' để in chuỗi 'Chào JavaScript!' ra console của trình duyệt.",
-    example_code: `console.log("Chào JavaScript!");`,
+      "Sử dụng `console.log()` để in dòng chữ 'Hello JavaScript' ra màn hình console.",
+    example_code: `console.log("Hello JavaScript");`,
     language: "javascript",
-  },
-  {
-    id: 2,
-    lesson_id: 1,
-    title: "Tạo cảnh báo (Alert)",
-    description:
-      "Sử dụng hàm 'alert()' để hiển thị một hộp thoại bật lên (popup) với thông báo 'Xin chào Thế giới!'.",
-    example_code: `alert("Xin chào Thế giới!");`,
-    language: "javascript",
+    input: null,
+    output: "Hello JavaScript",
+    hint: "Dùng hàm console.log() và đặt chuỗi ký tự trong dấu ngoặc kép hoặc ngoặc đơn.",
   },
 
-  // Lesson 2: Biến và Kiểu dữ liệu (ID: 2)
+  // Lesson 2: Biến và Kiểu dữ liệu
+  {
+    id: 2,
+    lesson_id: 2,
+    title: "Khai báo biến",
+    description:
+      "Khai báo biến `let age = 25` và hằng số `const name = 'F8'`. In cả hai ra console.",
+    example_code: `let age = 25;\nconst name = "F8";\nconsole.log(name, age);`,
+    language: "javascript",
+    input: null,
+    output: "F8 25",
+    hint: "Bạn có thể truyền nhiều tham số vào console.log, cách nhau bởi dấu phẩy.",
+  },
   {
     id: 3,
     lesson_id: 2,
-    title: "Khai báo Biến",
-    description:
-      "Khai báo một biến 'let' tên 'age' gán giá trị 20, và một hằng số 'const' tên 'name' gán giá trị tên của bạn. In cả hai ra console.",
-    example_code: `
-let age = 20;
-const name = "An";
-console.log(name, age);`,
-    language: "javascript",
-  },
-  {
-    id: 4,
-    lesson_id: 2,
     title: "Kiểm tra kiểu dữ liệu",
     description:
-      "Tạo 3 biến: 1 kiểu Number, 1 kiểu String, 1 kiểu Boolean. Dùng 'typeof' để in ra kiểu dữ liệu của chúng.",
-    example_code: `
-let score = 100;
-let message = "Hoàn thành";
-let isDone = true;
-console.log(typeof score);
-console.log(typeof message);
-console.log(typeof isDone);`,
+      "Tạo biến `isActive = true`. Sử dụng `typeof` để in ra kiểu dữ liệu của biến này.",
+    example_code: `let isActive = true;\nconsole.log(typeof isActive);`,
     language: "javascript",
+    input: "isActive = true",
+    output: "boolean",
+    hint: "Toán tử typeof trả về chuỗi mô tả kiểu dữ liệu (ví dụ: 'number', 'string', 'boolean').",
   },
 
-  // Lesson 3: Toán tử (ID: 3)
+  // ======================================================
+  // CHƯƠNG 2: CẤU TRÚC ĐIỀU KHIỂN
+  // ======================================================
+
+  // Lesson 3: Toán tử trong JavaScript
+  {
+    id: 4,
+    lesson_id: 3,
+    title: "Toán tử số học",
+    description:
+      "Tính tổng, hiệu, tích, thương của `a = 20` và `b = 5`. In kết quả ra console.",
+    example_code: `let a = 20, b = 5;\nconsole.log(a + b);\nconsole.log(a - b);\nconsole.log(a * b);\nconsole.log(a / b);`,
+    language: "javascript",
+    input: "a = 20, b = 5",
+    output: "25\n15\n100\n4",
+    hint: "Sử dụng các toán tử +, -, *, / tương ứng.",
+  },
   {
     id: 5,
     lesson_id: 3,
-    title: "Phép toán số học",
+    title: "Toán tử so sánh",
     description:
-      "Tạo hai biến số 'a' và 'b'. Tính tổng, hiệu, tích, thương và phép chia lấy dư (%) của chúng, sau đó in kết quả.",
-    example_code: `
-let a = 15;
-let b = 4;
-console.log("Tổng:", a + b);
-console.log("Hiệu:", a - b);
-console.log("Tích:", a * b);
-console.log("Thương:", a / b);
-console.log("Dư:", a % b);`,
+      "So sánh xem `10` có bằng `'10'` không bằng toán tử `===`. In kết quả (true/false).",
+    example_code: `console.log(10 === "10");`,
     language: "javascript",
-  },
-  {
-    id: 6,
-    lesson_id: 3,
-    title: "Phép so sánh tuyệt đối",
-    description:
-      "Tạo biến 'let x = 10' và 'let y = \"10\"'. In ra kết quả của 'x == y' và 'x === y'.",
-    example_code: `
-let x = 10;
-let y = "10";
-console.log("So sánh (==):", x == y);
-console.log("So sánh (===):", x === y);`,
-    language: "javascript",
-  },
-  {
-    id: 7,
-    lesson_id: 3,
-    title: "Toán tử Logic",
-    description:
-      "Tạo biến 'let age = 25'. Viết câu lệnh 'console.log' kiểm tra xem 'age' có lớn hơn 18 VÀ (&&) nhỏ hơn 30 hay không.",
-    example_code: `
-let age = 25;
-console.log(age > 18 && age < 30); // true`,
-    language: "javascript",
+    input: "10, '10'",
+    output: "false",
+    hint: "Toán tử === so sánh cả giá trị và kiểu dữ liệu (Strict comparison).",
   },
 
-  // Lesson 4: Hàm (Functions) (ID: 4)
+  // Lesson 4: Hàm (Functions)
+  {
+    id: 6,
+    lesson_id: 4,
+    title: "Tạo hàm tính tổng",
+    description:
+      "Viết hàm `sum(a, b)` trả về tổng của 2 tham số. Gọi hàm với giá trị 10 và 20.",
+    example_code: `function sum(a, b) {\n  return a + b;\n}\nconsole.log(sum(10, 20));`,
+    language: "javascript",
+    input: "sum(10, 20)",
+    output: "30",
+    hint: "Nhớ sử dụng từ khóa 'return' để trả về giá trị trong hàm.",
+  },
+
+  // Lesson 5: Câu lệnh điều kiện If-Else
+  {
+    id: 7,
+    lesson_id: 5,
+    title: "Kiểm tra chẵn lẻ",
+    description:
+      "Viết hàm kiểm tra số `n`. Nếu `n` chia hết cho 2 thì in 'Chẵn', ngược lại in 'Lẻ'.",
+    example_code: `let n = 7;\nif (n % 2 === 0) {\n  console.log("Chẵn");\n} else {\n  console.log("Lẻ");\n}`,
+    language: "javascript",
+    input: "n = 7",
+    output: "Lẻ",
+    hint: "Sử dụng toán tử chia lấy dư (%) để kiểm tra. n % 2 === 0 là số chẵn.",
+  },
+
+  // Lesson 6: Vòng lặp For và While
   {
     id: 8,
-    lesson_id: 4,
-    title: "Viết hàm tính tổng",
-    description:
-      "Viết một hàm (Function Declaration) tên 'add' nhận vào 2 tham số 'a' và 'b', trả về (return) tổng của chúng. Gọi hàm và in kết quả.",
-    example_code: `
-function add(a, b) {
-  return a + b;
-}
-console.log(add(5, 10)); // 15`,
+    lesson_id: 6,
+    title: "Vòng lặp For",
+    description: "Sử dụng vòng lặp `for` để in ra các số từ 1 đến 5.",
+    example_code: `for (let i = 1; i <= 5; i++) {\n  console.log(i);\n}`,
     language: "javascript",
+    input: null,
+    output: "1\n2\n3\n4\n5",
+    hint: "Cú pháp: for (khởi tạo; điều kiện; bước nhảy).",
   },
   {
     id: 9,
-    lesson_id: 4,
-    title: "Viết hàm mũi tên (Arrow Function)",
-    description:
-      "Chuyển hàm 'add' ở bài tập trước thành dạng Arrow Function (biểu thức hàm).",
-    example_code: `
-const add = (a, b) => {
-  return a + b;
-};
-// Hoặc ngắn gọn:
-// const add = (a, b) => a + b;
-console.log(add(10, 20)); // 30`,
+    lesson_id: 6,
+    title: "Vòng lặp While",
+    description: "Sử dụng vòng lặp `while` để in ra các số từ 5 về 1.",
+    example_code: `let i = 5;\nwhile (i > 0) {\n  console.log(i);\n  i--;\n}`,
     language: "javascript",
+    input: "i = 5",
+    output: "5\n4\n3\n2\n1",
+    hint: "Đừng quên giảm giá trị biến đếm (i--) để tránh vòng lặp vô hạn.",
   },
 
-  // Lesson 5: Tương tác DOM (ID: 5)
+  // ======================================================
+  // CHƯƠNG 3: NÂNG CAO
+  // ======================================================
+
+  // Lesson 7: Tương tác với DOM
   {
     id: 10,
-    lesson_id: 5,
-    title: "Thay đổi nội dung HTML",
+    lesson_id: 7,
+    title: "Truy xuất phần tử",
     description:
-      "Giả sử có 1 thẻ <p id=\"welcome\">Xin chào</p>. Viết mã JavaScript để chọn phần tử này và thay đổi nội dung của nó thành 'Tạm biệt'.",
-    example_code: `
-// HTML: <p id="welcome">Xin chào</p>
-// JS:
-const p = document.getElementById("welcome");
-p.textContent = "Tạm biệt";`,
+      "Giả sử HTML có `<h1 id='title'>Hello</h1>`. Viết code JS để đổi nội dung thành 'Hi DOM'.",
+    example_code: `const element = document.getElementById("title");\nelement.textContent = "Hi DOM";`,
     language: "javascript",
+    input: "<h1 id='title'>Hello</h1>",
+    output: "<h1 id='title'>Hi DOM</h1>",
+    hint: "Dùng document.getElementById('id') để lấy element và gán .textContent hoặc .innerText.",
   },
+
+  // ======================================================
+  // CHƯƠNG 4: CẤU TRÚC DỮ LIỆU
+  // ======================================================
+
+  // Lesson 8: Mảng (Arrays)
   {
     id: 11,
-    lesson_id: 5,
-    title: "Thay đổi CSS (Style)",
-    description:
-      "Giả sử có 1 thẻ <h1 id=\"title\">Tiêu đề</h1>. Viết mã JavaScript để chọn phần tử này và đổi 'style.color' của nó thành 'red'.",
-    example_code: `
-// HTML: <h1 id="title">Tiêu đề</h1>
-// JS:
-const title = document.querySelector("#title");
-title.style.color = "red";`,
+    lesson_id: 8,
+    title: "Tạo và truy xuất Mảng",
+    description: "Tạo mảng `cars = ['BMW', 'Honda']`. In ra phần tử đầu tiên.",
+    example_code: `const cars = ["BMW", "Honda"];\nconsole.log(cars[0]);`,
     language: "javascript",
+    input: "cars = ['BMW', 'Honda']",
+    output: "BMW",
+    hint: "Mảng trong JavaScript có chỉ số bắt đầu từ 0.",
   },
   {
     id: 12,
-    lesson_id: 5,
-    title: "Xử lý sự kiện Click",
+    lesson_id: 8,
+    title: "Thêm phần tử vào Mảng",
     description:
-      "Giả sử có 1 nút <button id=\"btn\">Click</button>. Viết mã để thêm sự kiện 'click', khi click vào nút thì 'alert(\"Đã click!\")'.",
-    example_code: `
-// HTML: <button id="btn">Click</button>
-// JS:
-const button = document.getElementById("btn");
-button.addEventListener("click", function() {
-  alert("Đã click!");
-});`,
+      "Dùng `push()` để thêm 'Toyota' vào mảng `cars` ở trên. In mảng sau khi thêm.",
+    example_code: `const cars = ["BMW"];\ncars.push("Toyota");\nconsole.log(cars);`,
     language: "javascript",
+    input: "cars = ['BMW']",
+    output: "['BMW', 'Toyota']",
+    hint: "Phương thức push() thêm phần tử vào cuối mảng và thay đổi mảng gốc.",
   },
 
-  // === Python ===
-  // Lesson 6: Làm quen với Python (ID: 6)
+  // Lesson 9: Đối tượng (Objects)
   {
     id: 13,
-    lesson_id: 6,
-    title: "In chuỗi ra màn hình",
+    lesson_id: 9,
+    title: "Tạo Đối tượng",
     description:
-      "Sử dụng hàm 'print()' để in chuỗi 'Hello Python' ra terminal.",
-    example_code: `print("Hello Python")`,
-    language: "python",
-  },
-  {
-    id: 14,
-    lesson_id: 6,
-    title: "Biến và F-String",
-    description:
-      "Tạo 2 biến 'name' (tên của bạn) và 'language' (giá trị 'Python'). Dùng f-string để in ra 'Tôi là [name] và tôi đang học [language]'.",
-    example_code: `
-name = "An"
-language = "Python"
-print(f"Tôi là {name} và tôi đang học {language}")`,
-    language: "python",
+      "Tạo object `user` có thuộc tính `name` là 'Son' và `age` là 20. In ra `name`.",
+    example_code: `const user = { name: "Son", age: 20 };\nconsole.log(user.name);`,
+    language: "javascript",
+    input: "{ name: 'Son', age: 20 }",
+    output: "Son",
+    hint: "Truy cập thuộc tính object bằng dấu chấm (.) hoặc ngoặc vuông ([]).",
   },
 
-  // Lesson 7: Cấu trúc điều kiện và vòng lặp (ID: 7)
+  // ======================================================
+  // CHƯƠNG 5: HÀM NÂNG CAO
+  // ======================================================
+
+  // Lesson 10: Hàm nâng cao và Callback
+  {
+    id: 14,
+    lesson_id: 10,
+    title: "Callback Function",
+    description:
+      "Viết hàm `main(callback)` nhận vào một hàm khác và thực thi nó.",
+    example_code: `function main(callback) {\n  callback();\n}\n\nmain(() => console.log("I am a callback"));`,
+    language: "javascript",
+    input: "Function main()",
+    output: "I am a callback",
+    hint: "Callback chỉ đơn giản là một function được truyền như một tham số cho function khác.",
+  },
+
+  // ======================================================
+  // CHƯƠNG 6: BẤT ĐỒNG BỘ
+  // ======================================================
+
+  // Lesson 11: Promises và Async/Await
   {
     id: 15,
-    lesson_id: 7,
-    title: "Kiểm tra chẵn lẻ",
+    lesson_id: 11,
+    title: "Tạo Promise",
     description:
-      "Tạo 1 biến 'number' (ví dụ: 10). Viết cấu trúc 'if-else' để kiểm tra xem 'number' là số chẵn hay số lẻ (dùng toán tử '% 2').",
-    example_code: `
-number = 10
-if number % 2 == 0:
-    print(f"{number} là số chẵn")
-else:
-    print(f"{number} là số lẻ")`,
-    language: "python",
+      "Tạo một Promise đơn giản trả về thành công (resolve) sau 1 giây.",
+    example_code: `const myPromise = new Promise((resolve) => {\n  setTimeout(() => resolve("Success!"), 1000);\n});\nmyPromise.then(console.log);`,
+    language: "javascript",
+    input: null,
+    output: "Success!",
+    hint: "Sử dụng setTimeout bên trong Promise executor để giả lập độ trễ.",
   },
   {
     id: 16,
-    lesson_id: 7,
-    title: "Vòng lặp For Range",
+    lesson_id: 11,
+    title: "Async/Await",
     description:
-      "Sử dụng vòng lặp 'for' và hàm 'range()' để in ra các số từ 1 đến 5 (bao gồm cả 5).",
-    example_code: `
-# range(1, 6) sẽ tạo ra 1, 2, 3, 4, 5
-for i in range(1, 6):
-    print(i)`,
-    language: "python",
+      "Viết một hàm `async` sử dụng `await` để đợi Promise trên hoàn thành.",
+    example_code: `async function run() {\n  const result = await new Promise(r => setTimeout(() => r("Done"), 100));\n  console.log(result);\n}\nrun();`,
+    language: "javascript",
+    input: null,
+    output: "Done",
+    hint: "Từ khóa await chỉ có thể sử dụng bên trong một hàm async.",
   },
+
+  // ======================================================
+  // CHƯƠNG 7: ES6+ FEATURES
+  // ======================================================
+
+  // Lesson 12: Template Literals và Destructuring
   {
     id: 17,
-    lesson_id: 7,
-    title: "Vòng lặp While",
+    lesson_id: 12,
+    title: "Template Literals",
     description:
-      "Sử dụng vòng lặp 'while' để in ra các số từ 1 đến 3. (Khởi tạo biến 'count = 1' và lặp khi 'count <= 3').",
-    example_code: `
-count = 1
-while count <= 3:
-    print(count)
-    count += 1`,
-    language: "python",
+      "Sử dụng backticks (``) để in chuỗi: 'Xin chào, tôi là [name]'.",
+    example_code: `const name = "Tú";\nconsole.log(\`Xin chào, tôi là \${name}\`);`,
+    language: "javascript",
+    input: "name = 'Tú'",
+    output: "Xin chào, tôi là Tú",
+    hint: "Dùng cú pháp ${biến} bên trong dấu backtick để nội suy chuỗi.",
   },
-
-  // Lesson 8: Cấu trúc dữ liệu: List (ID: 8)
   {
     id: 18,
-    lesson_id: 8,
-    title: "Tạo và thêm vào List",
+    lesson_id: 12,
+    title: "Destructuring Object",
     description:
-      "Tạo một List rỗng tên 'colors'. Dùng 'append()' để thêm 3 màu: 'red', 'green', 'blue'. Sau đó in List ra.",
-    example_code: `
-colors = []
-colors.append("red")
-colors.append("green")
-colors.append("blue")
-print(colors)`,
-    language: "python",
+      "Lấy `name` từ object `const user = { name: 'A', age: 10 }` bằng Destructuring.",
+    example_code: `const user = { name: 'A', age: 10 };\nconst { name } = user;\nconsole.log(name);`,
+    language: "javascript",
+    input: "{ name: 'A', age: 10 }",
+    output: "A",
+    hint: "Cú pháp: const { prop1, prop2 } = object;",
   },
+
+  // Lesson 13: Spread Operator và Rest Parameters
   {
     id: 19,
-    lesson_id: 8,
-    title: "Truy cập phần tử List",
+    lesson_id: 13,
+    title: "Spread Operator Array",
     description:
-      "Tạo 1 List 'numbers = [10, 20, 30, 40]'. In ra phần tử đầu tiên (index 0) và phần tử cuối cùng (index -1).",
-    example_code: `
-numbers = [10, 20, 30, 40]
-print(f"Đầu tiên: {numbers[0]}")
-print(f"Cuối cùng: {numbers[-1]}")`,
-    language: "python",
+      "Gộp 2 mảng `a = [1, 2]` và `b = [3, 4]` thành mảng mới dùng Spread `...`.",
+    example_code: `const a = [1, 2];\nconst b = [3, 4];\nconst c = [...a, ...b];\nconsole.log(c);`,
+    language: "javascript",
+    input: "a=[1,2], b=[3,4]",
+    output: "[1, 2, 3, 4]",
+    hint: "Spread operator (...) giúp trải các phần tử của mảng ra.",
   },
-
-  // Lesson 9: Hàm (Functions) (ID: 9)
   {
     id: 20,
-    lesson_id: 9,
-    title: "Định nghĩa hàm (def)",
+    lesson_id: 13,
+    title: "Rest Parameters",
     description:
-      "Viết 1 hàm Python tên 'greet' nhận 1 tham số 'name'. Hàm này sẽ in ra f-string 'Xin chào, {name}'.",
-    example_code: `
-def greet(name):
-    print(f"Xin chào, {name}")
-
-greet("Python")`,
-    language: "python",
+      "Viết hàm `sum(...nums)` nhận vô số tham số và tính tổng của chúng.",
+    example_code: `function sum(...nums) {\n  return nums.reduce((a, b) => a + b, 0);\n}\nconsole.log(sum(1, 2, 3, 4));`,
+    language: "javascript",
+    input: "1, 2, 3, 4",
+    output: "10",
+    hint: "Rest parameters gom các tham số truyền vào thành một mảng.",
   },
+
+  // ======================================================
+  // CHƯƠNG 8: MODULES
+  // ======================================================
+
+  // Lesson 14: Modules và Import/Export
   {
     id: 21,
-    lesson_id: 9,
-    title: "Hàm có giá trị trả về (return)",
+    lesson_id: 14,
+    title: "Export và Import",
     description:
-      "Viết 1 hàm 'multiply' nhận 2 tham số 'a' và 'b'. Hàm sẽ 'return' (trả về) tích của chúng. Gọi hàm và in kết quả.",
-    example_code: `
-def multiply(a, b):
-    return a * b
-
-result = multiply(7, 5)
-print(result) # 35`,
-    language: "python",
+      "Viết cú pháp export một hàm `hello` và import nó (chỉ viết code, không chạy được trực tiếp trên console đơn giản).",
+    example_code: `// file1.js\nexport const hello = () => console.log("Hi");\n\n// file2.js\nimport { hello } from './file1.js';\nhello();`,
+    language: "javascript",
+    input: null,
+    output: "Hi",
+    hint: "Sử dụng 'export' trước khai báo hàm và 'import {} from ...' để lấy hàm đó.",
   },
 
-  // Lesson 10: Đọc và Ghi File (ID: 10)
+  // ======================================================
+  // CHƯƠNG 9: LỖI VÀ XỬ LÝ
+  // ======================================================
+
+  // Lesson 15: Try-Catch và Error Handling
   {
     id: 22,
-    lesson_id: 10,
-    title: "Ghi File (Write)",
+    lesson_id: 15,
+    title: "Bắt lỗi cơ bản",
     description:
-      "Sử dụng 'with open()' ở chế độ 'w' (write) để ghi tên của bạn vào file 'user.txt'.",
-    example_code: `
-with open("user.txt", "w", encoding="utf-8") as f:
-    f.write("Nguyen Van An")
-# Kiểm tra file user.txt sau khi chạy`,
-    language: "python",
-  },
-  {
-    id: 23,
-    lesson_id: 10,
-    title: "Đọc File (Read)",
-    description:
-      "Sử dụng 'with open()' ở chế độ 'r' (read) để đọc nội dung từ file 'user.txt' (tạo ở bài trước) và in ra console.",
-    example_code: `
-try:
-    with open("user.txt", "r", encoding="utf-8") as f:
-        content = f.read()
-        print(content)
-except FileNotFoundError:
-    print("Bạn cần chạy bài 'Ghi File' trước!")`,
-    language: "python",
-  },
-  {
-    id: 24,
-    lesson_id: 10,
-    title: "Nối File (Append)",
-    description:
-      "Sử dụng 'with open()' ở chế độ 'a' (append) để thêm (nối) chuỗi '\\nTuổi: 30' (xuống dòng và thêm tuổi) vào file 'user.txt'.",
-    example_code: `
-with open("user.txt", "a", encoding="utf-8") as f:
-    f.write("\\nTuổi: 30")
-# Kiểm tra lại file user.txt`,
-    language: "python",
+      "Sử dụng `try-catch` để bắt lỗi khi gọi một hàm không tồn tại.",
+    example_code: `try {\n  nonExistentFunction();\n} catch (error) {\n  console.error("Đã xảy ra lỗi:", error.message);\n}`,
+    language: "javascript",
+    input: "call invalid function",
+    output: "Đã xảy ra lỗi: nonExistentFunction is not defined",
+    hint: "Đặt code có khả năng gây lỗi trong block 'try', xử lý lỗi trong block 'catch'.",
   },
 
-  // === C++ ===
-  // Lesson 11: Chương trình C++ đầu tiên (ID: 11)
+  // ======================================================
+  // CHƯƠNG 10: BROWSER APIS
+  // ======================================================
+
+  // Lesson 16: LocalStorage và SessionStorage
+  {
+    id: 23,
+    lesson_id: 16,
+    title: "Lưu LocalStorage",
+    description: "Lưu key 'token' với giá trị '12345' vào LocalStorage.",
+    example_code: `localStorage.setItem("token", "12345");\nconsole.log(localStorage.getItem("token"));`,
+    language: "javascript",
+    input: "key='token', value='12345'",
+    output: "12345",
+    hint: "Dùng localStorage.setItem(key, value) để lưu và getItem(key) để lấy.",
+  },
+
+  // Lesson 17: Fetch API và AJAX
+  {
+    id: 24,
+    lesson_id: 17,
+    title: "Gọi API bằng Fetch",
+    description:
+      "Sử dụng `fetch()` để gọi API 'https://jsonplaceholder.typicode.com/todos/1' và in dữ liệu JSON.",
+    example_code: `fetch('https://jsonplaceholder.typicode.com/todos/1')\n  .then(response => response.json())\n  .then(json => console.log(json));`,
+    language: "javascript",
+    input: "URL API",
+    output: "{ userId: 1, id: 1, title: '...', completed: false }",
+    hint: "Hàm fetch trả về 1 Promise. Cần gọi .json() ở bước then đầu tiên để parse body.",
+  },
+
+  // ================= PYTHON =======================
+  // Bài tập cho Lesson 18: If - Elif - Else
   {
     id: 25,
-    lesson_id: 11,
-    title: "Chương trình C++ đầu tiên",
+    lesson_id: 18,
+    title: "Kiểm tra số âm dương",
     description:
-      "Viết 1 chương trình C++ hoàn chỉnh (dùng '#include <iostream>', 'int main()') để in ra 'Hello C++' (sử dụng 'cout' và 'endl').",
-    example_code: `
-#include <iostream>
-using namespace std;
-int main() {
-    cout << "Hello C++" << endl;
-    return 0;
-}`,
-    language: "cpp",
+      "Viết chương trình nhập vào một số `n = -5`. Sử dụng if/elif/else để in ra: 'Số dương', 'Số âm' hoặc 'Số không'.",
+    example_code: `n = -5\nif n > 0:\n    print("Số dương")\nelif n < 0:\n    print("Số âm")\nelse:\n    print("Số không")`,
+    language: "python",
+    input: "n = -5",
+    output: "Số âm",
+    hint: "Sử dụng điều kiện n < 0 để kiểm tra số âm.",
   },
   {
     id: 26,
-    lesson_id: 11,
-    title: "In nhiều dòng",
+    lesson_id: 18,
+    title: "Xếp loại điểm số",
     description:
-      "Viết 1 chương trình C++ in ra 3 dòng: Tên, Tuổi, Thành phố của bạn.",
-    example_code: `
-#include <iostream>
-using namespace std;
-int main() {
-    cout << "Tên: An" << endl;
-    cout << "Tuổi: 22" << endl;
-    cout << "Thành phố: Hà Nội" << endl;
-    return 0;
-}`,
-    language: "cpp",
+      "Cho biến `score = 7.5`. Nếu điểm >= 8 in 'Giỏi', nếu >= 6.5 in 'Khá', còn lại in 'Trung bình'.",
+    example_code: `score = 7.5\nif score >= 8:\n    print("Giỏi")\nelif score >= 6.5:\n    print("Khá")\nelse:\n    print("Trung bình")`,
+    language: "python",
+    input: "score = 7.5",
+    output: "Khá",
+    hint: "Python sử dụng elif (viết tắt của else if) để kiểm tra nhiều điều kiện.",
   },
 
-  // Lesson 12: Biến và Toán tử (ID: 12)
+  // Bài tập cho Lesson 19: Vòng lặp For
   {
     id: 27,
-    lesson_id: 12,
-    title: "Khai báo biến",
+    lesson_id: 19,
+    title: "Tính tổng dãy số",
     description:
-      "Khai báo 1 biến 'int' tên 'age' (giá trị 25), 1 biến 'double' tên 'gpa' (giá trị 3.5). In cả 2 ra màn hình.",
-    example_code: `
-#include <iostream>
-using namespace std;
-int main() {
-    int age = 25;
-    double gpa = 3.5;
-    cout << "Tuổi: " << age << ", GPA: " << gpa << endl;
-    return 0;
-}`,
-    language: "cpp",
+      "Sử dụng vòng lặp `for` và hàm `range()` để tính tổng các số từ 1 đến 10. In kết quả ra màn hình.",
+    example_code: `total = 0\nfor i in range(1, 11):\n    total += i\nprint(total)`,
+    language: "python",
+    input: "range(1, 11)",
+    output: "55",
+    hint: "Hàm range(start, stop) sẽ chạy đến stop - 1. Để chạy đến 10, cần range(1, 11).",
   },
   {
     id: 28,
-    lesson_id: 12,
-    title: "Chia số nguyên và số thực",
+    lesson_id: 19,
+    title: "In bảng cửu chương 5",
     description:
-      "Khai báo 'int a = 10', 'int b = 3'. In ra kết quả của 'a / b' (chia nguyên) và 'a / 3.0' (chia thực).",
-    example_code: `
-#include <iostream>
-using namespace std;
-int main() {
-    int a = 10;
-    int b = 3;
-    cout << "Chia nguyên (10 / 3): " << (a / b) << endl;
-    cout << "Chia thực (10 / 3.0): " << (a / 3.0) << endl;
-    return 0;
-}`,
-    language: "cpp",
+      "Sử dụng vòng lặp for để in bảng cửu chương 5 (từ 5x1 đến 5x10).",
+    example_code: `for i in range(1, 11):\n    print(f"5 x {i} = {5 * i}")`,
+    language: "python",
+    input: "Table 5",
+    output:
+      "5 x 1 = 5\n5 x 2 = 10\n5 x 3 = 15\n5 x 4 = 20\n5 x 5 = 25\n5 x 6 = 30\n5 x 7 = 35\n5 x 8 = 40\n5 x 9 = 45\n5 x 10 = 50",
+    hint: "Sử dụng F-String f'...' để chèn biến vào chuỗi dễ dàng.",
   },
 
-  // Lesson 13: Nhập dữ liệu (ID: 13)
+  // Bài tập cho Lesson 20: Vòng lặp While
   {
     id: 29,
-    lesson_id: 13,
-    title: "Nhập tuổi (cin)",
+    lesson_id: 20,
+    title: "Nhập mật khẩu",
     description:
-      "Viết chương trình C++ yêu cầu người dùng 'Nhập tuổi của bạn:', sau đó dùng 'cin' để đọc tuổi vào 1 biến 'int age', và cuối cùng in ra 'Bạn [age] tuổi.'.",
-    example_code: `
-#include <iostream>
-using namespace std;
-int main() {
-    int age;
-    cout << "Nhập tuổi của bạn: ";
-    cin >> age;
-    cout << "Bạn " << age << " tuổi." << endl;
-    return 0;
-}`,
-    language: "cpp",
+      "Tạo vòng lặp `while True` yêu cầu nhập mật khẩu. Nếu nhập đúng '123' thì in 'Thành công' và dùng `break` để thoát.",
+    example_code: `while True:\n    pw = "123" # Giả lập input\n    if pw == "123":\n        print("Thành công")\n        break`,
+    language: "python",
+    input: "input='123'",
+    output: "Thành công",
+    hint: "Lệnh break dùng để thoát khỏi vòng lặp ngay lập tức.",
   },
   {
     id: 30,
-    lesson_id: 13,
-    title: "Tính tổng 2 số",
+    lesson_id: 20,
+    title: "Bỏ qua số 5 (Continue)",
     description:
-      "Viết chương trình yêu cầu người dùng nhập vào 2 số (lưu vào 'int a', 'int b'), sau đó in ra tổng của chúng.",
-    example_code: `
-#include <iostream>
-using namespace std;
-int main() {
-    int a, b;
-    cout << "Nhập số thứ nhất: ";
-    cin >> a;
-    cout << "Nhập số thứ hai: ";
-    cin >> b;
-    cout << "Tổng là: " << (a + b) << endl;
-    return 0;
-}`,
-    language: "cpp",
+      "Dùng vòng lặp for chạy từ 1 đến 10. Nếu gặp số 5 thì dùng `continue` để bỏ qua, còn lại in ra số đó.",
+    example_code: `for i in range(1, 11):\n    if i == 5:\n        continue\n    print(i)`,
+    language: "python",
+    input: "range(1, 11)",
+    output: "1\n2\n3\n4\n6\n7\n8\n9\n10",
+    hint: "Lệnh continue sẽ bỏ qua các dòng code bên dưới nó trong lần lặp hiện tại và chuyển sang lần lặp tiếp theo.",
   },
 
-  // Lesson 14: Câu lệnh If-Else (ID: 14)
+  // === BÀI TẬP CHO HÀM & MODULE (Lesson 21, 22, 23) ===
+
+  // Bài tập cho Lesson 21: Hàm (Functions)
   {
     id: 31,
-    lesson_id: 14,
-    title: "Kiểm tra điểm (If-Else)",
+    lesson_id: 21,
+    title: "Hàm tính diện tích HCN",
     description:
-      "Viết chương trình nhập vào 1 'double score'. Nếu 'score >= 5.0' thì in ra 'Đạt', ngược lại (else) thì in ra 'Trượt'.",
-    example_code: `
-#include <iostream>
-using namespace std;
-int main() {
-    double score;
-    cout << "Nhập điểm: ";
-    cin >> score;
-    if (score >= 5.0) {
-        cout << "Đạt" << endl;
-    } else {
-        cout << "Trượt" << endl;
-    }
-    return 0;
-}`,
-    language: "cpp",
+      "Viết hàm `calc_area(width, height)` trả về diện tích hình chữ nhật. Gọi hàm với width=5, height=10.",
+    example_code: `def calc_area(w, h):\n    return w * h\n\nprint(calc_area(5, 10))`,
+    language: "python",
+    input: "w=5, h=10",
+    output: "50",
+    hint: "Sử dụng từ khóa def để định nghĩa hàm và return để trả về kết quả.",
   },
   {
     id: 32,
-    lesson_id: 14,
-    title: "Kiểm tra Âm/Dương/Zero (If-Else If-Else)",
+    lesson_id: 21,
+    title: "Hàm kiểm tra chẵn lẻ",
     description:
-      "Viết chương trình nhập vào 1 'int number'. Dùng 'if-else if-else' để kiểm tra và in ra 'Số dương', 'Số âm', hoặc 'Số không'.",
-    example_code: `
-#include <iostream>
-using namespace std;
-int main() {
-    int number;
-    cout << "Nhập 1 số: ";
-    cin >> number;
-    if (number > 0) {
-        cout << "Số dương" << endl;
-    } else if (number < 0) {
-        cout << "Số âm" << endl;
-    } else {
-        cout << "Số không" << endl;
-    }
-    return 0;
-}`,
-    language: "cpp",
+      "Viết hàm `is_even(n)` trả về True nếu n là số chẵn, False nếu n là lẻ. Test với n=4.",
+    example_code: `def is_even(n):\n    return n % 2 == 0\n\nprint(is_even(4))`,
+    language: "python",
+    input: "n=4",
+    output: "True",
+    hint: "Phép chia lấy dư % (modulo). Nếu n % 2 == 0 nghĩa là chia hết cho 2.",
   },
 
-  // Lesson 15: Vòng lặp For (ID: 15)
+  // Bài tập cho Lesson 22: Phạm vi biến (Scope)
   {
     id: 33,
-    lesson_id: 15,
-    title: "Đếm xuôi 1 đến 5",
+    lesson_id: 22,
+    title: "Sử dụng biến Global",
     description:
-      "Sử dụng vòng lặp 'for' (khởi tạo 'int i = 1', điều kiện 'i <= 5', cập nhật 'i++') để in ra các số từ 1 đến 5.",
-    example_code: `
-#include <iostream>
-using namespace std;
-int main() {
-    for (int i = 1; i <= 5; i++) {
-        cout << i << " ";
-    }
-    cout << endl;
-    return 0;
-}`,
-    language: "cpp",
+      "Khai báo biến toàn cục `count = 0`. Viết hàm `increment()` sử dụng từ khóa `global` để tăng biến count lên 1.",
+    example_code: `count = 0\ndef increment():\n    global count\n    count += 1\n\nincrement()\nprint(count)`,
+    language: "python",
+    input: "count=0",
+    output: "1",
+    hint: "Để sửa đổi biến toàn cục bên trong hàm, phải khai báo 'global ten_bien' trước.",
   },
+
+  // Bài tập cho Lesson 23: Modules
   {
     id: 34,
-    lesson_id: 15,
-    title: "Tính tổng 1 đến 10",
+    lesson_id: 23,
+    title: "Tính căn bậc 2",
     description:
-      "Dùng vòng lặp 'for' để tính tổng các số từ 1 đến 10. (Khai báo 'int sum = 0' trước vòng lặp, và 'sum += i' trong vòng lặp).",
-    example_code: `
-#include <iostream>
-using namespace std;
-int main() {
-    int sum = 0;
-    for (int i = 1; i <= 10; i++) {
-        sum += i;
-    }
-    cout << "Tổng từ 1 đến 10 là: " << sum << endl;
-    return 0;
-}`,
-    language: "cpp",
+      "Import thư viện `math` và sử dụng hàm `sqrt()` để tính căn bậc 2 của 64.",
+    example_code: `import math\nprint(math.sqrt(64))`,
+    language: "python",
+    input: "64",
+    output: "8.0",
+    hint: "Hàm sqrt nằm trong module math, kết quả trả về thường là số thực (float).",
   },
-
-  // === Java ===
-  // Lesson 16: Giới thiệu Java và JVM (ID: 16)
   {
     id: 35,
-    lesson_id: 16,
-    title: "Viết bình luận (Comment)",
+    lesson_id: 23,
+    title: "Tung xúc xắc",
     description:
-      "Trong 1 lớp Java, hãy viết 1 bình luận (comment) 1 dòng và 1 bình luận nhiều dòng.",
-    example_code: `
-public class Comments {
-    // Đây là bình luận 1 dòng
-    
-    /*
-     Đây là
-     bình luận
-     trên nhiều dòng
-    */
-}`,
-    language: "java",
+      "Import thư viện `random` và dùng `randint(1, 6)` để mô phỏng việc tung xúc xắc.",
+    example_code: `import random\nprint(random.randint(1, 6))`,
+    language: "python",
+    input: "range 1-6",
+    output: "(Một số ngẫu nhiên từ 1 đến 6)",
+    hint: "random.randint(a, b) trả về số nguyên N sao cho a <= N <= b.",
   },
 
-  // Lesson 17: Chương trình Java đầu tiên (ID: 17)
+  // === BÀI TẬP XỬ LÝ DỮ LIỆU & FILE (Lesson 24, 25, 26) ===
+
+  // Bài tập cho Lesson 24: Xử lý chuỗi
   {
     id: 36,
-    lesson_id: 17,
-    title: "Hello Java",
+    lesson_id: 24,
+    title: "Làm sạch dữ liệu",
     description:
-      "Viết 1 chương trình Java hoàn chỉnh (class Main, hàm main) để in ra 'Hello Java' (dùng 'System.out.println()').",
-    example_code: `
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello Java!");
-    }
-}`,
-    language: "java",
+      "Cho chuỗi `s = '  admin  '`. Hãy dùng `.strip()` để xóa khoảng trắng thừa ở 2 đầu.",
+    example_code: `s = "  admin  "\nprint(s.strip())`,
+    language: "python",
+    input: "'  admin  '",
+    output: "admin",
+    hint: "Phương thức .strip() loại bỏ whitespace ở đầu và cuối chuỗi.",
   },
   {
     id: 37,
-    lesson_id: 17,
-    title: "In và không xuống dòng",
+    lesson_id: 24,
+    title: "F-String Formatting",
     description:
-      "Sử dụng 'System.out.print()' để in 'Dòng 1.' và 'System.out.println()' để in 'Dòng 2.' để thấy sự khác biệt.",
-    example_code: `
-public class PrintTest {
-    public static void main(String[] args) {
-        System.out.print("Dòng 1."); // Không xuống dòng
-        System.out.println(" Dòng 2."); // In và xuống dòng
-        System.out.println("Dòng 3.");
-    }
-}`,
-    language: "java",
+      "Cho `name='Mai'` và `score=9`. Dùng F-String để in ra câu 'Mai đạt 9 điểm'.",
+    example_code: `name = "Mai"\nscore = 9\nprint(f"{name} đạt {score} điểm")`,
+    language: "python",
+    input: "name='Mai', score=9",
+    output: "Mai đạt 9 điểm",
+    hint: "Đặt biến trong dấu ngoặc nhọn {} bên trong chuỗi có tiền tố f.",
   },
 
-  // Lesson 18: Biến và Kiểu dữ liệu (ID: 18)
+  // Bài tập cho Lesson 25: File Handling
   {
     id: 38,
-    lesson_id: 18,
-    title: "Khai báo 3 kiểu dữ liệu",
+    lesson_id: 25,
+    title: "Ghi file log",
     description:
-      "Trong hàm main, khai báo 1 'int age = 25', 1 'double gpa = 3.8', và 1 'String name = \"Java\"'. In cả 3 ra màn hình.",
-    example_code: `
-public class Variables {
-    public static void main(String[] args) {
-        int age = 25;
-        double gpa = 3.8;
-        String name = "Java";
-        System.out.println("Tên: " + name + ", Tuổi: " + age + ", GPA: " + gpa);
-    }
-}`,
-    language: "java",
+      "Sử dụng `with open(...)` mode 'w' để tạo file `log.txt` và ghi dòng chữ 'System started' vào đó.",
+    example_code: `with open('log.txt', 'w') as f:\n    f.write('System started')`,
+    language: "python",
+    input: "content='System started'",
+    output: "(File log.txt chứa: System started)",
+    hint: "Mode 'w' dùng để ghi (write). Sử dụng 'with' để tự động đóng file sau khi dùng xong.",
   },
   {
     id: 39,
-    lesson_id: 18,
-    title: "Kiểu Boolean và Char",
+    lesson_id: 25,
+    title: "Đọc file log",
     description:
-      "Khai báo 1 'boolean isLearning = true' và 1 'char grade = 'A''. In cả 2 ra màn hình.",
-    example_code: `
-public class MoreVariables {
-    public static void main(String[] args) {
-        boolean isLearning = true;
-        char grade = 'A';
-        System.out.println("Đang học? " + isLearning);
-        System.out.println("Xếp loại: " + grade);
-    }
-}`,
-    language: "java",
+      "Sử dụng `with open(...)` mode 'r' để đọc nội dung file `log.txt` và in ra màn hình.",
+    example_code: `with open('log.txt', 'r') as f:\n    print(f.read())`,
+    language: "python",
+    input: "file content='System started'",
+    output: "System started",
+    hint: "Mode 'r' dùng để đọc (read). Hàm .read() đọc toàn bộ nội dung file.",
   },
 
-  // Lesson 19: Vòng lặp và Điều kiện (ID: 19)
+  // Bài tập cho Lesson 26: Try - Except
   {
     id: 40,
-    lesson_id: 19,
-    title: "Vòng lặp For 0 đến 4",
+    lesson_id: 26,
+    title: "Xử lý lỗi chia cho 0",
     description:
-      "Sử dụng vòng lặp 'for' (cú pháp giống C++) để in ra các số từ 0 đến 4.",
-    example_code: `
-public class ForLoop {
-    public static void main(String[] args) {
-        for (int i = 0; i < 5; i++) {
-            System.out.print(i + " ");
-        }
-    }
-}`,
-    language: "java",
+      "Viết khối try-except để bắt lỗi `ZeroDivisionError` khi thực hiện phép chia `10 / 0`. In ra thông báo lỗi.",
+    example_code: `try:\n    print(10 / 0)\nexcept ZeroDivisionError:\n    print("Không thể chia cho 0")`,
+    language: "python",
+    input: "10 / 0",
+    output: "Không thể chia cho 0",
+    hint: "Code có khả năng gây lỗi đặt trong block try, xử lý lỗi cụ thể trong block except.",
   },
+
+  // === BÀI TẬP OOP (Lesson 27, 28, 29) ===
+
+  // Bài tập cho Lesson 27: OOP - Class & Object
   {
     id: 41,
-    lesson_id: 19,
-    title: "Câu lệnh If-Else",
+    lesson_id: 27,
+    title: "Tạo Class Đơn giản",
     description:
-      "Khai báo 'int temp = 30'. Viết 'if-else' để kiểm tra: nếu 'temp > 25' thì in 'Trời nóng', ngược lại in 'Trời mát'.",
-    example_code: `
-public class Condition {
-    public static void main(String[] args) {
-        int temp = 30;
-        if (temp > 25) {
-            System.out.println("Trời nóng");
-        } else {
-            System.out.println("Trời mát");
-        }
-    }
-}`,
-    language: "java",
+      "Tạo class `Phone` có thuộc tính `brand = 'Apple'`. Tạo object `my_phone` và in thuộc tính brand.",
+    example_code: `class Phone:\n    brand = 'Apple'\n\np = Phone()\nprint(p.brand)`,
+    language: "python",
+    input: "Class Phone",
+    output: "Apple",
+    hint: "Tạo object bằng cách gọi tên Class kèm ngoặc đơn: variable = ClassName().",
   },
+
+  // Bài tập cho Lesson 28: OOP - Init & Method
   {
     id: 42,
-    lesson_id: 19,
-    title: "Câu lệnh Switch-Case",
+    lesson_id: 28,
+    title: "Constructor __init__",
     description:
-      "Khai báo 'int choice = 2'. Viết 1 khối 'switch' cho 'choice'. Tạo 'case 1' (in 'Menu 1'), 'case 2' (in 'Menu 2'), và 'default' (in 'Lỗi'). (Nhớ dùng 'break;').",
-    example_code: `
-public class SwitchCase {
-    public static void main(String[] args) {
-        int choice = 2;
-        switch (choice) {
-            case 1:
-                System.out.println("Menu 1");
-                break;
-            case 2:
-                System.out.println("Menu 2");
-                break;
-            default:
-                System.out.println("Lỗi");
-        }
-    }
-}`,
-    language: "java",
+      "Tạo class `Book` có hàm `__init__` nhận `title` và `author`. Tạo một cuốn sách và in tên sách.",
+    example_code: `class Book:\n    def __init__(self, title):\n        self.title = title\n\nb = Book("Python Basic")\nprint(b.title)`,
+    language: "python",
+    input: "Book('Python Basic')",
+    output: "Python Basic",
+    hint: "__init__ là hàm khởi tạo, chạy tự động khi tạo object mới.",
   },
-
-  // Lesson 20: Lớp và Đối tượng (ID: 20)
   {
     id: 43,
-    lesson_id: 20,
-    title: "Định nghĩa Lớp (Class)",
+    lesson_id: 28,
+    title: "Phương thức Class",
     description:
-      "Định nghĩa 1 lớp 'class Person' (bên ngoài lớp Main). Lớp này có 1 thuộc tính 'String name' và 1 phương thức 'void introduce()' in ra 'Xin chào, tôi là [name]'.",
-    example_code: `
-class Person {
-    String name = "An"; // Gán giá trị mặc định
-
-    void introduce() {
-        System.out.println("Xin chào, tôi là " + name);
-    }
-}
-// (Chương trình Main sẽ ở bài tập sau)`,
-    language: "java",
+      "Trong class `Rectangle`, viết phương thức `area(self)` để tính diện tích dựa trên `self.width` và `self.height`.",
+    example_code: `class Rect:\n    def __init__(self, w, h):\n        self.w = w\n        self.h = h\n    def area(self):\n        return self.w * self.h\n\nr = Rect(4, 5)\nprint(r.area())`,
+    language: "python",
+    input: "Rect(4, 5)",
+    output: "20",
+    hint: "Tham số đầu tiên của phương thức trong class luôn là 'self' để tham chiếu đến chính object đó.",
   },
+
+  // Bài tập cho Lesson 29: OOP - Kế thừa
   {
     id: 44,
-    lesson_id: 20,
-    title: "Tạo Đối tượng (Object)",
+    lesson_id: 29,
+    title: "Kế thừa Class",
     description:
-      "Sử dụng lớp 'Person' (từ bài tập trước). Trong hàm 'main', tạo 1 đối tượng 'Person p1 = new Person();', thay đổi 'p1.name = \"Bình\"', và gọi phương thức 'p1.introduce()'.",
-    example_code: `
-// (Giả sử lớp Person đã được định nghĩa ở trên)
-public class Main {
-    public static void main(String[] args) {
-        Person p1 = new Person();
-        p1.name = "Bình"; // Thay đổi thuộc tính
-        p1.introduce(); // Gọi phương thức
-    }
-}
-
-class Person {
-    String name = "An";
-    void introduce() {
-        System.out.println("Xin chào, tôi là " + name);
-    }
-}`,
-    language: "java",
+      "Tạo class `Bird` có hàm `fly()`. Tạo class `Eagle` kế thừa `Bird`. Tạo object Eagle và gọi hàm `fly()`.",
+    example_code: `class Bird:\n    def fly(self):\n        print("Flying...")\n\nclass Eagle(Bird):\n    pass\n\ne = Eagle()\ne.fly()`,
+    language: "python",
+    input: "Eagle inherits Bird",
+    output: "Flying...",
+    hint: "Cú pháp kế thừa: class ChildClass(ParentClass):",
   },
 
-  // === C# ===
-  // Lesson 21: Giới thiệu C# và .NET (ID: 21)
+  // Bài tập cho Lesson 30: Project
   {
     id: 45,
-    lesson_id: 21,
-    title: "Viết bình luận C#",
-    description:
-      "Viết một chương trình C# (chỉ cần cấu trúc cơ bản) và thêm vào 1 bình luận 1 dòng, 1 bình luận nhiều dòng.",
-    example_code: `
-using System;
-namespace Comments
-{
-    class Program 
-    {
-        // Đây là bình luận 1 dòng
-        /*
-         Và đây là
-         bình luận nhiều dòng
-        */
-        static void Main(string[] args) {}
-    }
-}`,
-    language: "csharp",
-  },
-
-  // Lesson 22: Chương trình Console đầu tiên (ID: 22)
-  {
-    id: 46,
-    lesson_id: 22,
-    title: "Hello C#",
-    description:
-      "Viết chương trình C# console hoàn chỉnh (dùng 'using System;', 'namespace', 'class', 'static void Main') để in ra 'Hello C#' (dùng 'Console.WriteLine()').",
-    example_code: `
-using System;
-namespace HelloApp
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello C#!");
-        }
-    }
-}`,
-    language: "csharp",
-  },
-  {
-    id: 47,
-    lesson_id: 22,
-    title: "Nội suy chuỗi (Interpolation)",
-    description:
-      "Khai báo 'int version = 10'. Dùng 'Console.WriteLine()' và kỹ thuật nội suy chuỗi (dấu '$' phía trước) để in ra 'Bạn đang học C# [version]'.",
-    example_code: `
-using System;
-namespace Interpolation
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            int version = 10;
-            // Dùng $ để nội suy
-            Console.WriteLine($"Bạn đang học C# {version}"); 
-        }
-    }
-}`,
-    language: "csharp",
-  },
-
-  // Lesson 23: Biến, Kiểu dữ liệu, Nhập liệu (ID: 23)
-  {
-    id: 48,
-    lesson_id: 23,
-    title: "Kiểu 'decimal' (Tài chính)",
-    description:
-      "Khai báo 1 biến 'decimal' tên 'balance' với giá trị '1500.75m' (lưu ý hậu tố 'm'). In biến này ra.",
-    example_code: `
-using System;
-namespace DecimalType
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            decimal balance = 1500.75m;
-            Console.WriteLine($"Số dư của bạn: {balance}");
-        }
-    }
-}`,
-    language: "csharp",
-  },
-  {
-    id: 49,
-    lesson_id: 23,
-    title: "Nhập liệu (ReadLine) và Chuyển đổi",
-    description:
-      "Viết chương trình hỏi 'Nhập tuổi của bạn:', dùng 'Console.ReadLine()' để đọc chuỗi, sau đó dùng 'Convert.ToInt32()' để chuyển sang 'int age'. Cuối cùng in ra 'Bạn [age] tuổi'.",
-    example_code: `
-using System;
-namespace InputApp
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.Write("Nhập tuổi của bạn: ");
-            string input = Console.ReadLine();
-            
-            int age = Convert.ToInt32(input);
-            
-            Console.WriteLine($"Bạn {age} tuổi.");
-        }
-    }
-}`,
-    language: "csharp",
-  },
-
-  // Lesson 24: Cấu trúc điều khiển (ID: 24)
-  {
-    id: 50,
-    lesson_id: 24,
-    title: "Kiểm tra chẵn lẻ (If-Else)",
-    description:
-      "Viết chương trình nhập 1 số 'int n'. Dùng 'if-else' và toán tử '% 2' để kiểm tra và in ra 'Số chẵn' hoặc 'Số lẻ'.",
-    example_code: `
-using System;
-namespace EvenOdd
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.Write("Nhập 1 số nguyên: ");
-            int n = Convert.ToInt32(Console.ReadLine());
-            
-            if (n % 2 == 0)
-            {
-                Console.WriteLine("Số chẵn");
-            }
-            else
-            {
-                Console.WriteLine("Số lẻ");
-            }
-        }
-    }
-}`,
-    language: "csharp",
-  },
-  {
-    id: 51,
-    lesson_id: 24,
-    title: "Switch-Case",
-    description:
-      "Viết chương trình nhập 1 'int day' (1-7). Dùng 'switch-case' để in ra 'Chủ Nhật' (case 1), 'Thứ Hai' (case 2), ..., và 'Không hợp lệ' (default).",
-    example_code: `
-using System;
-namespace SwitchApp
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Console.Write("Nhập ngày (1-7): ");
-            int day = Convert.ToInt32(Console.ReadLine());
-            
-            switch (day)
-            {
-                case 1: Console.WriteLine("Chủ Nhật"); break;
-                case 2: Console.WriteLine("Thứ Hai"); break;
-                // ... (thêm case 3-7)
-                default: Console.WriteLine("Không hợp lệ"); break;
-            }
-        }
-    }
-}`,
-    language: "csharp",
-  },
-
-  // Lesson 25: Vòng lặp (For, Foreach) (ID: 25)
-  {
-    id: 52,
-    lesson_id: 25,
-    title: "Vòng lặp For",
-    description:
-      "Sử dụng vòng lặp 'for' (cú pháp giống C++/Java) để in ra các số từ 1 đến 5.",
-    example_code: `
-using System;
-namespace ForLoop
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            for (int i = 1; i <= 5; i++)
-            {
-                Console.Write(i + " ");
-            }
-        }
-    }
-}`,
-    language: "csharp",
-  },
-  {
-    id: 53,
-    lesson_id: 25,
-    title: "Vòng lặp Foreach",
-    description:
-      'Tạo 1 mảng \'string[] cars = { "Volvo", "BMW", "Ford" };\'. Dùng vòng lặp \'foreach\' để duyệt và in ra từng tên xe.',
-    example_code: `
-using System;
-namespace ForeachLoop
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            string[] cars = { "Volvo", "BMW", "Ford" };
-            foreach (string car in cars)
-            {
-                Console.WriteLine(car);
-            }
-        }
-    }
-}`,
-    language: "csharp",
-  },
-
-  // Lesson 26: Windows Forms (ID: 26)
-  {
-    id: 54,
-    lesson_id: 26,
-    title: "Hộp thoại (MessageBox)",
-    description:
-      "(Bài tập WinForms) Viết mã cho sự kiện 'button1_Click' để hiển thị một 'MessageBox.Show()' với nội dung 'Xin chào WinForms!'.",
-    example_code: `
-// (Trong file Form1.cs, sau khi click đúp vào nút)
-private void button1_Click(object sender, EventArgs e)
-{
-    MessageBox.Show("Xin chào WinForms!");
-}`,
-    language: "csharp",
-  },
-  {
-    id: 55,
-    lesson_id: 26,
-    title: "Thay đổi Label Text",
-    description:
-      "(Bài tập WinForms) Giả sử có 1 'Label' tên 'label1'. Viết mã cho 'button1_Click' để thay đổi 'label1.Text' thành 'Đã click!'.",
-    example_code: `
-// (Giả sử có 1 Label tên 'label1' trên Form)
-private void button1_Click(object sender, EventArgs e)
-{
-    label1.Text = "Đã click!";
-}`,
-    language: "csharp",
-  },
-
-  // === Python Projects ===
-  // Lesson 27: Project 1 - Máy tính (ID: 27)
-  {
-    id: 56,
-    lesson_id: 27,
-    title: "Máy tính (Cộng, Trừ)",
-    description:
-      "Hoàn thành 1 phần của dự án máy tính: Nhập 2 số 'float' (num1, num2) và 1 phép toán 'op'. Dùng 'if-elif' để xử lý 2 trường hợp 'op == \"+\"' và 'op == \"-\"'.",
-    example_code: `
-num1 = float(input("Số 1: "))
-op = input("Phép toán (+ hoặc -): ")
-num2 = float(input("Số 2: "))
-
-if op == "+":
-    print(f"Kết quả: {num1 + num2}")
-elif op == "-":
-    print(f"Kết quả: {num1 - num2}")
-else:
-    print("Chỉ hỗ trợ + hoặc -")`,
-    language: "python",
-  },
-  {
-    id: 57,
-    lesson_id: 27,
-    title: "Máy tính (Chia cho 0)",
-    description:
-      "Mở rộng bài tập trước. Thêm 'elif op == \"/\"'. Bên trong, dùng 1 'if' lồng nhau để kiểm tra 'if num2 == 0' thì in 'Lỗi chia cho 0', 'else' thì mới in kết quả.",
-    example_code: `
-num1 = float(input("Số 1: "))
-op = input("Phép toán (/): ")
-num2 = float(input("Số 2: "))
-
-if op == "/":
-    if num2 == 0:
-        print("Lỗi: Không thể chia cho 0")
-    else:
-        print(f"Kết quả: {num1 / num2}")
-else:
-    print("Phép toán không hỗ trợ")`,
-    language: "python",
-  },
-
-  // Lesson 28: Project 1 - Try/Except (ID: 28)
-  {
-    id: 58,
-    lesson_id: 28,
-    title: "Xử lý lỗi nhập liệu (Try-Except)",
-    description:
-      "Viết 1 đoạn mã yêu cầu người dùng 'Nhập tuổi của bạn:'. Đặt hàm 'int(input(...))' vào trong khối 'try', và tạo khối 'except ValueError' để in ra 'Lỗi: Phải nhập số!'.",
-    example_code: `
-try:
-    age = int(input("Nhập tuổi của bạn: "))
-    print(f"Bạn {age} tuổi")
-except ValueError:
-    print("Lỗi: Phải nhập số!")`,
-    language: "python",
-  },
-  {
-    id: 59,
-    lesson_id: 28,
-    title: "Vòng lặp bắt nhập (While True)",
-    description:
-      "Kết hợp 'while True' và 'try-except' (bài trước) để viết 1 vòng lặp: Chỉ 'break' (thoát lặp) khi người dùng nhập số thành công.",
-    example_code: `
-while True:
-    try:
-        age = int(input("Nhập tuổi của bạn: "))
-        print(f"Bạn {age} tuổi")
-        break # Thoát lặp nếu nhập đúng
-    except ValueError:
-        print("Lỗi: Phải nhập số! Thử lại.")`,
-    language: "python",
-  },
-
-  // Lesson 29: Project 2 - Đoán số 1 (ID: 29)
-  {
-    id: 60,
-    lesson_id: 29,
-    title: "Số ngẫu nhiên",
-    description:
-      "Sử dụng 'import random'. Viết mã để in ra 1 số ngẫu nhiên trong khoảng từ 1 đến 6 (giống như tung xúc xắc).",
-    example_code: `
-import random
-dice = random.randint(1, 6)
-print(f"Xúc xắc ra số: {dice}")`,
-    language: "python",
-  },
-  {
-    id: 61,
-    lesson_id: 29,
-    title: "Đoán 1 lần",
-    description:
-      "Tạo 1 'secret_number' ngẫu nhiên (1-10). Yêu cầu người dùng 'Đoán số (1-10):'. Nhận 'guess'. Dùng 'if' để kiểm tra 'if guess == secret_number' và in 'Đúng' hoặc 'Sai'.",
-    example_code: `
-import random
-secret_number = random.randint(1, 10)
-guess = int(input("Đoán số (1-10): "))
-
-if guess == secret_number:
-    print(f"Đúng! Số bí mật là {secret_number}")
-else:
-    print(f"Sai! Số bí mật là {secret_number}")`,
-    language: "python",
-  },
-
-  // Lesson 30: Project 2 - Đoán số 2 (ID: 30)
-  {
-    id: 62,
     lesson_id: 30,
-    title: "Hoàn thành Game (Cao/Thấp)",
+    title: "Mini Project: Thêm chi tiêu",
     description:
-      "Hoàn thành trò chơi đoán số (như trong bài học), sử dụng 'while' để lặp lại, và 'if-elif' để đưa ra gợi ý 'Quá cao!' hoặc 'Quá thấp!'.",
-    example_code: `
-import random
-secret = random.randint(1, 100)
-guess = 0
-print("Đoán số (1-100)")
-
-while guess != secret:
-    guess = int(input("Đoán của bạn: "))
-    if guess < secret:
-        print("Quá thấp!")
-    elif guess > secret:
-        print("Quá cao!")
-
-print(f"Đúng rồi! Số đó là {secret}")`,
+      "Viết hàm `add_expense(data, name, cost)` để thêm một dictionary `{'name': name, 'cost': cost}` vào list `data`.",
+    example_code: `data = []\ndef add_expense(d, n, c):\n    d.append({'name': n, 'cost': c})\n\nadd_expense(data, 'Cà phê', 30)\nprint(data)`,
     language: "python",
-  },
-  {
-    id: 63,
-    lesson_id: 30,
-    title: "Đếm số lần đoán",
-    description:
-      "Cải tiến bài tập trước: Tạo 1 biến 'count = 0' trước vòng lặp 'while'. Tăng 'count += 1' bên trong vòng lặp. Khi thắng, in ra 'Bạn đã đoán trong [count] lần'.",
-    example_code: `
-import random
-secret = random.randint(1, 100)
-guess = 0
-count = 0
-print("Đoán số (1-100)")
-
-while guess != secret:
-    guess = int(input("Đoán của bạn: "))
-    count += 1 # Đếm số lần
-    if guess < secret: print("Quá thấp!")
-    elif guess > secret: print("Quá cao!")
-
-print(f"Đúng! Số đó là {secret}. Bạn đoán trong {count} lần.")`,
-    language: "python",
-  },
-
-  // Lesson 31: Project 3 - File (ID: 31)
-  {
-    id: 64,
-    lesson_id: 31,
-    title: "Ghi 3 dòng vào File",
-    description:
-      "Dùng 'with open(\"list.txt\", \"w\")' để ghi 3 tên (ví dụ: 'An', 'Bình', 'Cường') vào file. (Lưu ý thêm '\\n' để xuống dòng sau mỗi tên).",
-    example_code: `
-with open("list.txt", "w", encoding="utf-8") as f:
-    f.write("An\\n")
-    f.write("Bình\\n")
-    f.write("Cường\\n")
-print("Đã ghi file list.txt")`,
-    language: "python",
-  },
-  {
-    id: 65,
-    lesson_id: 31,
-    title: "Đọc file theo từng dòng (For loop)",
-    description:
-      "Dùng 'with open(\"list.txt\", \"r\")' và vòng lặp 'for line in f:' để đọc file (tạo ở bài trước). In ra từng dòng (sử dụng 'line.strip()' để xóa '\\n').",
-    example_code: `
-try:
-    with open("list.txt", "r", encoding="utf-8") as f:
-        print("Danh sách tên:")
-        for line in f:
-            print(f"- {line.strip()}")
-except FileNotFoundError:
-    print("Chưa có file list.txt")`,
-    language: "python",
-  },
-  {
-    id: 66,
-    lesson_id: 31,
-    title: "Đọc file và chuyển chữ hoa",
-    description:
-      "Đọc file 'list.txt', chuyển mỗi tên sang chữ hoa ('.upper()'), và ghi các tên đã chuyển sang chữ hoa vào 1 file mới 'list_upper.txt'.",
-    example_code: `
-try:
-    with open("list.txt", "r", encoding="utf-8") as rf:
-        with open("list_upper.txt", "w", encoding="utf-8") as wf:
-            for line in rf:
-                upper_name = line.strip().upper()
-                wf.write(upper_name + "\\n")
-    print("Đã tạo file list_upper.txt")
-except FileNotFoundError:
-    print("Chưa có file list.txt")`,
-    language: "python",
+    input: "name='Cà phê', cost=30",
+    output: "[{'name': 'Cà phê', 'cost': 30}]",
+    hint: "Sử dụng phương thức list.append() để thêm phần tử vào cuối danh sách.",
   },
 ];

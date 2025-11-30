@@ -1,96 +1,180 @@
-// // src/api/coursesApi.js
-// const API_URL = "http://localhost:3001"; // đảm bảo chạy json-server
+// src/api/coursesApi.js
+import { mockCourses, mockLanguages } from "@/mock/courses";
+import { mockLessons } from "@/mock/lessons";
+import { mockExercises } from "@/mock/exercises";
 
-// // ==================== Courses ====================
-// export const fetchCourses = async () => {
-//   const res = await fetch(`${API_URL}/courses`);
-//   if (!res.ok) throw new Error("Failed to fetch courses");
-//   return res.json();
-// };
+// Mock API delay để simulate real API
+const MOCK_DELAY = 500;
 
-// // Lấy khóa học theo lang_id
-// export const fetchCoursesByLang = async (langId) => {
-//   const res = await fetch(`${API_URL}/courses?lang_id=${langId}`);
-//   if (!res.ok) throw new Error("Failed to fetch courses by language");
-//   return res.json();
-// };
+// ==================== Courses ====================
+export const fetchCourses = async () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        resolve(mockCourses);
+      } catch (error) {
+        reject(new Error("Failed to fetch courses"));
+      }
+    }, MOCK_DELAY);
+  });
+};
 
-// export const fetchCourseById = async (id) => {
-//   const res = await fetch(`${API_URL}/courses/${id}`);
-//   if (!res.ok) throw new Error("Failed to fetch course");
-//   return res.json();
-// };
+// Lấy khóa học theo lang_id
+export const fetchCoursesByLang = async (langId) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        const filteredCourses = mockCourses.filter(
+          (course) => course.lang_id === langId
+        );
+        resolve(filteredCourses);
+      } catch (error) {
+        reject(new Error("Failed to fetch courses by language"));
+      }
+    }, MOCK_DELAY);
+  });
+};
 
-// // ==================== Lessons ====================
-// export const fetchLessonsByCourse = async (courseId) => {
-//   const res = await fetch(`${API_URL}/lessons?course_id=${courseId}`);
-//   if (!res.ok) throw new Error("Failed to fetch lessons");
-//   return res.json();
-// };
+export const fetchCourseById = async (id) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        const course = mockCourses.find((course) => course.id === id);
+        if (!course) throw new Error("Course not found");
+        resolve(course);
+      } catch (error) {
+        reject(new Error("Failed to fetch course"));
+      }
+    }, MOCK_DELAY);
+  });
+};
 
-// export const fetchLessonProgress = async (userId, lessonId) => {
-//   const res = await fetch(
-//     `${API_URL}/lesson_progress?user_id=${userId}&lesson_id=${lessonId}`
-//   );
-//   if (!res.ok) return null;
-//   const data = await res.json();
-//   return data[0] || null;
-// };
+// ==================== Lessons ====================
+export const fetchLessonsByCourse = async (courseId) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        const lessons = mockLessons.filter(
+          (lesson) => lesson.course_id === courseId
+        );
+        resolve(lessons);
+      } catch (error) {
+        reject(new Error("Failed to fetch lessons"));
+      }
+    }, MOCK_DELAY);
+  });
+};
 
-// // ==================== Exercises ====================
-// export const fetchExercisesByLesson = async (lessonId) => {
-//   const res = await fetch(`${API_URL}/exercises?lesson_id=${lessonId}`);
-//   if (!res.ok) return [];
-//   return res.json();
-// };
+export const fetchLessonById = async (lessonId) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        const lesson = mockLessons.find((lesson) => lesson.id === lessonId);
+        if (!lesson) throw new Error("Lesson not found");
+        resolve(lesson);
+      } catch (error) {
+        reject(new Error("Failed to fetch lesson"));
+      }
+    }, MOCK_DELAY);
+  });
+};
 
-// // ==================== Languages ====================
-// export const fetchLanguage = async (langId) => {
-//   const res = await fetch(`${API_URL}/languages/${langId}`);
-//   if (!res.ok) return null;
-//   return res.json();
-// };
+export const fetchLessonProgress = async (userId, lessonId) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Mock progress data - in real API this would come from database
+      const mockProgress = {
+        user_id: userId,
+        lesson_id: lessonId,
+        completed: Math.random() > 0.5, // Random for demo
+        progress_percentage: Math.floor(Math.random() * 100),
+      };
+      resolve(mockProgress);
+    }, MOCK_DELAY);
+  });
+};
 
-// // Lấy tất cả languages
-// export const fetchLanguages = async () => {
-//   const res = await fetch(`${API_URL}/languages`);
-//   if (!res.ok) throw new Error("Failed to fetch languages");
-//   return res.json();
-// };
+// ==================== Exercises ====================
+export const fetchExercisesByLesson = async (lessonId) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        const exercises = mockExercises.filter(
+          (exercise) => exercise.lesson_id === lessonId
+        );
+        resolve(exercises);
+      } catch (error) {
+        reject([]);
+      }
+    }, MOCK_DELAY);
+  });
+};
 
-// // ==================== Run & Submit Code ====================
-// export const runCode = async ({ language, code }) => {
-//   console.log("Run code:", { language, code });
+// ==================== Languages ====================
+export const fetchLanguage = async (langId) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        const language = mockLanguages.find((lang) => lang.id === langId);
+        resolve(language || null);
+      } catch (error) {
+        reject(null);
+      }
+    }, MOCK_DELAY);
+  });
+};
 
-//   // Fake run code: trả về output dạng string
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       let output;
-//       if (code.includes("Hello")) {
-//         output = "Output:\nHello World!";
-//       } else {
-//         output = `Output giả lập:\n${code}`;
-//       }
-//       resolve({ output });
-//     }, 1000);
-//   });
-// };
+// Lấy tất cả languages
+export const fetchLanguages = async () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      try {
+        resolve(mockLanguages);
+      } catch (error) {
+        reject(new Error("Failed to fetch languages"));
+      }
+    }, MOCK_DELAY);
+  });
+};
 
-// export const submitExercise = async ({ exerciseId, code }) => {
-//   const passed = code.includes("Hello");
+// ==================== Run & Submit Code ====================
+export const runCode = async ({ language, code }) => {
+  console.log("Run code:", { language, code });
 
-//   // Lấy feedback từ JSON
-//   const feedbacks = await fetch(
-//     `${API_URL}/feedbacks?exercise_id=${exerciseId}`
-//   ).then((res) => res.json());
+  // Fake run code: trả về output dạng string
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      let output;
+      if (code.includes("Hello")) {
+        output = "Output:\nHello World!";
+      } else {
+        output = `Output giả lập:\n${code}`;
+      }
+      resolve({ output });
+    }, 1000);
+  });
+};
 
-//   const comments = feedbacks.length > 0 ? feedbacks.map((f) => f.content) : [];
+export const submitExercise = async ({ exerciseId, code }) => {
+  const passed = code.includes("Hello");
 
-//   return {
-//     success: true,
-//     passed,
-//     message: passed ? "Bài tập passed!" : "Bài tập failed!",
-//     comments,
-//     warning: false, // bỏ cảnh báo đăng nhập
-//   };
-// };
+  // Mock feedback - in real API this would come from database
+  const mockFeedbacks = [
+    { content: "Code chạy tốt!" },
+    { content: "Cần tối ưu hóa performance" },
+  ];
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        success: true,
+        passed,
+        message: passed ? "Bài tập passed!" : "Bài tập failed!",
+        comments: passed
+          ? mockFeedbacks
+          : [{ content: "Code chưa đúng yêu cầu" }],
+        warning: false,
+      });
+    }, 1500);
+  });
+};

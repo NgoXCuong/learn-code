@@ -52,7 +52,7 @@ export default function LessonContent({ lesson, isDark }) {
 
   return (
     <div
-      className={`prose prose-lg font-exo text-lg max-w-none ${
+      className={`prose prose-lg   text-base max-w-none ${
         isDark ? "prose-invert" : ""
       }`}
     >
@@ -83,18 +83,18 @@ export default function LessonContent({ lesson, isDark }) {
       })}
       {lesson.example_code && (
         <div className="mt-8">
-          <h3 className="text-xl font-bold mb-4">Ví dụ minh họa</h3>
+          <h3 className="text-lg font-bold mb-4">Ví dụ minh họa</h3>
           <LessonCode code={lesson.example_code} language={lesson.language} />
         </div>
       )}
 
       {/* Mark as Read Button */}
-      <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-center">
           <button
             onClick={() => markLessonAsRead(lesson.id)}
             disabled={isLessonRead(lesson.id)}
-            className={`btn-shimmer relative flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all overflow-hidden ${
+            className={`btn-shimmer relative flex items-center gap-2 px-6 py-1.5 rounded-sm font-medium transition-all overflow-hidden ${
               isLessonRead(lesson.id)
                 ? "bg-green-100 text-green-700 cursor-not-allowed dark:bg-green-900/30 dark:text-green-400"
                 : "bg-blue-600 hover:bg-blue-700 text-white shadow-md hover:shadow-lg"
@@ -111,7 +111,7 @@ export default function LessonContent({ lesson, isDark }) {
           </button>
         </div>
         {isLessonRead(lesson.id) && (
-          <p className="text-center text-base text-gray-500 dark:text-gray-400 mt-2">
+          <p className="text-center text-sm text-gray-500 dark:text-gray-400 mt-2">
             Bạn đã hoàn thành bài học này!
           </p>
         )}

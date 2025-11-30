@@ -4,12 +4,12 @@ import { Heart, Sparkles } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="relative overflow-hidden border-t border-gray-200 dark:border-gray-700 bg-linear-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-500">
-      <div className="max-w-7xl mx-auto px-6 py-4">
+      <div className="max-w-7xl mx-auto px-6 py-2">
         {/* Top Section */}
 
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between text-base text-black dark:text-gray-200 gap-3">
-          <p className="flex items-center gap-1 font-exo">
+          <p className="flex items-center gap-1  ">
             © 2025{" "}
             <span className="font-semibold text-blue-600 dark:text-blue-400">
               CodePulse

@@ -48,7 +48,7 @@ export default function CourseCard({
 
   return (
     <div
-      className={`group relative shadow-gray-400 font-exo flex flex-col rounded-lg overflow-hidden border transition-all duration-300 hover:scale-105 cursor-pointer ${
+      className={`group relative shadow-gray-400   flex flex-col rounded-lg overflow-hidden border transition-all duration-300 hover:scale-105 cursor-pointer ${
         darkMode
           ? "bg-gray-800 border-gray-700 hover:border-blue-500 hover:shadow-purple-500/20"
           : "bg-white border-gray-200 hover:border-blue-500 hover:shadow-lg"
@@ -121,24 +121,8 @@ export default function CourseCard({
 
       {/* Nội dung */}
       <div className="relative z-10 p-5 flex flex-col grow space-y-2">
-        {/* Level + ngôn ngữ */}
-        <div className="flex items-center gap-2 mb-2">
-          <span
-            className={`text-sm px-2.5 py-1 rounded-full font-medium ${getLevelColor(
-              course.level
-            )}`}
-          >
-            {course.level}
-          </span>
-          <span
-            className={`text-sm px-2.5 py-1 rounded-full font-medium bg-linear-to-r ${language.color} text-white`}
-          >
-            {language.name}
-          </span>
-        </div>
-
         <h3
-          className={`text-2xl font-semibold line-clamp-2 ${
+          className={`text-xl font-semibold line-clamp-2 ${
             darkMode ? "text-white" : "text-gray-900"
           }`}
         >
@@ -146,7 +130,7 @@ export default function CourseCard({
         </h3>
 
         <p
-          className={`text-lg line-clamp-2 ${
+          className={`text-base line-clamp-2 ${
             darkMode ? "text-gray-300" : "text-gray-600"
           }`}
         >
@@ -155,33 +139,41 @@ export default function CourseCard({
 
         {/* Thông tin khóa học */}
         <div
-          className={`grid grid-cols-2 md:grid-cols-4 text-base gap-y-1 mt-2 ${
+          className={`flex justify-between items-center text-sm mt-2 ${
             darkMode ? "text-gray-400" : "text-gray-600"
           }`}
         >
-          <div className="flex items-center gap-1">
-            <BookOpen className="w-4 h-4" /> {course.lessons} bài
+          {/* Độ khó và ngôn ngữ bên trái */}
+          <div className="flex items-center gap-2">
+            <span
+              className={`text-xs px-2.5 py-1 rounded-full font-medium  ${getLevelColor(
+                course.level
+              )}`}
+            >
+              {course.level}
+            </span>
+            <span
+              className={`text-xs px-2.5 py-1 rounded-full font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300`}
+            >
+              {language.name}
+            </span>
           </div>
 
-          <div className="flex items-center gap-1 md:justify-center">
-            <Clock className="w-4 h-4" /> {course.duration}
-          </div>
-
-          <div className="flex items-center gap-1 md:justify-center">
-            <Users className="w-4 h-4" /> {course.students.toLocaleString()} học
-            viên
-          </div>
-
-          <div className="flex items-center gap-1 justify-end">
-            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />{" "}
-            {course.rating}
+          {/* Bài học và thời gian bên phải */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1">
+              <BookOpen className="w-4 h-4" /> {course.lessons} bài
+            </div>
+            <div className="flex items-center gap-1">
+              <Clock className="w-4 h-4" /> {course.duration}
+            </div>
           </div>
         </div>
 
         {/* Thanh tiến độ (ShadCN) */}
         {course.progress > 0 && (
           <div className="mt-3 space-y-1">
-            <div className="text-gray-500 dark:text-white flex justify-between text-base font-medium">
+            <div className="text-gray-500 dark:text-white flex justify-between text-sm font-medium">
               <span className={getProgressStatus(course.progress).color}>
                 {getProgressStatus(course.progress).text}
               </span>

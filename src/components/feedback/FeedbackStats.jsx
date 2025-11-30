@@ -30,7 +30,7 @@ export default function FeedbackStats({ feedback, isDark }) {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-6 font-exo">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-7xl mx-auto mt-6 px-6 ">
       {cards.map(({ icon: Icon, color, label, value }, i) => (
         <div
           key={i}

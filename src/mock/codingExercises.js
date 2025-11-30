@@ -8,6 +8,9 @@ export const codingExercises = [
     tags: ["Cơ bản", "Hàm", "Math"],
     exp: 50,
     timeEstimate: "5 phút",
+    input: "a = 5, b = 7",
+    output: "12",
+    hint: "Sử dụng toán tử cộng (+) để tính tổng và từ khóa return để trả về kết quả.",
   },
   {
     id: 2,
@@ -18,6 +21,9 @@ export const codingExercises = [
     tags: ["Thuật toán", "Toán học", "Logic"],
     exp: 120,
     timeEstimate: "15 phút",
+    input: "n = 11",
+    output: "true",
+    hint: "Dùng vòng lặp chạy từ 2 đến căn bậc hai của n. Nếu n chia hết cho bất kỳ số nào trong khoảng đó thì trả về false.",
   },
   {
     id: 3,
@@ -28,6 +34,9 @@ export const codingExercises = [
     tags: ["String", "Cơ bản"],
     exp: 60,
     timeEstimate: "8 phút",
+    input: "str = 'hello'",
+    output: "'olleh'",
+    hint: "Có thể chuyển chuỗi thành mảng (split), đảo ngược mảng (reverse) rồi gộp lại (join), hoặc dùng vòng lặp lùi.",
   },
   {
     id: 4,
@@ -38,6 +47,9 @@ export const codingExercises = [
     tags: ["Array", "Loop", "Cơ bản"],
     exp: 60,
     timeEstimate: "8 phút",
+    input: "arr = [1, 5, 3, 9, 2]",
+    output: "9",
+    hint: "Giả sử phần tử đầu tiên là max, sau đó duyệt qua mảng và cập nhật max nếu gặp số lớn hơn.",
   },
   {
     id: 5,
@@ -48,16 +60,22 @@ export const codingExercises = [
     tags: ["Thuật toán", "Sắp xếp", "Array"],
     exp: 130,
     timeEstimate: "20 phút",
+    input: "arr = [5, 3, 8, 4, 2]",
+    output: "[2, 3, 4, 5, 8]",
+    hint: "Sử dụng 2 vòng lặp lồng nhau. So sánh 2 phần tử liền kề, nếu phần tử trước lớn hơn phần tử sau thì hoán đổi vị trí.",
   },
   {
     id: 6,
     title: "Dãy Fibonacci",
     difficulty: "Trung bình",
     description:
-      "Viết hàm fibonacci(n) tính số Fibonacci thứ n. Có thể giải bằng đệ quy hoặc vòng lặp.",
+      "Viết hàm fibonacci(n) tính số Fibonacci thứ n. Dãy số bắt đầu là 0, 1, 1, 2, 3, 5...",
     tags: ["Đệ quy", "Toán học", "Dynamic Programming"],
     exp: 110,
     timeEstimate: "15 phút",
+    input: "n = 6",
+    output: "8",
+    hint: "Công thức quy hoạch động: F(n) = F(n-1) + F(n-2). Có thể dùng đệ quy hoặc vòng lặp để tối ưu.",
   },
   {
     id: 7,
@@ -68,6 +86,9 @@ export const codingExercises = [
     tags: ["Thuật toán", "Tìm kiếm", "Binary Search"],
     exp: 160,
     timeEstimate: "25 phút",
+    input: "arr = [1, 3, 5, 7, 9], target = 7",
+    output: "3 (index)",
+    hint: "So sánh target với phần tử giữa (mid). Nếu nhỏ hơn thì tìm bên trái, lớn hơn thì tìm bên phải. Lặp lại cho đến khi tìm thấy.",
   },
   {
     id: 8,
@@ -78,6 +99,9 @@ export const codingExercises = [
     tags: ["Regex", "Validation", "String"],
     exp: 100,
     timeEstimate: "12 phút",
+    input: "email = 'test@domain.com'",
+    output: "true",
+    hint: "Sử dụng Regex cơ bản kiểm tra sự tồn tại của ký tự '@', dấu chấm '.' và không chứa ký tự đặc biệt không cho phép.",
   },
   {
     id: 9,
@@ -88,5 +112,8 @@ export const codingExercises = [
     tags: ["String", "Object", "Loop"],
     exp: 70,
     timeEstimate: "10 phút",
+    input: "str = 'hello'",
+    output: "{ h: 1, e: 1, l: 2, o: 1 }",
+    hint: "Khởi tạo một object rỗng. Duyệt qua chuỗi, nếu ký tự đã có trong object thì tăng value lên 1, nếu chưa thì gán bằng 1.",
   },
 ];

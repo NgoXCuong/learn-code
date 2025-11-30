@@ -13,7 +13,7 @@ const LanguageScroll = () => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div className="relative w-full overflow-hidden mt-12 font-exo">
+    <div className="relative w-full overflow-hidden mt-12  ">
       <div className="absolute inset-0 z-10 pointer-events-none">
         <div
           className={`absolute left-0 top-0 w-32 h-full ${
@@ -38,7 +38,7 @@ const LanguageScroll = () => {
             (lang, i) => (
               <div
                 key={`row1-${i}`}
-                className={`font-exo shrink-0 px-6 py-2 rounded-full bg-linear-to-r ${
+                className={`  shrink-0 px-4 py-1.5 rounded-full bg-linear-to-r ${
                   lang.color
                 } text-white font-semibold text-sm sm:text-base whitespace-nowrap transition-shadow ${
                   theme === "dark"
@@ -59,7 +59,7 @@ const LanguageScroll = () => {
             (lang, i) => (
               <div
                 key={`row2-${i}`}
-                className={`font-exo shrink-0 px-6 py-2 rounded-full bg-linear-to-r ${
+                className={`  shrink-0 px-4 py-1.5 rounded-full bg-linear-to-r ${
                   lang.color
                 } text-white font-semibold text-sm sm:text-base whitespace-nowrap transition-shadow ${
                   theme === "dark"

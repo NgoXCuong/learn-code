@@ -3,7 +3,7 @@ import CoursesProgress from "@/components/profile/CoursesProgress";
 import StreakCard from "@/components/profile/StreakCard";
 import RecentBadges from "@/components/profile/RecentBadges";
 
-export default function OverviewTab() {
+export default function OverviewTab({ badges = [] }) {
   return (
     <div className="space-y-6">
       <StreakCard />
@@ -13,7 +13,7 @@ export default function OverviewTab() {
           <CoursesProgress />
         </div>
         <div>
-          <RecentBadges />
+          <RecentBadges badges={badges} />
         </div>
       </div>
     </div>

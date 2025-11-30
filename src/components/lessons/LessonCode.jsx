@@ -33,6 +33,12 @@ export default function LessonCode({ code, language = "java" }) {
     if (editorRef.current) updateEditorHeight(editorRef.current);
   }, [code]);
 
+  // Reset output when code changes (lesson changes)
+  useEffect(() => {
+    setOutput("");
+    setIsRunning(false);
+  }, [code]);
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(code);
@@ -89,10 +95,10 @@ export default function LessonCode({ code, language = "java" }) {
   if (!code) return null;
 
   return (
-    <div className="w-full rounded-xl font-exo overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+    <div className="w-full rounded-sm overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
       {/* Header */}
       <div
-        className={`px-4 py-3 flex justify-between items-center ${
+        className={`px-4 py-1 flex justify-between items-center ${
           isDark
             ? "bg-gray-800 border-b border-gray-700"
             : "bg-gray-100 border-b border-gray-200"
@@ -105,7 +111,7 @@ export default function LessonCode({ code, language = "java" }) {
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
           </div>
           <span
-            className={`ml-2 text-base font-medium ${
+            className={`ml-2 text-sm font-medium ${
               isDark ? "text-gray-300" : "text-gray-700"
             }`}
           >
@@ -117,7 +123,7 @@ export default function LessonCode({ code, language = "java" }) {
           <button
             onClick={handleRunCode}
             disabled={isRunning}
-            className={`btn-shimmer relative flex items-center gap-2 px-3 py-1 rounded-lg text-base font-medium transition-all overflow-hidden
+            className={`btn-shimmer relative flex items-center gap-2 px-3 py-1 rounded-sm text-sm font-medium transition-all overflow-hidden
               ${isRunning ? "opacity-60 cursor-not-allowed" : "hover:scale-105"}
               ${
                 isDark
@@ -125,13 +131,13 @@ export default function LessonCode({ code, language = "java" }) {
                   : "bg-green-500 text-white hover:bg-green-600"
               }`}
           >
-            <Play className="w-3.5 h-3.5" />
+            <Play className="w-3 h-3" />
             {isRunning ? "Đang chạy..." : "Chạy thử"}
           </button>
 
           <button
             onClick={handleCopy}
-            className={`btn-shimmer relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all text-base font-medium overflow-hidden
+            className={`btn-shimmer relative flex items-center gap-1.5 px-3 py-1 rounded-sm text-sm transition-all font-medium overflow-hidden
               ${
                 copied
                   ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
@@ -165,7 +171,7 @@ export default function LessonCode({ code, language = "java" }) {
           value={code}
           onMount={handleEditorDidMount}
           options={{
-            fontSize: 16,
+            fontSize: 14,
             fontFamily: "'Consolas', 'Courier New', monospace", // dùng font có sẵn
             lineNumbers: "on",
             automaticLayout: true,
@@ -185,7 +191,7 @@ export default function LessonCode({ code, language = "java" }) {
 
       {/* Output console */}
       <div
-        className={`border-t px-4 py-3 font-mono text-lg overflow-y-auto max-h-56 ${
+        className={`border-t px-4 py-1 font-mono text-base overflow-y-auto max-h-56 ${
           isDark
             ? "bg-gray-900 border-gray-700 text-gray-100"
             : "bg-gray-50 border-gray-200 text-gray-800"
@@ -195,9 +201,7 @@ export default function LessonCode({ code, language = "java" }) {
           <Terminal size={16} />
           <span>Kết quả chạy:</span>
         </div>
-        <pre className="whitespace-pre-wrap font-exo text-base">
-          {output || "..."}
-        </pre>
+        <pre className="whitespace-pre-wrap  text-sm">{output || "..."}</pre>
       </div>
     </div>
   );

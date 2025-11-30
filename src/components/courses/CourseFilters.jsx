@@ -22,7 +22,7 @@ const FilterButton = ({ isDark, isActive, onClick, children }) => {
     <Button
       variant="ghost"
       onClick={onClick}
-      className={`rounded-full px-4 py-1.5 h-auto text-base font-medium transition-all duration-200 cursor-pointer ${
+      className={`rounded-full px-4 py-1 h-auto text-sm font-medium transition-all duration-200 cursor-pointer ${
         isActive ? activeClass : inactiveClass
       }`}
     >
@@ -49,18 +49,18 @@ export default function CourseFilters({
   ];
 
   return (
-    <div className="flex flex-col gap-6 mb-10 font-exo">
+    <div className="flex flex-col gap-6 mb-10  ">
       {/* Tiêu đề & mô tả */}
       <div className="text-center sm:text-left space-y-2">
         <h1
-          className={`text-4xl sm:text-5xl font-bold ${
+          className={`text-2xl sm:text-3xl font-bold ${
             isDark ? "text-white" : "text-gray-900"
           }`}
         >
           Khám phá các khóa học
         </h1>
         <p
-          className={`text-lg sm:text-xl ${
+          className={`text-sm sm:text-base ${
             isDark ? "text-gray-400" : "text-gray-700"
           }`}
         >
@@ -83,7 +83,7 @@ export default function CourseFilters({
             placeholder="Tìm kiếm theo tên khóa học..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 text-base placeholder:text-base border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+            className="pl-10 text-sm placeholder:text-sm border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
           />
         </div>
 
@@ -97,11 +97,11 @@ export default function CourseFilters({
           <SelectTrigger
             className={`w-[200px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
           >
-            <span className="mr-2 text-base text-gray-400">Ngôn ngữ:</span>
+            <span className="mr-2 text-sm text-gray-400">Ngôn ngữ:</span>
             <SelectValue placeholder="Chọn chủ đề" />
           </SelectTrigger>
 
-          <SelectContent className="bg-white text-base dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+          <SelectContent className="bg-white text-sm dark:bg-gray-800 text-gray-900 dark:text-gray-100">
             <SelectItem value="all" className="cursor-pointer">
               Tất cả
             </SelectItem>
@@ -123,7 +123,7 @@ export default function CourseFilters({
         {/* Cấp độ */}
         <div className="flex flex-col sm:flex-row sm:items-center gap-2">
           <span
-            className={`text-base font-medium ${
+            className={`text-sm font-medium ${
               isDark ? "text-gray-300" : "text-gray-700"
             }`}
           >

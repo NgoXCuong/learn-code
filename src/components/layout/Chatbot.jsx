@@ -108,7 +108,7 @@ const Chatbot = () => {
         onClick={() => setOpen(!open)}
         className="fixed bottom-6 right-6 bg-linear-to-r from-blue-600 to-cyan-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 z-50 transform hover:scale-110"
       >
-        {open ? <X size={26} /> : <MessageCircle size={26} />}
+        {open ? <X size={20} /> : <MessageCircle size={20} />}
       </button>
 
       {/* Chatbox */}
@@ -125,7 +125,7 @@ const Chatbot = () => {
               : "scale-95 opacity-0 pointer-events-none"
           }
         `}
-        style={{ maxHeight: "600px", height: "600px" }}
+        style={{ maxHeight: "500px", height: "500px" }}
       >
         {/* Header */}
         <div
@@ -151,8 +151,8 @@ const Chatbot = () => {
               <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white"></div>
             </div>
             <div>
-              <h2 className="font-exo font-bold text-xl">Trợ lý AI</h2>
-              <p className="text-sm font-exo opacity-80">
+              <h2 className="  font-bold text-base">Trợ lý AI</h2>
+              <p className="text-sm   opacity-80">
                 {isDark ? "Đang hoạt động 🌙" : "Đang hoạt động"}
               </p>
             </div>
@@ -198,7 +198,7 @@ const Chatbot = () => {
 
                 <div>
                   <div
-                    className={`rounded-lg px-4 py-3 leading-relaxed shadow font-exo
+                    className={`rounded-lg px-4 py-3 leading-relaxed shadow  
                     ${
                       m.sender === "user"
                         ? "bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-tr-none"
@@ -207,11 +207,11 @@ const Chatbot = () => {
                         : "bg-white text-gray-800 rounded-tl-none border border-gray-100"
                     }`}
                   >
-                    <p className="text-base whitespace-pre-line">{m.text}</p>
+                    <p className="text-sm whitespace-pre-line">{m.text}</p>
                   </div>
 
                   <p
-                    className={`text-[11px] mt-1 font-exo ${
+                    className={`text-xs mt-1   ${
                       isDark ? "text-gray-400" : "text-gray-500"
                     } ${m.sender === "user" ? "text-right" : "text-left"}`}
                   >
@@ -223,7 +223,7 @@ const Chatbot = () => {
           ))}
 
           {isTyping && (
-            <div className="flex justify-start font-exo">
+            <div className="flex justify-start  ">
               <div className="flex gap-2">
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
@@ -260,8 +260,8 @@ const Chatbot = () => {
             }`}
           >
             <div className="flex items-center gap-1 mb-2">
-              <Sparkles size={14} className="text-blue-500" />
-              <p className="text-sm font-semibold font-exo">
+              <Sparkles size={12} className="text-blue-500" />
+              <p className="text-sm font-semibold  ">
                 {isDark ? "Gợi ý câu hỏi 🌙" : "Gợi ý câu hỏi"}
               </p>
             </div>
@@ -270,7 +270,7 @@ const Chatbot = () => {
                 <button
                   key={i}
                   onClick={() => handleQuickReply(r)}
-                  className={`text-sm px-3 py-1.5 rounded-full border transition font-exo
+                  className={`text-xs px-3 py-1.5 rounded-full border transition  
                     ${
                       isDark
                         ? "bg-gray-800 border-gray-600 text-gray-200 hover:bg-gray-700"
@@ -286,7 +286,7 @@ const Chatbot = () => {
 
         {/* Input */}
         <div
-          className={`p-4 border-t rounded-b-2xl ${
+          className={`p-2 border-t rounded-b-sm ${
             isDark ? "border-gray-700 bg-[#1f2937]" : "border-gray-200 bg-white"
           }`}
         >
@@ -297,7 +297,7 @@ const Chatbot = () => {
               onChange={(e) => setInputText(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Nhập câu hỏi của bạn..."
-              className={`flex-1 border rounded-lg px-4 py-2 text-base outline-none transition font-exo
+              className={`flex-1 border rounded-sm px-2 py-1 text-sm outline-none transition  
                 ${
                   isDark
                     ? "border-gray-600 bg-gray-800 text-gray-100 focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
@@ -312,7 +312,7 @@ const Chatbot = () => {
               <Send size={20} />
             </button>
           </div>
-          {/* <p className="text-sm text-gray-400 mt-2 text-center font-exo">
+          {/* <p className="text-sm text-gray-400 mt-2 text-center  ">
             Nhấn Enter để gửi tin nhắn
           </p> */}
         </div>

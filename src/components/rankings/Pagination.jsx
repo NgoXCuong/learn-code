@@ -11,7 +11,7 @@ export default function Pagination({
 }) {
   return (
     <div
-      className=" font-exo
+      className="  
         flex items-center justify-between px-6 py-4
         bg-gray-50 border-t border-gray-200
         dark:bg-gray-900 dark:border-gray-700

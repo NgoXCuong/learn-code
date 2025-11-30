@@ -50,7 +50,7 @@ const CodeEditor = ({
   }, []);
 
   return (
-    <Card className="flex flex-col flex-1 overflow-hidden rounded-xl shadow-lg border-0 min-h-0 gap-1 py-0">
+    <Card className="flex flex-col flex-1 overflow-hidden rounded-sm shadow-lg border-0 min-h-0 gap-1 py-0">
       {/* Header */}
       <div
         className={`px-4 py-1 flex justify-between items-center ${
@@ -64,17 +64,17 @@ const CodeEditor = ({
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
 
           {/* ✅ Sử dụng extension chuẩn */}
-          <span className="ml-4 text-base font-exo text-gray-900 dark:text-gray-100">
+          <span className="ml-4 text-sm   text-gray-900 dark:text-gray-100">
             main.{getFileExtension()}
           </span>
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 sm:gap-4 font-exo">
+        <div className="flex items-center gap-2 sm:gap-4  ">
           {/* Select Language */}
           <Select value={language} onValueChange={onLanguageChange}>
             <SelectTrigger
-              className={`w-[140px] text-base border rounded transition-colors ${
+              className={`w-[140px] h-7 p-1 text-sm border rounded transition-colors ${
                 isDark
                   ? "bg-gray-700 border-gray-600 text-gray-100"
                   : "bg-white border-gray-300 text-gray-900"
@@ -98,10 +98,10 @@ const CodeEditor = ({
           <Button
             onClick={onRunCode}
             disabled={isRunning}
-            className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md flex items-center justify-center text-base"
+            className="h-7 bg-green-600 hover:bg-green-700 text-white px-2 py-0 rounded-sm flex items-center justify-center text-sm"
           >
             <Play className="w-4 h-4 sm:mr-1" />
-            <span className="hidden sm:inline text-base">
+            <span className="hidden sm:inline text-sm">
               {isRunning ? "Running..." : "Run"}
             </span>
           </Button>
@@ -111,10 +111,10 @@ const CodeEditor = ({
             <Button
               onClick={onSubmitCode}
               disabled={isSubmit}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-md flex items-center justify-center text-base"
+              className="h-7 bg-purple-600 hover:bg-purple-700 text-white px-2 py-0.5 rounded-sm flex items-center justify-center text-sm"
             >
               <Send className="w-4 h-4 sm:mr-1" />
-              <span className="hidden sm:inline text-base">
+              <span className="hidden sm:inline text-sm">
                 {isSubmit ? "Submitting..." : "Submit"}
               </span>
             </Button>
@@ -131,7 +131,7 @@ const CodeEditor = ({
           value={code}
           onChange={onCodeChange}
           options={{
-            fontSize: 14,
+            fontSize: 13,
             fontFamily: "'Consolas', 'Courier New', monospace", // dùng font có sẵn
             lineNumbers: "on",
             automaticLayout: true,

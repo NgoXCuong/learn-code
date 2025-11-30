@@ -1,10 +1,5 @@
-import React, { useState, useMemo } from "react";
-import {
-  userData,
-  challenges,
-  leaderboard,
-  dailyQuests,
-} from "@/mock/mockDataChallenge";
+import React, { useState, useMemo, useEffect } from "react";
+import { fetchChallenges, fetchDailyQuests } from "@/api/challengesApi";
 import { DailyQuestsPanel } from "@/components/challenges/DailyQuestsPanel";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
 import { ChallengesFilter } from "@/components/challenges/ChallengesFilter";
@@ -15,6 +10,8 @@ import ChallengesGrid from "@/components/challenges/ChallengesGrid";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "@/components/layout/Loading";
+import { toast } from "sonner";
 
 export default function ChallengesPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -23,15 +20,64 @@ export default function ChallengesPage() {
   const [selectedChallenge, setSelectedChallenge] = useState(null);
   const [activeTab, setActiveTab] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
+  const [challenges, setChallenges] = useState([]);
+  const [userData, setUserData] = useState({
+    completedChallenges: [],
+    attemptedChallenges: [],
+  });
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [dailyQuests, setDailyQuests] = useState([]);
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 4; // số thử thách mỗi trang
 
   const navigate = useNavigate();
+
+  // Load challenges data
+  useEffect(() => {
+    const loadChallengesData = async () => {
+      try {
+        setLoading(true);
+        console.log("Loading challenges...");
+
+        // Load all data in parallel
+        const [challengesData, questsData] = await Promise.all([
+          fetchChallenges(),
+          fetchDailyQuests(1), // Load for user ID 1
+        ]);
+
+        console.log("Challenges loaded:", challengesData);
+        console.log("Daily quests loaded:", questsData);
+
+        setChallenges(challengesData);
+        setDailyQuests(questsData);
+
+        // TODO: Load user data, leaderboard from API
+        // For now, set default values
+        setUserData({ completedChallenges: [], attemptedChallenges: [] });
+        setLeaderboard([]);
+      } catch (err) {
+        console.error("Error loading challenges data:", err);
+        toast.error("Không thể tải dữ liệu thử thách");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadChallengesData();
+  }, []);
 
   const handleChallengeClick = (challenge) => {
     setSelectedChallenge(challenge);
   };
 
   const filteredAndSortedChallenges = useMemo(() => {
+    console.log("Filtering challenges:", {
+      activeTab,
+      challengesCount: challenges.length,
+      completedChallenges: userData.completedChallenges,
+      attemptedChallenges: userData.attemptedChallenges,
+    });
+
     let result = [...challenges];
 
     if (activeTab === "completed") {
@@ -75,16 +121,31 @@ export default function ChallengesPage() {
       }
     });
 
-    setCurrentPage(1);
     return result;
-  }, [searchQuery, difficultyFilter, sortBy, activeTab]);
+  }, [challenges, userData, searchQuery, difficultyFilter, sortBy, activeTab]);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredAndSortedChallenges.length]);
 
   const totalPages = Math.ceil(
     filteredAndSortedChallenges.length / itemsPerPage
   );
   const paginatedChallenges = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
-    return filteredAndSortedChallenges.slice(start, start + itemsPerPage);
+    const result = filteredAndSortedChallenges.slice(
+      start,
+      start + itemsPerPage
+    );
+    console.log("Paginated challenges:", {
+      currentPage,
+      itemsPerPage,
+      filteredCount: filteredAndSortedChallenges.length,
+      paginatedCount: result.length,
+      challenges: result,
+    });
+    return result;
   }, [filteredAndSortedChallenges, currentPage]);
 
   const clearFilters = () => {
@@ -98,12 +159,28 @@ export default function ChallengesPage() {
     searchQuery || difficultyFilter !== "all" || sortBy !== "points";
 
   const totalParticipants = challenges.reduce(
-    (sum, c) => sum + c.participants,
+    (sum, c) => sum + (c.participants || 0),
     0
   );
-  const avgSuccess = Math.round(
-    challenges.reduce((sum, c) => sum + c.successRate, 0) / challenges.length
-  );
+  const avgSuccess =
+    challenges.length > 0
+      ? Math.round(
+          challenges.reduce((sum, c) => sum + (c.successRate || 0), 0) /
+            challenges.length
+        )
+      : 0;
+
+  if (loading) {
+    return (
+      <div className="bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors min-h-screen">
+        <Header />
+        <div className="flex items-center justify-center py-12">
+          <Loading />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors min-h-screen">

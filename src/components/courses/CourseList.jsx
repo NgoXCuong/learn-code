@@ -17,17 +17,17 @@ export default function CourseList({
 
   if (!courses || courses.length === 0) {
     return (
-      <div className="text-center py-12 font-exo">
-        <div className="text-8xl mb-4">🔍</div>
+      <div className="text-center py-12  ">
+        <div className="text-5xl mb-4">🔍</div>
         <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
           Không tìm thấy khóa học
         </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4 text-lg">
+        <p className="text-gray-600 dark:text-gray-400 mb-4 text-base">
           Thử điều chỉnh bộ lọc hoặc tìm kiếm của bạn
         </p>
         <button
           onClick={clearFilters}
-          className="btn-shimmer px-6 py-2 border text-gray-900 text-lg dark:text-white border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+          className="btn-shimmer px-6 py-2 border text-gray-900 text-base dark:text-white border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
         >
           Xóa bộ lọc
         </button>
@@ -86,7 +86,7 @@ export default function CourseList({
           <button
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 rounded-lg text-base font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 transition-all"
+            className="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 transition-all"
           >
             ← Trước
           </button>
@@ -119,7 +119,7 @@ export default function CourseList({
           <button
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 rounded-lg text-base font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 transition-all"
+            className="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 transition-all"
           >
             Sau →
           </button>

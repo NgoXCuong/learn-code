@@ -9,7 +9,7 @@ const HeroContent = () => {
 
   return (
     <div className="text-center lg:text-left">
-      <h1 className="font-exo font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6">
+      <h1 className="  font-extrabold text-5xl md:text-6xl  leading-tight mb-8">
         <span
           className={`block mb-3 transition-all duration-300 ${
             theme === "dark"
@@ -32,7 +32,7 @@ const HeroContent = () => {
       </h1>
 
       <p
-        className={`font-exo text-lg sm:text-2xl mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed transition-colors duration-300 ${
+        className={`  text-lg sm:text-xl mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed transition-colors duration-300 ${
           theme === "dark" ? "text-slate-300" : "text-slate-700"
         }`}
       >
@@ -50,17 +50,17 @@ const HeroContent = () => {
       </p>
 
       {/* BUTTONS */}
-      <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-4 mb-4">
+      <div className="flex flex-col sm:flex-row justify-center lg:justify-start items-center gap-6 mb-6">
         <button
           onClick={() => navigate("/courses")}
-          className={`group relative w-full sm:w-auto px-8 py-4 rounded-lg font-exo font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-105 active:scale-100 ${
+          className={`group relative w-full sm:w-auto px-8 py-3 rounded-lg   font-semibold text-lg overflow-hidden transition-all duration-300 hover:scale-105 active:scale-100 ${
             theme === "dark"
               ? "bg-linear-to-r from-purple-600 to-cyan-600 text-white hover:shadow-[0_0_30px_rgba(168,85,247,0.6)]"
               : "bg-linear-to-r from-purple-600 to-cyan-600 text-white hover:shadow-[0_0_30px_rgba(147,51,234,0.5)]"
           }`}
         >
           <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-          <span className="font-exo font-bold relative flex items-center justify-center gap-2 cursor-pointer">
+          <span className="  font-bold relative flex items-center justify-center gap-2 cursor-pointer">
             <BookOpen className="w-5 h-5" />
             Bắt đầu học ngay
           </span>
@@ -68,13 +68,13 @@ const HeroContent = () => {
 
         <button
           onClick={() => navigate("/compiler")}
-          className={`group relative w-full sm:w-auto px-8 py-4 rounded-lg font-exo font-semibold text-lg overflow-hidden transition-all duration-300 active:scale-95 ${
+          className={`group relative w-full sm:w-auto px-8 py-3 rounded-lg   font-semibold text-lg overflow-hidden transition-all duration-300 active:scale-95 ${
             theme === "dark"
               ? "bg-slate-800/50 backdrop-blur-sm border-2 border-purple-500/30 text-slate-200 hover:border-cyan-400/60 hover:bg-slate-800/70 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)]"
               : "bg-white/70 backdrop-blur-sm border-2 border-purple-300 text-slate-700 hover:border-cyan-500 hover:bg-white hover:shadow-[0_0_20px_rgba(6,182,212,0.3)]"
           }`}
         >
-          <span className="font-exo font-bold relative flex items-center justify-center gap-2 cursor-pointer">
+          <span className="  font-bold relative flex items-center justify-center gap-2 cursor-pointer">
             <Code className="w-5 h-5" />
             Thử compiler
           </span>

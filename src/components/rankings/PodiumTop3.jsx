@@ -1,28 +1,19 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { Trophy, Medal, Flame } from "lucide-react";
-import {
-  LEVEL_BORDERS,
-  LEVEL_COLORS,
-  classNames,
-  numberWithCommas,
-} from "@/utils/utilsRanking";
+import { classNames, numberWithCommas } from "@/utils/utilsRanking";
 
 export default function PodiumTop3({ users }) {
   if (!users || users.length === 0) return null;
 
   return (
-    <div className="grid grid-cols-1 font-exo md:grid-cols-3 gap-6 mb-8">
+    <div className="grid grid-cols-1   md:grid-cols-3 gap-6 mb-8">
       {users.map((u, idx) => (
-        <motion.div
+        <div
           key={u.id}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 + idx * 0.1 }}
-          className="btn-shimmer relative overflow-hidden rounded-xl border 
-    border-gray-300 dark:border-gray-700 
-    bg-white dark:bg-gray-900 
-    shadow-xl hover:scale-105 
+          className="btn-shimmer relative overflow-hidden rounded-xl border
+    border-gray-300 dark:border-gray-700
+    bg-white dark:bg-gray-900
+    shadow-xl hover:scale-105
     transition-all duration-300"
         >
           {/* Streak top-left */}
@@ -46,10 +37,7 @@ export default function PodiumTop3({ users }) {
               <img
                 src={u.avatarUrl}
                 alt={u.name}
-                className={classNames(
-                  "w-20 h-20 rounded-full border-4 shadow-lg",
-                  LEVEL_BORDERS[u.level]
-                )}
+                className="w-20 h-20 rounded-full border-4 border-gray-300 shadow-lg"
               />
 
               <div
@@ -60,40 +48,29 @@ export default function PodiumTop3({ users }) {
                   idx === 2 && "text-amber-600"
                 )}
               >
-                <span className="text-2xl">#{u.rank}</span>
-                <span className="text-xl font-semibold">{u.name}</span>
+                <span className="text-xl">#{u.rank}</span>
+                <span className="text-xl font-bold">{u.name}</span>
               </div>
-
-              <span
-                className={classNames(
-                  "text-xs px-3 py-1 rounded-full font-semibold text-white mt-2 bg-linear-to-r",
-                  LEVEL_COLORS[u.level]
-                )}
-              >
-                {u.level}
-              </span>
             </div>
 
             {/* Stats */}
             <div className="space-y-2 text-center">
               <div className="flex items-center justify-center gap-2 text-gray-900 dark:text-gray-100">
                 <Trophy className="w-4 h-4 text-yellow-500" />
-                <span className="font-bold text-lg">
+                <span className="font-bold text-base">
                   {numberWithCommas(u.tfXp)}
                 </span>
-                <span className="text-lg text-gray-500 dark:text-gray-400">
+                <span className="text-base text-gray-500 dark:text-gray-400">
                   XP
                 </span>
               </div>
 
-              <div className="flex items-center justify-center gap-4 text-base text-gray-600 dark:text-gray-400">
-                <span>{u.tfCompleted} bài</span>
-                <span>•</span>
-                <span>{u.accuracy}% đúng</span>
+              <div className="flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
+                <span>{u.tfCompleted} bài tập</span>
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       ))}
     </div>
   );

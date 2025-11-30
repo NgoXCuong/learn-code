@@ -1,7 +1,8 @@
 // src/components/courses/CourseHero.jsx
-import React from "react";
+import React, { useContext } from "react";
 import { Users, Clock, Star, Flame, ArrowRight, BookOpen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { ProgressContext } from "@/context/ProgressContext";
 
 export default function CourseHero({
   course,
@@ -10,9 +11,39 @@ export default function CourseHero({
   lessons,
 }) {
   const navigate = useNavigate();
+  const { isLessonRead } = useContext(ProgressContext);
+
+  // Calculate progress based on average lesson progress
+  const calculateProgress = () => {
+    if (lessons.length === 0) return 0;
+    const totalProgress = lessons.reduce(
+      (sum, lesson) => sum + lesson.progress,
+      0
+    );
+    return Math.round(totalProgress / lessons.length);
+  };
+
+  // Find the lesson currently being studied (in progress)
+  const getCurrentLesson = () => {
+    // First, find lessons that are in progress (0 < progress < 100)
+    const inProgressLesson = lessons.find(
+      (lesson) => lesson.progress > 0 && lesson.progress < 100
+    );
+    if (inProgressLesson) return inProgressLesson;
+
+    // If no lesson in progress, find the first lesson that hasn't been started (progress === 0)
+    const nextLesson = lessons.find((lesson) => lesson.progress === 0);
+    if (nextLesson) return nextLesson;
+
+    // If all lessons are completed, return the first lesson
+    return lessons[0];
+  };
+
+  const progress = calculateProgress();
+  const currentLesson = getCurrentLesson();
 
   return (
-    <div className="relative h-auto md:h-96 overflow-hidden rounded-2xl mt-6 font-exo">
+    <div className="relative h-auto md:h-96 overflow-hidden rounded-2xl mt-6  ">
       {/* Ảnh nền */}
       <img
         src={course.image}
@@ -30,35 +61,35 @@ export default function CourseHero({
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-10 pb-6 md:pb-8 flex flex-col md:flex-row gap-6 md:gap-8 items-center">
           {/* Course Info */}
           <div className="flex-1 text-center md:text-left">
-            <h1 className="text-2xl sm:text-3xl md:text-5xl font-black text-white mb-2 sm:mb-3 leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-black text-white mb-2 sm:mb-3 leading-tight">
               {course.title}
             </h1>
 
             {/* Mô tả: ẩn bớt trên mobile */}
-            <p className="hidden sm:block text-purple-100 text-lg md:text-xl mb-4 max-w-2xl mx-auto md:mx-0 line-clamp-2">
+            <p className="hidden sm:block text-purple-100 text-sm sm:text-base mb-4 max-w-2xl mx-auto md:mx-0 line-clamp-2">
               {course.description}
             </p>
 
             {/* Thông tin tổng quan */}
-            <div className="hidden sm:flex flex-wrap justify-center md:justify-start gap-3 text-base">
-              <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg backdrop-blur">
+            <div className="hidden sm:flex flex-wrap justify-center md:justify-start gap-3 text-sm">
+              {/* <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg backdrop-blur">
                 <Users className="w-4 h-4 text-purple-300" />
                 <span className="text-white font-semibold">
                   {course.students.toLocaleString()}
                 </span>
-              </div>
+              </div> */}
               <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg backdrop-blur">
                 <Clock className="w-4 h-4 text-purple-300" />
                 <span className="text-white font-semibold">
                   {course.duration}
                 </span>
               </div>
-              <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg backdrop-blur">
+              {/* <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg backdrop-blur">
                 <Star className="w-4 h-4 text-yellow-400" />
                 <span className="text-white font-semibold">
                   {course.rating}
                 </span>
-              </div>
+              </div> */}
               <div className="flex items-center gap-2 bg-white/10 px-3 py-2 rounded-lg backdrop-blur">
                 <BookOpen className="w-4 h-4 text-blue-400" />
                 <span className="text-white font-semibold">
@@ -73,16 +104,16 @@ export default function CourseHero({
             <div className="btn-shimmer bg-linear-to-br from-purple-500 via-pink-500 to-rose-500 rounded-3xl p-5 sm:p-6 md:p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
               <div className="space-y-5 text-center md:text-left">
                 <div>
-                  <h3 className="text-white text-base sm:text-lg font-semibold mb-2 flex items-center justify-center md:justify-start gap-2">
+                  <h3 className="text-white text-sm sm:text-base font-semibold mb-2 flex items-center justify-center md:justify-start gap-2">
                     <Flame className="w-4 h-4" /> Tiến độ khóa học
                   </h3>
-                  <div className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-3">
-                    {course.progress}%
+                  <div className="text-3xl sm:text-4xl font-black text-white mb-3">
+                    {progress}%
                   </div>
                   <div className="w-full h-2 bg-white/30 rounded-full overflow-hidden backdrop-blur">
                     <div
                       className="h-full bg-linear-to-r from-yellow-300 via-yellow-400 to-yellow-500 rounded-full transition-all duration-500"
-                      style={{ width: `${course.progress}%` }}
+                      style={{ width: `${progress}%` }}
                     />
                   </div>
                 </div>
@@ -90,23 +121,25 @@ export default function CourseHero({
                 {/* Ẩn thống kê nhỏ trên mobile */}
                 <div className="hidden sm:grid grid-cols-2 gap-3">
                   <div className="bg-white/20 backdrop-blur rounded-xl p-3 text-center">
-                    <div className="text-white font-bold text-xl">
+                    <div className="text-white font-bold text-lg">
                       {completedCount}
                     </div>
-                    <div className="text-white/80 text-base">Hoàn thành</div>
+                    <div className="text-white/80 text-sm">Hoàn thành</div>
                   </div>
                   <div className="bg-white/20 backdrop-blur rounded-xl p-3 text-center">
-                    <div className="text-white font-bold text-xl">
+                    <div className="text-white font-bold text-lg">
                       {inProgressCount}
                     </div>
-                    <div className="text-white/80 text-base">Đang học</div>
+                    <div className="text-white/80 text-sm">Đang học</div>
                   </div>
                 </div>
 
                 <button
                   className="btn-shimmer relative w-full bg-white text-purple-600 font-bold py-2 sm:py-3 rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-base sm:text-lg"
                   onClick={() =>
-                    navigate(`/courses/${course.id}/lessons/${lessons[0]?.id}`)
+                    navigate(
+                      `/courses/${course.id}/lessons/${currentLesson?.id}`
+                    )
                   }
                 >
                   Tiếp tục học <ArrowRight className="w-4 h-4" />

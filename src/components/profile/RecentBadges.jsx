@@ -1,6 +1,5 @@
 import React from "react";
 import { Award, Calendar } from "lucide-react";
-import { badges } from "@/mock/profile";
 
 const getRarityColor = (rarity) => {
   const colors = {
@@ -12,10 +11,10 @@ const getRarityColor = (rarity) => {
   return colors[rarity] || colors.common;
 };
 
-export default function RecentBadges() {
+export default function RecentBadges({ badges = [] }) {
   return (
-    <div className="bg-white font-exo dark:bg-gray-800 rounded-lg hover:shadow-2xl shadow-xl p-6">
-      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+    <div className="bg-white   dark:bg-gray-800 rounded-lg hover:shadow-2xl shadow-xl p-6">
+      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
         Huy hiệu gần đây
       </h2>
       <div className="grid grid-cols-2 gap-3">

@@ -26,28 +26,28 @@ export default function LessonExercise({ exercises, courseId, lessonId }) {
   }
 
   return (
-    <div className="space-y-3 font-exo">
+    <div className="space-y-3  ">
       {exercises.map((ex, index) => (
         <div
           key={ex.id}
-          className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md"
+          className="rounded-sm border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md"
         >
           {/* Header bài tập */}
           <button
             onClick={() =>
               setExpandedExerciseId(expandedExerciseId === ex.id ? null : ex.id)
             }
-            className="w-full p-5 flex items-start justify-between gap-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+            className="w-full p-3 flex items-start justify-between gap-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
           >
             <div className="flex items-start gap-3 flex-1 text-left">
-              <div className="shrink-0 w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center font-bold text-indigo-600 dark:text-indigo-400">
+              <div className="shrink-0 w-10 h-10 rounded-sm bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center font-bold text-indigo-600 dark:text-indigo-400">
                 {index + 1}
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                   {ex.title}
                 </h3>
-                <p className="text-lg text-gray-600 dark:text-gray-400 mt-1 line-clamp-1">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1 line-clamp-1">
                   {ex.description}
                 </p>
               </div>
@@ -63,11 +63,11 @@ export default function LessonExercise({ exercises, courseId, lessonId }) {
 
           {/* Nội dung bài tập khi expand */}
           {expandedExerciseId === ex.id && (
-            <div className="border-t border-gray-200 dark:border-gray-700 p-5 bg-gray-50/50 dark:bg-gray-900/30">
+            <div className="border-t border-gray-200 dark:border-gray-700 p-2 bg-gray-50/50 dark:bg-gray-900/30">
               <div className="space-y-4">
                 {ex.example_code && (
-                  <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50">
-                    <p className="text-lg text-blue-900 dark:text-blue-200">
+                  <div className="p-2 rounded-sm bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50">
+                    <p className="text-sm text-blue-900 dark:text-blue-200">
                       <span className="font-semibold">💡 Gợi ý:</span>{" "}
                       {ex.example_code}
                     </p>
@@ -76,7 +76,7 @@ export default function LessonExercise({ exercises, courseId, lessonId }) {
 
                 <button
                   onClick={() => handleStartExercise(ex.id)}
-                  className="btn-shimmer relative w-full mt-4 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors overflow-hidden"
+                  className="btn-shimmer relative w-full mt-4 px-4 py-1.5 rounded-sm bg-indigo-600 hover:bg-indigo-700 text-white font-medium transition-colors overflow-hidden"
                 >
                   Bắt đầu làm bài tập
                 </button>

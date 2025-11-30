@@ -4,7 +4,7 @@ import { Calendar, CheckCircle2 } from "lucide-react";
 export const DailyQuestsPanel = ({ quests }) => {
   return (
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2 font-exo">
+      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-5 flex items-center gap-2  ">
         <Calendar className="w-6 h-6 text-blue-500" />
         Nhiệm vụ hàng ngày
       </h3>
@@ -16,7 +16,7 @@ export const DailyQuestsPanel = ({ quests }) => {
           return (
             <div
               key={quest.id}
-              className={`p-4 rounded-lg border shadow-gray-500 transition-all duration-200 hover:shadow-sm hover:scale-101 font-exo ${
+              className={`p-4 rounded-lg border shadow-gray-500 transition-all duration-200 hover:shadow-sm hover:scale-101   ${
                 quest.completed
                   ? "bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-700"
                   : "bg-gray-50 dark:bg-gray-700/40 border-gray-200 dark:border-gray-600"
@@ -24,13 +24,13 @@ export const DailyQuestsPanel = ({ quests }) => {
             >
               <div className="flex items-start justify-between mb-2">
                 <div className="flex-1">
-                  <p className="font-bold text-gray-900 dark:text-white text-xl">
+                  <p className="font-bold text-gray-900 dark:text-white text-base">
                     {quest.title}
                   </p>
-                  <p className="text-base text-gray-600 dark:text-gray-400 mt-1">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                     Phần thưởng:{" "}
                     <span className="text-yellow-600 dark:text-yellow-400 font-semibold">
-                      +{quest.reward} XP
+                      +{quest.reward} EXP
                     </span>
                   </p>
                 </div>
@@ -39,8 +39,8 @@ export const DailyQuestsPanel = ({ quests }) => {
                 )}
               </div>
 
-              <div className="mt-3">
-                <div className="flex justify-between text-base mb-1">
+              <div className="mt-1">
+                <div className="flex justify-between text-sm mb-1">
                   <span className="text-gray-600 dark:text-gray-400">
                     Tiến độ: {quest.progress}/{quest.target}
                   </span>

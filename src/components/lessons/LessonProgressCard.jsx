@@ -3,20 +3,22 @@ import { CheckCircle2 } from "lucide-react";
 
 export default function LessonProgressCard({
   isDark,
-  progressPercent,
+  lesson,
   completedExercises,
   totalExercises,
 }) {
+  // Calculate progress from lesson data if available
+  const progressPercent = lesson ? lesson.progress : 0;
   return (
     <div
-      className={`p-4 rounded-xl shadow-md transition-colors duration-300 font-exo ${
+      className={`p-4 rounded-sm shadow-md transition-colors duration-300   ${
         isDark
           ? "bg-linear-to-br from-indigo-600/20 to-purple-800 border border-indigo-500/50"
           : "bg-linear-to-br from-indigo-300 to-purple-100 border border-indigo-200"
       }`}
     >
       {/* Progress */}
-      <div className="mb-3">
+      <div className="mb-2">
         <div className="flex justify-between items-center mb-1">
           <span
             className={`text-base font-semibold ${
@@ -26,7 +28,7 @@ export default function LessonProgressCard({
             Tiến độ học tập
           </span>
           <span
-            className={`text-xl font-bold ${
+            className={`text-base font-bold ${
               // Thay đổi màu text số % sáng hơn 1 chút
               isDark ? "text-cyan-300 drop-shadow-sm" : "text-indigo-600"
             }`}
@@ -53,7 +55,7 @@ export default function LessonProgressCard({
 
       {/* Footer */}
       <div
-        className={`flex items-center justify-between pt-3 border-t transition-colors duration-300 ${
+        className={`flex items-center justify-between pt-1 border-t transition-colors duration-300 ${
           isDark ? "border-indigo-600/40" : "border-indigo-300/40"
         }`}
       >
@@ -66,14 +68,14 @@ export default function LessonProgressCard({
         </span>
         <div className="flex items-center gap-2">
           <CheckCircle2
-            className={`w-5 h-5 ${
+            className={`w-4 h-4 ${
               isDark
                 ? "text-green-400 drop-shadow-[0_0_5px_rgba(74,222,128,0.5)]"
                 : "text-green-600" // Thêm glow nhẹ cho icon
             }`}
           />
           <span
-            className={`font-semibold text-base ${
+            className={`font-medium text-base ${
               isDark ? "text-white" : "text-gray-900"
             }`}
           >

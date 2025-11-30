@@ -3,7 +3,7 @@ import { CheckCircle, Sparkles, Lightbulb } from "lucide-react";
 
 const MonacoEditor = ({ value, theme }) => (
   <pre
-    className={`p-4 rounded-lg overflow-auto h-full text-lg font-mono ${
+    className={`p-4 rounded-lg overflow-auto h-full text-base font-mono ${
       theme === "vs-dark"
         ? "bg-gray-900 text-gray-100"
         : "bg-gray-50 text-gray-900"
@@ -21,13 +21,13 @@ export default function FeedbackContent({
 }) {
   return (
     <div
-      className={`rounded-lg overflow-hidden border font-exo ${
+      className={`rounded-lg overflow-hidden border   ${
         isDark ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"
       }`}
     >
       {activeTab === "feedback" && (
         <div className="p-8 space-y-4">
-          {feedback.comments.map((c, i) => (
+          {(feedback.comments || []).map((c, i) => (
             <div
               key={i}
               className={`flex items-start gap-4 p-4 rounded-xl border ${
@@ -79,7 +79,7 @@ export default function FeedbackContent({
 
       {activeTab === "suggestions" && (
         <div className="p-8 space-y-4">
-          {feedback.suggestions.map((s, i) => (
+          {(feedback.suggestions || []).map((s, i) => (
             <div
               key={i}
               className={`p-5 rounded-lg border ${
@@ -90,7 +90,7 @@ export default function FeedbackContent({
             >
               <div className="flex items-start gap-3">
                 <div
-                  className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center font-bold text-lg ${
+                  className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center font-bold text-base ${
                     isDark
                       ? "bg-purple-600 text-white"
                       : "bg-purple-500 text-white"

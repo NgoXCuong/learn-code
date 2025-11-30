@@ -45,7 +45,7 @@ const ChallengesGrid = ({
   // Trạng thái không có dữ liệu
   if (paginatedChallenges.length === 0) {
     return (
-      <div className="text-center py-16">
+      <div className="text-center py-10">
         <div className="text-6xl mb-4">🔍</div>
         <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
           Không tìm thấy thử thách
@@ -92,7 +92,7 @@ const ChallengesGrid = ({
           <button
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
-            className="px-4 py-2 rounded-lg text-base font-medium border border-gray-300 
+            className="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 
               dark:border-gray-700 text-gray-700 dark:text-gray-300
               hover:bg-blue-100 dark:hover:bg-blue-900/30
               disabled:opacity-50 transition-all"
@@ -128,7 +128,7 @@ const ChallengesGrid = ({
           <button
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className="px-4 py-2 rounded-lg text-base font-medium border border-gray-300 
+            className="px-4 py-2 rounded-lg text-sm font-medium border border-gray-300 
               dark:border-gray-700 text-gray-700 dark:text-gray-300
               hover:bg-blue-100 dark:hover:bg-blue-900/30
               disabled:opacity-50 transition-all"

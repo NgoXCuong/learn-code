@@ -79,12 +79,12 @@ const Register = () => {
     <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-cyan-50 flex items-center justify-center p-4 relative">
       <div className="w-full max-w-md relative">
         <Card className="p-8 bg-white/80 backdrop-blur-sm border-0 shadow-2xl">
-          <div className="text-center mb-8 relative">
+          <div className="text-center mb-2 relative">
             <button
               onClick={() => navigate("/")}
               className="absolute left-0 top-0 flex items-center text-indigo-600 hover:text-indigo-800 text-base font-medium"
             >
-              <ArrowLeft className="w-4 h-4 mr-1" />
+              <ArrowLeft className="w-6 h-6 mr-1" />
             </button>
             <div className="w-16 h-16 bg-linear-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <UserPlus className="w-8 h-8 text-white" />
@@ -235,7 +235,7 @@ const Register = () => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-12 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="w-full h-12 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-sm transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               {isLoading ? (
                 <div className="flex items-center space-x-2">
@@ -248,7 +248,7 @@ const Register = () => {
             </Button>
           </form>
 
-          <div className="mt-8 text-center">
+          <div className="mt-2 text-center">
             <p className="text-gray-600">
               Đã có tài khoản?{" "}
               <Link

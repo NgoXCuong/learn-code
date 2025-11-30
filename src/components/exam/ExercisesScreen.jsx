@@ -13,7 +13,11 @@ import {
 import ExerciseCard from "./ExerciseCard";
 import { usePagination } from "@/hooks/usePagination";
 
-export default function ExercisesScreen({ codingExercises, goHome }) {
+export default function ExercisesScreen({
+  codingExercises,
+  goHome,
+  goToCourseSelection,
+}) {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -132,17 +136,17 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
 
   return (
     <div
-      className="min-h-screen font-exo px-4 sm:px-6 md:px-14 lg:px-20 py-6 bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100
+      className="min-h-[calc(100vh-100px)] px-4 sm:px-6 md:px-14 lg:px-20 py-6 bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100
         dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black"
     >
       {/* HEADER */}
-      <div className="rounded-xl shadow-md p-6 mb-6 border bg-white border-gray-100 dark:bg-gray-800 dark:border-gray-700">
+      <div className="rounded-sm shadow-md p-6 mb-6 border bg-white border-gray-100 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-100">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100">
               Bài Tập
             </h2>
-            <p className="text-base text-gray-500 dark:text-gray-400 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               {filteredAndSortedExercises.length}/{codingExercises.length} bài
               tập
             </p>
@@ -151,7 +155,7 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
           <button
             onClick={goHome}
             className="
-              flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition
+              flex items-center gap-2 px-4 py-1.5 rounded-sm font-medium transition
               bg-gray-100 hover:bg-gray-200 text-gray-700
               dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200
             "
@@ -162,7 +166,7 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
         </div>
 
         {/* SEARCH */}
-        <div className="mt-4 flex flex-col sm:flex-row gap-3">
+        <div className="mt-2 flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
             <Input
@@ -176,7 +180,7 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
 
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-[250px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-              <span className="mr-2 text-gray-400">Sắp xếp:</span>
+              <span className="mr-2 text-gray-400 text-sm">Sắp xếp:</span>
               <SelectValue placeholder="Sắp xếp theo" />
             </SelectTrigger>
             <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
@@ -191,24 +195,24 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
         </div>
 
         {/* FILTERS */}
-        <div className="mt-4 flex flex-wrap items-center gap-20 ">
-          <div className="flex items-center gap-4">
-            <label className="text-base font-semibold text-gray-700 dark:text-gray-300 min-w-fit">
+        <div className="mt-2 flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-6 sm:gap-12">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 min-w-fit">
               Độ khó:
             </label>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-3 sm:gap-4">
               {difficulties.map((diff) => (
                 <label
                   key={diff}
-                  className="flex items-center gap-1 cursor-pointer"
+                  className="flex items-center gap-2 cursor-pointer"
                 >
                   <input
                     type="checkbox"
                     checked={difficultyFilters.includes(diff)}
                     onChange={() => handleDifficultyChange(diff)}
-                    className="rounded"
+                    className="rounded w-3 h-3"
                   />
-                  <span className="text-base text-gray-700 dark:text-gray-300">
+                  <span className="text-sm  text-gray-700 dark:text-gray-300">
                     {diff}
                   </span>
                 </label>
@@ -216,23 +220,23 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <label className="text-base font-semibold text-gray-700 dark:text-gray-300 min-w-fit">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 min-w-fit">
               Trạng thái:
             </label>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-3 sm:gap-4">
               {statuses.map((status) => (
                 <label
                   key={status}
-                  className="flex items-center gap-1 cursor-pointer"
+                  className="flex items-center gap-2 cursor-pointer"
                 >
                   <input
                     type="checkbox"
                     checked={statusFilters.includes(status)}
                     onChange={() => handleStatusChange(status)}
-                    className="rounded"
+                    className="rounded w-3 h-3"
                   />
-                  <span className="text-base text-gray-700 dark:text-gray-300">
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
                     {status}
                   </span>
                 </label>
@@ -250,11 +254,11 @@ export default function ExercisesScreen({ codingExercises, goHome }) {
             bg-white dark:bg-gray-800
           "
         >
-          <div className="text-8xl mb-4">🔍</div>
-          <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+          <div className="text-6xl mb-4">🔍</div>
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             Không tìm thấy bài tập
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-4 text-lg">
+          <p className="text-gray-600 dark:text-gray-400 mb-4 text-base">
             Thử điều chỉnh bộ lọc hoặc tìm kiếm của bạn
           </p>
         </div>

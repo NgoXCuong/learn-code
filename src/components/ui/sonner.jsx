@@ -24,7 +24,7 @@ const Toaster = ({ ...props }) => {
       }}
       style={{
         "--normal-bg": "linear-gradient(145deg, #f0f0f0, #d9d9d9)", // nền gradient để nổi 3D
-        "--normal-text": "var(--popover-foreground)",
+        "--normal-text": "var(--popover-foregrzound)",
         "--normal-border": "var(--border)",
         "--border-radius": "var(--radius)",
         "--toast-shadow":

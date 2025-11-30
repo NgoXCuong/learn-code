@@ -49,19 +49,14 @@ const ResultsModal = ({
   const performance = getPerformanceLevel();
 
   return (
-    <div className="fixed font-exo inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div className="fixed   inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-xl">
         <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 p-6 z-10">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white ">
                 Kết quả bài thi {performance.emoji}
               </h2>
-              <div className="flex items-center gap-2">
-                <span className="text-lg text-gray-600 dark:text-gray-400">
-                  {performance.label}
-                </span>
-              </div>
             </div>
             <button
               onClick={close}
@@ -122,7 +117,7 @@ const ResultsModal = ({
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
+          <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="text-center p-4 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
               <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                 {correct}
@@ -158,7 +153,7 @@ const ResultsModal = ({
           </div>
 
           {/* Performance Message */}
-          <div className="text-center mb-6 p-4 bg-linear-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800">
+          <div className="text-center mb-6 py-2 bg-linear-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-xl border border-indigo-200 dark:border-indigo-800">
             <p className="text-gray-700 dark:text-gray-300">
               {percent >= 80
                 ? "Xuất sắc! Bạn đã làm rất tốt bài thi này."
@@ -172,14 +167,14 @@ const ResultsModal = ({
           <div className="flex gap-3">
             <button
               onClick={onReview}
-              className="flex-1 py-3 px-6 btn-shimmer cursor-pointer bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition-all flex items-center justify-center gap-2"
+              className="flex-1 py-2 px-6 btn-shimmer cursor-pointer bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-xl font-semibold hover:bg-gray-200 dark:hover:bg-gray-600 transition-all flex items-center justify-center gap-2"
             >
               <FileText className="w-5 h-5" />
               Xem chi tiết
             </button>
             <button
               onClick={onGoHome}
-              className="flex-1 py-3 px-6 btn-shimmer cursor-pointer bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all flex items-center justify-center gap-2"
+              className="flex-1 py-2 px-6 btn-shimmer cursor-pointer bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all flex items-center justify-center gap-2"
             >
               <Home className="w-5 h-5" />
               Về trang chủ

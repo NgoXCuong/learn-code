@@ -4,7 +4,7 @@ import { CheckCircle, XCircle } from "lucide-react";
 export default function FeedbackHero({ feedback, isDark }) {
   return (
     <div
-      className={`bg-linear-to-br font-exo ${
+      className={`bg-linear-to-br   ${
         isDark
           ? "from-gray-800 via-gray-900 to-gray-800"
           : "from-blue-50 to-indigo-50"
@@ -12,7 +12,7 @@ export default function FeedbackHero({ feedback, isDark }) {
         isDark ? "border-gray-700" : "border-gray-200"
       } transition-colors`}
     >
-      <div className="max-w-7xl mx-auto px-6 py-12 text-center">
+      <div className="max-w-7xl mx-auto px-6 pt-10 text-center">
         <div
           className={`relative mb-6 ${feedback.passed ? "animate-bounce" : ""}`}
         >
@@ -33,11 +33,11 @@ export default function FeedbackHero({ feedback, isDark }) {
           </div>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+        <h1 className="text-2xl md:text-3xl font-bold mb-4">
           {feedback.passed ? "🎉 Hoàn thành xuất sắc!" : "Chưa đạt yêu cầu"}
         </h1>
         <p
-          className={`text-2xl mb-8 max-w-2xl mx-auto ${
+          className={`text-lg mb-8 max-w-2xl mx-auto ${
             isDark ? "text-gray-400" : "text-gray-600"
           }`}
         >

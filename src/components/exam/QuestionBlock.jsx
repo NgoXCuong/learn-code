@@ -12,16 +12,16 @@ const QuestionBlock = ({
 
   return (
     <>
-      <div className="flex items-start gap-4 mb-6 font-exo">
-        <div className="w-14 h-14 bg-linear-to-br from-blue-500 to-indigo-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md shrink-0">
+      <div className="flex items-start gap-4 mb-6  ">
+        <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-indigo-600 text-white rounded-lg flex items-center justify-center text-xl font-bold shadow-md shrink-0">
           {currentQuestion + 1}
         </div>
-        <h3 className="text-xl md:text-xl font-bold text-gray-800 dark:text-gray-100 leading-relaxed flex-1">
+        <h3 className="text-base md:text-lg font-bold text-gray-800 dark:text-gray-100 leading-relaxed flex-1">
           {currentQ.question}
         </h3>
       </div>
 
-      <div className="mt-6 space-y-3">
+      <div className="mt-2 space-y-1">
         {currentQ.options.map((option, optIdx) => {
           const optionLabel = String.fromCharCode(65 + optIdx);
           const isSelected = userAnswer === optIdx;
@@ -66,9 +66,9 @@ const QuestionBlock = ({
                 !isReviewMode && "cursor-pointer hover:scale-[1.02]"
               } ${style}`}
             >
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <div
-                  className={`w-8 h-8 flex items-center justify-center rounded-lg border-2 font-bold transition-all shrink-0 ${labelStyle}`}
+                  className={`w-6 h-6 flex items-center justify-center rounded-sm border-2 font-bold transition-all shrink-0 ${labelStyle}`}
                 >
                   {optionLabel}
                 </div>

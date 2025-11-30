@@ -3,15 +3,15 @@ import { Users, Target } from "lucide-react";
 
 export const StatsCards = ({ totalParticipants, avgSuccess }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 font-exo">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4  ">
       {/* Tổng người tham gia */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-md border border-gray-100 dark:border-gray-700 transition-all hover:shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-md border border-gray-100 dark:border-gray-700 transition-all hover:shadow-lg">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-1">
-              Tổng người tham gia
+            <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
+              Người tham gia
             </p>
-            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+            <p className="text-xl font-bold text-blue-600 dark:text-blue-400">
               {totalParticipants.toLocaleString()}
             </p>
           </div>
@@ -22,11 +22,11 @@ export const StatsCards = ({ totalParticipants, avgSuccess }) => {
       </div>
 
       {/* Tỷ lệ thành công TB */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-5 shadow-md border border-gray-100 dark:border-gray-700 transition-all hover:shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-md border border-gray-100 dark:border-gray-700 transition-all hover:shadow-lg">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-1">
-              Tỷ lệ thành công TB
+            <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
+              Tỷ lệ thành công
             </p>
             <p className="text-2xl font-bold text-green-600 dark:text-green-400">
               {avgSuccess}%

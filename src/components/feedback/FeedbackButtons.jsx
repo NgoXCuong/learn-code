@@ -8,12 +8,12 @@ export default function FeedbackButtons({
   onNextLesson,
 }) {
   return (
-    <div className="flex font-exo flex-col sm:flex-row justify-center items-center gap-6 mt-8 w-full">
+    <div className="flex   flex-col sm:flex-row justify-center items-center gap-6 mt-8 w-full">
       <button
         onClick={onBack}
         className={` btn-shimmer flex items-center justify-center gap-2 w-full cursor-pointer ${
           nextLesson ? "sm:w-1/2" : "sm:w-auto"
-        } py-3 px-6 rounded-lg font-medium border transition-all duration-200 ${
+        } py-2 px-6 rounded-lg font-medium border transition-all duration-200 ${
           isDark
             ? "bg-gray-800 hover:bg-gray-700 text-white border-gray-700"
             : "bg-white hover:bg-gray-100 text-gray-900 border-gray-300"
