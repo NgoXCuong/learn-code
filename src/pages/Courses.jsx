@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/layout/Breadcrumb";
 import CourseList from "@/components/courses/CourseList";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { Loading } from "@/components/layout/Loading";
-import { fetchCourses, fetchLanguages } from "@/api/coursesApi";
+import { api } from "@/api/coursesApi";
 import { ThemeContext } from "@/context/ThemeContext";
 import { toast } from "sonner";
 
@@ -36,8 +36,8 @@ export default function CoursesPage() {
         setError(null);
 
         const [coursesData, languagesData] = await Promise.all([
-          fetchCourses(),
-          fetchLanguages(),
+          api.fetchCourses(),
+          api.fetchLanguages(),
         ]);
 
         setCourses(coursesData);

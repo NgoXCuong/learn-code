@@ -29,7 +29,7 @@ export default function CourseSelectionScreen({ onCourseSelect, goHome }) {
 
   return (
     <div
-      className="relative min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100
+      className="relative h-full bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100
                     dark:from-gray-900 dark:via-gray-800 dark:to-black"
     >
       <div className="relative z-10 container mx-auto px-6 xl:px-0 pt-4 max-w-7xl">

@@ -13,12 +13,6 @@ let mockUsers = [
     email: "a@gmail.com",
     password_hash: "123456",
   },
-  {
-    id: 2,
-    username: "Tran Thi B",
-    email: "b@gmail.com",
-    password_hash: "abcdef",
-  },
 ];
 
 // Utility function để simulate API delay

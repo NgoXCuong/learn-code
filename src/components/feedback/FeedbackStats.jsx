@@ -2,6 +2,12 @@ import React from "react";
 import { Award, CheckCircle, TrendingUp, Sparkles } from "lucide-react";
 
 export default function FeedbackStats({ feedback, isDark }) {
+  console.log("FeedbackStats received feedback:", feedback);
+
+  if (!feedback) {
+    return <div>Loading feedback stats...</div>;
+  }
+
   const cards = [
     {
       icon: Award,

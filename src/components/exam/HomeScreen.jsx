@@ -3,8 +3,8 @@ import { ArrowRight, CheckCircle, Clock, Zap } from "lucide-react";
 export default function HomeScreen({ startQuiz, startExercises }) {
   return (
     <div
-      className="bg-linear-to-br  from-slate-50 via-blue-50 to-indigo-100  
-                    dark:from-gray-900 dark:via-gray-800 dark:to-black min-h-screen"
+      className="h-full bg-linear-to-br  from-slate-50 via-blue-50 to-indigo-100
+                    dark:from-gray-900 dark:via-gray-800 dark:to-black"
     >
       <div className="container mx-auto px-8 xl:px-0 py-10 pb-15 max-w-7xl">
         <div className="text-center mb-12 space-y-4">

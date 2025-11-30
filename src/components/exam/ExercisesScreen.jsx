@@ -136,7 +136,7 @@ export default function ExercisesScreen({
 
   return (
     <div
-      className="min-h-[calc(100vh-100px)] px-4 sm:px-6 md:px-14 lg:px-20 py-6 bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100
+      className="h-full overflow-y-auto px-4 sm:px-6 md:px-14 lg:px-20 py-6 bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100
         dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black"
     >
       {/* HEADER */}

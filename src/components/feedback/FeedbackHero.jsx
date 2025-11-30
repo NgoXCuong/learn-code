@@ -2,6 +2,12 @@ import React from "react";
 import { CheckCircle, XCircle } from "lucide-react";
 
 export default function FeedbackHero({ feedback, isDark }) {
+  console.log("FeedbackHero received feedback:", feedback);
+
+  if (!feedback) {
+    return <div>Loading feedback...</div>;
+  }
+
   return (
     <div
       className={`bg-linear-to-br   ${

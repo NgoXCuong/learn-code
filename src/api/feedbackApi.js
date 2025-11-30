@@ -1,52 +1,68 @@
+import { getRandomFeedback } from "@/mock/mockFeedback";
+import httpClient from "./httpClient";
+import { API_ENDPOINTS, API_CONFIG } from "./api";
+
 // Mock API delay để simulate real API
 const MOCK_DELAY = 500;
 
-// Mock feedback data
-const mockFeedbackData = {
-  courseId: "JSB001",
-  userId: 1,
-  rating: 5,
-  comment: "Khóa học rất hay và dễ hiểu! Giảng viên giải thích rất rõ ràng.",
-  submittedAt: "2024-01-15T10:30:00Z",
-  helpful: 12,
-  courseTitle: "JavaScript Cơ bản",
-  userName: "Nguyễn Văn A",
-  userAvatar: "https://i.pravatar.cc/150?img=32",
+// Mock feedback data - Updated to match current feedback interface
+const mockFeedbackData = getRandomFeedback();
+
+// Mock feedback stats function
+const getFeedbackStats = (courseId) => {
+  return {
+    courseId,
+    averageRating: 4.5,
+    totalReviews: 25,
+    recentReviews: [
+      {
+        id: 1,
+        userName: "Nguyen Van A",
+        rating: 5,
+        comment: "Khóa học rất hay!",
+        submittedAt: new Date().toISOString(),
+        helpful: 10,
+      },
+      {
+        id: 2,
+        userName: "Tran Thi B",
+        rating: 4,
+        comment: "Nội dung tốt nhưng cần thêm ví dụ",
+        submittedAt: new Date().toISOString(),
+        helpful: 5,
+      },
+    ],
+  };
 };
 
-const mockFeedbackStats = {
-  courseId: "JSB001",
-  totalReviews: 45,
-  averageRating: 4.7,
-  ratingDistribution: {
-    5: 28,
-    4: 12,
-    3: 3,
-    2: 1,
-    1: 1,
+// Mock user feedback
+const userFeedback = [
+  {
+    id: 1,
+    type: "exercise",
+    title: "Bài tập về biến",
+    rating: 5,
+    comment: "Bài tập dễ hiểu",
+    submittedAt: new Date().toISOString(),
   },
-  recentReviews: [
-    {
-      id: 1,
-      userId: 2,
-      userName: "Trần Thị B",
-      userAvatar: "https://i.pravatar.cc/150?img=45",
-      rating: 5,
-      comment: "Nội dung rất chi tiết và thực tế. Rất thích cách giảng!",
-      submittedAt: "2024-01-20T14:20:00Z",
-      helpful: 8,
-    },
-    {
-      id: 2,
-      userId: 3,
-      userName: "Lê Văn C",
-      userAvatar: "https://i.pravatar.cc/150?img=12",
-      rating: 4,
-      comment: "Khóa học tốt, nhưng có thể thêm nhiều ví dụ thực tế hơn.",
-      submittedAt: "2024-01-18T09:15:00Z",
-      helpful: 5,
-    },
-  ],
+];
+
+// Enhanced feedback stats with more courses
+
+// ==================== Exercise Feedback ====================
+export const fetchExerciseFeedback = async (exerciseId) => {
+  await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY));
+
+  // Import mock data dynamically to avoid circular imports
+  const { mockFeedbackData } = await import("@/mock/mockFeedback");
+
+  // Return different feedback based on exerciseId for variety
+  const feedbackKeys = Object.keys(mockFeedbackData);
+  const index = parseInt(exerciseId) || 0;
+  const feedbackKey = feedbackKeys[index % feedbackKeys.length];
+  const feedback = mockFeedbackData[feedbackKey];
+
+  return feedback;
 };
 
 // ==================== Feedback Submission ====================
@@ -93,7 +109,8 @@ export const fetchCourseFeedback = async (
   sortBy = "newest"
 ) => {
   await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY));
-  let reviews = [...mockFeedbackStats.recentReviews];
+  const courseStats = getFeedbackStats(courseId);
+  let reviews = [...courseStats.recentReviews];
 
   // Sort reviews
   switch (sortBy) {
@@ -128,8 +145,8 @@ export const fetchCourseFeedback = async (
     page,
     limit,
     totalPages: Math.ceil(reviews.length / limit),
-    averageRating: mockFeedbackStats.averageRating,
-    totalReviews: mockFeedbackStats.totalReviews,
+    averageRating: courseStats.averageRating,
+    totalReviews: courseStats.totalReviews,
   };
 
   return result;
@@ -139,7 +156,7 @@ export const fetchFeedbackStats = async (courseId) => {
   await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY));
   return {
     courseId,
-    ...mockFeedbackStats,
+    ...getFeedbackStats(courseId),
   };
 };
 
@@ -147,28 +164,6 @@ export const fetchFeedbackStats = async (courseId) => {
 export const fetchUserFeedback = async (userId, page = 1, limit = 10) => {
   await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY));
   // Mock user feedback history
-  const userFeedback = [
-    {
-      id: 1,
-      courseId: "JSB001",
-      courseTitle: "JavaScript Cơ bản",
-      rating: 5,
-      comment: "Khóa học tuyệt vời! Rất hữu ích cho người mới bắt đầu.",
-      submittedAt: "2024-01-15T10:30:00Z",
-      helpful: 12,
-      status: "approved",
-    },
-    {
-      id: 2,
-      courseId: "PYB001",
-      courseTitle: "Python Cơ bản",
-      rating: 4,
-      comment: "Nội dung tốt, giảng viên nhiệt tình.",
-      submittedAt: "2024-01-10T14:20:00Z",
-      helpful: 8,
-      status: "approved",
-    },
-  ];
 
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
@@ -269,4 +264,186 @@ export const moderateFeedback = async (feedbackId, action, reason = "") => {
   };
 
   return moderation;
+};
+
+// ==================== REAL API FUNCTIONS ====================
+
+/**
+ * Fetch exercise feedback from real API
+ * @param {string} exerciseId - Exercise ID
+ * @returns {Promise<Object>} Exercise feedback data
+ */
+export const fetchExerciseFeedbackReal = async (exerciseId) => {
+  try {
+    const response = await httpClient.get(
+      API_ENDPOINTS.EXERCISE_FEEDBACK(exerciseId)
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to fetch exercise feedback"
+    );
+  }
+};
+
+/**
+ * Submit feedback to real API
+ * @param {Object} feedbackData - Feedback data
+ * @returns {Promise<Object>} Submitted feedback
+ */
+export const submitFeedbackReal = async (feedbackData) => {
+  try {
+    const response = await httpClient.post(
+      API_ENDPOINTS.FEEDBACK,
+      feedbackData
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to submit feedback"
+    );
+  }
+};
+
+/**
+ * Submit course feedback to real API
+ * @param {string} courseId - Course ID
+ * @param {number} rating - Rating (1-5)
+ * @param {string} comment - Feedback comment
+ * @param {boolean} anonymous - Whether feedback is anonymous
+ * @returns {Promise<Object>} Submitted course feedback
+ */
+export const submitCourseFeedbackReal = async (
+  courseId,
+  rating,
+  comment,
+  anonymous = false
+) => {
+  try {
+    const response = await httpClient.post(API_ENDPOINTS.COURSE_FEEDBACK, {
+      courseId,
+      rating,
+      comment,
+      anonymous,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to submit course feedback"
+    );
+  }
+};
+
+/**
+ * Fetch course feedback from real API
+ * @param {string} courseId - Course ID
+ * @param {number} page - Page number
+ * @param {number} limit - Items per page
+ * @param {string} sortBy - Sort criteria
+ * @returns {Promise<Object>} Course feedback data
+ */
+export const fetchCourseFeedbackReal = async (
+  courseId,
+  page = 1,
+  limit = 10,
+  sortBy = "newest"
+) => {
+  try {
+    const response = await httpClient.get(
+      API_ENDPOINTS.COURSE_FEEDBACK + `/${courseId}`,
+      {
+        params: { page, limit, sortBy },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to fetch course feedback"
+    );
+  }
+};
+
+/**
+ * Fetch feedback stats from real API
+ * @param {string} courseId - Course ID
+ * @returns {Promise<Object>} Feedback statistics
+ */
+export const fetchFeedbackStatsReal = async (courseId) => {
+  try {
+    const response = await httpClient.get(
+      API_ENDPOINTS.FEEDBACK_STATS(courseId)
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || "Failed to fetch feedback stats"
+    );
+  }
+};
+
+// ==================== API SWITCHER ====================
+
+/**
+ * Get the appropriate API function based on configuration
+ * @param {string} functionName - Name of the API function
+ * @returns {Function} The appropriate API function (mock or real)
+ */
+const getFeedbackApiFunction = (functionName) => {
+  const useMock = API_CONFIG.useMockAPI;
+
+  const mockFunctions = {
+    fetchExerciseFeedback,
+    submitFeedback,
+    submitCourseFeedback,
+    fetchCourseFeedback,
+    fetchFeedbackStats,
+    fetchUserFeedback,
+    markFeedbackHelpful,
+    reportFeedback,
+    submitInstructorResponse,
+    fetchFeedbackAnalytics,
+    moderateFeedback,
+  };
+
+  const realFunctions = {
+    fetchExerciseFeedback: fetchExerciseFeedbackReal,
+    submitFeedback: submitFeedbackReal,
+    submitCourseFeedback: submitCourseFeedbackReal,
+    fetchCourseFeedback: fetchCourseFeedbackReal,
+    fetchFeedbackStats: fetchFeedbackStatsReal,
+    fetchUserFeedback: () => Promise.resolve({ feedback: [], total: 0 }),
+    markFeedbackHelpful: () => Promise.resolve({ success: true }),
+    reportFeedback: () => Promise.resolve({ success: true }),
+    submitInstructorResponse: () => Promise.resolve({ success: true }),
+    fetchFeedbackAnalytics: () => Promise.resolve({}),
+    moderateFeedback: () => Promise.resolve({ success: true }),
+  };
+
+  return useMock ? mockFunctions[functionName] : realFunctions[functionName];
+};
+
+// Export functions that automatically switch between mock and real APIs
+export const feedbackApi = {
+  fetchExerciseFeedback: (...args) =>
+    getFeedbackApiFunction("fetchExerciseFeedback")(...args),
+  submitFeedback: (...args) =>
+    getFeedbackApiFunction("submitFeedback")(...args),
+  submitCourseFeedback: (...args) =>
+    getFeedbackApiFunction("submitCourseFeedback")(...args),
+  fetchCourseFeedback: (...args) =>
+    getFeedbackApiFunction("fetchCourseFeedback")(...args),
+  fetchFeedbackStats: (...args) =>
+    getFeedbackApiFunction("fetchFeedbackStats")(...args),
+  fetchUserFeedback: (...args) =>
+    getFeedbackApiFunction("fetchUserFeedback")(...args),
+  markFeedbackHelpful: (...args) =>
+    getFeedbackApiFunction("markFeedbackHelpful")(...args),
+  reportFeedback: (...args) =>
+    getFeedbackApiFunction("reportFeedback")(...args),
+  submitInstructorResponse: (...args) =>
+    getFeedbackApiFunction("submitInstructorResponse")(...args),
+  fetchFeedbackAnalytics: (...args) =>
+    getFeedbackApiFunction("fetchFeedbackAnalytics")(...args),
+  moderateFeedback: (...args) =>
+    getFeedbackApiFunction("moderateFeedback")(...args),
 };

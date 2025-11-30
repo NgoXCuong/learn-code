@@ -10,22 +10,6 @@ import { useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
 import { AuthContext } from "@/context/AuthContext";
 
-// Mock database
-let mockUsers = [
-  {
-    id: 1,
-    username: "Nguyen Van A",
-    email: "a@gmail.com",
-    password_hash: "123456",
-  },
-  {
-    id: 2,
-    username: "Tran Thi B",
-    email: "b@gmail.com",
-    password_hash: "abcdef",
-  },
-];
-
 const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -42,27 +26,16 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      // Kiểm tra user trong mock database
-      const user = mockUsers.find(
-        (u) => u.email === data.email && u.password_hash === data.password
-      );
+      const response = await login({
+        email: data.email,
+        password: data.password,
+      });
 
-      if (user) {
-        login({
-          id: user.id,
-          name: user.username,
-          email: user.email,
-          loginTime: new Date().toISOString(),
-        });
-
-        toast.success(`Chào mừng ${user.username}!`, { duration: 2000 });
-        setTimeout(() => navigate("/"), 1500);
-      } else {
-        toast.error("Email hoặc mật khẩu không đúng!", { duration: 2000 });
-      }
+      toast.success(`Chào mừng ${response.user.name}!`, { duration: 2000 });
+      setTimeout(() => navigate("/"), 1500);
     } catch (error) {
-      console.error(error);
-      toast.error("Lỗi đăng nhập!", { duration: 2000 });
+      console.error("Login error:", error);
+      toast.error(error.message || "Lỗi đăng nhập!", { duration: 2000 });
     } finally {
       setIsLoading(false);
     }

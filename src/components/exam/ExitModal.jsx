@@ -23,7 +23,6 @@ const ExitModal = ({ show, close, answeredCount, total, confirm }) => {
         </div>
 
         <div className="p-6">
-          zzz
           <div className="flex items-center gap-3 mb-4">
             <div className="w-12 h-12 bg-orange-100 dark:bg-orange-700 rounded-full flex items-center justify-center">
               <AlertTriangle className="w-6 h-6 text-orange-600 dark:text-orange-300" />

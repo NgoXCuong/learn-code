@@ -3,7 +3,8 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { ThemeContext } from "@/context/ThemeContext";
-import { fetchCourses } from "@/api/coursesApi";
+import { api } from "@/api/coursesApi";
+import { feedbackApi } from "@/api/feedbackApi";
 import FeedbackHero from "@/components/feedback/FeedbackHero";
 import FeedbackStats from "@/components/feedback/FeedbackStats";
 import FeedbackTabs from "@/components/feedback/FeedbackTabs";
@@ -20,6 +21,8 @@ export default function Feedback() {
   const [courses, setCourses] = useState([]);
   const [nextLesson, setNextLesson] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState(null);
+  const [solutionCode, setSolutionCode] = useState("");
 
   // For next lesson navigation
   const { courseId, lessonId } = useParams();
@@ -32,7 +35,7 @@ export default function Feedback() {
 
       try {
         setLoading(true);
-        const coursesData = await fetchCourses();
+        const coursesData = await api.fetchCourses();
         setCourses(coursesData);
 
         // Find next lesson
@@ -57,55 +60,100 @@ export default function Feedback() {
     loadCoursesData();
   }, [courseId, lessonId]);
 
-  // Get feedback from state or use default
-  const passedFeedback = state?.feedback;
-
-  // Random trạng thái thành công / thất bại if no feedback passed
-  const [passed, setPassed] = useState(true);
+  // Load feedback data
   useEffect(() => {
-    if (!passedFeedback) {
-      const randomPassed = Math.random() < 0.5; // 50% true / 50% false
-      setPassed(randomPassed);
-    }
-  }, [passedFeedback]);
+    const loadFeedback = async () => {
+      try {
+        // Get feedback from state first (from compiler submit)
+        const passedFeedback = state?.feedback;
+        if (passedFeedback) {
+          console.log("Using feedback from state:", passedFeedback);
 
-  const defaultFeedback = {
-    passed: passed,
-    score: passed ? 95 : 40,
-    testsPassed: passed ? 8 : 3,
-    totalTests: 10,
-    comments: [
-      {
-        type: "success",
-        text: "Bạn đã khai báo biến và kiểu dữ liệu chính xác",
-      },
-      {
-        type: "success",
-        text: "Cấu trúc điều khiển (if, for) được sử dụng đúng cách",
-      },
-      { type: "success", text: "Kết quả in ra đúng theo yêu cầu của bài tập" },
-      { type: "warning", text: "Có thể tối ưu thuật toán để giảm độ phức tạp" },
-      { type: "info", text: "Nên thêm comment để code dễ hiểu hơn" },
-    ],
-    suggestions: [
-      "Sử dụng HashMap thay vì nested loops để tối ưu độ phức tạp từ O(n²) xuống O(n)",
-      "Xem xét edge cases: mảng rỗng, số âm, số trùng lặp",
-      "Thêm validation đầu vào để tránh lỗi runtime",
-    ],
-  };
+          // Normalize data structure for components
+          const isPassed = passedFeedback.passed || false;
 
-  const feedback = passedFeedback || defaultFeedback;
+          // Build comments array
+          const compilerComments = passedFeedback.comments || [
+            {
+              type: isPassed ? "success" : "warning",
+              text: passedFeedback.message || "Feedback from compiler",
+            },
+          ];
 
-  const solutionCode = `public class Main {
+          const additionalComments = [
+            {
+              type: "info",
+              text: isPassed
+                ? "Code của bạn đã pass tất cả test cases!"
+                : "Hãy kiểm tra lại logic và test cases.",
+            },
+            {
+              type: isPassed ? "success" : "warning",
+              text: isPassed
+                ? "Cấu trúc code rõ ràng và dễ hiểu."
+                : "Cần cải thiện cấu trúc code.",
+            },
+            {
+              type: "info",
+              text: isPassed
+                ? "💡 Mẹo: Có thể tối ưu thuật toán để performance tốt hơn"
+                : "📖 Đọc kỹ yêu cầu bài tập trước khi code",
+            },
+          ];
+
+          const allComments = [...compilerComments, ...additionalComments];
+
+          console.log("Compiler comments:", compilerComments);
+          console.log("Additional comments:", additionalComments);
+          console.log("All comments:", allComments);
+
+          const normalizedFeedback = {
+            passed: isPassed,
+            score: passedFeedback.score || (isPassed ? 95 : 40),
+            testsPassed: passedFeedback.testsPassed || (isPassed ? 8 : 3),
+            totalTests: passedFeedback.totalTests || 10,
+            comments: allComments,
+            suggestions: passedFeedback.suggestions || [
+              isPassed
+                ? "Code của bạn đã tốt, tiếp tục phát huy!"
+                : "Hãy xem lại logic và thử lại.",
+              "Thử test với nhiều trường hợp khác nhau.",
+              "Đọc kỹ yêu cầu của bài tập.",
+              "Xem các bài học liên quan để củng cố kiến thức.",
+            ],
+            solutionCode:
+              passedFeedback.solutionCode ||
+              `// Example solution
+public class Main {
     public static void main(String[] args) {
-        int age = 20;
-        if(age >= 18) {
-            System.out.println("Bạn đã trưởng thành");
-        } else {
-            System.out.println("Bạn chưa trưởng thành");
-        }
+        // Your solution here
+        System.out.println("Hello World!");
     }
-}`;
+}`,
+          };
+
+          setFeedback(normalizedFeedback);
+          setSolutionCode(normalizedFeedback.solutionCode);
+          return;
+        }
+
+        // Otherwise fetch from API (for direct access)
+        const exerciseId = lessonId || "1"; // Default to exercise 1 for testing
+        console.log("Loading feedback for exerciseId:", exerciseId);
+        const feedbackData = await feedbackApi.fetchExerciseFeedback(
+          exerciseId
+        );
+        console.log("Feedback data received:", feedbackData);
+        setFeedback(feedbackData);
+        setSolutionCode(feedbackData.solutionCode || "");
+      } catch (err) {
+        console.error("Error loading feedback:", err);
+        toast.error("Không thể tải dữ liệu feedback");
+      }
+    };
+
+    loadFeedback();
+  }, [state?.feedback, lessonId]);
 
   const navigate = () => window.history.back();
 
@@ -121,6 +169,50 @@ export default function Feedback() {
         <Header />
         <div className="flex-1 flex items-center justify-center">
           <Loading />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Show test button if no feedback data
+  if (!feedback) {
+    return (
+      <div
+        className={`flex flex-col min-h-screen transition-colors duration-300 ${
+          isDark
+            ? "dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black text-gray-100"
+            : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 text-gray-900"
+        }`}
+      >
+        <Header />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold mb-4">Test Feedback</h2>
+            <p className="text-gray-600 mb-6">
+              Không có dữ liệu feedback. Click để test mock data.
+            </p>
+            <button
+              onClick={async () => {
+                try {
+                  console.log("Testing feedback API...");
+                  const testFeedback = await feedbackApi.fetchExerciseFeedback(
+                    "1"
+                  );
+                  console.log("Test feedback:", testFeedback);
+                  setFeedback(testFeedback);
+                  setSolutionCode(testFeedback.solutionCode || "");
+                  toast.success("Đã load test feedback!");
+                } catch (error) {
+                  console.error("Test failed:", error);
+                  toast.error("Test failed: " + error.message);
+                }
+              }}
+              className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            >
+              Test Mock Feedback
+            </button>
+          </div>
         </div>
         <Footer />
       </div>

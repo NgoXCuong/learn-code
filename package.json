@@ -7,7 +7,10 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "mock": "node scripts/set-mock-mode.js true",
+    "real": "node scripts/set-mock-mode.js false",
+    "toggle-api": "node scripts/toggle-api-mode.js"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
@@ -19,6 +22,7 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-tabs": "^1.1.13",
     "@tailwindcss/vite": "^4.1.17",
+    "axios": "^1.13.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",

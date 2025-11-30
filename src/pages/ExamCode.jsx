@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import HomeScreen from "@/components/exam/HomeScreen";
 import CourseSelectionScreen from "@/components/exam/CourseSelectionScreen";
 import QuizScreen from "@/components/exam/QuizScreen";
-// import ResultsScreen from "@/components/exam/ResultsScreen";
 import ExercisesScreen from "@/components/exam/ExercisesScreen";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -57,6 +56,10 @@ export default function ExamCode() {
 
   const startQuiz = () => {
     resetState();
+    // Reset the timer when starting a new quiz
+    const resetTimerEvent = new CustomEvent("resetTimer");
+    window.dispatchEvent(resetTimerEvent);
+    setIsTimerActive(true);
     setAppState("quiz");
   };
 
@@ -191,9 +194,9 @@ export default function ExamCode() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen font-sans bg-slate-50 dark:bg-gray-900 transition-colors duration-500">
+    <div className="flex flex-col h-screen font-sans bg-slate-50 dark:bg-gray-900 transition-colors duration-500">
       <Header />
-      <main className="flex-1 flex flex-col min-h-0 overflow-auto transition-colors duration-500">
+      <main className="flex-1 flex flex-col overflow-hidden transition-colors duration-500">
         {renderContent()}
       </main>
       <Footer />

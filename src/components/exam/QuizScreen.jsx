@@ -98,10 +98,10 @@ export default function QuizScreen({
   };
 
   return (
-    // Thêm dark: class cho các phần chính
-    <div className="flex   flex-1 overflow-hidden bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black min-h-screen transition-colors duration-500">
+    // Full height layout without scrolling
+    <div className="flex h-full overflow-hidden bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-500">
       {/* Sidebar */}
-      <aside className="hidden lg:flex flex-col w-80 bg-white dark:bg-gray-800 shadow-md p-6 overflow-y-auto fixed left-0 top-16  bottom-16 transition-colors duration-300">
+      <aside className="hidden lg:flex flex-col w-72 bg-white dark:bg-gray-800 shadow-md p-6 overflow-y-auto transition-colors duration-300">
         <h3 className="font-bold mb-4 text-xl text-gray-800 dark:text-gray-100">
           Danh sách câu hỏi
         </h3>
@@ -141,7 +141,7 @@ export default function QuizScreen({
       </aside>
 
       {/* Main Area */}
-      <main className="flex-1 overflow-y-auto p-2 md:p-4 flex flex-col lg:ml-80 transition-colors duration-300">
+      <main className="flex-1 p-2 md:p-3 flex flex-col  transition-colors duration-300">
         {/* Quiz Header */}
         <div className="flex justify-between items-center mb-4 sticky top-0 bg-white dark:bg-gray-800 z-20 p-2 md:p-4 shadow rounded-lg transition-colors duration-300">
           <div>

@@ -19,12 +19,23 @@ export default function FeedbackContent({
   isDark,
   solutionCode,
 }) {
+  console.log("FeedbackContent received:", {
+    activeTab,
+    feedback,
+    solutionCode,
+  });
+
+  if (!feedback) {
+    return <div>Loading feedback content...</div>;
+  }
+
   return (
     <div
       className={`rounded-lg overflow-hidden border   ${
         isDark ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"
       }`}
     >
+      {console.log("Rendering tab:", activeTab, "with feedback:", feedback)}
       {activeTab === "feedback" && (
         <div className="p-8 space-y-4">
           {(feedback.comments || []).map((c, i) => (
@@ -39,6 +50,10 @@ export default function FeedbackContent({
                   ? isDark
                     ? "bg-yellow-900/20 border-yellow-800/30"
                     : "bg-yellow-50 border-yellow-200"
+                  : c.content
+                  ? isDark
+                    ? "bg-red-900/20 border-red-800/30"
+                    : "bg-red-50 border-red-200"
                   : isDark
                   ? "bg-blue-900/20 border-blue-800/30"
                   : "bg-blue-50 border-blue-200"
@@ -48,11 +63,13 @@ export default function FeedbackContent({
                 <CheckCircle className="w-5 h-5 text-green-500" />
               ) : c.type === "warning" ? (
                 <Sparkles className="w-5 h-5 text-yellow-500" />
+              ) : c.content ? (
+                <Sparkles className="w-5 h-5 text-red-500" />
               ) : (
                 <Lightbulb className="w-5 h-5 text-blue-500" />
               )}
               <p className={isDark ? "text-gray-300" : "text-gray-700"}>
-                {c.text}
+                {c.text || c.content}
               </p>
             </div>
           ))}

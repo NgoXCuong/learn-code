@@ -2,6 +2,8 @@ import React from "react";
 import { MessageSquare, Code2, Lightbulb } from "lucide-react";
 
 export default function FeedbackTabs({ isDark, activeTab, setActiveTab }) {
+  console.log("FeedbackTabs - activeTab:", activeTab);
+
   const tabs = [
     { id: "feedback", icon: MessageSquare, label: "Nhận xét chi tiết" },
     { id: "solution", icon: Code2, label: "Lời giải mẫu" },
