@@ -17,9 +17,9 @@ import {
   fetchCourseById,
   fetchLessonsByCourse,
   fetchExercisesByLesson,
-} from "@/api/coursesApi";
-import { fetchChallengeById } from "@/api/challengesApi";
-import { submitExercise } from "@/api/coursesApi";
+} from "@/services/coursesApi";
+import { fetchChallengeById } from "@/services/challengesApi";
+import { submitExercise } from "@/services/coursesApi";
 import ProblemContent from "@/components/compiler/ProblemContent";
 import ResizableDivider from "@/components/compiler/ResizableDivider";
 import TopBar from "@/components/compiler/TopBar";
@@ -70,12 +70,29 @@ export default function Compiler() {
   const [rightWidth, setRightWidth] = useState(500);
   const [rightTopHeight, setRightTopHeight] = useState(250);
   const [showProblem, setShowProblem] = useState(true);
+  const [mobileTab, setMobileTab] = useState("code"); // 'problem', 'code', 'output', 'emotion'
 
   const isExam = !!exerciseId && !courseId && !lessonId && !challengeId;
 
   // Resize
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    const handleResize = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+
+      // Set default widths based on screen size
+      if (mobile) {
+        setLeftWidth(0); // Hide problem panel on mobile by default
+        setRightWidth(window.innerWidth * 0.4); // Smaller right panel on mobile
+        setRightTopHeight(150); // Smaller emotion analysis on mobile
+      } else {
+        setLeftWidth(500);
+        setRightWidth(500);
+        setRightTopHeight(250);
+      }
+    };
+
+    handleResize(); // Set initial values
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -127,21 +144,28 @@ export default function Compiler() {
 
         // --- Course / Lesson / Exercise ---
         if (courseId && lessonId && exerciseId) {
-          const [courseData, exercisesData] = await Promise.all([
+          const [courseData, lessonsData, exercisesData] = await Promise.all([
             fetchCourseById(Number(courseId)),
+            fetchLessonsByCourse(Number(courseId)),
             fetchExercisesByLesson(Number(lessonId)),
           ]);
 
           setCurrentCourse(courseData);
 
-          // Find lesson from exercises (assuming lesson info is in exercise data)
+          // Find lesson from lessons data
+          const selectedLesson = lessonsData.find(
+            (l) => l.id.toString() === lessonId
+          );
           const selectedEx =
             exercisesData.find((e) => e.id.toString() === exerciseId) ||
             exercisesData[0];
-          if (selectedEx) {
+          if (selectedLesson && selectedEx) {
+            const currentIndex = lessonsData.findIndex(
+              (l) => l.id.toString() === lessonId
+            );
             setCurrentLesson({
-              id: selectedEx.lesson_id,
-              title: `Lesson ${selectedEx.lesson_id}`,
+              id: selectedLesson.id,
+              title: `${selectedLesson.title}`,
             });
             setExercises(exercisesData);
             setCurrentExercise(selectedEx);
@@ -371,111 +395,239 @@ export default function Compiler() {
         lessonId={lessonId}
         isDark={isDark}
       />
-      <div className="flex-1 flex overflow-hidden" ref={containerRef}>
-        {/* Left: Problem */}
-        {showProblem && currentExercise && (
+      {/* Mobile: Tab-based layout */}
+      {isMobile ? (
+        <div className="flex-1 flex flex-col">
+          {/* Mobile Tabs */}
           <div
-            className={`${isDark ? "bg-gray-900" : "bg-white"} overflow-y-auto`}
-            style={{ width: leftWidth }}
-          >
-            <div className="p-6 relative">
-              <button
-                onClick={() => setShowProblem(false)}
-                className={`absolute top-4 right-4 p-1.5 rounded-lg transition-colors z-10 ${
-                  isDark
-                    ? "hover:bg-gray-800 text-gray-400"
-                    : "hover:bg-gray-100 text-gray-600"
-                }`}
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <ProblemContent exercise={currentExercise} isDark={isDark} />
-            </div>
-          </div>
-        )}
-
-        <ResizableDivider
-          onResize={(e) =>
-            setLeftWidth(
-              Math.min(Math.max(e.clientX, 300), window.innerWidth - 400)
-            )
-          }
-          orientation="vertical"
-          isDark={isDark}
-        />
-        {!showProblem && (
-          <button
-            onClick={() => setShowProblem(true)}
-            className={`absolute top-1/2 -translate-y-1/2 left-0 p-1.5 rounded-lg transition-colors z-20 ${
-              isDark
-                ? "bg-gray-800 hover:bg-gray-700 text-gray-300"
-                : "bg-white hover:bg-gray-100 text-gray-600"
-            }`}
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-        )}
-
-        {/* Editor */}
-        <div className="flex-1 flex flex-col min-w-0">
-          <CodeEditor
-            languages={languages}
-            language={selectedLanguage}
-            onLanguageChange={setSelectedLanguage}
-            code={currentCode}
-            onCodeChange={setCurrentCode}
-            onRunCode={handleRun}
-            onSubmitCode={handleSubmit}
-            isRunning={isRunning}
-          />
-        </div>
-
-        {/* Right panel */}
-        <ResizableDivider
-          onResize={(e) =>
-            setRightWidth(
-              Math.min(
-                Math.max(window.innerWidth - e.clientX, 300),
-                window.innerWidth - 400
-              )
-            )
-          }
-          orientation="vertical"
-          isDark={isDark}
-        />
-        <div
-          className={`${isDark ? "bg-gray-900" : "bg-white"} flex flex-col`}
-          style={{ width: rightWidth }}
-        >
-          <div
-            className={`p-4 border-b ${
+            className={`grid grid-cols-4 border-b ${
               isDark ? "border-gray-700" : "border-gray-200"
             }`}
-            style={{ height: rightTopHeight }}
           >
-            <EmotionAnalysis />
+            <button
+              onClick={() => setMobileTab("problem")}
+              className={`py-3 px-2 text-xs font-medium transition-colors ${
+                mobileTab === "problem"
+                  ? isDark
+                    ? "bg-indigo-600 text-white"
+                    : "bg-indigo-500 text-white"
+                  : isDark
+                  ? "text-gray-400 hover:text-gray-200 hover:bg-gray-800"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+              }`}
+            >
+              📖 Bài tập
+            </button>
+            <button
+              onClick={() => setMobileTab("code")}
+              className={`py-3 px-2 text-xs font-medium transition-colors ${
+                mobileTab === "code"
+                  ? isDark
+                    ? "bg-indigo-600 text-white"
+                    : "bg-indigo-500 text-white"
+                  : isDark
+                  ? "text-gray-400 hover:text-gray-200 hover:bg-gray-800"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+              }`}
+            >
+              💻 Code
+            </button>
+            <button
+              onClick={() => setMobileTab("output")}
+              className={`py-3 px-2 text-xs font-medium transition-colors ${
+                mobileTab === "output"
+                  ? isDark
+                    ? "bg-indigo-600 text-white"
+                    : "bg-indigo-500 text-white"
+                  : isDark
+                  ? "text-gray-400 hover:text-gray-200 hover:bg-gray-800"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+              }`}
+            >
+              📤 Output
+            </button>
+            <button
+              onClick={() => setMobileTab("emotion")}
+              className={`py-3 px-2 text-xs font-medium transition-colors ${
+                mobileTab === "emotion"
+                  ? isDark
+                    ? "bg-indigo-600 text-white"
+                    : "bg-indigo-500 text-white"
+                  : isDark
+                  ? "text-gray-400 hover:text-gray-200 hover:bg-gray-800"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+              }`}
+            >
+              🎭 Cảm xúc
+            </button>
           </div>
+
+          {/* Mobile Tab Content */}
+          <div className="flex-1 flex flex-col min-h-0">
+            {mobileTab === "problem" && currentExercise && (
+              <div
+                className={`flex-1 overflow-y-auto ${
+                  isDark ? "bg-gray-900" : "bg-white"
+                }`}
+              >
+                <div className="p-4">
+                  <ProblemContent exercise={currentExercise} isDark={isDark} />
+                </div>
+              </div>
+            )}
+
+            {mobileTab === "code" && (
+              <div className="flex-1 flex flex-col min-h-[400px]">
+                <CodeEditor
+                  languages={languages}
+                  language={selectedLanguage}
+                  onLanguageChange={setSelectedLanguage}
+                  code={currentCode}
+                  onCodeChange={setCurrentCode}
+                  onRunCode={handleRun}
+                  onSubmitCode={handleSubmit}
+                  isRunning={isRunning}
+                />
+              </div>
+            )}
+
+            {mobileTab === "output" && (
+              <div
+                className={`flex-1 overflow-y-auto ${
+                  isDark ? "bg-gray-900" : "bg-white"
+                }`}
+              >
+                <div className="p-4">
+                  <Output output={output} />
+                </div>
+              </div>
+            )}
+
+            {mobileTab === "emotion" && (
+              <div
+                className={`flex-1 overflow-y-auto ${
+                  isDark ? "bg-gray-900" : "bg-white"
+                }`}
+              >
+                <div className="p-4">
+                  <EmotionAnalysis />
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        /* Desktop: Original layout */
+        <div className="flex-1 flex overflow-hidden" ref={containerRef}>
+          {/* Desktop: Problem panel bên trái */}
+          {showProblem && currentExercise && (
+            <div
+              className={`${
+                isDark ? "bg-gray-900" : "bg-white"
+              } overflow-y-auto`}
+              style={{ width: leftWidth }}
+            >
+              <div className="p-6 relative">
+                <button
+                  onClick={() => setShowProblem(false)}
+                  className={`absolute top-4 right-4 p-1.5 rounded-lg transition-colors z-10 ${
+                    isDark
+                      ? "hover:bg-gray-800 text-gray-400"
+                      : "hover:bg-gray-100 text-gray-600"
+                  }`}
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <ProblemContent exercise={currentExercise} isDark={isDark} />
+              </div>
+            </div>
+          )}
+
           <ResizableDivider
-            orientation="horizontal"
             onResize={(e) =>
-              setRightTopHeight(
+              setLeftWidth(
+                Math.min(Math.max(e.clientX, 300), window.innerWidth - 400)
+              )
+            }
+            orientation="vertical"
+            isDark={isDark}
+          />
+
+          {!showProblem && (
+            <button
+              onClick={() => setShowProblem(true)}
+              className={`absolute top-1/2 -translate-y-1/2 left-0 p-1.5 rounded-lg transition-colors z-20 ${
+                isDark
+                  ? "bg-gray-800 hover:bg-gray-700 text-gray-300"
+                  : "bg-white hover:bg-gray-100 text-gray-600"
+              }`}
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          )}
+
+          {/* Editor - chiếm không gian chính */}
+          <div className="flex-1 flex flex-col min-w-0">
+            <CodeEditor
+              languages={languages}
+              language={selectedLanguage}
+              onLanguageChange={setSelectedLanguage}
+              code={currentCode}
+              onCodeChange={setCurrentCode}
+              onRunCode={handleRun}
+              onSubmitCode={handleSubmit}
+              isRunning={isRunning}
+            />
+          </div>
+
+          {/* Right panel - Output và Emotion Analysis */}
+          <ResizableDivider
+            onResize={(e) =>
+              setRightWidth(
                 Math.min(
-                  Math.max(
-                    e.clientY -
-                      containerRef.current.getBoundingClientRect().top,
-                    40
-                  ),
-                  window.innerHeight - 200
+                  Math.max(window.innerWidth - e.clientX, 300),
+                  window.innerWidth - 400
                 )
               )
             }
+            orientation="vertical"
             isDark={isDark}
           />
-          <div className="flex-1 overflow-y-auto p-4">
-            <Output output={output} />
+
+          <div
+            className={`${isDark ? "bg-gray-900" : "bg-white"} flex flex-col`}
+            style={{ width: rightWidth }}
+          >
+            <div
+              className={`p-4 border-b ${
+                isDark ? "border-gray-700" : "border-gray-200"
+              }`}
+              style={{ height: rightTopHeight }}
+            >
+              <EmotionAnalysis />
+            </div>
+            <ResizableDivider
+              orientation="horizontal"
+              onResize={(e) =>
+                setRightTopHeight(
+                  Math.min(
+                    Math.max(
+                      e.clientY -
+                        containerRef.current.getBoundingClientRect().top,
+                      40
+                    ),
+                    window.innerHeight - 200
+                  )
+                )
+              }
+              isDark={isDark}
+            />
+            <div className="flex-1 overflow-y-auto p-4">
+              <Output output={output} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <Footer />
     </div>

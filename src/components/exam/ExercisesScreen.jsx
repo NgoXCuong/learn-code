@@ -141,9 +141,9 @@ export default function ExercisesScreen({
     >
       {/* HEADER */}
       <div className="rounded-sm shadow-md p-6 mb-6 border bg-white border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3">
-          <div>
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3">
+          <div className="flex-1 min-w-0">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100">
               Bài Tập
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -155,64 +155,67 @@ export default function ExercisesScreen({
           <button
             onClick={goHome}
             className="
-              flex items-center gap-2 px-4 py-1.5 rounded-sm font-medium transition
+              flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-1.5 rounded-sm font-medium transition
               bg-gray-100 hover:bg-gray-200 text-gray-700
               dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200
+              self-start sm:self-auto
             "
           >
             <ChevronLeft className="w-4 h-4" />
-            Thoát
+            <span className="hidden xs:inline">Thoát</span>
           </button>
         </div>
 
         {/* SEARCH */}
-        <div className="mt-2 flex flex-col sm:flex-row gap-3">
-          <div className="relative flex-1">
+        <div className="mt-2 flex flex-col gap-3">
+          <div className="relative w-full">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
             <Input
               type="text"
               placeholder="Tìm bài tập theo tiêu đề hoặc mô tả..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+              className="pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors"
             />
           </div>
 
-          <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="w-[250px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-              <span className="mr-2 text-gray-400 text-sm">Sắp xếp:</span>
-              <SelectValue placeholder="Sắp xếp theo" />
-            </SelectTrigger>
-            <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-              <SelectItem value="oldest">Cũ nhất</SelectItem>
-              <SelectItem value="newest">Mới nhất</SelectItem>
-              <SelectItem value="difficulty-asc">Độ khó tăng dần</SelectItem>
-              <SelectItem value="difficulty-desc">Độ khó giảm dần</SelectItem>
-              <SelectItem value="exp-desc">Exp cao nhất</SelectItem>
-              <SelectItem value="time-asc">Thời gian ít nhất</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="w-full sm:w-auto sm:min-w-[200px] lg:w-[250px]">
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 py-2 sm:py-3 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors">
+                <span className="mr-2 text-gray-400 text-sm">Sắp xếp:</span>
+                <SelectValue placeholder="Sắp xếp theo" />
+              </SelectTrigger>
+              <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                <SelectItem value="oldest">Cũ nhất</SelectItem>
+                <SelectItem value="newest">Mới nhất</SelectItem>
+                <SelectItem value="difficulty-asc">Độ khó tăng dần</SelectItem>
+                <SelectItem value="difficulty-desc">Độ khó giảm dần</SelectItem>
+                <SelectItem value="exp-desc">Exp cao nhất</SelectItem>
+                <SelectItem value="time-asc">Thời gian ít nhất</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         {/* FILTERS */}
-        <div className="mt-2 flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-6 sm:gap-12">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 min-w-fit">
+        <div className="mt-4 sm:mt-6 space-y-4 sm:space-y-0 sm:flex sm:flex-row sm:flex-wrap sm:items-start sm:gap-8 lg:gap-12">
+          <div className="flex flex-col gap-3">
+            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
               Độ khó:
             </label>
             <div className="flex flex-wrap gap-3 sm:gap-4">
               {difficulties.map((diff) => (
                 <label
                   key={diff}
-                  className="flex items-center gap-2 cursor-pointer"
+                  className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 >
                   <input
                     type="checkbox"
                     checked={difficultyFilters.includes(diff)}
                     onChange={() => handleDifficultyChange(diff)}
-                    className="rounded w-3 h-3"
+                    className="rounded w-4 h-4 sm:w-3 sm:h-3 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400"
                   />
-                  <span className="text-sm  text-gray-700 dark:text-gray-300">
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
                     {diff}
                   </span>
                 </label>
@@ -220,21 +223,21 @@ export default function ExercisesScreen({
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 min-w-fit">
+          <div className="flex flex-col gap-3">
+            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
               Trạng thái:
             </label>
             <div className="flex flex-wrap gap-3 sm:gap-4">
               {statuses.map((status) => (
                 <label
                   key={status}
-                  className="flex items-center gap-2 cursor-pointer"
+                  className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                 >
                   <input
                     type="checkbox"
                     checked={statusFilters.includes(status)}
                     onChange={() => handleStatusChange(status)}
-                    className="rounded w-3 h-3"
+                    className="rounded w-4 h-4 sm:w-3 sm:h-3 text-green-600 focus:ring-green-500 dark:focus:ring-green-400"
                   />
                   <span className="text-sm text-gray-700 dark:text-gray-300">
                     {status}

@@ -48,6 +48,17 @@ export default function CompilerPage() {
 
   // Width Editor / Output
   const [editorWidth, setEditorWidth] = useState(900);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1024
+  );
+  const [activeTab, setActiveTab] = useState("editor");
+
+  // Track window resize
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // ✅ Lấy extension theo ngôn ngữ
   const getFileExtension = () => {
@@ -128,39 +139,114 @@ export default function CompilerPage() {
       }`}
     >
       <Header />
-      {/* Layout Editor + Output + Resize */}
-      <div ref={containerRef} className="flex flex-1 mt-4 overflow-hidden">
-        {/* ✅ Editor */}
-        <div className="flex flex-col border-r" style={{ width: editorWidth }}>
-          <CodeEditor
-            languages={languages}
-            language={selectedLanguage}
-            onLanguageChange={setSelectedLanguage}
-            code={currentCode}
-            onCodeChange={setCurrentCode}
-            onRunCode={handleRunCode}
-            isRunning={isRunning}
+
+      {/* Desktop: Side-by-side layout */}
+      {windowWidth >= 1024 ? (
+        <div ref={containerRef} className="flex flex-1 mt-4 overflow-hidden">
+          <div
+            className="flex flex-col border-r"
+            style={{ width: editorWidth }}
+          >
+            <CodeEditor
+              languages={languages}
+              language={selectedLanguage}
+              onLanguageChange={setSelectedLanguage}
+              code={currentCode}
+              onCodeChange={setCurrentCode}
+              onRunCode={handleRunCode}
+              isRunning={isRunning}
+            />
+          </div>
+
+          <ResizableDivider
+            orientation="vertical"
+            isDark={isDark}
+            onResize={(e) => {
+              const newWidth = Math.min(
+                Math.max(e.clientX, 400),
+                windowWidth - 400
+              );
+              setEditorWidth(newWidth);
+            }}
           />
-        </div>
 
-        {/* ✅ Thanh resize */}
-        <ResizableDivider
-          orientation="vertical"
-          isDark={isDark}
-          onResize={(e) => {
-            const newWidth = Math.min(
-              Math.max(e.clientX, 400),
-              window.innerWidth - 400
-            );
-            setEditorWidth(newWidth);
-          }}
-        />
-
-        {/* ✅ Output */}
-        <div className="flex-1 p-4 overflow-y-auto">
-          <Output output={output} />
+          <div className="flex-1 p-4 overflow-y-auto">
+            <Output output={output} />
+          </div>
         </div>
-      </div>
+      ) : (
+        /* Mobile: Tab layout */
+        <>
+          <div className="flex border-b border-gray-200 dark:border-gray-700 mt-4">
+            <button
+              onClick={() => setActiveTab("editor")}
+              className={`flex-1 px-4 py-3 font-bold text-sm sm:text-base transition-colors relative ${
+                activeTab === "editor"
+                  ? isDark
+                    ? "text-indigo-400"
+                    : "text-indigo-600"
+                  : isDark
+                  ? "text-gray-400 hover:text-gray-200"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              📝 Code
+              {activeTab === "editor" && (
+                <div
+                  className={`absolute bottom-0 left-0 right-0 h-0.5 ${
+                    isDark ? "bg-indigo-400" : "bg-indigo-600"
+                  }`}
+                />
+              )}
+            </button>
+            <button
+              onClick={() => setActiveTab("output")}
+              className={`flex-1 px-4 py-3 font-bold text-sm sm:text-base transition-colors relative ${
+                activeTab === "output"
+                  ? isDark
+                    ? "text-indigo-400"
+                    : "text-indigo-600"
+                  : isDark
+                  ? "text-gray-400 hover:text-gray-200"
+                  : "text-gray-600 hover:text-gray-900"
+              }`}
+            >
+              🖥️ Output
+              {activeTab === "output" && (
+                <div
+                  className={`absolute bottom-0 left-0 right-0 h-0.5 ${
+                    isDark ? "bg-indigo-400" : "bg-indigo-600"
+                  }`}
+                />
+              )}
+            </button>
+          </div>
+
+          <div className="flex-1 overflow-hidden">
+            {activeTab === "editor" && (
+              <div className="h-full p-2 sm:p-4">
+                <div className="h-full min-h-[400px] bg-white dark:bg-gray-800 rounded-lg overflow-hidden">
+                  <CodeEditor
+                    languages={languages}
+                    language={selectedLanguage}
+                    onLanguageChange={setSelectedLanguage}
+                    code={currentCode}
+                    onCodeChange={setCurrentCode}
+                    onRunCode={handleRunCode}
+                    isRunning={isRunning}
+                  />
+                </div>
+              </div>
+            )}
+
+            {activeTab === "output" && (
+              <div className="h-full p-2 sm:p-4 overflow-y-auto">
+                <Output output={output} />
+              </div>
+            )}
+          </div>
+        </>
+      )}
 
       {/* Footer */}
       <Footer />

@@ -20,11 +20,11 @@ export default function LessonSidebar({
 }) {
   return (
     <aside
-      className={`sticky top-[57px] h-[calc(100vh-57px)] border-r z-30
-      overflow-y-auto overflow-x-hidden lg:sticky lg:top-[57px] lg:h-[calc(100vh-57px)] lg:border-r lg:z-30 left-0 w-80
+      className={`fixed lg:sticky top-[57px] lg:top-[57px] h-[calc(100vh-120px)] lg:h-[calc(100vh-57px)] border-r z-30
+      overflow-y-auto overflow-x-hidden lg:border-r lg:z-30 left-0 w-80
       ${isDark ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"} ${
         isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-      }`}
+      } rounded-r-lg lg:rounded-none shadow-lg lg:shadow-none`}
       style={{
         width: isCollapsed ? "64px" : "320px",
         transition: "width 0.5s ease-in-out, transform 0.3s ease-in-out",
@@ -76,7 +76,11 @@ export default function LessonSidebar({
             <div key={idx} className="select-none">
               {/* Chapter Header */}
               <div
-                onClick={() => !isCollapsed && toggleChapter(chapName)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (!isCollapsed) toggleChapter(chapName);
+                }}
                 className={`${
                   isCollapsed
                     ? "flex items-center justify-center py-2 px-1"
@@ -130,11 +134,13 @@ export default function LessonSidebar({
                       return (
                         <div
                           key={lesson.id}
-                          onClick={() =>
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
                             navigate(
                               `/courses/${lesson.course_id}/lessons/${lesson.id}`
-                            )
-                          }
+                            );
+                          }}
                           className={`flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-800 cursor-pointer pl-10 ${
                             isCurrentLesson
                               ? "bg-orange-50 dark:bg-orange-900/10"

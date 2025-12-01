@@ -6,8 +6,8 @@ import QuizScreen from "@/components/exam/QuizScreen";
 import ExercisesScreen from "@/components/exam/ExercisesScreen";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { fetchBasicQuiz, fetchAdvancedTasks } from "@/api/examApi";
-import { fetchChallenges } from "@/api/challengesApi";
+import { fetchBasicQuiz, fetchAdvancedTasks } from "@/services/examApi";
+import { fetchChallenges } from "@/services/challengesApi";
 import { useQuizTimer } from "@/utils/useQuizTimer";
 import { Loading } from "@/components/layout/Loading";
 import { toast } from "sonner";
@@ -194,9 +194,9 @@ export default function ExamCode() {
   };
 
   return (
-    <div className="flex flex-col h-screen font-sans bg-slate-50 dark:bg-gray-900 transition-colors duration-500">
+    <div className="flex flex-col md:h-screen min-h-screen font-sans bg-slate-50 dark:bg-gray-900 transition-colors duration-500">
       <Header />
-      <main className="flex-1 flex flex-col overflow-hidden transition-colors duration-500">
+      <main className="flex-1 flex flex-col md:overflow-hidden overflow-y-auto transition-colors duration-500">
         {renderContent()}
       </main>
       <Footer />

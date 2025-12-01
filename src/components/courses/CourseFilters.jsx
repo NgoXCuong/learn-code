@@ -70,9 +70,9 @@ export default function CourseFilters({
       </div>
 
       {/* Thanh tìm kiếm + dropdown chủ đề */}
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col gap-3">
         {/* Ô tìm kiếm */}
-        <div className="relative flex-1">
+        <div className="relative w-full">
           <Search
             className={`absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 ${
               isDark ? "text-gray-400" : "text-gray-500"
@@ -83,39 +83,43 @@ export default function CourseFilters({
             placeholder="Tìm kiếm theo tên khóa học..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 text-sm placeholder:text-sm border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
+            className="pl-10 pr-4 py-3 text-sm placeholder:text-sm border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 transition-colors"
           />
         </div>
 
         {/* Dropdown chọn chủ đề */}
-        <Select
-          value={selectedLang !== null ? String(selectedLang) : "all"}
-          onValueChange={(val) =>
-            setSelectedLang(val === "all" ? null : Number(val))
-          }
-        >
-          <SelectTrigger
-            className={`w-[200px] border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100`}
+        <div className="w-full sm:w-auto sm:min-w-[200px] lg:w-[200px]">
+          <Select
+            value={selectedLang !== null ? String(selectedLang) : "all"}
+            onValueChange={(val) =>
+              setSelectedLang(val === "all" ? null : Number(val))
+            }
           >
-            <span className="mr-2 text-sm text-gray-400">Ngôn ngữ:</span>
-            <SelectValue placeholder="Chọn chủ đề" />
-          </SelectTrigger>
+            <SelectTrigger
+              className={`w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 py-3 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 transition-colors`}
+            >
+              <span className="mr-2 text-sm text-gray-400 hidden sm:inline">
+                Ngôn ngữ:
+              </span>
+              <SelectValue placeholder="Chọn ngôn ngữ" />
+            </SelectTrigger>
 
-          <SelectContent className="bg-white text-sm dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-            <SelectItem value="all" className="cursor-pointer">
-              Tất cả
-            </SelectItem>
-            {languages.map((lang) => (
-              <SelectItem
-                key={lang.id}
-                value={String(lang.id)}
-                className="cursor-pointer"
-              >
-                {lang.name}
+            <SelectContent className="bg-white text-sm dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+              <SelectItem value="all" className="cursor-pointer">
+                Tất cả ngôn ngữ
               </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+              {languages.map((lang) => (
+                <SelectItem
+                  key={lang.id}
+                  value={String(lang.id)}
+                  className="cursor-pointer"
+                >
+                  {lang.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       {/* Bộ lọc cấp độ & dãy nút chủ đề */}

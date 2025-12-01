@@ -6,9 +6,9 @@ import Footer from "@/components/layout/Footer";
 import Breadcrumb from "@/components/layout/Breadcrumb";
 import { ThemeContext } from "@/context/ThemeContext";
 import { ProgressContext } from "@/context/ProgressContext";
-import { fetchCourseById, fetchLessonsByCourse } from "@/api/coursesApi";
-import { fetchLessonById } from "@/api/coursesApi";
-import { fetchExercisesByLesson } from "@/api/coursesApi";
+import { fetchCourseById, fetchLessonsByCourse } from "@/services/coursesApi";
+import { fetchLessonById } from "@/services/coursesApi";
+import { fetchExercisesByLesson } from "@/services/coursesApi";
 import LessonProgressCard from "@/components/lessons/LessonProgressCard";
 import LessonSidebar from "@/components/lessons/LessonSidebar";
 import LessonTabs from "@/components/lessons/LessonTabs";
@@ -160,7 +160,7 @@ export default function LessonPage() {
 
   return (
     <div
-      className={`min-h-screen ${
+      className={`min-h-screen flex flex-col ${
         isDark
           ? "bg-linear-to-br from-gray-900 via-gray-800 to-black text-white"
           : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 text-gray-900"
@@ -169,11 +169,15 @@ export default function LessonPage() {
       <Header />
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 lg:hidden z-20"
-          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 bg-white/20 backdrop-blur-sm lg:hidden z-20"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setSidebarOpen(false);
+          }}
         />
       )}
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row flex-1">
         <LessonSidebar
           chapters={chapters}
           expandedChapters={expandedChapters}
@@ -186,59 +190,79 @@ export default function LessonPage() {
           setIsCollapsed={setSidebarCollapsed}
         />
 
-        <main className="flex-1 px-4 sm:px-6 md:px-8 lg:px-12 py-6 min-w-0">
-          <div className="flex items-center justify-between mb-4">
-            <Breadcrumb
-              items={[
-                { label: "Trang chủ", href: "/" },
-                { label: "Khóa học", href: "/courses" },
-                { label: course.title, href: `/courses/${courseId}` },
-                { label: lesson.title },
-              ]}
-            />
+        <main className="flex-1 px-3 sm:px-4 lg:px-6 xl:px-8 py-3 sm:py-4 lg:py-6 min-w-0">
+          {/* Header với breadcrumb và menu button */}
+          <div className="flex items-start sm:items-center justify-between mb-3 sm:mb-4 lg:mb-6 gap-2 sm:gap-3">
+            <div className="flex-1 min-w-0">
+              <Breadcrumb
+                items={[
+                  { label: "Trang chủ", href: "/" },
+                  { label: "Khóa học", href: "/courses" },
+                  { label: course.title, href: `/courses/${courseId}` },
+                  { label: `Lesson ${currentIndex + 1}: ${lesson.title}` },
+                ]}
+              />
+            </div>
             <button
-              className="lg:hidden p-2 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              className="lg:hidden flex-shrink-0 p-2 rounded-md bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
               onClick={() => setSidebarOpen(true)}
             >
               <Menu className="w-5 h-5" />
             </button>
           </div>
 
-          <div className="mb-4 border-b border-gray-200 dark:border-gray-700 pb-4 flex flex-col lg:flex-row justify-between items-start gap-6">
-            <div className="flex-1">
-              <h1 className="text-2xl sm:text-3xl font-bold mb-2 leading-tight">
-                {lesson.title}
-              </h1>
-              <p className="text-base mb-3">
-                Thuộc khóa học:{" "}
-                <Link
-                  to={`/courses/${course.id}`}
-                  className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
-                >
-                  {course.title}
-                </Link>
-              </p>
-            </div>
-            <div className="w-full lg:w-80 lg:shrink">
-              <LessonProgressCard
-                isDark={isDark}
-                lesson={lesson}
-                completedExercises={completedExercises}
-                totalExercises={totalExercises}
-              />
+          {/* Lesson header với progress card */}
+          <div className="mb-6 border-b border-gray-200 dark:border-gray-700 pb-4 sm:pb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 xl:gap-8">
+              {/* Lesson info */}
+              <div className="lg:col-span-2">
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 leading-tight">
+                  {lesson.title}
+                </h1>
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 sm:mb-4">
+                  Thuộc khóa học:{" "}
+                  <Link
+                    to={`/courses/${course.id}`}
+                    className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+                  >
+                    {course.title}
+                  </Link>
+                </p>
+
+                {/* Lesson metadata - chỉ hiện trên mobile/tablet */}
+                <div className="lg:hidden flex flex-wrap gap-3 text-sm text-gray-600 dark:text-gray-400">
+                  <span>⏱️ {lesson.readTime}</span>
+                  <span>📚 {lesson.difficulty}</span>
+                  {lesson.language && <span>💻 {lesson.language}</span>}
+                </div>
+              </div>
+
+              {/* Progress card */}
+              <div className="lg:col-span-1">
+                <LessonProgressCard
+                  isDark={isDark}
+                  lesson={lesson}
+                  completedExercises={completedExercises}
+                  totalExercises={totalExercises}
+                />
+              </div>
             </div>
           </div>
 
-          <LessonTabs
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            lesson={lesson}
-            exercises={exercises}
-            courseId={courseId}
-            lessonId={lessonId}
-            isDark={isDark}
-          />
+          {/* Lesson content tabs */}
+          <div className="mb-6">
+            <LessonTabs
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              lesson={lesson}
+              exercises={exercises}
+              courseId={courseId}
+              lessonId={lessonId}
+              isDark={isDark}
+            />
+          </div>
 
+          {/* Navigation */}
           <LessonNavigation
             prevLesson={prevLesson}
             nextLesson={nextLesson}

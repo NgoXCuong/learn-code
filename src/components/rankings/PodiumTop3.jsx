@@ -58,7 +58,7 @@ export default function PodiumTop3({ users }) {
               <div className="flex items-center justify-center gap-2 text-gray-900 dark:text-gray-100">
                 <Trophy className="w-4 h-4 text-yellow-500" />
                 <span className="font-bold text-base">
-                  {numberWithCommas(u.tfXp)}
+                  {numberWithCommas(u.xp)}
                 </span>
                 <span className="text-base text-gray-500 dark:text-gray-400">
                   XP
@@ -66,7 +66,7 @@ export default function PodiumTop3({ users }) {
               </div>
 
               <div className="flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
-                <span>{u.tfCompleted} bài tập</span>
+                <span>{u.completed} bài tập</span>
               </div>
             </div>
           </div>

@@ -7,7 +7,7 @@ import {
   fetchLeaderboard,
   fetchTopRankings,
   fetchCurrentUserRanking,
-} from "@/api/rankingsApi";
+} from "@/services/rankingsApi";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { Loading } from "@/components/layout/Loading";

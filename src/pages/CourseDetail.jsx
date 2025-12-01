@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import CourseHero from "@/components/courses/CourseHero";
 import CourseIntro from "@/components/courses/CourseIntro";
 import CourseOutcomes from "@/components/courses/CourseOutcomes";
-import { fetchCourseById, fetchLessonsByCourse } from "@/api/coursesApi";
+import { fetchCourseById, fetchLessonsByCourse } from "@/services/coursesApi";
 import LessonList from "@/components/courses/LessonList";
 import { Loading } from "@/components/layout/Loading";
 import { toast } from "sonner";

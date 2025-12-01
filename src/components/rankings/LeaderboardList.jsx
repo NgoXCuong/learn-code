@@ -89,11 +89,11 @@ export default function LeaderboardList({ paged, currentUser }) {
                 </div>
 
                 <div className="col-span-2 text-sm text-gray-900 dark:text-gray-200">
-                  {numberWithCommas(u.tfXp)} XP
+                  {numberWithCommas(u.xp)} XP
                 </div>
 
                 <div className="col-span-2 text-sm text-gray-700 dark:text-gray-300">
-                  {u.tfCompleted} bài
+                  {u.completed} bài
                 </div>
               </div>
 
@@ -114,7 +114,7 @@ export default function LeaderboardList({ paged, currentUser }) {
                     {u.name}
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {numberWithCommas(u.tfXp)} XP
+                    {numberWithCommas(u.xp)} XP
                   </p>
                 </div>
 

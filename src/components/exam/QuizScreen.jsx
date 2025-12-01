@@ -98,9 +98,9 @@ export default function QuizScreen({
   };
 
   return (
-    // Full height layout without scrolling
-    <div className="flex h-full overflow-hidden bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-500">
-      {/* Sidebar */}
+    // Responsive layout with mobile-friendly scrolling
+    <div className="flex flex-col lg:flex-row h-full overflow-hidden lg:overflow-auto bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors duration-500">
+      {/* Sidebar - Desktop only */}
       <aside className="hidden lg:flex flex-col w-72 bg-white dark:bg-gray-800 shadow-md p-6 overflow-y-auto transition-colors duration-300">
         <h3 className="font-bold mb-4 text-xl text-gray-800 dark:text-gray-100">
           Danh sách câu hỏi
@@ -141,7 +141,7 @@ export default function QuizScreen({
       </aside>
 
       {/* Main Area */}
-      <main className="flex-1 p-2 md:p-3 flex flex-col  transition-colors duration-300">
+      <main className="flex-1 p-2 md:p-3 flex flex-col transition-colors duration-300">
         {/* Quiz Header */}
         <div className="flex justify-between items-center mb-4 sticky top-0 bg-white dark:bg-gray-800 z-20 p-2 md:p-4 shadow rounded-lg transition-colors duration-300">
           <div>
@@ -195,6 +195,82 @@ export default function QuizScreen({
               <span className="hidden sm:inline">Thoát</span>
             </button>
           </div>
+        </div>
+
+        {/* Mobile Question List - Between Header and Question */}
+        <div className="lg:hidden bg-white dark:bg-gray-800 rounded-lg shadow-md mb-4 border border-gray-200 dark:border-gray-700">
+          <button
+            onClick={() => setShowMobileSidebar(!showMobileSidebar)}
+            className="w-full py-3 px-4 flex items-center justify-between text-left hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-lg">📋</span>
+              <div>
+                <span className="font-medium text-gray-800 dark:text-gray-100">
+                  Danh sách câu hỏi
+                </span>
+                <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">
+                  ({answeredCount}/{quizQuestions.length} đã làm)
+                </span>
+              </div>
+            </div>
+            <span
+              className={`transform transition-transform duration-200 ${
+                showMobileSidebar ? "rotate-180" : ""
+              }`}
+            >
+              ▼
+            </span>
+          </button>
+
+          {/* Collapsible Content */}
+          {showMobileSidebar && (
+            <div className="px-4 pb-4 border-t border-gray-200 dark:border-gray-700">
+              {!isReviewMode && (
+                <div className="grid grid-cols-2 gap-3 mb-4 pt-4">
+                  <InfoBox
+                    number={answeredCount}
+                    label="Đã làm"
+                    color="green"
+                  />
+                  <InfoBox
+                    number={unansweredCount}
+                    label="Chưa làm"
+                    color="gray"
+                  />
+                </div>
+              )}
+
+              <div className="max-h-48 overflow-y-auto mb-4">
+                <QuestionGrid
+                  quizQuestions={quizQuestions}
+                  answers={answers}
+                  currentQuestion={currentQuestion}
+                  jumpTo={(idx) => {
+                    smoothJump(() => jumpToQuestion(idx));
+                    // Keep open for better mobile UX
+                  }}
+                  isReviewMode={isReviewMode}
+                />
+              </div>
+
+              {isReviewMode ? (
+                <button
+                  onClick={goHome}
+                  className="w-full py-3 bg-linear-to-r from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 text-white rounded-lg font-semibold shadow-md flex items-center justify-center gap-2 transition-colors duration-300"
+                >
+                  <Home className="w-5 h-5" /> Quay lại trang chủ
+                </button>
+              ) : (
+                <button
+                  onClick={handleSubmitClick}
+                  className="w-full py-3 cursor-pointer hover:scale-105 transition bg-linear-to-r btn-shimmer from-green-500 to-emerald-600 dark:from-green-600 dark:to-emerald-700 text-white rounded-lg font-semibold shadow-md flex items-center justify-center gap-2 duration-300"
+                >
+                  <CheckCircle className="w-5 h-5" /> Nộp bài
+                </button>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Question Block */}

@@ -8,7 +8,7 @@ import {
   fetchUserStats,
   fetchUserBadges,
   fetchUserAchievements,
-} from "@/api/profileApi";
+} from "@/services/profileApi";
 import ProfileSidebar from "@/components/profile/ProfileSidebar";
 import ProfileTabs from "@/components/profile/ProfileTabs";
 import OverviewTab from "@/components/profile/OverviewTab";

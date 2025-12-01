@@ -5,7 +5,7 @@ import Breadcrumb from "@/components/layout/Breadcrumb";
 import CourseList from "@/components/courses/CourseList";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { Loading } from "@/components/layout/Loading";
-import { api } from "@/api/coursesApi";
+import { api } from "@/services/coursesApi";
 import { ThemeContext } from "@/context/ThemeContext";
 import { toast } from "sonner";
 

@@ -50,11 +50,11 @@ const CodeEditor = ({
   }, []);
 
   return (
-    <Card className="flex flex-col flex-1 overflow-hidden rounded-sm shadow-lg border-0 min-h-0 gap-1 py-0">
+    <div className="flex flex-col h-full overflow-hidden">
       {/* Header */}
       <div
-        className={`px-4 py-1 flex justify-between items-center ${
-          isDark ? "bg-gray-800" : "bg-gray-200"
+        className={`px-4 py-2 flex justify-between items-center border-b ${
+          isDark ? "bg-gray-800 border-gray-700" : "bg-gray-100 border-gray-300"
         }`}
       >
         {/* File title */}
@@ -62,30 +62,18 @@ const CodeEditor = ({
           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
           <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-
-          {/* ✅ Sử dụng extension chuẩn */}
-          <span className="ml-4 text-sm   text-gray-900 dark:text-gray-100">
+          <span className="ml-4 text-sm text-gray-900 dark:text-gray-100">
             main.{getFileExtension()}
           </span>
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 sm:gap-4  ">
-          {/* Select Language */}
+        <div className="flex items-center gap-2">
           <Select value={language} onValueChange={onLanguageChange}>
-            <SelectTrigger
-              className={`w-[140px] h-7 p-1 text-sm border rounded transition-colors ${
-                isDark
-                  ? "bg-gray-700 border-gray-600 text-gray-100"
-                  : "bg-white border-gray-300 text-gray-900"
-              }`}
-            >
-              <SelectValue placeholder="Ngôn ngữ" />
+            <SelectTrigger className="w-[120px] h-7 text-sm">
+              <SelectValue placeholder="Language" />
             </SelectTrigger>
-
-            <SelectContent
-              className={isDark ? "bg-gray-800 border-gray-700 text-white" : ""}
-            >
+            <SelectContent>
               {languages.map((lang) => (
                 <SelectItem key={lang} value={lang}>
                   {lang.charAt(0).toUpperCase() + lang.slice(1)}
@@ -94,36 +82,40 @@ const CodeEditor = ({
             </SelectContent>
           </Select>
 
-          {/* Run button */}
           <Button
             onClick={onRunCode}
             disabled={isRunning}
-            className="h-7 bg-green-600 hover:bg-green-700 text-white px-2 py-0 rounded-sm flex items-center justify-center text-sm"
+            size="sm"
+            className={`h-7 px-3 ${
+              isRunning
+                ? "bg-gray-400 hover:bg-gray-400 cursor-not-allowed"
+                : "bg-green-600 hover:bg-green-700 text-white"
+            }`}
           >
-            <Play className="w-4 h-4 sm:mr-1" />
-            <span className="hidden sm:inline text-sm">
-              {isRunning ? "Running..." : "Run"}
-            </span>
+            <Play className="w-4 h-4 mr-1" />
+            {isRunning ? "Running..." : "Run"}
           </Button>
 
-          {/* ✅ Submit button — chỉ hiển thị khi có onSubmitCode */}
           {onSubmitCode && (
             <Button
               onClick={onSubmitCode}
               disabled={isSubmit}
-              className="h-7 bg-purple-600 hover:bg-purple-700 text-white px-2 py-0.5 rounded-sm flex items-center justify-center text-sm"
+              size="sm"
+              className={`h-7 px-3 ${
+                isSubmit
+                  ? "bg-gray-400 hover:bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700 text-white"
+              }`}
             >
-              <Send className="w-4 h-4 sm:mr-1" />
-              <span className="hidden sm:inline text-sm">
-                {isSubmit ? "Submitting..." : "Submit"}
-              </span>
+              <Send className="w-4 h-4 mr-1" />
+              {isSubmit ? "Submitting..." : "Submit"}
             </Button>
           )}
         </div>
       </div>
 
       {/* Monaco Editor */}
-      <div className="flex-1 min-h-0 h-[calc(100vh-220px)]">
+      <div className="flex-1 min-h-0">
         <MonacoEditor
           height="100%"
           language={language === "java" ? "java" : language}
@@ -132,21 +124,23 @@ const CodeEditor = ({
           onChange={onCodeChange}
           options={{
             fontSize: 13,
-            fontFamily: "'Consolas', 'Courier New', monospace", // dùng font có sẵn
+            fontFamily: "Monaco, 'Courier New', monospace",
             lineNumbers: "on",
             automaticLayout: true,
-            minimap: { enabled: true },
+            minimap: { enabled: false },
             scrollBeyondLastLine: false,
             wordWrap: "on",
-            renderWhitespace: "all",
+            renderWhitespace: "selection",
             cursorStyle: "line",
+            tabSize: 2,
+            insertSpaces: true,
           }}
           onMount={(editor) => {
             editorRef.current = editor;
           }}
         />
       </div>
-    </Card>
+    </div>
   );
 };
 

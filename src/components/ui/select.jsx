@@ -21,7 +21,7 @@ function SelectTrigger({ className, size = "default", children, ...props }) {
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "border-input shadow-gray-500 flex w-fit items-center justify-between gap-2 rounded-md border bg-white px-3  text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow]",
+        "border-input shadow-gray-500 flex w-fit items-center justify-between gap-2 rounded-sm border bg-white px-3  text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow]",
         "outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:ring-0 focus-within:ring-0",
         "data-[state=open]:outline-none data-[state=open]:ring-0",
         className

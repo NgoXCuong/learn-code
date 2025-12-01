@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
-import { authApi } from "@/api/authApi";
-import { JWT_CONFIG } from "@/api/api";
+import { authApi } from "@/services/authApi";
+import { JWT_CONFIG } from "@/services/api";
 
 // Tạo context
 export const AuthContext = createContext();

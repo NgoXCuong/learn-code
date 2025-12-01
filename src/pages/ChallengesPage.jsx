@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { fetchChallenges, fetchDailyQuests } from "@/api/challengesApi";
+import { fetchChallenges, fetchDailyQuests } from "@/services/challengesApi";
 import { DailyQuestsPanel } from "@/components/challenges/DailyQuestsPanel";
 import { ChallengeDetailModal } from "@/components/challenges/ChallengeDetailModal";
 import { ChallengesFilter } from "@/components/challenges/ChallengesFilter";
@@ -170,65 +170,59 @@ export default function ChallengesPage() {
         )
       : 0;
 
-  if (loading) {
-    return (
-      <div className="bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors min-h-screen">
-        <Header />
-        <div className="flex items-center justify-center py-12">
+  return (
+    <div className="bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors min-h-screen flex flex-col">
+      <Header />
+      {loading ? (
+        <div className="flex-1 flex items-center justify-center py-12">
           <Loading />
         </div>
-        <Footer />
-      </div>
-    );
-  }
+      ) : (
+        <main className="flex-1 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 py-4 sm:py-6">
+          <ChallengesHeader />
 
-  return (
-    <div className="bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100 dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black transition-colors min-h-screen">
-      <Header />
-      <main className="px-6 sm:px-14 lg:px-20 py-6">
-        <ChallengesHeader />
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 sm:gap-6 lg:gap-8">
+            <section className="xl:col-span-8 space-y-4 sm:space-y-6">
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 sm:p-6 border border-gray-100 dark:border-gray-700">
+                <ChallengesTabs
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                  challenges={challenges}
+                  userData={userData}
+                />
 
-        <div className="grid lg:grid-cols-12 gap-8">
-          <section className="lg:col-span-8 space-y-6">
-            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl p-6 border border-gray-100 dark:border-gray-700">
-              <ChallengesTabs
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-                challenges={challenges}
-                userData={userData}
+                <ChallengesFilter
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  difficultyFilter={difficultyFilter}
+                  setDifficultyFilter={setDifficultyFilter}
+                  sortBy={sortBy}
+                  setSortBy={setSortBy}
+                  clearFilters={clearFilters}
+                  hasActiveFilters={hasActiveFilters}
+                />
+
+                <ChallengesGrid
+                  paginatedChallenges={paginatedChallenges}
+                  challengeData={userData}
+                  onChallengeClick={handleChallengeClick}
+                  totalPages={totalPages}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                />
+              </div>
+            </section>
+
+            <aside className="xl:col-span-4 space-y-4 sm:space-y-6">
+              <StatsCards
+                totalParticipants={totalParticipants}
+                avgSuccess={avgSuccess}
               />
-
-              <ChallengesFilter
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                difficultyFilter={difficultyFilter}
-                setDifficultyFilter={setDifficultyFilter}
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-                clearFilters={clearFilters}
-                hasActiveFilters={hasActiveFilters}
-              />
-
-              <ChallengesGrid
-                paginatedChallenges={paginatedChallenges}
-                challengeData={userData}
-                onChallengeClick={handleChallengeClick}
-                totalPages={totalPages}
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-              />
-            </div>
-          </section>
-
-          <aside className="lg:col-span-4 space-y-6">
-            <StatsCards
-              totalParticipants={totalParticipants}
-              avgSuccess={avgSuccess}
-            />
-            <DailyQuestsPanel quests={dailyQuests} />
-          </aside>
-        </div>
-      </main>
+              <DailyQuestsPanel quests={dailyQuests} />
+            </aside>
+          </div>
+        </main>
+      )}
 
       {selectedChallenge && (
         <ChallengeDetailModal

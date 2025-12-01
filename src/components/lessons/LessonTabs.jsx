@@ -19,13 +19,13 @@ export default function LessonTabs({
     >
       {/* Tab Buttons */}
       <div
-        className={`flex border-b ${
+        className={`flex border-b overflow-x-auto scrollbar-hide ${
           isDark ? "border-gray-700" : "border-gray-200"
         }`}
       >
         <button
           onClick={() => setActiveTab("content")}
-          className={`flex-1 px-6 py-2 font-bold text-base transition-colors relative ${
+          className={`flex-1 min-w-0 px-3 sm:px-4 lg:px-6 py-3 sm:py-2 font-bold text-sm sm:text-base transition-colors relative whitespace-nowrap ${
             activeTab === "content"
               ? isDark
                 ? "text-indigo-400"
@@ -46,7 +46,7 @@ export default function LessonTabs({
         </button>
         <button
           onClick={() => setActiveTab("exercises")}
-          className={`flex-1 px-6 py-2 font-bold text-base transition-colors relative ${
+          className={`flex-1 min-w-0 px-3 sm:px-4 lg:px-6 py-3 sm:py-2 font-bold text-sm sm:text-base transition-colors relative whitespace-nowrap ${
             activeTab === "exercises"
               ? isDark
                 ? "text-indigo-400"
