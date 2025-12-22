@@ -21,7 +21,7 @@ function SelectTrigger({ className, size = "default", children, ...props }) {
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "border-input shadow-gray-500 flex w-fit items-center justify-between gap-2 rounded-sm border bg-white px-3  text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow]",
+        "border-input shadow-gray-500 flex w-fit items-center justify-between gap-2 rounded-sm  bg-white px-3 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow]",
         "outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:ring-0 focus-within:ring-0",
         "data-[state=open]:outline-none data-[state=open]:ring-0",
         className
@@ -60,7 +60,7 @@ function SelectContent({
         <SelectScrollUpButton />
         <SelectPrimitive.Viewport
           className={cn(
-            "p-1",
+            "px-1",
             position === "popper" &&
               "h-(--radix-select-trigger-height) w-full min-w-(--radix-select-trigger-width) scroll-my-1"
           )}
@@ -88,14 +88,14 @@ function SelectItem({ className, children, ...props }) {
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1 pr-8 pl-2 text-sm outline-hidden select-none",
+        "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none",
         "hover:bg-purple-700 hover:text-white transition-colors duration-200",
         "focus:bg-purple-600 focus:text-white",
         className
       )}
       {...props}
     >
-      <span className="absolute right-2 flex size-3.5 items-center justify-center">
+      <span className="absolute right-2 flex size-3 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
           <CheckIcon className="size-4" />
         </SelectPrimitive.ItemIndicator>
@@ -120,7 +120,7 @@ function SelectScrollUpButton({ className, ...props }) {
     <SelectPrimitive.ScrollUpButton
       data-slot="select-scroll-up-button"
       className={cn(
-        "flex items-center justify-center py-1 bg-white",
+        "flex items-center justify-center py-1.5 bg-white",
         className
       )}
       {...props}
@@ -135,7 +135,7 @@ function SelectScrollDownButton({ className, ...props }) {
     <SelectPrimitive.ScrollDownButton
       data-slot="select-scroll-down-button"
       className={cn(
-        "flex items-center justify-center py-1 bg-white",
+        "flex items-center justify-center py-1.5 bg-white",
         className
       )}
       {...props}

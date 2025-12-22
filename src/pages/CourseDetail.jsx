@@ -118,27 +118,9 @@ export default function CourseDetail() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-12">
           <div className="space-y-10">
-            {/* Mock course intro and outcomes for now */}
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                Giới thiệu khóa học
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                {course.description}
-              </p>
-            </div>
+            <CourseIntro intro={course.intro} />
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-sm">
-              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                Bạn sẽ học được gì?
-              </h3>
-              <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-                <li>• Kiến thức nền tảng về lập trình</li>
-                <li>• Cách giải quyết vấn đề</li>
-                <li>• Phát triển tư duy logic</li>
-                <li>• Xây dựng dự án thực tế</li>
-              </ul>
-            </div>
+            <CourseOutcomes outcomes={course.outcomes} />
           </div>
 
           <LessonList

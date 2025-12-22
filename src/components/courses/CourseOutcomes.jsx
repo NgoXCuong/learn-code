@@ -11,7 +11,7 @@ export default function CourseOutcomes({ outcomes }) {
         {outcomes.map((outcome, index) => (
           <div
             key={index}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 flex items-start gap-3 hover:shadow-lg transition-shadow"
+            className="bg-white dark:bg-gray-800 rounded-sm shadow-md p-4 flex items-start gap-3 hover:shadow-lg transition-shadow"
           >
             <CheckCircle className="w-6 h-6 text-green-500 shrink-0 mt-1" />
             <p className="text-gray-700 text-sm dark:text-gray-300">

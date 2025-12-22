@@ -75,13 +75,13 @@ export default function CourseHero({
 
                 {/* Thông tin tổng quan - responsive grid */}
                 <div className="flex flex-wrap justify-center lg:justify-start gap-2 sm:gap-3 text-xs sm:text-sm">
-                  <div className="flex items-center gap-1.5 sm:gap-2 bg-white/10 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg backdrop-blur">
+                  <div className="flex items-center gap-1.5 sm:gap-2 bg-white/10 px-2 sm:px-3 py-1.5 sm:py-2 rounded-sm backdrop-blur">
                     <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-purple-300" />
                     <span className="text-white font-semibold">
                       {course.duration}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1.5 sm:gap-2 bg-white/10 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg backdrop-blur">
+                  <div className="flex items-center gap-1.5 sm:gap-2 bg-white/10 px-2 sm:px-3 py-1.5 sm:py-2 rounded-sm backdrop-blur">
                     <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 text-blue-400" />
                     <span className="text-white font-semibold">
                       {lessons.length} bài học
@@ -93,7 +93,7 @@ export default function CourseHero({
               {/* Progress Card */}
               <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
                 <div className="w-full max-w-sm sm:max-w-md lg:w-80">
-                  <div className="btn-shimmer bg-linear-to-br from-purple-500 via-pink-500 to-rose-500 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                  <div className="btn-shimmer bg-linear-to-br from-purple-500 via-pink-500 to-rose-500 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
                     <div className="space-y-4 sm:space-y-5 text-center lg:text-left">
                       <div>
                         <h3 className="text-white text-sm sm:text-base font-semibold mb-2 flex items-center justify-center lg:justify-start gap-2">
@@ -113,7 +113,7 @@ export default function CourseHero({
 
                       {/* Thống kê nhỏ - hiện trên tablet trở lên */}
                       <div className="hidden sm:grid grid-cols-2 gap-3">
-                        <div className="bg-white/20 backdrop-blur rounded-lg sm:rounded-xl p-2 sm:p-3 text-center">
+                        <div className="bg-white/20 backdrop-blur rounded-sm p-2 sm:p-3 text-center">
                           <div className="text-white font-bold text-base sm:text-lg">
                             {completedCount}
                           </div>
@@ -121,7 +121,7 @@ export default function CourseHero({
                             Hoàn thành
                           </div>
                         </div>
-                        <div className="bg-white/20 backdrop-blur rounded-lg sm:rounded-xl p-2 sm:p-3 text-center">
+                        <div className="bg-white/20 backdrop-blur rounded-sm p-2 sm:p-3 text-center">
                           <div className="text-white font-bold text-base sm:text-lg">
                             {inProgressCount}
                           </div>
@@ -132,7 +132,7 @@ export default function CourseHero({
                       </div>
 
                       <button
-                        className="btn-shimmer relative w-full bg-white text-purple-600 font-bold py-2 sm:py-3 rounded-lg sm:rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg"
+                        className="btn-shimmer relative w-full bg-white text-purple-600 font-bold py-2 sm:py-3 rounded-sm hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg"
                         onClick={() =>
                           navigate(
                             `/courses/${course.id}/lessons/${currentLesson?.id}`
