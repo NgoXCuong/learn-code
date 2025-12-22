@@ -89,8 +89,8 @@ function SelectItem({ className, children, ...props }) {
       data-slot="select-item"
       className={cn(
         "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none",
-        "hover:bg-purple-700 hover:text-white transition-colors duration-200",
-        "focus:bg-purple-600 focus:text-white",
+        "hover:bg-gray-100 hover:text-gray-900 transition-colors duration-200",
+        "focus:bg-gray-200 focus:text-gray-900",
         className
       )}
       {...props}

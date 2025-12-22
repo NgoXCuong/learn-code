@@ -12,6 +12,16 @@ import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import { Loading } from "@/components/layout/Loading";
 import { toast } from "sonner";
+import { Search } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { TIMEFRAMES, LANGUAGES } from "@/utils/utilsRanking";
 
 export default function Rankings() {
   const [timeframe, setTimeframe] = useState("weekly");
@@ -134,21 +144,86 @@ export default function Rankings() {
             </div>
           ) : (
             <>
-              {/* ✅ Header (Search + Filters + Tabs) */}
-              <HeaderSection
-                search={search}
-                setSearch={setSearch}
-                timeframe={timeframe}
-                setTimeframe={setTimeframe}
-                language={language}
-                setLanguage={setLanguage}
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-                setPage={setPage}
-              />
+              {/* ✅ Header */}
+              <HeaderSection />
 
               {/* ✅ Top 3 podium */}
               <PodiumTop3 users={top3Users} />
+
+              {/* ✅ Filters */}
+              <div className="mb-8">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-stretch">
+                  {/* Search Input - Left side */}
+                  <div className="relative flex-1 sm:flex-none sm:w-64">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
+                    <Input
+                      value={search}
+                      onChange={(e) => {
+                        setSearch(e.target.value);
+                        setPage(1);
+                      }}
+                      placeholder="Tìm người học..."
+                      className="pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base placeholder:text-sm sm:placeholder:text-base border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors h-full"
+                    />
+                  </div>
+
+                  {/* Spacer to push selects to the right */}
+                  <div className="flex-1 hidden sm:block"></div>
+
+                  {/* Select Filters - Far right side */}
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto sm:ml-auto">
+                    {/* Timeframe Select */}
+                    <div className="flex-1 sm:flex-none sm:min-w-[140px] lg:w-[150px]">
+                      <Select
+                        value={timeframe}
+                        onValueChange={(value) => {
+                          setTimeframe(value);
+                          setPage(1);
+                        }}
+                      >
+                        <SelectTrigger className="w-full h-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 py-2 sm:py-3 focus:ring-0 transition-colors">
+                          <SelectValue placeholder="Chọn thời gian" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                          {TIMEFRAMES.map((t) => {
+                            const Icon = t.icon;
+                            return (
+                              <SelectItem key={t.id} value={t.id}>
+                                <div className="flex items-center gap-2">
+                                  <Icon className="w-4 h-4" />
+                                  {t.label}
+                                </div>
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Language Select */}
+                    <div className="flex-1 sm:flex-none sm:min-w-[140px] lg:w-[150px]">
+                      <Select
+                        value={language}
+                        onValueChange={(value) => {
+                          setLanguage(value);
+                          setPage(1);
+                        }}
+                      >
+                        <SelectTrigger className="w-full h-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 py-2 sm:py-3 focus:ring-0 transition-colors">
+                          <SelectValue placeholder="Chọn ngôn ngữ" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                          {LANGUAGES.map((lang) => (
+                            <SelectItem key={lang.id} value={lang.id}>
+                              {lang.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {/* ✅ List users */}
               <LeaderboardList paged={pagedUsers} currentUser={currentUser} />

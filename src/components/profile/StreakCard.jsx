@@ -122,11 +122,7 @@ export default function StreakCard() {
             </SelectTrigger>
             <SelectContent className="min-w-20 ">
               {[2025, 2024, 2023, 2022, 2021].map((year) => (
-                <SelectItem
-                  key={year}
-                  value={year.toString()}
-                  className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-600 focus:bg-gray-600 dark:focus:bg-gray-600"
-                >
+                <SelectItem key={year} value={year.toString()}>
                   {year}
                 </SelectItem>
               ))}

@@ -106,7 +106,7 @@ const Chatbot = () => {
       {/* Button mở chat */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 bg-linear-to-r from-blue-600 to-cyan-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 z-50 transform hover:scale-110"
+        className="fixed bottom-6 right-6 bg-blue-500 text-white p-4 rounded-full shadow-2xl transition-all duration-300 z-50 transform hover:scale-110"
       >
         {open ? <X size={20} /> : <MessageCircle size={20} />}
       </button>
@@ -133,7 +133,7 @@ const Chatbot = () => {
           ${
             isDark
               ? "bg-[#1f2937] text-white border-b border-gray-700"
-              : "bg-linear-to-r from-blue-600 to-cyan-600 text-white"
+              : "bg-blue-500 text-white"
           }`}
         >
           <div className="flex items-center gap-3">
