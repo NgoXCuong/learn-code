@@ -44,14 +44,6 @@ Frontend CodePulse yêu cầu backend implement các API endpoints sau. Tất c�
 }
 ```
 
-**Error (401):**
-
-```json
-{
-  "message": "Invalid credentials"
-}
-```
-
 ### 1.2 POST /auth/register
 
 **Đăng ký user mới**
@@ -77,14 +69,6 @@ Frontend CodePulse yêu cầu backend implement các API endpoints sau. Tất c�
   },
   "access_token": "string",
   "refresh_token": "string"
-}
-```
-
-**Error (400):**
-
-```json
-{
-  "message": "User already exists"
 }
 ```
 

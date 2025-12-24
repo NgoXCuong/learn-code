@@ -42,9 +42,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-cyan-50 flex items-center justify-center p-4 relative">
+    <div className="min-h-screen bg-linear-to-br from-indigo-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center p-4 relative">
       <div className="w-full max-w-md relative">
-        <Card className="p-8 bg-white/80 backdrop-blur-sm border-0 shadow-2xl">
+        <Card className="p-8 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-0 shadow-2xl">
           <div className="text-center mb-8 relative">
             <button
               onClick={() => navigate("/")}
@@ -52,27 +52,30 @@ const Login = () => {
             >
               <ArrowLeft className="w-4 h-4 mr-1" />
             </button>
-            <div className="w-16 h-16 bg-linear-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <LogIn className="w-8 h-8 text-white" />
-            </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Đăng nhập</h1>
-            <p className="text-gray-600">
+
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              Đăng nhập
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">
               Chào mừng bạn quay trở lại CodePulse
             </p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-gray-700 font-medium">
+              <Label
+                htmlFor="email"
+                className="text-gray-700 dark:text-gray-300 font-medium"
+              >
                 Email
               </Label>
               <div className="relative">
-                <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                <Mail className="absolute left-3 top-3 h-5 w-5 text-gray-400 dark:text-white" />
                 <Input
                   id="email"
                   type="email"
                   placeholder="your@email.com"
-                  className="pl-10 h-12 bg-white/70 border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
+                  className="pl-10 h-12 bg-white/70 dark:bg-gray-700/70 border-gray-200 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-300"
                   {...register("email", {
                     required: "Email là bắt buộc",
                     pattern: {
@@ -88,16 +91,19 @@ const Login = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-700 font-medium">
+              <Label
+                htmlFor="password"
+                className="text-gray-700 dark:text-gray-300 font-medium"
+              >
                 Mật khẩu
               </Label>
               <div className="relative">
-                <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400 dark:text-white" />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Nhập mật khẩu"
-                  className="pl-10 pr-10 h-12 bg-white/70 border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
+                  className="pl-10 pr-10 h-12 bg-white/70 dark:bg-gray-700/70 border-gray-200 dark:border-gray-600 focus:border-indigo-500 focus:ring-indigo-500 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-300"
                   {...register("password", {
                     required: "Mật khẩu là bắt buộc",
                     minLength: {
@@ -109,7 +115,7 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                  className="absolute right-3 top-3 text-gray-400 dark:text-white hover:text-gray-600 dark:hover:text-gray-300"
                 >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5" />
@@ -130,14 +136,14 @@ const Login = () => {
                 <Checkbox id="remember" {...register("remember")} />
                 <Label
                   htmlFor="remember"
-                  className="text-base text-gray-600 cursor-pointer"
+                  className="text-base text-gray-600 dark:text-gray-300 cursor-pointer"
                 >
                   Ghi nhớ đăng nhập
                 </Label>
               </div>
               <Link
                 to="#"
-                className="text-base text-indigo-600 hover:text-indigo-700 font-medium"
+                className="text-base dark:text-gray-300 font-medium hover:underline"
               >
                 Quên mật khẩu?
               </Link>
@@ -146,7 +152,7 @@ const Login = () => {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full h-12 bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-sm transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              className="w-full h-12 bg-blue-500 text-white font-semibold rounded-sm transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
               {isLoading ? (
                 <div className="flex items-center space-x-2">
@@ -160,11 +166,11 @@ const Login = () => {
           </form>
 
           <div className="mt-8 text-center">
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-300">
               Chưa có tài khoản?{" "}
               <Link
                 to="/register"
-                className="text-indigo-600 hover:text-indigo-700 font-semibold hover:underline"
+                className="dark:text-gray-300 font-semibold hover:underline"
               >
                 Đăng ký ngay
               </Link>

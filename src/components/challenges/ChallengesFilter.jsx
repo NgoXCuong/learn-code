@@ -33,7 +33,7 @@ export const ChallengesFilter = ({
             placeholder="Tìm kiếm thử thách..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-auto pl-9 sm:pl-10 pr-4 py-1.5 text-sm sm:text-base placeholder:text-sm sm:placeholder:text-base border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 transition-colors"
+            className="h-auto pl-9 sm:pl-10 pr-4 py-1.5 text-sm sm:text-base placeholder:text-sm sm:placeholder:text-base border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400  transition-colors"
           />
         </div>
 
@@ -45,7 +45,7 @@ export const ChallengesFilter = ({
               value={difficultyFilter}
               onValueChange={setDifficultyFilter}
             >
-              <SelectTrigger className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm py-1.5 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 transition-colors">
+              <SelectTrigger className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm py-1.5   transition-colors">
                 <SelectValue placeholder="Tất cả độ khó" />
               </SelectTrigger>
               <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
@@ -60,7 +60,7 @@ export const ChallengesFilter = ({
           {/* Sort Filter */}
           <div className="w-full sm:w-auto sm:min-w-40 lg:flex-1">
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm py-1.5 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 transition-colors">
+              <SelectTrigger className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm py-1.5  transition-colors">
                 <SelectValue placeholder="Sắp xếp theo" />
               </SelectTrigger>
               <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">

@@ -12,7 +12,7 @@ import {
 
 const FilterButton = ({ isDark, isActive, onClick, children }) => {
   const activeClass =
-    "bg-purple-600 text-white shadow-md hover:bg-purple-700 border-transparent";
+    "bg-blue-500 text-white shadow-md hover:bg-blue-700 border-transparent";
 
   const inactiveClass = isDark
     ? "bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 hover:text-white"
@@ -22,7 +22,7 @@ const FilterButton = ({ isDark, isActive, onClick, children }) => {
     <Button
       variant="ghost"
       onClick={onClick}
-      className={`rounded-full px-4 py-1 h-auto text-sm font-medium transition-all duration-200 cursor-pointer ${
+      className={`rounded-full px-4 py-1.5 h-auto text-sm font-medium transition-all duration-200 cursor-pointer ${
         isActive ? activeClass : inactiveClass
       }`}
     >
