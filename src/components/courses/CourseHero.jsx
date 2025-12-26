@@ -92,55 +92,56 @@ export default function CourseHero({
 
               {/* Progress Card */}
               <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-                <div className="w-full max-w-sm sm:max-w-md lg:w-80">
-                  <div className="btn-shimmer bg-linear-to-br from-purple-500 via-pink-500 to-rose-500 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
-                    <div className="space-y-4 sm:space-y-5 text-center lg:text-left">
+                <div className=" w-full max-w-sm sm:max-w-md lg:w-80">
+                  <div className="btn-shimmer bg-white/80 border border-slate-200 rounded-lg p-4 sm:p-6 lg:p-8 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="space-y-4 sm:space-y-6 text-center lg:text-left">
+                      {/* Phần Tiến độ */}
                       <div>
-                        <h3 className="text-white text-sm sm:text-base font-semibold mb-2 flex items-center justify-center lg:justify-start gap-2">
-                          <Flame className="w-3 h-3 sm:w-4 sm:h-4" /> Tiến độ
-                          khóa học
+                        <h3 className="text-slate-500 text-xs sm:text-sm font-medium mb-2 flex items-center justify-center lg:justify-start gap-2 uppercase tracking-wider">
+                          <Flame className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500" />
+                          Tiến độ khóa học
                         </h3>
-                        <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-2 sm:mb-3">
+                        <div className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
                           {progress}%
                         </div>
-                        <div className="w-full h-2 bg-white/30 rounded-full overflow-hidden backdrop-blur">
+                        {/* Progress Bar: Màu sắc nhã nhặn hơn */}
+                        <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-linear-to-r from-yellow-300 via-yellow-400 to-yellow-500 rounded-full transition-all duration-500"
+                            className="h-full bg-indigo-600 rounded-full transition-all duration-700 ease-out"
                             style={{ width: `${progress}%` }}
                           />
                         </div>
                       </div>
 
-                      {/* Thống kê nhỏ - hiện trên tablet trở lên */}
+                      {/* Thống kê nhỏ - Thay đổi nền thành xám nhạt (Slate 50) */}
                       <div className="hidden sm:grid grid-cols-2 gap-3">
-                        <div className="bg-white/20 backdrop-blur rounded-sm p-2 sm:p-3 text-center">
-                          <div className="text-white font-bold text-base sm:text-lg">
+                        <div className="bg-slate-50 border border-slate-100 rounded-sm p-3 text-center">
+                          <div className="text-slate-900 font-bold text-lg">
                             {completedCount}
                           </div>
-                          <div className="text-white/80 text-xs sm:text-sm">
+                          <div className="text-slate-500 text-xs">
                             Hoàn thành
                           </div>
                         </div>
-                        <div className="bg-white/20 backdrop-blur rounded-sm p-2 sm:p-3 text-center">
-                          <div className="text-white font-bold text-base sm:text-lg">
+                        <div className="bg-slate-50 border border-slate-100 rounded-sm p-3 text-center">
+                          <div className="text-slate-900 font-bold text-lg">
                             {inProgressCount}
                           </div>
-                          <div className="text-white/80 text-xs sm:text-sm">
-                            Đang học
-                          </div>
+                          <div className="text-slate-500 text-xs">Đang học</div>
                         </div>
                       </div>
 
+                      {/* Nút bấm: Chuyển sang màu Primary (Indigo) để nổi bật trên nền trắng */}
                       <button
-                        className="btn-shimmer relative w-full bg-white text-purple-600 font-bold py-2 sm:py-3 rounded-sm hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg"
+                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-sm shadow-sm hover:shadow-indigo-200 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
                         onClick={() =>
                           navigate(
                             `/courses/${course.id}/lessons/${currentLesson?.id}`
                           )
                         }
                       >
-                        Tiếp tục học{" "}
-                        <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                        Tiếp tục học
+                        <ArrowRight className="w-4 h-4" />
                       </button>
                     </div>
                   </div>

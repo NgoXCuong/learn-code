@@ -189,7 +189,7 @@ export default function ProfileSidebar({ user, darkMode, achievements = [] }) {
                 }`}
               >
                 <div
-                  className="h-full bg-linear-to-r from-blue-500 to-purple-600 rounded-full transition-all duration-500"
+                  className="h-full bg-blue-500 rounded-full transition-all duration-500"
                   style={{ width: `${xpProgress}%` }}
                 />
               </div>

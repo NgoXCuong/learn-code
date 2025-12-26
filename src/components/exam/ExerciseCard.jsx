@@ -29,7 +29,7 @@ export default function ExerciseCard({ exercise, isCompleted, onClick }) {
     <div
       key={exercise.uniqueKey}
       onClick={() => onClick(exercise)}
-      className={`btn-shimmer cursor-pointer p-5 rounded-xl border shadow-md transform transition
+      className={`btn-shimmer cursor-pointer p-5 rounded-lg border shadow-md transform transition
         bg-white border-gray-100
         dark:bg-gray-800 dark:border-gray-700
         hover:-translate-y-1 hover:shadow-xl

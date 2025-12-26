@@ -137,7 +137,7 @@ export default function ExercisesScreen({
   return (
     <div
       className="h-full overflow-y-auto px-4 sm:px-6 md:px-14 lg:px-20 py-6 bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100
-        dark:bg-linear-to-br dark:from-gray-900 dark:via-gray-800 dark:to-black"
+        dark:from-gray-900 dark:via-gray-800 dark:to-black"
     >
       {/* HEADER */}
       <div className="rounded-sm shadow-md p-6 mb-6 border bg-white border-gray-100 dark:bg-gray-800 dark:border-gray-700">
@@ -167,21 +167,21 @@ export default function ExercisesScreen({
         </div>
 
         {/* SEARCH */}
-        <div className="mt-2 flex flex-col gap-3">
-          <div className="relative w-full">
+        <div className="mt-2 flex flex-col sm:flex-row gap-3">
+          <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
             <Input
               type="text"
               placeholder="Tìm bài tập theo tiêu đề hoặc mô tả..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors"
+              className="h-auto pl-10 pr-4 py-2 text-sm sm:text-base border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400  transition-colors"
             />
           </div>
 
           <div className="w-full sm:w-auto sm:min-w-[200px] lg:w-[250px]">
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 py-2 sm:py-3 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors">
+              <SelectTrigger className="w-full h-auto border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 py-2  text-sm sm:text-base  transition-colors">
                 <span className="mr-2 text-gray-400 text-sm">Sắp xếp:</span>
                 <SelectValue placeholder="Sắp xếp theo" />
               </SelectTrigger>
@@ -198,52 +198,56 @@ export default function ExercisesScreen({
         </div>
 
         {/* FILTERS */}
-        <div className="mt-4 sm:mt-6 space-y-4 sm:space-y-0 sm:flex sm:flex-row sm:flex-wrap sm:items-start sm:gap-8 lg:gap-12">
-          <div className="flex flex-col gap-3">
-            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-              Độ khó:
-            </label>
-            <div className="flex flex-wrap gap-3 sm:gap-4">
-              {difficulties.map((diff) => (
-                <label
-                  key={diff}
-                  className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-                >
-                  <input
-                    type="checkbox"
-                    checked={difficultyFilters.includes(diff)}
-                    onChange={() => handleDifficultyChange(diff)}
-                    className="rounded w-4 h-4 sm:w-3 sm:h-3 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400"
-                  />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    {diff}
-                  </span>
-                </label>
-              ))}
+        <div className="mt-4 sm:mt-6">
+          <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-12">
+            {/* Difficulty Filter */}
+            <div className="flex flex-row items-center gap-3 min-w-0">
+              <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">
+                Độ khó:
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {difficulties.map((diff) => (
+                  <label
+                    key={diff}
+                    className="inline-flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-md text-xs font-medium border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={difficultyFilters.includes(diff)}
+                      onChange={() => handleDifficultyChange(diff)}
+                      className="rounded w-3 h-3 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-400"
+                    />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      {diff}
+                    </span>
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="flex flex-col gap-3">
-            <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-              Trạng thái:
-            </label>
-            <div className="flex flex-wrap gap-3 sm:gap-4">
-              {statuses.map((status) => (
-                <label
-                  key={status}
-                  className="flex items-center gap-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-                >
-                  <input
-                    type="checkbox"
-                    checked={statusFilters.includes(status)}
-                    onChange={() => handleStatusChange(status)}
-                    className="rounded w-4 h-4 sm:w-3 sm:h-3 text-green-600 focus:ring-green-500 dark:focus:ring-green-400"
-                  />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
-                    {status}
-                  </span>
-                </label>
-              ))}
+            {/* Status Filter */}
+            <div className="flex flex-row items-center gap-3 min-w-0">
+              <label className="text-sm font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">
+                Trạng thái:
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {statuses.map((status) => (
+                  <label
+                    key={status}
+                    className="inline-flex items-center gap-1.5 cursor-pointer px-3 py-1.5 rounded-md text-xs font-medium border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                  >
+                    <input
+                      type="checkbox"
+                      checked={statusFilters.includes(status)}
+                      onChange={() => handleStatusChange(status)}
+                      className="rounded w-3 h-3 text-green-600 focus:ring-green-500 dark:focus:ring-green-400"
+                    />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      {status}
+                    </span>
+                  </label>
+                ))}
+              </div>
             </div>
           </div>
         </div>

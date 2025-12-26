@@ -22,7 +22,7 @@ export default function HomeScreen({ startQuiz, startExercises }) {
           {/* Quiz Card */}
           <div
             onClick={startQuiz}
-            className="group relative bg-white dark:bzg-gray-800 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 hover:-translate-y-2 flex flex-col justify-between"
+            className="group relative bg-white dark:bg-gray-800 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer border-2 border-transparent hover:border-blue-400 hover:-translate-y-2 flex flex-col justify-between"
           >
             <div className="absolute -top-24 -right-24 w-48 h-48 bg-linear-to-br from-blue-100 to-indigo-100 dark:from-blue-800 dark:to-indigo-900 rounded-full opacity-60 group-hover:scale-150 transition-transform duration-700"></div>
 
@@ -81,7 +81,7 @@ export default function HomeScreen({ startQuiz, startExercises }) {
           {/* Exercises Card */}
           <div
             onClick={startExercises}
-            className="group relative bg-white dark:bg-gray-800 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer border-2 border-transparent hover:border-purple-400 hover:-translate-y-2 flex flex-col justify-between"
+            className="group relative bg-white dark:bg-gray-800 rounded-lg shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden cursor-pointer border-2 border-transparent hover:border-purple-400 hover:-translate-y-2 flex flex-col justify-between"
           >
             <div className="absolute -top-24 -right-24 w-48 h-48 bg-linear-to-br from-purple-100 to-pink-100 dark:from-purple-700 dark:to-purple-900 rounded-full opacity-60 group-hover:scale-150 transition-transform duration-700"></div>
 

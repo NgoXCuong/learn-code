@@ -49,7 +49,7 @@ export default function CourseSelectionScreen({ onCourseSelect, goHome }) {
 
         {/* Content Section */}
         {completedCourses.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md rounded-3xl border border-dashed border-slate-300 dark:border-slate-700 max-w-2xl mx-auto">
+          <div className="flex flex-col items-center justify-center py-20 bg-white/60 dark:bg-slate-900/60 backdrop-blur-md rounded-lg border border-dashed border-slate-300 dark:border-slate-700 max-w-2xl mx-auto">
             <div className="bg-slate-100 dark:bg-slate-800 p-6 rounded-full mb-6">
               <BookOpen className="w-12 h-12 text-slate-400" />
             </div>
@@ -78,7 +78,7 @@ export default function CourseSelectionScreen({ onCourseSelect, goHome }) {
                 <div
                   key={course.id}
                   onClick={() => handleCourseClick(course)}
-                  className="group relative bg-white dark:bg-slate-900 rounded-2xl p-6 cursor-pointer border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-blue-900/20 hover:-translate-y-2 transition-all duration-300 overflow-hidden"
+                  className="group relative bg-white dark:bg-slate-900 rounded-lg p-6 cursor-pointer border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-blue-900/20 hover:-translate-y-2 transition-all duration-300 overflow-hidden"
                 >
                   {/* Hover Glow Effect */}
                   <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -95,7 +95,7 @@ export default function CourseSelectionScreen({ onCourseSelect, goHome }) {
                         </span>
                         <span className="flex items-center gap-1.5 px-3 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs  rounded-full border border-green-200 dark:border-green-800">
                           <CheckCircle className="w-3.5 h-3.5" />
-                          Done
+                          Hoàn thành
                         </span>
                       </div>
 
