@@ -1,37 +1,17 @@
-# API Documentation - Frontend Requirements
-
 ## Tổng quan
 
-Frontend CodePulse yêu cầu backend implement các API endpoints sau. Tất cả requests đều có base URL `http://localhost:3001/api` và sử dụng JWT authentication.
+## 1. APIs Xác thực
 
-### Headers chung
-
-```json
-{
-  "Content-Type": "application/json",
-  "Authorization": "Bearer {access_token}"
-}
-```
-
----
-
-## 1. AUTHENTICATION APIs
-
-### 1.1 POST /auth/login
-
-**Đăng nhập user**
-
-**Request Body:**
-
+### 1.1 Đăng nhập
+**Endpoint**: `POST /auth/login`  
+**Request Body**:
 ```json
 {
   "email": "string",
   "password": "string"
 }
 ```
-
-**Response (200):**
-
+**Response**:
 ```json
 {
   "user": {
@@ -44,12 +24,9 @@ Frontend CodePulse yêu cầu backend implement các API endpoints sau. Tất c�
 }
 ```
 
-### 1.2 POST /auth/register
-
-**Đăng ký user mới**
-
-**Request Body:**
-
+### 1.2 Đăng ký
+**Endpoint**: `POST /auth/register`  
+**Request Body**:
 ```json
 {
   "name": "string",
@@ -57,9 +34,7 @@ Frontend CodePulse yêu cầu backend implement các API endpoints sau. Tất c�
   "password": "string"
 }
 ```
-
-**Response (201):**
-
+**Response**:
 ```json
 {
   "user": {
@@ -72,32 +47,26 @@ Frontend CodePulse yêu cầu backend implement các API endpoints sau. Tất c�
 }
 ```
 
-### 1.3 POST /auth/logout
-
-**Đăng xuất user**
-
-**Response (200):**
-
+### 1.3 Đăng xuất
+**Endpoint**: `POST /auth/logout`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Request Body**: Không có  
+**Response**:
 ```json
 {
-  "message": "Logged out successfully"
+  "message": "string"
 }
 ```
 
-### 1.4 POST /auth/refresh
-
-**Refresh access token**
-
-**Request Body:**
-
+### 1.4 Làm mới Token
+**Endpoint**: `POST /auth/refresh`  
+**Request Body**:
 ```json
 {
   "refresh_token": "string"
 }
 ```
-
-**Response (200):**
-
+**Response**:
 ```json
 {
   "access_token": "string",
@@ -105,69 +74,242 @@ Frontend CodePulse yêu cầu backend implement các API endpoints sau. Tất c�
 }
 ```
 
-### 1.5 GET /auth/profile
+### 1.5 Lấy Thông tin Cá nhân
+**Endpoint**: `GET /auth/profile`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Response**: Object thông tin cá nhân người dùng
 
-**Lấy thông tin profile**
+## 2. APIs Khóa học
 
-**Response (200):**
+### 2.1 Lấy Tất cả Khóa học
+**Endpoint**: `GET /courses`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Response**: Mảng các object khóa học
 
+### 2.2 Lấy Khóa học Theo Ngôn ngữ
+**Endpoint**: `GET /courses/language/{langId}`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Parameters**: `langId` (number) - ID ngôn ngữ  
+**Response**: Mảng các object khóa học được lọc theo ngôn ngữ
+
+### 2.3 Lấy Khóa học Theo ID
+**Endpoint**: `GET /courses/{id}`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Parameters**: `id` (number) - ID khóa học  
+**Response**: Object khóa học
+
+### 2.4 Lấy Bài học Theo Khóa học
+**Endpoint**: `GET /courses/{courseId}/lessons`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Parameters**: `courseId` (number) - ID khóa học  
+**Response**: Mảng các object bài học
+
+### 2.5 Lấy Bài học Theo ID
+**Endpoint**: `GET /lessons/{id}`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Parameters**: `id` (number) - ID bài học  
+**Response**: Object bài học
+
+### 2.6 Lấy Bài tập Theo Bài học
+**Endpoint**: `GET /lessons/{lessonId}/exercises`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Parameters**: `lessonId` (number) - ID bài học  
+**Response**: Mảng các object bài tập
+
+## 3. API Ngôn ngữ
+
+### 3.1 Lấy Tất cả Ngôn ngữ
+**Endpoint**: `GET /languages`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Response**: Mảng các object ngôn ngữ
+
+## 4. APIs Trình biên dịch
+
+### 4.1 Chạy Code
+**Endpoint**: `POST /compiler/run`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Request Body**:
+```json
+{
+  "language": "string",
+  "code": "string"
+}
+```
+**Response**:
+```json
+{
+  "output": "string"
+}
+```
+
+### 4.2 Nộp Code
+**Endpoint**: `POST /compiler/submit`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Request Body**:
+```json
+{
+  "exerciseId": "number",
+  "code": "string"
+}
+```
+**Response**:
+```json
+{
+  "success": "boolean",
+  "passed": "boolean",
+  "message": "string",
+  "comments": "array",
+  "warning": "boolean"
+}
+```
+
+## 5. APIs Phản hồi
+
+### 5.1 Lấy Phản hồi Bài tập
+**Endpoint**: `GET /feedback/exercise/{exerciseId}`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Parameters**: `exerciseId` (string) - ID bài tập  
+**Response**: Object phản hồi bài tập
+
+### 5.2 Gửi Phản hồi
+**Endpoint**: `POST /feedback`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Request Body**: Object dữ liệu phản hồi  
+**Response**: Object phản hồi đã gửi
+
+### 5.3 Gửi Phản hồi Khóa học
+**Endpoint**: `POST /feedback/course`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Request Body**:
+```json
+{
+  "courseId": "string",
+  "rating": "number",
+  "comment": "string",
+  "anonymous": "boolean"
+}
+```
+**Response**: Object phản hồi khóa học đã gửi
+
+### 5.4 Lấy Phản hồi Khóa học
+**Endpoint**: `GET /feedback/course/{courseId}`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Parameters**: `courseId` (string) - ID khóa học  
+**Query Parameters**:
+- `page` (number) - Số trang, mặc định 1
+- `limit` (number) - Số item mỗi trang, mặc định 10
+- `sortBy` (string) - Tiêu chí sắp xếp, mặc định "newest"  
+**Response**: Dữ liệu phản hồi khóa học với phân trang
+
+### 5.5 Lấy Thống kê Phản hồi
+**Endpoint**: `GET /feedback/stats/{courseId}`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Parameters**: `courseId` (string) - ID khóa học  
+**Response**: Object thống kê phản hồi
+
+## 6. APIs Tiến độ (Đã định nghĩa nhưng chưa implement)
+
+### 6.1 Lấy Tiến độ Người dùng
+**Endpoint**: `GET /progress`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Response**: Object tiến độ người dùng
+
+### 6.2 Lấy Tiến độ Bài học
+**Endpoint**: `GET /progress/lessons/{lessonId}`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Parameters**: `lessonId` (number) - ID bài học  
+**Response**: Object tiến độ bài học
+
+### 6.3 Lấy Tiến độ Bài tập
+**Endpoint**: `GET /progress/exercises/{exerciseId}`  
+**Headers**: `Authorization: Bearer {access_token}`  
+**Parameters**: `exerciseId` (number) - ID bài tập  
+**Response**: Object tiến độ bài tập
+
+## 7. Các Module chỉ có Mock Data
+
+Các module sau hiện tại chỉ có mock data, chưa có real API endpoints:
+
+### 7.1 Thách thức
+- `fetchChallenges(filters)` - Chỉ mock
+- `submitChallenge(challengeId, code, language)` - Chỉ mock
+- `fetchChallengeLeaderboard(challengeId)` - Chỉ mock
+- `fetchDailyQuests(userId)` - Chỉ mock
+- `updateQuestProgress(userId, questId, newProgress)` - Chỉ mock
+- `claimQuestReward(userId, questId)` - Chỉ mock
+- `fetchChallengeComments(challengeId, page, limit)` - Chỉ mock
+- `addChallengeComment(challengeId, userId, content)` - Chỉ mock
+- `fetchChallengeStats(challengeId)` - Chỉ mock
+
+### 7.2 Kỳ thi/Trắc nghiệm
+- `fetchExamData(courseId)` - Chỉ mock
+- `submitQuizAnswers(courseId, answers)` - Chỉ mock
+- `submitTaskCode(courseId, taskId, code, language)` - Chỉ mock
+- `fetchUserExamProgress(userId, courseId)` - Chỉ mock
+- `updateExamProgress(userId, courseId, progressData)` - Chỉ mock
+- `fetchAvailableCoursesForExam()` - Chỉ mock
+- `fetchExamResults(userId, courseId)` - Chỉ mock
+- `fetchExamStats(courseId)` - Chỉ mock
+- `resetExamProgress(userId, courseId)` - Chỉ mock
+
+### 7.3 Hồ sơ cá nhân
+- `fetchUserProfile(userId)` - Chỉ mock
+- `updateUserProfile(userId, profileData)` - Chỉ mock
+- `fetchUserCourses(userId)` - Chỉ mock
+- `fetchUserBadges(userId)` - Chỉ mock
+- `fetchUserStats(userId)` - Chỉ mock
+- `fetchRecentActivity(userId, limit)` - Chỉ mock
+- `fetchUserAchievements(userId)` - Chỉ mock
+- `updateUserXP(userId, xpGained)` - Chỉ mock
+- `updateUserStreak(userId, newStreak)` - Chỉ mock
+
+### 7.4 Xếp hạng
+- `fetchLeaderboard(filters)` - Chỉ mock
+- `fetchTopRankings(limit)` - Chỉ mock
+- `fetchUserRanking(userId)` - Chỉ mock
+- `fetchRankingStats()` - Chỉ mock
+- `fetchUserComparison(userId, compareWithIds)` - Chỉ mock
+- `updateUserScore(userId, newXP, newCompleted)` - Chỉ mock
+- `fetchCourseRankings(courseId)` - Chỉ mock
+
+## 8. Cấu hình HTTP Client
+
+- **Base URL**: Có thể cấu hình qua `VITE_API_BASE_URL`
+- **Timeout**: Có thể cấu hình qua `VITE_API_TIMEOUT` (mặc định: 10000ms)
+- **Mock Mode**: Được điều khiển bởi `VITE_USE_MOCK_API` (mặc định: false)
+- **JWT Tokens**: Lưu trong localStorage dưới dạng `access_token` và `refresh_token`
+- **Tự động Làm mới Token**: Tự động làm mới token đã hết hạn khi gặp response 401
+- **Request Interceptor**: Thêm header Authorization vào tất cả requests
+- **Response Interceptor**: Xử lý làm mới token và các response lỗi
+
+## 9. Các Kiểu Dữ liệu
+
+### 9.1 Object Người dùng (User)
 ```json
 {
   "id": "number",
   "name": "string",
   "email": "string",
-  "profile": {
-    "avatar": "string|null",
-    "bio": "string",
-    "joinedAt": "string (ISO date)"
-  }
+  "avatar": "string (URL)",
+  "cover": "string (URL)",
+  "bio": "string",
+  "level": "number",
+  "xp": "number",
+  "nextLevelXp": "number",
+  "streak": "number",
+  "joinDate": "string"
 }
 ```
 
----
-
-## 2. COURSES APIs
-
-### 2.1 GET /courses
-
-**Lấy danh sách tất cả courses**
-
-**Response (200):**
-
+### 9.2 Object Ngôn ngữ (Language)
 ```json
-[
-  {
-    "id": "number",
-    "title": "string",
-    "description": "string",
-    "lang_id": "number",
-    "level": "Cơ bản|Trung bình|Nâng cao",
-    "image": "string (URL)",
-    "rating": "number",
-    "duration": "string",
-    "lessons": "number",
-    "progress": "number (0-100)",
-    "isFavorite": "boolean"
-  }
-]
+{
+  "id": "number",
+  "name": "string"
+}
 ```
 
-### 2.2 GET /courses/language/{langId}
-
-**Lấy courses theo ngôn ngữ**
-
-**Path Parameters:** `langId`
-
-**Response (200):** Array of courses (same format as above)
-
-### 2.3 GET /courses/{id}
-
-**Lấy chi tiết course**
-
-**Path Parameters:** `id`
-
-**Response (200):**
-
+### 9.3 Object Khóa học (Course)
 ```json
 {
   "id": "number",
@@ -175,769 +317,222 @@ Frontend CodePulse yêu cầu backend implement các API endpoints sau. Tất c�
   "description": "string",
   "lang_id": "number",
   "level": "string",
-  "image": "string",
+  "image": "string (URL)",
   "rating": "number",
   "duration": "string",
   "lessons": "number",
   "progress": "number",
   "isFavorite": "boolean",
-  "intro": "string",
-  "outcomes": ["string"]
-}
-```
-
----
-
-## 3. LESSONS APIs
-
-### 3.1 GET /courses/{courseId}/lessons
-
-**Lấy lessons của course**
-
-**Path Parameters:** `courseId`
-
-**Response (200):**
-
-```json
-[
-  {
-    "id": "number",
-    "course_id": "number",
-    "title": "string",
-    "description": "string",
-    "content": "string (HTML/markdown)",
-    "readTime": "string",
-    "order": "number"
-  }
-]
-```
-
-### 3.2 GET /lessons/{id}
-
-**Lấy chi tiết lesson**
-
-**Path Parameters:** `id`
-
-**Response (200):** Single lesson object (same format as above)
-
----
-
-## 4. EXERCISES APIs
-
-### 4.1 GET /lessons/{lessonId}/exercises
-
-**Lấy exercises của lesson**
-
-**Path Parameters:** `lessonId`
-
-**Response (200):**
-
-```json
-[
-  {
-    "id": "number",
-    "lesson_id": "number",
-    "title": "string",
-    "description": "string",
-    "code_template": "string",
-    "test_cases": [
-      {
-        "input": "string",
-        "expected_output": "string"
-      }
-    ],
-    "difficulty": "string",
-    "points": "number"
-  }
-]
-```
-
-### 4.2 GET /exercises/{id}
-
-**Lấy chi tiết exercise**
-
-**Path Parameters:** `id`
-
-**Response (200):** Single exercise object (same format as above)
-
----
-
-## 5. PROGRESS APIs
-
-### 5.1 GET /progress
-
-**Lấy progress của user**
-
-**Response (200):**
-
-```json
-{
-  "user_id": "number",
-  "courses_completed": "number",
-  "lessons_completed": "number",
-  "exercises_completed": "number",
-  "total_xp": "number",
-  "streak_days": "number"
-}
-```
-
-### 5.2 POST /progress/lessons/{lessonId}
-
-**Cập nhật lesson progress**
-
-**Path Parameters:** `lessonId`
-
-**Request Body:**
-
-```json
-{
-  "completed": "boolean",
-  "progress_percentage": "number"
-}
-```
-
-**Response (200):**
-
-```json
-{
-  "user_id": "number",
-  "lesson_id": "number",
-  "completed": "boolean",
-  "progress_percentage": "number",
-  "updated_at": "string (ISO date)"
-}
-```
-
-### 5.3 POST /progress/exercises/{exerciseId}
-
-**Cập nhật exercise progress**
-
-**Path Parameters:** `exerciseId`
-
-**Request Body:**
-
-```json
-{
-  "completed": "boolean",
-  "score": "number"
-}
-```
-
-**Response (200):**
-
-```json
-{
-  "user_id": "number",
-  "exercise_id": "number",
-  "completed": "boolean",
-  "score": "number",
-  "updated_at": "string (ISO date)"
-}
-```
-
----
-
-## 6. LANGUAGES API
-
-### 6.1 GET /languages
-
-**Lấy danh sách languages**
-
-**Response (200):**
-
-```json
-[
-  {
-    "id": "number",
-    "name": "string"
-  }
-]
-```
-
----
-
-## 7. COMPILER APIs
-
-### 7.1 POST /compiler/run
-
-**Chạy code**
-
-**Request Body:**
-
-```json
-{
-  "language": "javascript|python|c++|java|c#",
-  "code": "string"
-}
-```
-
-**Response (200):**
-
-```json
-{
-  "output": "string"
-}
-```
-
-### 7.2 POST /compiler/submit
-
-**Submit code cho exercise**
-
-**Request Body:**
-
-```json
-{
-  "exerciseId": "number",
-  "code": "string"
-}
-```
-
-**Response (200):**
-
-```json
-{
-  "success": "boolean",
-  "passed": "boolean",
-  "message": "string",
-  "comments": [
-    {
-      "content": "string"
-    }
-  ],
-  "warning": "boolean"
-}
-```
-
----
-
-## 8. FEEDBACK APIs
-
-### 8.1 POST /feedback/course
-
-**Submit course feedback**
-
-**Request Body:**
-
-```json
-{
-  "course_id": "number",
-  "rating": "number (1-5)",
-  "comment": "string"
-}
-```
-
-### 8.2 POST /feedback/exercise/{exerciseId}
-
-**Submit exercise feedback**
-
-**Path Parameters:** `exerciseId`
-
-**Request Body:**
-
-```json
-{
-  "rating": "number (1-5)",
-  "comment": "string"
-}
-```
-
-### 8.3 GET /feedback/stats/{courseId}
-
-**Lấy feedback stats**
-
-**Path Parameters:** `courseId`
-
-**Response (200):**
-
-```json
-{
-  "course_id": "number",
-  "average_rating": "number",
-  "total_reviews": "number",
-  "rating_distribution": {
-    "1": "number",
-    "2": "number",
-    "3": "number",
-    "4": "number",
-    "5": "number"
+  "intro": {
+    "description": "array<string>",
+    "techIcons": "array<string>",
+    "outcomes": "array<string>"
   }
 }
 ```
 
----
-
-## 9. CHALLENGES APIs
-
-### 9.1 GET /challenges
-
-**Lấy danh sách challenges**
-
-**Query Parameters (optional):**
-
-- `difficulty`: "Dễ|Trung bình|Khó"
-- `tags`: ["string"]
-- `sortBy`: "difficulty|participants|points"
-
-**Response (200):**
-
-```json
-[
-  {
-    "id": "number",
-    "title": "string",
-    "description": "string",
-    "difficulty": "string",
-    "points": "number",
-    "participants": "number",
-    "tags": ["string"],
-    "timeLimit": "number"
-  }
-]
-```
-
-### 9.2 GET /challenges/{challengeId}
-
-**Lấy chi tiết challenge**
-
-**Path Parameters:** `challengeId`
-
-**Response (200):** Single challenge object (same format as above)
-
-### 9.3 POST /challenges/{challengeId}/submit
-
-**Submit challenge**
-
-**Path Parameters:** `challengeId`
-
-**Request Body:**
-
-```json
-{
-  "code": "string",
-  "language": "string"
-}
-```
-
-**Response (200):**
-
-```json
-{
-  "challengeId": "number",
-  "passed": "boolean",
-  "timeSpent": "number",
-  "points": "number",
-  "message": "string",
-  "testCases": "string",
-  "submittedAt": "string"
-}
-```
-
----
-
-## 10. EXAM APIs
-
-### 10.1 GET /exam/courses
-
-**Lấy courses available cho exam**
-
-**Response (200):**
-
-```json
-[
-  {
-    "id": "string",
-    "title": "string",
-    "description": "string",
-    "difficulty": "Cơ bản|Trung bình|Nâng cao",
-    "estimatedTime": "string",
-    "totalLessons": "number",
-    "hasExam": "boolean",
-    "examStatus": "available|locked|completed"
-  }
-]
-```
-
-### 10.2 GET /exam/{courseId}
-
-**Lấy exam data**
-
-**Path Parameters:** `courseId`
-
-**Response (200):**
-
-```json
-{
-  "basicQuiz": {
-    "questions": [
-      {
-        "id": "number",
-        "question": "string",
-        "options": ["string"],
-        "correctAnswer": "number",
-        "explanation": "string"
-      }
-    ]
-  },
-  "advancedTasks": [
-    {
-      "id": "number",
-      "title": "string",
-      "description": "string",
-      "testCases": [
-        {
-          "input": "string",
-          "expected": "string"
-        }
-      ]
-    }
-  ],
-  "passingScore": "number",
-  "badges": [
-    {
-      "id": "number",
-      "name": "string",
-      "description": "string",
-      "icon": "string"
-    }
-  ]
-}
-```
-
-### 10.3 POST /exam/{courseId}/submit-quiz
-
-**Submit quiz answers**
-
-**Path Parameters:** `courseId`
-
-**Request Body:**
-
-```json
-{
-  "answers": ["number"],
-  "timeSpent": "number"
-}
-```
-
-**Response (200):**
-
-```json
-{
-  "courseId": "string",
-  "totalQuestions": "number",
-  "correctAnswers": "number",
-  "score": "number",
-  "passed": "boolean",
-  "passingScore": "number",
-  "results": [
-    {
-      "questionId": "number",
-      "userAnswer": "number",
-      "correctAnswer": "number",
-      "isCorrect": "boolean",
-      "explanation": "string"
-    }
-  ],
-  "submittedAt": "string",
-  "timeSpent": "number"
-}
-```
-
-### 10.4 POST /exam/{courseId}/submit-task
-
-**Submit task code**
-
-**Path Parameters:** `courseId`
-
-**Request Body:**
-
-```json
-{
-  "taskId": "number",
-  "code": "string",
-  "language": "string"
-}
-```
-
-**Response (200):**
-
-```json
-{
-  "courseId": "string",
-  "taskId": "number",
-  "passed": "boolean",
-  "testResults": [
-    {
-      "input": "string",
-      "expected": "string",
-      "actual": "string",
-      "passed": "boolean"
-    }
-  ],
-  "allTestsPassed": "boolean",
-  "executionTime": "number",
-  "memoryUsed": "number",
-  "submittedAt": "string",
-  "code": "string",
-  "language": "string"
-}
-```
-
----
-
-## 11. PROFILE APIs
-
-### 11.1 GET /profile/{userId}
-
-**Lấy user profile**
-
-**Path Parameters:** `userId`
-
-**Response (200):**
-
+### 9.4 Object Bài học (Lesson)
 ```json
 {
   "id": "number",
-  "name": "string",
-  "email": "string",
-  "avatar": "string",
-  "bio": "string",
-  "level": "number",
-  "xp": "number",
-  "streak": "number",
-  "joinedAt": "string"
-}
-```
-
-### 11.2 PUT /profile/{userId}
-
-**Cập nhật user profile**
-
-**Path Parameters:** `userId`
-
-**Request Body:**
-
-```json
-{
-  "name": "string",
-  "bio": "string",
-  "avatar": "string"
-}
-```
-
-**Response (200):** Updated profile object (same format as GET)
-
-### 11.3 GET /profile/{userId}/courses
-
-**Lấy courses của user**
-
-**Path Parameters:** `userId`
-
-**Response (200):**
-
-```json
-[
-  {
-    "id": "number",
-    "title": "string",
-    "progress": "number",
-    "completed": "boolean",
-    "enrolledAt": "string"
-  }
-]
-```
-
-### 11.4 GET /profile/{userId}/badges
-
-**Lấy badges của user**
-
-**Path Parameters:** `userId`
-
-**Response (200):**
-
-```json
-[
-  {
-    "id": "number",
-    "name": "string",
-    "description": "string",
-    "icon": "string",
-    "earnedAt": "string"
-  }
-]
-```
-
-### 11.5 GET /profile/{userId}/stats
-
-**Lấy stats của user**
-
-**Path Parameters:** `userId`
-
-**Response (200):**
-
-```json
-{
-  "totalXP": "number",
-  "coursesCompleted": "number",
-  "challengesCompleted": "number",
-  "streakDays": "number",
-  "rank": "number",
-  "totalUsers": "number"
-}
-```
-
----
-
-## 12. RANKINGS APIs
-
-### 12.1 GET /rankings
-
-**Lấy leaderboard**
-
-**Query Parameters (optional):**
-
-- `course`: "string"
-- `limit`: "number"
-
-**Response (200):**
-
-```json
-[
-  {
-    "id": "number",
-    "name": "string",
-    "avatar": "string",
-    "xp": "number",
-    "rank": "number",
-    "course": "string",
-    "badge": "string"
-  }
-]
-```
-
-### 12.2 GET /rankings/user/{userId}
-
-**Lấy ranking của user**
-
-**Path Parameters:** `userId`
-
-**Response (200):**
-
-```json
-{
-  "id": "number",
-  "name": "string",
-  "avatar": "string",
-  "xp": "number",
-  "rank": "number",
-  "course": "string",
-  "badge": "string",
-  "totalUsers": "number"
-}
-```
-
-### 12.3 GET /rankings/stats
-
-**Lấy ranking stats**
-
-**Response (200):**
-
-```json
-{
-  "totalUsers": "number",
-  "averageXP": "number",
-  "topXP": "number",
-  "coursesCount": "number"
-}
-```
-
----
-
-## Error Response Format
-
-Tất cả errors đều trả về format:
-
-```json
-{
-  "message": "string"
-}
-```
-
-### HTTP Status Codes
-
-- `200` - Success
-- `201` - Created
-- `400` - Bad Request
-- `401` - Unauthorized
-- `403` - Forbidden
-- `404` - Not Found
-- `500` - Internal Server Error
-
----
-
-## Authentication Notes
-
-- Tất cả protected endpoints cần `Authorization: Bearer {token}` header
-- JWT tokens tự động refresh khi 401 response
-- Refresh token được lưu trong localStorage
-
----
-
-## Data Types & Validation
-
-### User
-
-```json
-{
-  "id": "integer",
-  "name": "string (2-50 chars)",
-  "email": "string (valid email)",
-  "password": "string (min 6 chars)"
-}
-```
-
-### Course
-
-```json
-{
-  "id": "integer",
-  "title": "string (required)",
-  "description": "string (required)",
-  "lang_id": "integer (FK)",
-  "level": "enum: Cơ bản, Trung bình, Nâng cao",
-  "image": "string (URL)",
-  "rating": "decimal (0-5)",
-  "duration": "string",
-  "lessons": "integer",
-  "progress": "integer (0-100)",
-  "isFavorite": "boolean"
-}
-```
-
-### Lesson
-
-```json
-{
-  "id": "integer",
-  "course_id": "integer (FK)",
+  "course_id": "number",
+  "chap": "string",
   "title": "string",
-  "description": "string",
-  "content": "text",
+  "content": "string",
+  "example_code": "string",
+  "language": "string",
   "readTime": "string",
-  "order": "integer"
+  "difficulty": "string",
+  "progress": "number"
 }
 ```
 
-### Exercise
-
+### 9.5 Object Bài tập (Exercise)
 ```json
 {
-  "id": "integer",
-  "lesson_id": "integer (FK)",
+  "id": "number",
+  "lesson_id": "number",
   "title": "string",
   "description": "string",
-  "code_template": "text",
-  "test_cases": "json array",
+  "example_code": "string",
+  "language": "string",
+  "input": "string",
+  "output": "string",
+  "hint": "string"
+}
+```
+
+### 9.6 Object Thách thức (Challenge)
+```json
+{
+  "id": "number",
+  "title": "string",
   "difficulty": "string",
-  "points": "integer"
+  "points": "number",
+  "description": "string",
+  "participants": "number",
+  "successRate": "number",
+  "tags": "array<string>",
+  "comments": "number",
+  "avgTime": "string",
+  "hints": "array<string>"
+}
+```
+
+### 9.7 Object Kỳ thi (Exam/Quiz)
+```json
+{
+  "courseId": "string",
+  "courseTitle": "string",
+  "courseDescription": "string",
+  "totalLessons": "number",
+  "estimatedTime": "string",
+  "difficultyLevel": "string",
+  "requirements": "array<string>",
+  "instructions": "array<string>",
+  "passingScore": "number",
+  "badges": "array<string>",
+  "basicQuiz": {
+    "title": "string",
+    "description": "string",
+    "timeLimit": "number",
+    "totalQuestions": "number",
+    "difficulty": "string",
+    "questions": "array<Question>"
+  },
+  "advancedTasks": "array<Task>"
+}
+```
+
+### 9.8 Object Câu hỏi (Question)
+```json
+{
+  "id": "number",
+  "question": "string",
+  "options": "array<string>",
+  "correctAnswer": "number",
+  "explanation": "string",
+  "tags": "array<string>",
+  "code": "string"
+}
+```
+
+### 9.9 Object Nhiệm vụ (Task)
+```json
+{
+  "id": "number",
+  "title": "string",
+  "description": "string",
+  "difficulty": "string",
+  "status": "string",
+  "estimatedTime": "string",
+  "skills": "array<string>",
+  "example": {
+    "input": "string",
+    "output": "string"
+  },
+  "testCases": "array<TestCase>",
+  "hints": "array<string>"
+}
+```
+
+### 9.10 Object Test Case
+```json
+{
+  "input": "string",
+  "expected": "string"
+}
+```
+
+### 9.11 Object Huy hiệu (Badge)
+```json
+{
+  "id": "number",
+  "name": "string",
+  "icon": "string",
+  "date": "string",
+  "rarity": "string",
+  "desc": "string"
+}
+```
+
+### 9.12 Object Thống kê (Stats)
+```json
+{
+  "lessonsDone": "number",
+  "exercisesSolved": "number",
+  "challengesCompleted": "number",
+  "totalHours": "number",
+  "rank": "number",
+  "totalUsers": "number"
+}
+```
+
+### 9.13 Object Hoạt động gần đây (Recent Activity)
+```json
+{
+  "type": "string",
+  "title": "string",
+  "time": "string",
+  "icon": "string"
+}
+```
+
+### 9.14 Object Thành tựu (Achievement)
+```json
+{
+  "id": "number",
+  "title": "string",
+  "desc": "string",
+  "icon": "component",
+  "color": "string"
+}
+```
+
+### 9.15 Object Bảng xếp hạng (Leaderboard)
+```json
+{
+  "rank": "number",
+  "name": "string",
+  "score": "number",
+  "avatar": "string",
+  "change": "number"
+}
+```
+
+### 9.16 Object Nhiệm vụ hàng ngày (Daily Quest)
+```json
+{
+  "id": "number",
+  "title": "string",
+  "progress": "number",
+  "target": "number",
+  "reward": "number",
+  "completed": "boolean"
+}
+```
+
+### 9.17 Object Phản hồi (Feedback)
+```json
+{
+  "passed": "boolean",
+  "score": "number",
+  "testsPassed": "number",
+  "totalTests": "number",
+  "comments": "array<Comment>",
+  "suggestions": "array<string>",
+  "solutionCode": "string"
+}
+```
+
+### 9.18 Object Khóa học người dùng (User Course)
+```json
+{
+  "id": "number",
+  "name": "string",
+  "progress": "number",
+  "icon": "string",
+  "lessons": "number",
+  "totalLessons": "number"
 }
 ```
