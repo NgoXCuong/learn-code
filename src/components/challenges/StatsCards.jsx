@@ -5,7 +5,7 @@ export const StatsCards = ({ totalParticipants, avgSuccess }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4  ">
       {/* Tổng người tham gia */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-md border border-gray-100 dark:border-gray-700 transition-all hover:shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-base text-gray-600 dark:text-gray-400 mb-1">
@@ -22,7 +22,7 @@ export const StatsCards = ({ totalParticipants, avgSuccess }) => {
       </div>
 
       {/* Tỷ lệ thành công TB */}
-      <div className="bg-white dark:bg-gray-800 rounded-lg p-3 shadow-md border border-gray-100 dark:border-gray-700 transition-all hover:shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-3 shadow-sm border border-gray-100 dark:border-gray-700 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-base text-gray-600 dark:text-gray-400 mb-1">

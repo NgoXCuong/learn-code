@@ -1,35 +1,20 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Search, SlidersHorizontal, X } from "lucide-react";
 
-const FilterButton = ({ isDark, isActive, onClick, children }) => {
-  const activeClass =
-    "bg-blue-500 text-white shadow-md hover:bg-blue-700 border-transparent";
-
-  const inactiveClass = isDark
-    ? "bg-gray-800 text-gray-300 border border-gray-700 hover:bg-gray-700 hover:text-white"
-    : "bg-gray-100 text-gray-800 border border-gray-300 hover:bg-gray-200";
-
-  return (
-    <Button
-      variant="ghost"
-      onClick={onClick}
-      className={`rounded-full px-4 py-1.5 h-auto text-sm font-medium transition-all duration-200 cursor-pointer ${
-        isActive ? activeClass : inactiveClass
-      }`}
-    >
-      {children}
-    </Button>
-  );
-};
+const FilterPill = ({ active, onClick, children, isDark }) => (
+  <button
+    onClick={onClick}
+    className={`px-4 py-1.5 rounded-full text-sm font-semibold transition-all duration-300 whitespace-nowrap cursor-pointer
+      ${active 
+        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30 ring-2 ring-indigo-500/20" 
+        : isDark 
+          ? "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white" 
+          : "bg-white text-slate-600 hover:bg-slate-50 shadow-sm border border-slate-200"}`}
+  >
+    {children}
+  </button>
+);
 
 export default function CourseFilters({
   isDark,
@@ -42,109 +27,86 @@ export default function CourseFilters({
   setSelectedLang,
 }) {
   const levels = [
-    { value: "all", label: "Tất cả" },
+    { value: "all", label: "Tất cả cấp độ" },
     { value: "Beginner", label: "Cơ bản" },
     { value: "Intermediate", label: "Trung cấp" },
     { value: "Advanced", label: "Nâng cao" },
   ];
 
   return (
-    <div className="flex flex-col gap-6 mb-10  ">
-      {/* Tiêu đề & mô tả */}
-      <div className="text-center sm:text-left space-y-2">
-        <h1
-          className={`text-2xl sm:text-3xl font-bold ${
-            isDark ? "text-white" : "text-gray-900"
-          }`}
-        >
-          Khám phá các khóa học
-        </h1>
-        <p
-          className={`text-sm sm:text-base ${
-            isDark ? "text-gray-400" : "text-gray-700"
-          }`}
-        >
-          Tìm kiếm và chọn khóa học phù hợp để nâng cao kỹ năng lập trình của
-          bạn.
-        </p>
-      </div>
-
-      {/* Thanh tìm kiếm + dropdown chủ đề */}
-      <div className="flex flex-col lg:flex-row gap-3">
-        {/* Ô tìm kiếm */}
-        <div className="relative flex-1">
-          <Search
-            className={`absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 ${
-              isDark ? "text-gray-400" : "text-gray-500"
-            }`}
-          />
+    <div className="flex flex-col gap-6 mb-8 w-full">
+      {/* Top Bar: Search & Compact Filters */}
+      <div className="flex flex-col md:flex-row gap-4 items-center">
+        {/* Modern Search Input */}
+        <div className="relative flex-1 group w-full">
+          <div className={`absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none transition-colors duration-300 ${searchTerm ? "text-indigo-500" : "text-gray-400"}`}>
+            <Search className="h-5 w-5" />
+          </div>
           <Input
             type="text"
-            placeholder="Tìm kiếm theo tên khóa học..."
+            placeholder="Tìm kiếm khóa học, ngôn ngữ hoặc kỹ năng..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="h-auto pl-10 pr-4 py-1.5 text-sm placeholder:text-sm border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 transition-colors"
+            className={`w-full h-12 pl-12 pr-12 text-base rounded-2xl border-2 transition-all duration-300 focus:ring-4
+              ${isDark 
+                ? "bg-gray-800/50 border-gray-700/50 text-white placeholder:text-gray-500 focus:border-indigo-500/50 focus:ring-indigo-500/10" 
+                : "bg-white border-slate-100 text-slate-900 placeholder:text-slate-400 shadow-sm focus:border-indigo-500/30 focus:ring-indigo-500/5"}`}
           />
+          {searchTerm && (
+            <button 
+              onClick={() => setSearchTerm("")}
+              className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-indigo-500 transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          )}
         </div>
 
-        {/* Dropdown chọn chủ đề */}
-        <div className="w-full lg:w-auto lg:min-w-[200px]">
-          <Select
-            value={selectedLang !== null ? String(selectedLang) : "all"}
-            onValueChange={(val) =>
-              setSelectedLang(val === "all" ? null : Number(val))
-            }
-          >
-            <SelectTrigger
-              className={`w-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 py-1.5 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 transition-colors`}
-            >
-              <span className="mr-2 text-sm text-gray-400 hidden sm:inline">
-                Ngôn ngữ:
-              </span>
-              <SelectValue placeholder="Chọn ngôn ngữ" />
-            </SelectTrigger>
-
-            <SelectContent className="bg-white text-sm dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-              <SelectItem value="all" className="cursor-pointer">
-                Tất cả ngôn ngữ
-              </SelectItem>
-              {languages.map((lang) => (
-                <SelectItem
-                  key={lang.id}
-                  value={String(lang.id)}
-                  className="cursor-pointer"
-                >
-                  {lang.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        {/* Level Selector - Compact */}
+        <div className="flex items-center gap-2 p-1.5 rounded-2xl border bg-slate-50/50 dark:bg-gray-900/50 border-slate-200 dark:border-gray-700 w-full md:w-auto">
+            <div className="hidden lg:flex items-center gap-2 px-3 text-gray-400">
+                <SlidersHorizontal className="w-4 h-4" />
+                <span className="text-xs font-bold uppercase tracking-widest whitespace-nowrap">Độ khó</span>
+            </div>
+            <div className="flex gap-1 overflow-x-auto no-scrollbar w-full md:w-auto">
+                {levels.map((level) => (
+                    <button
+                        key={level.value}
+                        onClick={() => setFilterLevel(level.value)}
+                        className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all duration-300 whitespace-nowrap
+                            ${filterLevel === level.value 
+                                ? "bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 shadow-sm" 
+                                : "text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"}`}
+                    >
+                        {level.label}
+                    </button>
+                ))}
+            </div>
         </div>
       </div>
 
-      {/* Bộ lọc cấp độ & dãy nút chủ đề */}
-      <div className="grid sm:grid-cols-2 gap-4">
-        {/* Cấp độ */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-          <span
-            className={`text-sm font-medium ${
-              isDark ? "text-gray-300" : "text-gray-700"
-            }`}
-          >
-            Cấp độ:
-          </span>
-          <div className="flex flex-wrap gap-2 ">
-            {levels.map((level) => (
-              <FilterButton
-                key={level.value}
-                isDark={isDark}
-                isActive={filterLevel === level.value}
-                onClick={() => setFilterLevel(level.value)}
-              >
-                {level.label}
-              </FilterButton>
-            ))}
-          </div>
+      {/* Language Pills Bar */}
+      <div className="flex items-center gap-4">
+        <div className="flex-1 overflow-x-auto no-scrollbar py-2">
+            <div className="flex items-center gap-3">
+                <FilterPill 
+                    isDark={isDark} 
+                    active={selectedLang === null} 
+                    onClick={() => setSelectedLang(null)}
+                >
+                    Tất cả ngôn ngữ
+                </FilterPill>
+                {languages.map((lang) => (
+                    <FilterPill
+                        key={lang.id}
+                        isDark={isDark}
+                        active={selectedLang === lang.id}
+                        onClick={() => setSelectedLang(lang.id)}
+                    >
+                        {lang.name}
+                    </FilterPill>
+                ))}
+            </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Star, Users, Clock, BookOpen, Heart } from "lucide-react";
+import { Star, Users, Clock, BookOpen, Heart, ArrowRight } from "lucide-react";
 import { UserCoursesContext } from "@/context/UserCoursesContext";
 import { ThemeContext } from "@/context/ThemeContext";
 import { AuthContext } from "@/context/AuthContext";
@@ -30,165 +30,176 @@ export default function CourseCard({
   const getLevelColor = (level) => {
     switch (level) {
       case "Beginner":
-        return "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300";
+      case "Cơ bản":
+        return "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400";
       case "Intermediate":
-        return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300";
+      case "Trung cấp":
+        return "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400";
       case "Advanced":
-        return "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300";
+      case "Nâng cao":
+        return "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400";
       default:
-        return "bg-gray-100 text-gray-700 dark:bg-gray-800/40 dark:text-gray-300";
+        return "bg-slate-100 text-slate-700 dark:bg-slate-800/40 dark:text-slate-300";
     }
   };
 
   const getProgressStatus = (progress) => {
-    if (progress === 0) return { text: "Chưa học", color: "text-gray-500" };
-    if (progress < 100) return { text: "Đang học", color: "text-blue-600" };
-    return { text: "Hoàn thành", color: "text-green-600" };
+    if (progress === 0) return { text: "Chưa bắt đầu", color: "text-slate-500" };
+    if (progress < 100) return { text: "Đang tiến triển", color: "text-indigo-600 dark:text-indigo-400" };
+    return { text: "Hoàn thành", color: "text-emerald-600 dark:text-emerald-400" };
+  };
+  const truncateDescription = (text, wordLimit = 18) => {
+    if (!text) return "";
+    const words = text.split(/\s+/);
+    if (words.length <= wordLimit) return text;
+    return words.slice(0, wordLimit).join(" ") + "...";
   };
 
   return (
     <div
-      className={`group relative shadow-gray-400   flex flex-col rounded-lg overflow-hidden border transition-all duration-300 hover:scale-105 cursor-pointer ${
-        darkMode
-          ? "bg-gray-800 border-gray-700 hover:border-blue-500 hover:shadow-purple-500/20"
-          : "bg-white border-gray-200 hover:border-blue-500 hover:shadow-lg"
-      }`}
+      className={`group relative flex flex-col rounded-xl overflow-hidden border transition-all duration-300 hover:scale-[1.02] cursor-pointer btn-shimmer
+        ${darkMode
+          ? "bg-slate-900 border-slate-800 hover:border-blue-500 hover:shadow-lg"
+          : "bg-white border-slate-200 hover:border-blue-500 hover:shadow-lg"
+        }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={() => onViewDetail(course.id)}
     >
-      <div
-        className={`absolute inset-0 bg-linear-to-r from-transparent ${
-          darkMode ? "via-white/20" : "via-black/20"
-        } to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700`}
-      ></div>
-      {/* Ảnh khóa học */}
-      <div className="relative z-10">
+      {/* Glossy shine effect on hover */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+        <div className={`absolute inset-0 bg-linear-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out`}></div>
+      </div>
+
+      {/* Image Container */}
+      <div className="relative h-44 overflow-hidden">
         <img
           src={course.image}
           alt={course.title}
-          className="w-full h-48 object-cover"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-60"></div>
+
+        {/* Floating Badges */}
+        <div className="absolute top-4 left-4 flex flex-col gap-2 z-40">
+          <span className={`text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full font-bold shadow-sm backdrop-blur-md ${getLevelColor(course.level)}`}>
+            {course.level}
+          </span>
+        </div>
 
         <button
           onClick={toggleFavorite}
-          className={`absolute top-3 right-3 z-20 p-2 rounded-full backdrop-blur-md transition-all duration-300 ${
-            favorite
-              ? "bg-red-500/90 text-white hover:bg-red-600"
+          className={`absolute top-4 right-4 z-40 p-2.5 rounded-2xl backdrop-blur-xl transition-all duration-300 shadow-lg
+            ${favorite
+              ? "bg-rose-500 text-white hover:bg-rose-600 scale-110"
               : darkMode
-              ? "bg-gray-700/70 hover:bg-gray-600/80 text-red-400"
-              : "bg-white/70 hover:bg-red-100 text-red-500"
-          }`}
+                ? "bg-gray-900/60 text-white/70 hover:text-rose-400 hover:bg-gray-900"
+                : "bg-white/80 text-slate-400 hover:text-rose-500 hover:bg-white"
+            }`}
         >
           <Heart
-            className="w-5 h-5"
+            className={`w-4.5 h-4.5 transition-transform duration-300 ${isHovered && !favorite ? "scale-110" : ""}`}
             fill={favorite ? "currentColor" : "none"}
           />
         </button>
 
-        {/* Overlay hover */}
-        {isHovered && (
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px] flex items-center justify-center z-10 transition-all">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                if (!user) {
-                  navigate("/login");
-                } else {
-                  onEnroll(course.id);
-                }
-              }}
-              className={`btn-shimmer relative px-6 py-2 font-semibold rounded-sm shadow-lg transition-all duration-200 hover:scale-105 overflow-hidden cursor-pointer
-      ${
-        !user
-          ? "bg-orange-600 text-white hover:bg-orange-800" // Đăng nhập để bắt đầu
-          : course.progress === 0
-          ? "bg-green-600 text-white hover:bg-green-700" // Trạng thái: Bắt đầu học
-          : " bg-blue-600 text-white hover:bg-blue-800" // Trạng thái: Tiếp tục học
-      }`}
-            >
-              <span className="relative flex items-center justify-center gap-2">
-                {!user
-                  ? "Đăng nhập để bắt đầu"
-                  : course.progress === 0
-                  ? "Bắt đầu học"
-                  : "Tiếp tục học"}
-              </span>
-            </button>
+        {/* Category Label */}
+        <div className="absolute bottom-4 left-4 z-40 flex items-center gap-2">
+            <span className="px-2 py-0.5 rounded-md bg-indigo-500/90 text-white text-[10px] font-bold tracking-wide backdrop-blur-sm">
+                {language?.name || "Code"}
+            </span>
+        </div>
+
+        {/* Hover Action Buttons Overlay */}
+        <div className={`absolute inset-0 z-30 flex items-center justify-center p-6 bg-black/40 backdrop-blur-[2px] transition-all duration-300 ${isHovered ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+          <div className={`w-full max-w-[200px] transition-transform duration-300 ${isHovered ? "scale-100" : "scale-90"}`}>
+            {course.progress > 0 ? (
+              <button 
+                  onClick={(e) => {
+                      e.stopPropagation();
+                      onViewDetail(course.id);
+                  }}
+                  className={`w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-bold text-sm transition-all duration-300 shadow-2xl
+                      ${course.progress === 100 
+                          ? "bg-emerald-500 text-white hover:bg-emerald-600" 
+                          : "bg-indigo-600 text-white hover:bg-indigo-700"}`}
+              >
+                  {course.progress === 100 ? "Ôn tập lại" : "Tiếp tục học"}
+                  <ArrowRight className="w-4 h-4" />
+              </button>
+            ) : (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!user) {
+                    navigate("/login");
+                  } else {
+                    onEnroll(course.id);
+                  }
+                }}
+                className={`w-full flex items-center justify-center gap-2 py-3 rounded-2xl font-bold text-sm shadow-2xl transition-all duration-300
+                  ${darkMode 
+                    ? "bg-white text-slate-900 hover:bg-indigo-500 hover:text-white" 
+                    : "bg-slate-900 text-white hover:bg-indigo-600"}`}
+              >
+                {!user ? "Đăng nhập" : "Tham gia ngay"}
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
-      {/* Nội dung */}
-      <div className="relative z-10 p-5 flex flex-col grow space-y-2">
-        <h3
-          className={`text-xl font-semibold line-clamp-2 ${
-            darkMode ? "text-white" : "text-gray-900"
-          }`}
-        >
+      {/* Content Area */}
+      <div className="p-5 flex flex-col grow">
+        <h3 className={`text-lg font-bold leading-tight mb-2 line-clamp-1 transition-colors group-hover:text-indigo-500 ${darkMode ? "text-white" : "text-slate-900"}`}>
           {course.title}
         </h3>
 
-        <p
-          className={`text-base line-clamp-2 ${
-            darkMode ? "text-gray-300" : "text-gray-600"
-          }`}
-        >
-          {course.description}
+        <p className={`text-sm mb-3 grow min-h-[2.5rem] ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
+          {truncateDescription(course.description)}
         </p>
 
-        {/* Thông tin khóa học */}
-        <div
-          className={`flex justify-between items-center text-sm mt-2 ${
-            darkMode ? "text-gray-400" : "text-gray-600"
-          }`}
-        >
-          {/* Độ khó và ngôn ngữ bên trái */}
+        {/* Metadata Grid */}
+        <div className={`grid grid-cols-2 gap-4 py-3 border-t border-slate-100 dark:border-slate-700/50 mb-3`}>
           <div className="flex items-center gap-2">
-            <span
-              className={`text-xs px-2.5 py-1 rounded-full font-medium  ${getLevelColor(
-                course.level
-              )}`}
-            >
-              {course.level}
-            </span>
-            <span
-              className={`text-xs px-2.5 py-1 rounded-full font-medium bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300`}
-            >
-              {language.name}
+            <div className={`p-1.5 rounded-lg ${darkMode ? "bg-slate-800 text-blue-400" : "bg-blue-50 text-blue-600"}`}>
+              <BookOpen className="w-4 h-4" />
+            </div>
+            <span className={`text-xs font-semibold ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
+              {course.lessons} bài học
             </span>
           </div>
-
-          {/* Bài học và thời gian bên phải */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              <BookOpen className="w-4 h-4" /> {course.lessons} bài
+          <div className="flex items-center gap-2">
+            <div className={`p-1.5 rounded-lg ${darkMode ? "bg-slate-800 text-amber-400" : "bg-amber-50 text-amber-600"}`}>
+              <Clock className="w-4 h-4" />
             </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" /> {course.duration}
-            </div>
+            <span className={`text-xs font-semibold ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
+              {course.duration}
+            </span>
           </div>
         </div>
 
-        {/* Thanh tiến độ (ShadCN) */}
+        {/* Progress Display (Always visible if progress > 0) */}
         {course.progress > 0 && (
-          <div className="mt-3 space-y-1">
-            <div className="text-gray-500 dark:text-white flex justify-between text-sm font-medium">
-              <span className={getProgressStatus(course.progress).color}>
+          <div className="space-y-3 mt-auto">
+            <div className="flex justify-between items-end">
+              <span className={`text-[11px] font-bold uppercase tracking-wider ${getProgressStatus(course.progress).color}`}>
                 {getProgressStatus(course.progress).text}
               </span>
-              <span>{course.progress}%</span>
+              <span className={`text-sm font-black ${darkMode ? "text-white" : "text-slate-900"}`}>
+                {course.progress}%
+              </span>
             </div>
-
-            <Progress
-              value={course.progress}
-              className={`h-2 bg-gray-200 dark:bg-gray-700 transition-all [&>div]:transition-all
-              ${
-                course.progress === 100
-                  ? "[&>div]:bg-green-600"
-                  : "[&>div]:bg-blue-600"
-              }`}
-            />
+            <div className={`h-2 w-full rounded-full overflow-hidden ${darkMode ? "bg-slate-800" : "bg-slate-100"}`}>
+                <div 
+                    className={`h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(79,70,229,0.3)]
+                    ${course.progress === 100 ? "bg-emerald-500" : "bg-linear-to-r from-indigo-500 to-purple-500"}`}
+                    style={{ width: `${course.progress}%` }}
+                />
+            </div>
           </div>
         )}
       </div>

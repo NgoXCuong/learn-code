@@ -1,44 +1,29 @@
 import { Trophy, Clock, Flame } from "lucide-react";
+import mockUsers from "./users.json";
+import { mockMyCourses } from "./myCourses";
+
+const currentUser = mockUsers[0];
 
 export const user = {
-  name: "Nguyễn Văn A",
-  avatar: "https://i.pravatar.cc/150?img=32",
-  cover:
-    "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1350&q=80",
-  bio: "Lập trình viên đam mê học hỏi mỗi ngày 🚀",
-  level: 12,
-  xp: 4520,
-  nextLevelXp: 5000,
-  streak: 15,
+  name: currentUser.username,
+  avatar: currentUser.avatar,
+  cover: "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1350&q=80",
+  bio: currentUser.bio,
+  level: currentUser.level,
+  xp: currentUser.xp,
+  nextLevelXp: (currentUser.level + 1) * 1000,
+  streak: currentUser.streak,
   joinDate: "Tháng 8, 2024",
 };
 
-export const courses = [
-  {
-    id: 1,
-    name: "Java Cơ bản",
-    progress: 80,
-    icon: "☕",
-    lessons: 24,
-    totalLessons: 30,
-  },
-  {
-    id: 2,
-    name: "C++ Nâng cao",
-    progress: 50,
-    icon: "⚙️",
-    lessons: 15,
-    totalLessons: 30,
-  },
-  {
-    id: 3,
-    name: "JavaScript Cơ bản",
-    progress: 100,
-    icon: "🟨",
-    lessons: 25,
-    totalLessons: 25,
-  },
-];
+export const courses = mockMyCourses.map(c => ({
+  id: c.path_id,
+  name: c.path_name,
+  progress: c.progress_percentage,
+  icon: c.difficulty_level === "beginner" ? "🔰" : (c.difficulty_level === "intermediate" ? "⚔️" : "🔥"),
+  lessons: c.completed_lessons,
+  totalLessons: c.total_lessons_in_path,
+}));
 
 export const badges = [
   {

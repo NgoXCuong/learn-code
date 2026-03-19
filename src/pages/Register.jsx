@@ -17,8 +17,7 @@ import {
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
 
-// Mock database
-let mockUsers = [];
+import mockUsers from "@/mock/users.json";
 
 const Register = () => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import { getRandomFeedback } from "@/mock/mockFeedback";
+import mockFeedbackData from "@/mock/mockFeedback.json";
 import httpClient from "./httpClient";
 import { API_ENDPOINTS, API_CONFIG } from "./api";
 
@@ -6,7 +6,7 @@ import { API_ENDPOINTS, API_CONFIG } from "./api";
 const MOCK_DELAY = 500;
 
 // Mock feedback data - Updated to match current feedback interface
-const mockFeedbackData = getRandomFeedback();
+const mockFeedbackDataObj = mockFeedbackData;
 
 // Mock feedback stats function
 const getFeedbackStats = (courseId) => {
@@ -53,14 +53,14 @@ const userFeedback = [
 export const fetchExerciseFeedback = async (exerciseId) => {
   await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY));
 
-  // Import mock data dynamically to avoid circular imports
-  const { mockFeedbackData } = await import("@/mock/mockFeedback");
+  // Use mock feedback data directly (imported from JSON)
+  const feedbackData = mockFeedbackData;
 
   // Return different feedback based on exerciseId for variety
-  const feedbackKeys = Object.keys(mockFeedbackData);
+  const feedbackKeys = Object.keys(feedbackData);
   const index = parseInt(exerciseId) || 0;
   const feedbackKey = feedbackKeys[index % feedbackKeys.length];
-  const feedback = mockFeedbackData[feedbackKey];
+  const feedback = feedbackData[feedbackKey];
 
   return feedback;
 };

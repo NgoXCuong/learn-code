@@ -1,7 +1,7 @@
 // src/api/coursesApi.js
 import { mockCourses, mockLanguages } from "@/mock/courses";
-import { mockLessons } from "@/mock/lessons";
-import { mockExercises } from "@/mock/exercises";
+import mockLessons from "@/mock/lessons.json";
+import mockExercises from "@/mock/exercises.json";
 import httpClient from "./httpClient";
 import { API_ENDPOINTS, API_CONFIG } from "./api";
 

@@ -10,10 +10,10 @@ export default function PodiumTop3({ users }) {
       {users.map((u, idx) => (
         <div
           key={u.id}
-          className="btn-shimmer relative overflow-hidden rounded-xl border
-    border-gray-300 dark:border-gray-700
-    bg-white dark:bg-gray-900
-    shadow-xl hover:scale-105
+          className="btn-shimmer relative overflow-hidden rounded-2xl border
+    border-gray-100 dark:border-gray-700
+    bg-white dark:bg-gray-800
+    shadow-sm hover:shadow-xl hover:-translate-y-1
     transition-all duration-300"
         >
           {/* Streak top-left */}

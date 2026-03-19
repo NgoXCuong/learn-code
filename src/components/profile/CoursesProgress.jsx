@@ -1,14 +1,25 @@
-import React, { useContext } from "react";
-import { ProgressContext } from "@/context/ProgressContext";
+import React, { useContext, useMemo } from "react";
+import { AuthContext } from "@/context/AuthContext";
+import { getMockMyCourses } from "@/mock/myCourses";
 import { mockCourses } from "@/mock/courses";
 
 export default function CoursesProgress() {
-  const { getCourseProgress } = useContext(ProgressContext);
+  const { user } = useContext(AuthContext);
 
-  // Get completed courses (progress = 100)
-  const completedCourses = mockCourses.filter(
-    (course) => course.progress === 100
-  );
+  const userCourses = useMemo(() => {
+    return getMockMyCourses(user?.id);
+  }, [user]);
+
+  const activeCourses = useMemo(() => {
+    return userCourses.map(uc => {
+      const courseDetails = mockCourses.find(c => c.id === uc.path_id);
+      if (!courseDetails) return null;
+      return {
+        ...courseDetails,
+        progress: uc.progress_percentage
+      };
+    }).filter(c => c !== null);
+  }, [userCourses]);
 
   return (
     <div className="bg-white   hover:shadow-2xl shadow-xl dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 transition-colors">
@@ -22,11 +33,9 @@ export default function CoursesProgress() {
       </div>
 
       <div className="space-y-4">
-        {completedCourses.length > 0 ? (
-          completedCourses.map((course) => {
-            const dynamicProgress = getCourseProgress(course.id);
-            const displayProgress =
-              dynamicProgress > 0 ? dynamicProgress : course.progress;
+        {activeCourses.length > 0 ? (
+          activeCourses.map((course) => {
+            const displayProgress = course.progress;
 
             return (
               <div
@@ -74,9 +83,9 @@ export default function CoursesProgress() {
           })
         ) : (
           <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-            <p>Chưa có khóa học nào hoàn thành</p>
+            <p>Chưa tham gia khóa học nào</p>
             <p className="text-sm mt-2">
-              Hãy bắt đầu học để đạt được thành tích đầu tiên!
+              Hãy khám phá các khóa học mới để bắt đầu học nhé!
             </p>
           </div>
         )}

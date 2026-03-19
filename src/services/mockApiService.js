@@ -1,19 +1,9 @@
 import { mockCourses, mockLanguages } from "@/mock/courses";
-import { mockLessons } from "@/mock/lessons";
-import { mockExercises } from "@/mock/exercises";
+import mockLessons from "@/mock/lessons.json";
+import mockExercises from "@/mock/exercises.json";
+import mockUsers from "@/mock/users.json";
 
 // Mock API delay để simulate real API
-const MOCK_DELAY = 500;
-
-// Mock database cho auth
-let mockUsers = [
-  {
-    id: 1,
-    username: "Nguyen Van A",
-    email: "a@gmail.com",
-    password_hash: "123456",
-  },
-];
 
 // Utility function để simulate API delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

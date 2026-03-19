@@ -12,10 +12,10 @@ export default function LessonProgressCard({
 
   return (
     <div
-      className={`p-4 rounded-sm shadow-md transition-colors duration-300 border ${
+      className={`p-4 rounded-xl shadow-sm transition-all duration-300 border ${
         isDark
-          ? "bg-slate-900 border-slate-700" // Màu nền đơn sắc cho Dark Mode
-          : "bg-white border-gray-200" // Màu nền đơn sắc cho Light Mode
+          ? "bg-gray-800 border-gray-700"
+          : "bg-white border-gray-100"
       }`}
     >
       {/* Progress */}

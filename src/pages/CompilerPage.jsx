@@ -12,7 +12,7 @@ import Output from "@/components/compiler/Output";
 import TopBar from "@/components/compiler/TopBar";
 import ResizableDivider from "@/components/compiler/ResizableDivider";
 import { ThemeContext } from "@/context/ThemeContext";
-import { mockExercises } from "@/mock/exercises";
+import mockExercises from "@/mock/exercises.json";
 
 export default function CompilerPage() {
   const { courseId, lessonId, exerciseId } = useParams();

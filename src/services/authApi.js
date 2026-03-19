@@ -1,15 +1,10 @@
 import httpClient from "./httpClient";
 import { API_ENDPOINTS, API_CONFIG } from "./api";
 
+import usersData from "@/mock/users.json";
+
 // Mock database cho auth
-let mockUsers = [
-  {
-    id: 1,
-    username: "Nguyen Van A",
-    email: "a@gmail.com",
-    password_hash: "123456",
-  },
-];
+let mockUsers = [...usersData];
 
 // Utility function để simulate API delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));

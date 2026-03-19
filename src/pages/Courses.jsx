@@ -1,17 +1,38 @@
 import React, { useState, useEffect, useMemo, useContext } from "react";
+import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import Breadcrumb from "@/components/layout/Breadcrumb";
 import CourseList from "@/components/courses/CourseList";
 import CourseFilters from "@/components/courses/CourseFilters";
 import { Loading } from "@/components/layout/Loading";
 import { api } from "@/services/coursesApi";
 import { ThemeContext } from "@/context/ThemeContext";
+import { AuthContext } from "@/context/AuthContext";
 import { toast } from "sonner";
+import { getMockMyCourses } from "@/mock/myCourses";
+import {
+  BookOpen,
+  PlayCircle,
+  CheckCircle,
+  Trophy,
+  Flame,
+  Star,
+  ArrowRight,
+  TrendingUp,
+  Search,
+  Sparkles,
+  ChevronLeft,
+  ChevronRight
+} from "lucide-react";
+import MyCourseCard from "@/components/courses/MyCourseCard";
+import CourseCard from "@/components/courses/CourseCard";
+import usersJson from "@/mock/users.json";
 
 export default function CoursesPage() {
   const { theme } = useContext(ThemeContext);
+  const { user } = useContext(AuthContext);
   const isDark = theme === "dark";
+  const currentUserData = usersJson[0]; // Fallback mock user data
 
   const [courses, setCourses] = useState([]);
   const [languages, setLanguages] = useState([]);
@@ -23,169 +44,266 @@ export default function CoursesPage() {
   const [sortBy, setSortBy] = useState("popular");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const breadcrumbItems = [
-    { label: "Trang chủ", href: "/" },
-    { label: "Khóa học" },
-  ];
-
-  // Fetch data on component mount
+  // Fetch data
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
-        setError(null);
-
         const [coursesData, languagesData] = await Promise.all([
           api.fetchCourses(),
           api.fetchLanguages(),
         ]);
-
         setCourses(coursesData);
         setLanguages(languagesData);
       } catch (err) {
-        console.error("Error loading courses:", err);
-        setError("Không thể tải danh sách khóa học. Vui lòng thử lại.");
-        toast.error("Không thể tải danh sách khóa học");
+        setError("Không thể tải danh sách khóa học.");
+        toast.error("Lỗi kết nối máy chủ");
       } finally {
         setLoading(false);
       }
     };
-
     loadData();
   }, []);
 
-  const levelMap = {
-    Beginner: "Cơ bản",
-    Intermediate: "Trung cấp",
-    Advanced: "Nâng cao",
-  };
+  // Integrated data with progress
+  const userCourses = useMemo(() => {
+    return getMockMyCourses(user?.id);
+  }, [user]);
+
+  const coursesWithProgress = useMemo(() => {
+    return courses.map(course => {
+      const myCourse = userCourses.find(mc => mc.path_id === course.id);
+      return {
+        ...course,
+        progress: myCourse ? myCourse.progress_percentage : 0
+      };
+    });
+  }, [courses, userCourses]);
+
+  // Featured "Continue Learning" course
+  const activeCourse = useMemo(() => {
+    if (userCourses.length === 0) return null;
+    // Find course with highest progress but not 100%
+    const inProgress = userCourses
+      .filter(c => c.progress_percentage > 0 && c.progress_percentage < 100)
+      .sort((a, b) => b.progress_percentage - a.progress_percentage);
+
+    return inProgress.length > 0 ? inProgress[0] : userCourses[0];
+  }, [userCourses]);
+
+  const stats = useMemo(() => {
+    const total = userCourses.length;
+    const completed = userCourses.filter(c => c.progress_percentage === 100).length;
+    const avgProgress = total > 0 ? Math.round(userCourses.reduce((sum, c) => sum + c.progress_percentage, 0) / total) : 0;
+
+    const userData = usersJson.find(u => u.id === user?.id) || usersJson[0];
+    return { total, completed, avgProgress, streak: userData.streak || 0 };
+  }, [user, userCourses]);
 
   const filteredCourses = useMemo(() => {
-    if (!courses.length) return [];
-
-    return courses
+    return coursesWithProgress
       .filter((course) => {
-        const matchesSearch =
-          course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          course.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-        const matchesLevel =
-          filterLevel === "all" ||
-          course.level === (levelMap[filterLevel] || filterLevel);
-
+        const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesLevel = filterLevel === "all" || course.level === filterLevel;
         const matchesLang = !selectedLang || course.lang_id === selectedLang;
-
         return matchesSearch && matchesLevel && matchesLang;
       })
-      .sort((a, b) => {
-        switch (sortBy) {
-          case "popular":
-            return b.students - a.students;
-          case "rating":
-            return b.rating - a.rating;
-          case "newest":
-            return b.id - a.id;
-          default:
-            return 0;
-        }
-      })
-      .map((course) => ({
-        ...course,
-        language: languages.find((l) => l.id === course.lang_id),
-      }));
-  }, [courses, languages, searchTerm, filterLevel, sortBy, selectedLang]);
+      .map(c => ({ ...c, language: languages.find(l => l.id === c.lang_id) }));
+  }, [coursesWithProgress, languages, searchTerm, filterLevel, selectedLang]);
 
   // Pagination
   const coursesPerPage = 6;
   const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
-  const indexOfLastCourse = currentPage * coursesPerPage;
-  const currentCourses = filteredCourses.slice(
-    indexOfLastCourse - coursesPerPage,
-    indexOfLastCourse
-  );
+  const currentCourses = filteredCourses.slice((currentPage - 1) * coursesPerPage, currentPage * coursesPerPage);
 
-  useEffect(
-    () => setCurrentPage(1),
-    [searchTerm, filterLevel, selectedLang, sortBy]
-  );
+  // Carousel state for My Courses
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const itemsPerPage = 3;
+  const maxIndex = Math.max(0, userCourses.length - itemsPerPage);
 
-  const handleClearFilters = () => {
-    setSearchTerm("");
-    setFilterLevel("all");
-    setSelectedLang(null);
-    setSortBy("popular");
-  };
+  const nextSlide = () => setCarouselIndex(prev => Math.min(prev + 1, maxIndex));
+  const prevSlide = () => setCarouselIndex(prev => Math.max(prev - 1, 0));
+
+  if (loading) return <div className={`min-h-screen flex items-center justify-center transition-colors duration-500 ${isDark ? "bg-[#0f172a]" : "bg-slate-50"}`}><Loading /></div>;
 
   return (
-    <div
-      className={`flex flex-col min-h-screen transition-colors duration-500 ${
-        isDark
-          ? "bg-linear-to-br from-gray-900 via-gray-800 to-black"
-          : "bg-linear-to-br from-slate-50 via-blue-50 to-indigo-100"
-      }`}
-    >
+    <div className={`min-h-screen transition-colors duration-500 ${isDark ? "bg-[#0f172a] text-slate-200" : "bg-slate-50 text-slate-900"}`}>
       <Header />
 
-      <main className="grow w-full px-6 sm:px-14 lg:px-20 py-2 sm:py-4">
-        <Breadcrumb items={breadcrumbItems} />
+      {/* Hero Dashboard Section */}
+      <section className={`relative overflow-hidden pt-12 pb-20 px-6 sm:px-14 lg:px-20 border-b ${isDark ? "bg-linear-to-b from-indigo-950/20 to-transparent border-slate-800" : "bg-linear-to-b from-indigo-50/50 to-transparent border-slate-200"}`}>
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-indigo-500/5 to-transparent blur-3xl pointer-events-none" />
 
-        {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <Loading />
-          </div>
-        ) : error ? (
-          <div className="text-center py-12">
-            <div className="text-red-500 mb-4">
-              <svg
-                className="mx-auto h-12 w-12"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"
-                />
-              </svg>
+        <div className="relative z-10 max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
+            <div>
+              <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold mb-4 uppercase tracking-wider ${isDark ? "bg-indigo-500/10 text-indigo-400" : "bg-indigo-100 text-indigo-700"}`}>
+                <Sparkles className="w-3 h-3" />
+                Dành riêng cho bạn
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black tracking-tight mb-3">
+                Chào {user?.name?.split(" ")[0] || "bạn"}, <br className="sm:hidden" />
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-purple-500">
+                  Học vui nhé!
+                </span>
+              </h1>
+              <p className={`text-lg max-w-xl ${isDark ? "text-slate-400" : "text-slate-600"}`}>
+                Bạn đã hoàn thành <span className="font-bold text-indigo-500">{stats.avgProgress}%</span> mục tiêu tuần này. Tiếp tục duy trì phong độ nhé!
+              </p>
             </div>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
-              {error}
-            </p>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-            >
-              Thử lại
-            </button>
-          </div>
-        ) : (
-          <>
-            <CourseFilters
-              isDark={isDark}
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-              filterLevel={filterLevel}
-              setFilterLevel={setFilterLevel}
-              languages={languages}
-              selectedLang={selectedLang}
-              setSelectedLang={setSelectedLang}
-            />
 
-            <CourseList
-              key={currentPage}
-              courses={currentCourses}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={setCurrentPage}
-              clearFilters={handleClearFilters}
-            />
-          </>
+            {/* Quick Stats Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full lg:w-auto">
+              <StatCard icon={<Trophy className="w-5 h-5 text-yellow-500" />} label="Xong" value={`${stats.completed} khóa`} isDark={isDark} />
+              <StatCard icon={<TrendingUp className="w-5 h-5 text-indigo-500" />} label="Tiến độ" value={`${stats.avgProgress}%`} isDark={isDark} />
+              <StatCard icon={<BookOpen className="w-5 h-5 text-emerald-500" />} label="Tổng học" value={stats.total} isDark={isDark} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <main className="max-w-7xl mx-auto px-6 sm:px-14 lg:px-20 -mt-10 pb-20 relative z-20">
+
+        {/* My Courses Horizontal Carousel */}
+        {userCourses.length > 0 && (
+          <div className="mb-16">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-500">
+                  <PlayCircle className="w-5 h-5" />
+                </div>
+                <h2 className="text-2xl font-black tracking-tight">Khóa học của tôi</h2>
+              </div>
+
+              {userCourses.length > itemsPerPage && (
+                <div className="flex gap-2">
+                  <button
+                    onClick={prevSlide}
+                    disabled={carouselIndex === 0}
+                    className={`p-2 rounded-xl border transition-all ${carouselIndex === 0 ? "opacity-30 cursor-not-allowed" : "hover:bg-indigo-600 hover:text-white border-indigo-500/50"}`}
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    disabled={carouselIndex >= maxIndex}
+                    className={`p-2 rounded-xl border transition-all ${carouselIndex >= maxIndex ? "opacity-30 cursor-not-allowed" : "hover:bg-indigo-600 hover:text-white border-indigo-500/50"}`}
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <div className="relative overflow-hidden">
+              <div
+                className="flex gap-6 transition-transform duration-500 ease-out"
+                style={{ transform: `translateX(-${carouselIndex * (100 / itemsPerPage)}%)` }}
+              >
+                {userCourses.map((course) => (
+                  <div key={course.path_id} className="min-w-[calc(33.333%-16px)] w-[calc(33.333%-16px)]">
+                    <MyCourseCard course={course} darkMode={isDark} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         )}
+
+        {/* Discovery Hub */}
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col sm:flex-row justify-between items-end gap-4">
+            <div className="space-y-1">
+              <h2 className="text-3xl font-black tracking-tight">Khám phá nội dung mới</h2>
+              <p className={`text-base ${isDark ? "text-slate-400" : "text-slate-600"}`}>Khám phá hơn 100+ khóa học từ chuyên gia hàng đầu</p>
+            </div>
+            <div className={`flex items-center gap-2 px-4 py-2 rounded-2xl border ${isDark ? "bg-slate-800/40 border-slate-700/50" : "bg-white border-slate-200"}`}>
+              <span className="text-sm font-bold opacity-60">Sắp xếp:</span>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="bg-transparent text-sm font-bold focus:outline-hidden cursor-pointer"
+              >
+                <option value="popular">Phổ biến</option>
+                <option value="rating">Đánh giá</option>
+                <option value="newest">Mới nhất</option>
+              </select>
+            </div>
+          </div>
+
+          <CourseFilters
+            isDark={isDark}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            filterLevel={filterLevel}
+            setFilterLevel={setFilterLevel}
+            languages={languages}
+            selectedLang={selectedLang}
+            setSelectedLang={setSelectedLang}
+          />
+
+          {filteredCourses.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {currentCourses.map((course) => (
+                <CourseCard
+                  key={course.id}
+                  course={course}
+                  language={course.language}
+                  onViewDetail={(id) => window.location.href = `/courses/${id}`}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-20">
+              <div className="w-20 h-20 bg-slate-200 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="w-10 h-10 opacity-20" />
+              </div>
+              <h3 className="text-xl font-bold mb-2">Không tìm thấy khóa học nào</h3>
+              <p className="opacity-60 mb-8">Hãy thử thay đổi từ khóa hoặc bộ lọc của bạn.</p>
+              <button
+                onClick={() => { setSearchTerm(""); setFilterLevel("all"); setSelectedLang(null); }}
+                className="px-6 py-2 rounded-xl bg-indigo-600 text-white font-bold"
+              >
+                Xóa bộ lọc
+              </button>
+            </div>
+          )}
+
+          {/* Pagination UI - Integration inside Main Grid */}
+          {totalPages > 1 && (
+            <div className="mt-12 flex justify-center gap-2">
+              {[...Array(totalPages)].map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrentPage(i + 1)}
+                  className={`w-10 h-10 rounded-xl font-black text-sm transition-all duration-300
+                                ${currentPage === i + 1
+                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/40 scale-110"
+                      : isDark ? "bg-slate-800 hover:bg-slate-700 text-slate-400" : "bg-white hover:bg-slate-100 text-slate-600"}`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
       </main>
 
-      <Footer className="mt-auto" />
+      <Footer />
     </div>
   );
 }
+
+// Sub-components
+const StatCard = ({ icon, label, value, isDark }) => (
+  <div className={`p-4 rounded-3xl border flex flex-col gap-1 transition-all duration-300 hover:scale-105 min-w-[120px]
+        ${isDark
+      ? "bg-slate-800/40 border-slate-700/50 backdrop-blur-xl"
+      : "bg-white border-white shadow-[0_10px_30px_rgba(0,0,0,0.04)]"}`}>
+    <div className="flex items-center gap-2 mb-1">
+      {icon}
+      <span className="text-[10px] font-black uppercase tracking-widest opacity-60">{label}</span>
+    </div>
+    <span className="text-xl font-black">{value}</span>
+  </div>
+);

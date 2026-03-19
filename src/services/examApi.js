@@ -1,4 +1,4 @@
-import { quizData } from "@/mock/exam";
+import quizData from "@/mock/exam.json";
 
 // Mock API delay để simulate real API
 const MOCK_DELAY = 500;

@@ -1,10 +1,7 @@
-export const COURSES = [
-  { id: "html-css", label: "HTML/CSS" },
-  { id: "javascript", label: "JavaScript" },
-  { id: "python", label: "Python" },
-  { id: "java", label: "Java" },
-  { id: "cpp", label: "C++" },
-];
+import { mockCourses } from "./courses";
+import mockUsers from "./users.json";
+
+export const COURSES = mockCourses.map(c => ({ id: c.id, label: c.title }));
 
 const names = [
   "Minh Nguyen",
@@ -63,7 +60,26 @@ function generateMockUsers() {
   });
 }
 
-export const MOCK_USERS = generateMockUsers();
+export const MOCK_USERS = (() => {
+  const generatedUsers = generateMockUsers();
+  
+  // Inject active user 
+  const activeUser = mockUsers[0];
+  generatedUsers.push({
+    id: activeUser.id,
+    name: activeUser.username,
+    xp: activeUser.xp,
+    completed: 120,
+    accuracy: 95,
+    level: "Diamond",
+    streak: activeUser.streak,
+    course: COURSES[0].id,
+    avatarUrl: activeUser.avatar
+  });
+  
+  // Sort leaderboard by XP (descending)
+  return generatedUsers.sort((a, b) => b.xp - a.xp);
+})();
 
 // ---------- Set current user ----------
-export const CURRENT_USER_ID = 10;
+export const CURRENT_USER_ID = mockUsers[0].id;

@@ -6,9 +6,9 @@ export default function LeaderboardList({ paged, currentUser }) {
   return (
     <div
       className="
-        overflow-hidden rounded-lg border
-        bg-white border-gray-300 shadow-xl
-        dark:bg-gray-900 dark:border-gray-700
+        overflow-hidden rounded-xl border
+        bg-white border-gray-100 shadow-sm
+        dark:bg-gray-800 dark:border-gray-700
       "
     >
       {/* Header (Desktop) */}

@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "username": "Nguyễn Văn A",
+    "email": "a@gmail.com",
+    "password_hash": "123456",
+    "avatar": "https://i.pravatar.cc/150?img=68",
+    "bio": "Đam mê lập trình và chia sẻ kiến thức.",
+    "level": 12,
+    "xp": 4520,
+    "streak": 15
+  },
+  {
+    "id": 2,
+    "username": "user_test",
+    "email": "test@gmail.com",
+    "password_hash": "123456",
+    "avatar": "https://i.pravatar.cc/150?img=12",
+    "bio": "Học viên mới tham gia hệ thống!",
+    "level": 1,
+    "xp": 0,
+    "streak": 0
+  }
+]

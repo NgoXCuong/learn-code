@@ -1,9 +1,5 @@
-import {
-  userData,
-  challenges,
-  leaderboard,
-  dailyQuests,
-} from "@/mock/mockDataChallenge";
+import challengeData from "@/mock/mockDataChallenge.json";
+const { userData, challenges, leaderboard, dailyQuests } = challengeData;
 
 // Mock API delay để simulate real API
 const MOCK_DELAY = 500;
