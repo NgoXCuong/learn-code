@@ -23,7 +23,7 @@ const FavoriteCoursesSection = ({ language, darkMode = false }) => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {favoriteCourses.map((course) => (
             <CourseCard
-              key={course.id}
+              key={course.path_id}
               course={course}
               language={
                 language || {

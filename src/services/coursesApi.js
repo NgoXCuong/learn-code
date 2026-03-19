@@ -41,7 +41,7 @@ export const fetchCourseById = async (id) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       try {
-        const course = mockCourses.find((course) => course.id === id);
+        const course = mockCourses.find((course) => course.path_id === id);
         if (!course) throw new Error("Course not found");
         resolve(course);
       } catch (error) {
@@ -143,15 +143,30 @@ export const fetchLanguages = async () => {
 export const runCode = async ({ language, code }) => {
   console.log("Run code:", { language, code });
 
-  // Fake run code: trả về output dạng string
+  // Fake run code simulator
   return new Promise((resolve) => {
     setTimeout(() => {
-      let output;
-      if (code.includes("Hello")) {
-        output = "Output:\nHello World!";
+      let output = "";
+
+      // Simple heuristic-based output simulation
+      if (
+        code.includes("System.out.println") ||
+        code.includes("print(") ||
+        code.includes("cout <<")
+      ) {
+        // Look for string literals in the code
+        const matches = code.match(/["']([^"']*)["']/g);
+        if (matches && matches.length > 0) {
+          output = matches.map((m) => m.replace(/["']/g, "")).join("\n");
+        } else {
+          output = "Kết quả từ console...";
+        }
+      } else if (code.includes("Hello") || code.includes("Chào mừng")) {
+        output = "Chào mừng bạn đến với trình biên dịch AI!";
       } else {
-        output = `Output giả lập:\n${code}`;
+        output = `Đang chạy mã ${language}...\nKết quả: mã thực thi thành công!`;
       }
+
       resolve({ output });
     }, 1000);
   });

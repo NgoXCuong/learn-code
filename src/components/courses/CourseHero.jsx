@@ -15,6 +15,11 @@ export default function CourseHero({
 
   // Calculate progress based on average lesson progress
   const calculateProgress = () => {
+    // If course object has progress_percentage (from list view), use it
+    if (course.progress_percentage !== undefined) {
+      return course.progress_percentage;
+    }
+
     if (lessons.length === 0) return 0;
     const totalProgress = lessons.reduce(
       (sum, lesson) => sum + lesson.progress,
@@ -48,8 +53,8 @@ export default function CourseHero({
       <div className="relative min-h-[300px] sm:min-h-[350px] md:h-96">
         {/* Ảnh nền */}
         <img
-          src={course.image}
-          alt={course.title}
+          src={course.imageUrl}
+          alt={course.path_name}
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-linear-to-b from-transparent via-slate-900/40 to-slate-900" />
@@ -64,8 +69,8 @@ export default function CourseHero({
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-center">
               {/* Course Info */}
               <div className="text-center lg:text-left order-2 lg:order-1">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-3 sm:mb-4 leading-tight">
-                  {course.title}
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight">
+                  {course.path_name}
                 </h1>
 
                 {/* Mô tả: hiện trên tablet trở lên */}
@@ -78,7 +83,7 @@ export default function CourseHero({
                   <div className="flex items-center gap-1.5 sm:gap-2 bg-white/10 px-2 sm:px-3 py-1.5 sm:py-2 rounded-sm backdrop-blur">
                     <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-purple-300" />
                     <span className="text-white font-semibold">
-                      {course.duration}
+                      {course.estimated_hours} giờ
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5 sm:gap-2 bg-white/10 px-2 sm:px-3 py-1.5 sm:py-2 rounded-sm backdrop-blur">
@@ -101,7 +106,7 @@ export default function CourseHero({
                           <Flame className="w-3 h-3 sm:w-4 sm:h-4 text-orange-500" />
                           Tiến độ khóa học
                         </h3>
-                        <div className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3">
+                        <div className="text-3xl sm:text-4xl font-semibold text-slate-900 mb-3">
                           {progress}%
                         </div>
                         {/* Progress Bar: Màu sắc nhã nhặn hơn */}
@@ -116,7 +121,7 @@ export default function CourseHero({
                       {/* Thống kê nhỏ - Thay đổi nền thành xám nhạt (Slate 50) */}
                       <div className="hidden sm:grid grid-cols-2 gap-3">
                         <div className="bg-slate-50 border border-slate-100 rounded-sm p-3 text-center">
-                          <div className="text-slate-900 font-bold text-lg">
+                          <div className="text-slate-900 font-semibold text-lg">
                             {completedCount}
                           </div>
                           <div className="text-slate-500 text-xs">
@@ -124,7 +129,7 @@ export default function CourseHero({
                           </div>
                         </div>
                         <div className="bg-slate-50 border border-slate-100 rounded-sm p-3 text-center">
-                          <div className="text-slate-900 font-bold text-lg">
+                          <div className="text-slate-900 font-semibold text-lg">
                             {inProgressCount}
                           </div>
                           <div className="text-slate-500 text-xs">Đang học</div>
@@ -136,7 +141,7 @@ export default function CourseHero({
                         className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-sm shadow-sm hover:shadow-indigo-200 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base"
                         onClick={() =>
                           navigate(
-                            `/courses/${course.id}/lessons/${currentLesson?.id}`
+                            `/courses/${course.path_id}/lessons/${currentLesson?.id}`
                           )
                         }
                       >

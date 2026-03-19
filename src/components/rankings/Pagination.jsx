@@ -10,55 +10,62 @@ export default function Pagination({
   onNext,
 }) {
   return (
-    <div
-      className="  
-        flex items-center justify-between px-6 py-4
-        bg-gray-50 border-t border-gray-200
-        dark:bg-gray-900 dark:border-gray-700
-      "
-    >
-      <p className="text-base text-gray-700 dark:text-gray-300">
-        Trang <span className="font-bold">{currentPage}</span> /
-        <span className="font-bold">{totalPages}</span> ·
-        <span className="font-bold ml-1">{totalUsers}</span> người học
+    <div className="mt-12 mb-20 flex flex-col md:flex-row items-center justify-between gap-6 px-8 py-6 bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm">
+      <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+        Trang <span className="text-indigo-600 dark:text-indigo-400 font-bold">{currentPage}</span> / {totalPages} 
+        <span className="mx-2 text-slate-300 dark:text-slate-700">|</span> 
+        Hiển thị <span className="text-slate-900 dark:text-white font-bold">{totalUsers}</span> người học
       </p>
 
-      <div className="flex gap-2">
-        <Button
-          variant="outline"
-          size="base"
-          disabled={currentPage === 1}
+      <div className="flex items-center gap-3">
+        <button
           onClick={onPrev}
-          className="
-            flex items-center gap-2 rounded-lg px-4 py-2
-            text-gray-700 dark:text-gray-200
-            border-gray-300 dark:border-gray-600
-            bg-white dark:bg-gray-800
-            hover:bg-gray-100 dark:hover:bg-gray-700
-            disabled:opacity-50 disabled:cursor-not-allowed
-          "
+          disabled={currentPage === 1}
+          className={`group flex items-center gap-2 px-5 py-2.5 rounded-2xl font-bold text-sm transition-all duration-300 border
+                      ${currentPage === 1 
+                        ? "opacity-40 cursor-not-allowed bg-slate-100 dark:bg-slate-800 text-slate-400 border-transparent" 
+                        : "bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 shadow-sm active:scale-95"}`}
         >
-          <ChevronLeft className="w-4 h-4" />
+          <ChevronLeft className={`w-4 h-4 transition-transform duration-300 ${currentPage !== 1 && "group-hover:-translate-x-1"}`} />
           Trước
-        </Button>
+        </button>
 
-        <Button
-          variant="outline"
-          size="base"
-          disabled={currentPage === totalPages}
+        <div className="flex items-center gap-1.5 px-2">
+          {[...Array(Math.min(5, totalPages))].map((_, i) => {
+            // Simple logic to show pages around current
+            let pageNum = i + 1;
+            if (totalPages > 5) {
+                if (currentPage > 3) pageNum = currentPage - 3 + i;
+                if (pageNum > totalPages) pageNum = totalPages - 4 + i;
+            }
+            if (pageNum <= 0) return null;
+            if (pageNum > totalPages) return null;
+
+            return (
+              <button
+                key={pageNum}
+                className={`w-10 h-10 rounded-xl font-bold text-sm transition-all duration-300
+                            ${currentPage === pageNum
+                  ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/40 scale-105"
+                  : "text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30"}`}
+              >
+                {pageNum}
+              </button>
+            );
+          })}
+        </div>
+
+        <button
           onClick={onNext}
-          className="
-            flex items-center gap-2 rounded-lg px-4 py-2
-            text-gray-700 dark:text-gray-200
-            border-gray-300 dark:border-gray-600
-            bg-white dark:bg-gray-800
-            hover:bg-blue-200 dark:hover:bg-gray-700
-            disabled:opacity-50 disabled:cursor-not-allowed
-          "
+          disabled={currentPage === totalPages}
+          className={`group flex items-center gap-2 px-5 py-2.5 rounded-2xl font-bold text-sm transition-all duration-300 border
+                      ${currentPage === totalPages 
+                        ? "opacity-40 cursor-not-allowed bg-slate-100 dark:bg-slate-800 text-slate-400 border-transparent" 
+                        : "bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 shadow-sm active:scale-95"}`}
         >
           Sau
-          <ChevronRight className="w-4 h-4" />
-        </Button>
+          <ChevronRight className={`w-4 h-4 transition-transform duration-300 ${currentPage !== totalPages && "group-hover:translate-x-1"}`} />
+        </button>
       </div>
     </div>
   );

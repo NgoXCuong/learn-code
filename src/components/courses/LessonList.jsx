@@ -76,18 +76,18 @@ export default function LessonList({ lessons, onLessonClick }) {
     <div className="w-full max-w-4xl mx-auto border border-gray-200 dark:border-gray-700 rounded-sm p-6 bg-white dark:bg-gray-800">
       {/* HEADER TỔNG QUAN */}
       <div className="mb-4">
-        <h1 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-1">
+        <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
           Nội dung khóa học
-        </h1>
+        </h2>
         <div className="flex justify-between items-end">
           <p className="text-sm text-gray-600 dark:text-gray-400">
-            <span className="font-semibold">{totalChapters}</span> chương •{" "}
-            <span className="font-semibold">{totalLessons}</span> bài học • Thời
-            lượng <span className="font-semibold">{durationText}</span>
+            <span className="font-medium">{totalChapters}</span> chương •{" "}
+            <span className="font-medium">{totalLessons}</span> bài học • Thời
+            lượng <span className="font-medium">{durationText}</span>
           </p>
           <button
             onClick={handleToggleAll}
-            className="text-sm font-semibold text-orange-500 hover:text-orange-600 transition-colors select-none"
+            className="text-sm font-medium text-orange-500 hover:text-orange-600 transition-colors select-none"
           >
             {isAllOpen ? "Thu gọn tất cả" : "Mở rộng tất cả"}
           </button>
@@ -113,7 +113,7 @@ export default function LessonList({ lessons, onLessonClick }) {
                   ) : (
                     <ChevronRight className="w-4 h-4 text-orange-500" />
                   )}
-                  <h3 className="font-semibold text-gray-800 dark:text-gray-200 text-base">
+                  <h3 className="font-medium text-gray-800 dark:text-gray-200 text-base">
                     {index + 1}. {chapterName}
                   </h3>
                 </div>

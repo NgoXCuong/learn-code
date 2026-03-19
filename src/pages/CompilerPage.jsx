@@ -13,6 +13,7 @@ import TopBar from "@/components/compiler/TopBar";
 import ResizableDivider from "@/components/compiler/ResizableDivider";
 import { ThemeContext } from "@/context/ThemeContext";
 import mockExercises from "@/mock/exercises.json";
+import { api } from "@/services/coursesApi";
 
 export default function CompilerPage() {
   const { courseId, lessonId, exerciseId } = useParams();
@@ -90,7 +91,7 @@ export default function CompilerPage() {
     }
   }, [courseId, lessonId, exerciseId, passedExercise]);
 
-  // ✅ RUN CODE — API Piston giống LessonCode
+  // ✅ RUN CODE — Sử dụng tập trung API
   const handleRunCode = async () => {
     setIsRunning(true);
     setOutput("");
@@ -98,26 +99,13 @@ export default function CompilerPage() {
     const codeToRun = currentCode;
 
     try {
-      const response = await fetch("https://emkc.org/api/v2/piston/execute", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          language: selectedLanguage,
-          version: "*",
-          files: [
-            {
-              name: `main.${getFileExtension()}`,
-              content: codeToRun,
-            },
-          ],
-        }),
+      // Sử dụng API tập trung thay vì fetch trực tiếp
+      const result = await api.runCode({
+        language: selectedLanguage,
+        code: codeToRun,
       });
 
-      const result = await response.json();
-      const stdout = result.run?.stdout || "";
-      const stderr = result.run?.stderr || "";
-
-      setOutput(stdout || stderr || "Không có kết quả.");
+      setOutput(result.output || "Không có kết quả.");
     } catch (err) {
       setOutput("Lỗi khi chạy code. Vui lòng thử lại sau.");
       console.error(err);

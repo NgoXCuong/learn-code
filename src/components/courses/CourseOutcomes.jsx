@@ -4,7 +4,7 @@ import { CheckCircle } from "lucide-react";
 export default function CourseOutcomes({ outcomes }) {
   return (
     <section className=" ">
-      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+      <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-gray-100 mb-6">
         Bạn sẽ học được gì
       </h2>
       <div className="text-base grid sm:grid-cols-2 gap-4">

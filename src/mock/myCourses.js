@@ -5,10 +5,9 @@ import { mockCourses } from "./courses";
 // Progress mapped by User ID
 const ALL_USERS_PROGRESS = {
   1: {
-    1: { progress_percentage: 45, completed_lessons: 9 }, // JavaScript
-    2: { progress_percentage: 60, completed_lessons: 12 }, // Python
-    3: { progress_percentage: 100, completed_lessons: 25 }, // Java
-    5: { progress_percentage: 10, completed_lessons: 2 }, // C++
+    2: { progress_percentage: 60 }, // Python
+    3: { progress_percentage: 100 }, // Java
+    5: { progress_percentage: 0 }, // C++
   },
   2: {} // New user has no progress
 };
@@ -17,21 +16,18 @@ export const getMockMyCourses = (userId) => {
   const userProgress = ALL_USERS_PROGRESS[userId] || {};
   
   return mockCourses
-    .filter(course => userProgress[course.id] !== undefined)
+    .filter(course => userProgress[course.path_id] !== undefined)
     .map(course => {
-      const progressData = userProgress[course.id];
+      const progressData = userProgress[course.path_id];
+      const progress = progressData.progress_percentage;
+      
+      // Tính toán số bài học đã hoàn thành dựa trên tổng số bài và % tiến độ
+      const completed = Math.floor((course.total_lessons_in_path * progress) / 100);
+      
       return {
-        path_id: course.id,
-        path_name: course.title,
-        description: course.description,
-        imageUrl: course.image,
-        difficulty_level: course.level === "Cơ bản" ? "beginner" : course.level === "Trung bình" ? "intermediate" : "advanced",
-        progress_percentage: progressData.progress_percentage,
-        completed_lessons: progressData.completed_lessons,
-        total_lessons_in_path: course.lessons,
-        estimated_hours: parseInt(course.duration) || 10,
-        total_sections: 5,
-        average_rating: course.rating
+        ...course,
+        progress_percentage: progress,
+        completed_lessons: completed,
       };
     });
 };

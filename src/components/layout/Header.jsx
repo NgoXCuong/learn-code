@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { Toaster, toast } from "sonner";
-import { HeartPulse, Menu, X, ChevronDown, Home, BookOpen, Compass, Target, Trophy, FileCode2 } from "lucide-react";
+import { HeartPulse, Menu, X, ChevronDown, Home, BookOpen, Compass, Target, Trophy, FileCode2, Bell, CheckCircle2, Info, AlertTriangle } from "lucide-react";
 import { ThemeContext } from "@/context/ThemeContext";
 import { AuthContext } from "@/context/AuthContext";
 import DarkModeToggle from "./DarkModeToggle";
@@ -22,10 +22,12 @@ const Header = memo(() => {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const menuRef = useRef(null);
   const mobileRef = useRef(null);
+  const notificationsRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,6 +43,8 @@ const Header = memo(() => {
         setMenuOpen(false);
       if (mobileRef.current && !mobileRef.current.contains(event.target))
         setMobileOpen(false);
+      if (notificationsRef.current && !notificationsRef.current.contains(event.target))
+        setNotificationsOpen(false);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
@@ -56,6 +60,38 @@ const Header = memo(() => {
     ],
     []
   );
+  
+  const notifications = useMemo(() => [
+    { 
+      id: 1, 
+      title: "Khóa học mới", 
+      message: "Khóa học 'React Native Pro' vừa ra mắt!", 
+      time: "2 phút trước", 
+      type: "info",
+      icon: <Info className="w-4 h-4 text-blue-500" />,
+      isRead: false 
+    },
+    { 
+      id: 2, 
+      title: "Thành tích mới", 
+      message: "Bạn đã hoàn thành thử thách 'JS Logic'!", 
+      time: "1 giờ trước", 
+      type: "success",
+      icon: <CheckCircle2 className="w-4 h-4 text-emerald-500" />,
+      isRead: false 
+    },
+    { 
+      id: 3, 
+      title: "Nhắc nhở", 
+      message: "Đừng quên tiếp tục khóa học 'Python cơ bản'.", 
+      time: "5 giờ trước", 
+      type: "warning",
+      icon: <AlertTriangle className="w-4 h-4 text-amber-500" />,
+      isRead: true 
+    },
+  ], []);
+
+  const unreadCount = notifications.filter(n => !n.isRead).length;
 
   const handleLogout = useCallback(() => {
     logout();
@@ -140,6 +176,61 @@ const Header = memo(() => {
             <div className="flex items-center space-x-3 ml-6 font-medium">
               {user ? (
                 <>
+                  {/* Notification Bell */}
+                  <div className="relative mr-2" ref={notificationsRef}>
+                    <button
+                      onClick={() => setNotificationsOpen(!notificationsOpen)}
+                      className="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 transition-all relative group"
+                    >
+                      <Bell className={`w-6 h-6 transition-transform duration-300 ${notificationsOpen ? "rotate-12" : "group-hover:scale-110"}`} />
+                      {unreadCount > 0 && (
+                        <span className="absolute top-1.5 right-1.5 w-5 h-5 bg-red-600 text-white text-[11px] flex items-center justify-center rounded-full border-2 border-white dark:border-gray-900 font-bold shadow-sm">
+                          {unreadCount}
+                        </span>
+                      )}
+                    </button>
+
+                    {notificationsOpen && (
+                      <div className="absolute right-0 mt-3 w-80 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                          <h3 className="font-bold text-gray-900 dark:text-white">Thông báo</h3>
+                          <button className="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Đánh dấu đã đọc</button>
+                        </div>
+                        <div className="max-h-[360px] overflow-y-auto">
+                          {notifications.length > 0 ? (
+                            notifications.map((n) => (
+                              <div 
+                                key={n.id} 
+                                className={`px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer border-b border-gray-50 dark:border-gray-700 last:border-0 ${!n.isRead ? "bg-indigo-50/30 dark:bg-indigo-950/10" : ""}`}
+                              >
+                                <div className="flex gap-3">
+                                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+                                    n.type === 'success' ? 'bg-emerald-100 dark:bg-emerald-900/30' : 
+                                    n.type === 'warning' ? 'bg-amber-100 dark:bg-amber-900/30' : 
+                                    'bg-blue-100 dark:bg-blue-900/30'
+                                  }`}>
+                                    {n.icon}
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <p className="text-sm font-bold text-gray-900 dark:text-white truncate">{n.title}</p>
+                                    <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mt-0.5">{n.message}</p>
+                                    <p className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">{n.time}</p>
+                                  </div>
+                                  {!n.isRead && <div className="w-2 h-2 rounded-full bg-indigo-500 mt-1.5 shadow-[0_0_8px_rgba(99,102,241,0.6)]"></div>}
+                                </div>
+                              </div>
+                            ))
+                          ) : (
+                            <div className="py-8 text-center text-gray-400 text-sm">Không có thông báo mới</div>
+                          )}
+                        </div>
+                        <div className="px-4 pt-2 border-t border-gray-100 dark:border-gray-700 text-center">
+                          <button className="text-xs font-bold text-gray-500 hover:text-indigo-600 transition-colors py-1">Xem tất cả thông báo</button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
                   {/* Avatar + menu giữ nguyên */}
                   <div className="relative" ref={menuRef}>
                     <button
@@ -246,9 +337,16 @@ const Header = memo(() => {
         >
           <div className="px-6 sm:px-14 py-4 space-y-2">
             {user && (
-              <p className="px-4 py-2 text-base   font-bold text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700">
-                👋 Xin chào, {user.name}
-              </p>
+              <div className="flex justify-between items-center px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                <p className="text-base font-bold text-gray-900 dark:text-gray-100">
+                  👋 Xin chào, {user.name}
+                </p>
+                {unreadCount > 0 && (
+                  <span className="bg-red-600 text-white text-[11px] px-2.5 py-0.5 rounded-full font-bold shadow-sm">
+                    {unreadCount} mới
+                  </span>
+                )}
+              </div>
             )}
 
             {navItems.map((item, i) => (
@@ -270,6 +368,23 @@ const Header = memo(() => {
             {user ? (
               <>
                 <div className="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                <button
+                  onClick={() => {
+                    setMobileOpen(false);
+                    navigate("/notifications");
+                  }}
+                  className="flex items-center justify-between w-full px-4 py-3 rounded-md transition-all duration-200 font-bold text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <div className="flex items-center gap-2">
+                    <Bell className="w-4 h-4" />
+                    Thông báo
+                  </div>
+                  {unreadCount > 0 && (
+                    <span className="w-6 h-6 bg-indigo-600 text-white text-[11px] flex items-center justify-center rounded-full font-bold shadow-sm">
+                      {unreadCount}
+                    </span>
+                  )}
+                </button>
                 <Link
                   to="/profile"
                   onClick={() => setMobileOpen(false)}

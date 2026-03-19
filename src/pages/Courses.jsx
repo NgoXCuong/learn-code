@@ -22,8 +22,16 @@ import {
   Search,
   Sparkles,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Languages
 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import MyCourseCard from "@/components/courses/MyCourseCard";
 import CourseCard from "@/components/courses/CourseCard";
 import usersJson from "@/mock/users.json";
@@ -72,10 +80,10 @@ export default function CoursesPage() {
 
   const coursesWithProgress = useMemo(() => {
     return courses.map(course => {
-      const myCourse = userCourses.find(mc => mc.path_id === course.id);
+      const myCourse = userCourses.find(mc => mc.path_id === course.path_id);
       return {
         ...course,
-        progress: myCourse ? myCourse.progress_percentage : 0
+        progress_percentage: myCourse ? myCourse.progress_percentage : (course.progress_percentage || 0)
       };
     });
   }, [courses, userCourses]);
@@ -103,8 +111,8 @@ export default function CoursesPage() {
   const filteredCourses = useMemo(() => {
     return coursesWithProgress
       .filter((course) => {
-        const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesLevel = filterLevel === "all" || course.level === filterLevel;
+        const matchesSearch = (course.path_name || "").toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesLevel = filterLevel === "all" || course.difficulty_level === filterLevel;
         const matchesLang = !selectedLang || course.lang_id === selectedLang;
         return matchesSearch && matchesLevel && matchesLang;
       })
@@ -153,16 +161,34 @@ export default function CoursesPage() {
             </div>
 
             {/* Quick Stats Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full lg:w-auto">
-              <StatCard icon={<Trophy className="w-5 h-5 text-yellow-500" />} label="Xong" value={`${stats.completed} khóa`} isDark={isDark} />
-              <StatCard icon={<TrendingUp className="w-5 h-5 text-indigo-500" />} label="Tiến độ" value={`${stats.avgProgress}%`} isDark={isDark} />
-              <StatCard icon={<BookOpen className="w-5 h-5 text-emerald-500" />} label="Tổng học" value={stats.total} isDark={isDark} />
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 w-full lg:w-auto">
+              <StatCard
+                icon={<Trophy className="w-5 h-5" />}
+                label="Đã xong"
+                value={`${stats.completed} khóa`}
+                isDark={isDark}
+                theme="yellow"
+              />
+              <StatCard
+                icon={<TrendingUp className="w-5 h-5" />}
+                label="Tiến độ"
+                value={`${stats.avgProgress}%`}
+                isDark={isDark}
+                theme="indigo"
+              />
+              <StatCard
+                icon={<BookOpen className="w-5 h-5" />}
+                label="Tổng học"
+                value={stats.total}
+                isDark={isDark}
+                theme="emerald"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-6 sm:px-14 lg:px-20 -mt-10 pb-20 relative z-20">
+      <main className="max-w-7xl mx-auto -mt-10 pb-4 relative z-20">
 
         {/* My Courses Horizontal Carousel */}
         {userCourses.length > 0 && (
@@ -195,7 +221,7 @@ export default function CoursesPage() {
               )}
             </div>
 
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden py-4 -my-4">
               <div
                 className="flex gap-6 transition-transform duration-500 ease-out"
                 style={{ transform: `translateX(-${carouselIndex * (100 / itemsPerPage)}%)` }}
@@ -215,19 +241,29 @@ export default function CoursesPage() {
           <div className="flex flex-col sm:flex-row justify-between items-end gap-4">
             <div className="space-y-1">
               <h2 className="text-3xl font-black tracking-tight">Khám phá nội dung mới</h2>
-              <p className={`text-base ${isDark ? "text-slate-400" : "text-slate-600"}`}>Khám phá hơn 100+ khóa học từ chuyên gia hàng đầu</p>
+              <p className={`text-base ${isDark ? "text-slate-400" : "text-slate-600"}`}>Khám phá các khóa học từ hàng đầu</p>
             </div>
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-2xl border ${isDark ? "bg-slate-800/40 border-slate-700/50" : "bg-white border-slate-200"}`}>
-              <span className="text-sm font-bold opacity-60">Sắp xếp:</span>
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent text-sm font-bold focus:outline-hidden cursor-pointer"
+            <div className={`flex items-center gap-2 pl-4 pr-1.5 py-1 rounded-xl border transition-all duration-300 ${isDark ? "bg-slate-800/40 border-slate-700/50 hover:border-emerald-500/30" : "bg-white border-slate-200 hover:border-emerald-500/30 shadow-sm"}`}>
+              <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
+                <Languages className="w-3.5 h-3.5 opacity-80" />
+                <span className="text-[11px] font-black uppercase tracking-wider opacity-60">Lọc theo:</span>
+              </div>
+              <Select
+                value={selectedLang?.toString() || "all"}
+                onValueChange={(val) => setSelectedLang(val === "all" ? null : parseInt(val))}
               >
-                <option value="popular">Phổ biến</option>
-                <option value="rating">Đánh giá</option>
-                <option value="newest">Mới nhất</option>
-              </select>
+                <SelectTrigger className="w-auto border-none !bg-transparent !shadow-none h-8 text-xs font-bold focus:ring-0 focus:ring-offset-0 px-2 text-gray-800 dark:text-white">
+                  <SelectValue placeholder="Ngôn ngữ" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl border-gray-100 dark:border-slate-800 shadow-2xl backdrop-blur-xl bg-white/95 dark:bg-slate-900/95">
+                  <SelectItem value="all" className="text-xs font-bold focus:bg-emerald-50 dark:focus:bg-emerald-900/20">Tất cả ngôn ngữ</SelectItem>
+                  {languages.map((lang) => (
+                    <SelectItem key={lang.id} value={lang.id.toString()} className="text-xs font-bold focus:bg-emerald-50 dark:focus:bg-emerald-900/20">
+                      {lang.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -246,7 +282,7 @@ export default function CoursesPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {currentCourses.map((course) => (
                 <CourseCard
-                  key={course.id}
+                  key={course.path_id}
                   course={course}
                   language={course.language}
                   onViewDetail={(id) => window.location.href = `/courses/${id}`}
@@ -271,19 +307,43 @@ export default function CoursesPage() {
 
           {/* Pagination UI - Integration inside Main Grid */}
           {totalPages > 1 && (
-            <div className="mt-12 flex justify-center gap-2">
-              {[...Array(totalPages)].map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentPage(i + 1)}
-                  className={`w-10 h-10 rounded-xl font-black text-sm transition-all duration-300
-                                ${currentPage === i + 1
-                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/40 scale-110"
-                      : isDark ? "bg-slate-800 hover:bg-slate-700 text-slate-400" : "bg-white hover:bg-slate-100 text-slate-600"}`}
-                >
-                  {i + 1}
-                </button>
-              ))}
+            <div className="mt-8 flex justify-center items-center gap-3">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className={`px-4 h-10 rounded-xl font-bold text-sm transition-all duration-300 border
+                            ${currentPage === 1
+                    ? "opacity-40 cursor-not-allowed bg-slate-100 dark:bg-slate-800 text-slate-400 border-transparent"
+                    : "bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 shadow-sm"}`}
+              >
+                ← Trước
+              </button>
+
+              <div className="flex gap-2">
+                {[...Array(totalPages)].map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentPage(i + 1)}
+                    className={`w-10 h-10 rounded-xl font-black text-sm transition-all duration-300
+                                  ${currentPage === i + 1
+                        ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/40 scale-105"
+                        : isDark ? "bg-slate-800 hover:bg-slate-700 text-slate-400" : "bg-slate-100 hover:bg-slate-200 text-slate-600"}`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+              </div>
+
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className={`px-4 h-10 rounded-xl font-bold text-sm transition-all duration-300 border
+                            ${currentPage === totalPages
+                    ? "opacity-40 cursor-not-allowed bg-slate-100 dark:bg-slate-800 text-slate-400 border-transparent"
+                    : "bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 shadow-sm"}`}
+              >
+                Sau →
+              </button>
             </div>
           )}
         </div>
@@ -295,15 +355,49 @@ export default function CoursesPage() {
 }
 
 // Sub-components
-const StatCard = ({ icon, label, value, isDark }) => (
-  <div className={`p-4 rounded-3xl border flex flex-col gap-1 transition-all duration-300 hover:scale-105 min-w-[120px]
-        ${isDark
-      ? "bg-slate-800/40 border-slate-700/50 backdrop-blur-xl"
-      : "bg-white border-white shadow-[0_10px_30px_rgba(0,0,0,0.04)]"}`}>
-    <div className="flex items-center gap-2 mb-1">
-      {icon}
-      <span className="text-[10px] font-black uppercase tracking-widest opacity-60">{label}</span>
+const StatCard = ({ icon, label, value, isDark, theme = "indigo" }) => {
+  const themes = {
+    yellow: {
+      bg: "bg-amber-100 dark:bg-amber-900/30",
+      icon: "text-amber-600 dark:text-amber-400",
+      accent: "from-amber-500/20 to-transparent"
+    },
+    indigo: {
+      bg: "bg-indigo-100 dark:bg-indigo-900/30",
+      icon: "text-indigo-600 dark:text-indigo-400",
+      accent: "from-indigo-500/20 to-transparent"
+    },
+    emerald: {
+      bg: "bg-emerald-100 dark:bg-emerald-900/30",
+      icon: "text-emerald-600 dark:text-emerald-400",
+      accent: "from-emerald-500/20 to-transparent"
+    }
+  };
+
+  const currentTheme = themes[theme] || themes.indigo;
+
+  return (
+    <div className={`group relative p-4 rounded-2xl border transition-all duration-300 hover:scale-[1.02] 
+          ${isDark
+        ? "bg-slate-800/40 border-slate-700/50 backdrop-blur-xl"
+        : "bg-white/80 border-slate-200/60 shadow-sm"} hover:shadow-lg hover:shadow-indigo-500/5 overflow-hidden`}>
+
+      {/* Background Subtle Gradient */}
+      <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-linear-to-br ${currentTheme.accent}`} />
+
+      <div className="relative z-10 flex items-center gap-4">
+        <div className={`shrink-0 w-12 h-12 rounded-xl ${currentTheme.bg} ${currentTheme.icon} flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shadow-sm`}>
+          {React.cloneElement(icon, { className: "w-6 h-6" })}
+        </div>
+        <div className="flex flex-col">
+          <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 whitespace-nowrap">
+            {label}
+          </span>
+          <span className={`text-xl font-black tracking-tight ${isDark ? "text-white" : "text-slate-900"}`}>
+            {value}
+          </span>
+        </div>
+      </div>
     </div>
-    <span className="text-xl font-black">{value}</span>
-  </div>
-);
+  );
+};

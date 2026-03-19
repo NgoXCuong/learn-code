@@ -1,10 +1,13 @@
 export const mockLanguages = [
-  { id: 1, name: "JavaScript" },
   { id: 2, name: "Python" },
   { id: 3, name: "C++" },
   { id: 4, name: "Java" },
-  { id: 5, name: "C#" },
 ];
+
+// Import images from assets
+import pythonImg from "@/assets/python-co-ban.jpg";
+import javaImg from "@/assets/java-co-ban.jpg";
+import cppImg from "@/assets/cpp-co-ban.jpg";
 
 // Import lessons to count them dynamically
 import mockLessons from "./lessons.json";
@@ -14,73 +17,33 @@ const getLessonCount = (courseId) => {
   return mockLessons.filter((lesson) => lesson.course_id === courseId).length;
 };
 
-// Function to calculate total duration for a course in hours
-const getTotalDuration = (courseId) => {
+// Function to calculate total duration for a course in hours (as number)
+const getTotalDurationHours = (courseId) => {
   const courseLessons = mockLessons.filter(
     (lesson) => lesson.course_id === courseId
   );
   const totalMinutes = courseLessons.reduce((total, lesson) => {
-    // Extract number from "X phút" format
-    const minutes = parseInt(lesson.readTime.replace(" phút", ""));
+    const minutes = parseInt(lesson.readTime.replace(" phút", "")) || 0;
     return total + minutes;
   }, 0);
 
-  // Convert to hours and round up
-  const hours = Math.ceil(totalMinutes / 60);
-  return `${hours} giờ`;
+  return Math.ceil(totalMinutes / 60);
 };
 
 export const mockCourses = [
   {
-    id: 1,
-    title: "Bắt đầu với JavaScript Front-End",
-    description: "Khóa học Bắt đầu với JavaScript mang đến cho bạn cơ hội làm chủ ngôn ngữ lập trình phổ biến nhất toàn cầu. Từ những dòng lệnh đầu tiên đến việc xây dựng toàn bộ ứng dụng web tương tác phức tạp, khóa học sẽ dẫn dắt bạn qua những khái niệm cốt lõi nhất. Bạn sẽ không chỉ học về cú pháp, mà còn tìm hiểu tận gốc rễ cách JavaScript tương tác với trình duyệt thông qua DOM (Document Object Model), kiến trúc Event Loop và xử lý bất đồng bộ. Hệ thống bài tập dày đặc kết hợp các project thực tế sẽ giúp bạn biến lý thuyết thành những dòng code chạy mượt mà trên ứng dụng thực tiễn.",
-    lang_id: 1,
-    level: "Cơ bản",
-    image: "https://files.fullstack.edu.vn/f8-prod/courses/1.png",
-    rating: 4.9,
-    duration: getTotalDuration(1),
-    lessons: getLessonCount(1),
-    progress: 15,
-    isFavorite: true,
-    intro: {
-      description: [
-        "Khóa học JavaScript toàn diện này được chúng tôi thiết kế cực kỳ tỉ mỉ trong hơn 6 tháng, dành riêng cho những ai muốn theo đuổi cấu trúc Web Development hiện đại. JavaScript hiện tại không chỉ đơn thuần là ngôn ngữ tạo hiệu ứng trên website như 10 năm trước, mà nó đã trở thành xương sống của Frontend (với React, Vue, Angular) lẫn Backend (với Node.js).",
-        "Chúng tôi sẽ đi từ những khái niệm hết sức cơ bản như Biến (Variables), Kiểu dữ liệu (Data Types), Vòng lặp (Loops), cho tới những kiến thức nâng cao thường gây bối rối cho người học như Closures, Hoisting, Promises, và Async/Await. Mỗi một khái niệm đều được minh họa thông qua sơ đồ tư duy (mindmaps) và hàng chục ví dụ thực chiến trên trình duyệt.",
-        "Điểm đặc biệt của khóa học là phương pháp 'Learning by Doing'. Ở mỗi chương, thay vì chỉ nghe lý thuyết, bạn sẽ phải tự cấu trúc mã nguồn để giải quyết các Challenge thực tế như: Tạo To-do list tương tác kéo thả, xây dựng máy tính bỏ túi (Calculator), phát triển ứng dụng thời tiết gọi API từ OpenWeatherMap, và làm một trang E-commerce nhỏ có chức năng giỏ hàng.",
-        "Yêu cầu đầu vào gần như bằng 0. Chúng tôi chỉ cần bạn chuẩn bị một chiếc máy tính có kết nối mạng, trình duyệt Google Chrome và sẵn sàng tinh thần học hỏi liên tục. Nếu bạn là sinh viên trái ngành, lập trình viên muốn chuyển từ hệ ngôn ngữ khác sang JavaScript, hay học sinh cấp 3 đam mê lập trình, đây chính xác là nấc thang đầu tiên dành cho bạn."
-      ],
-      techIcons: [
-        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-      ],
-    },
-    outcomes: [
-      "Hiểu tường tận quá trình hình thành của JavaScript và kiến trúc hoạt động của V8 Engine.",
-      "Làm chủ hoàn toàn cú pháp ES6+ (Arrow function, Destructuring, Spread/Rest operators).",
-      "Sử dụng thành thạo các cấu trúc dữ liệu cơ sở: Array, Object, Set, Map để lưu trữ và vận hành dữ liệu phi tuyến tính.",
-      "Thao tác trực tiếp với DOM API (Document Object Model) để thay đổi giao diện trang web mà không cần reload.",
-      "Sở hữu tư duy xử lý bất đồng bộ mượt mà bằng Callbacks, Promises chuẩn và cú pháp Async/Await hiện đại.",
-      "Làm chủ cách trình duyệt giao tiếp với Server qua Fetch API / Axios và hiểu sâu về HTTP Requests (GET, POST, PUT, DELETE).",
-      "Tự tay xây dựng được 5 ứng dụng web hoàn chỉnh có thể đưa ngay vào Portfolio xin việc.",
-      "Trang bị nền tảng Object Oriented Programming (OOP) và Functional Programming ngay trong JavaScript.",
-      "Có tư duy sửa lỗi (Debugging) sắc bén thông qua Chrome DevTools.",
-      "Sẵn sàng 100% nền tảng để bước sang học hệ sinh thái ReactJS, VueJS hoặc NodeJS."
-    ],
-  },
-  {
-    id: 2,
-    title: "Python 3 & Tự Động Hóa",
+    path_id: 2,
+    path_name: "Python Cơ bản",
     description: "Với cú pháp thân thiện, gần gũi với ngôn ngữ tiếng Anh tự nhiên, Python là lựa chọn hoàn hảo số một cho những ai mới bước chân vào thế giới lập trình. Khóa học này không chỉ dừng lại ở việc dạy bạn viết code, mà còn giúp bạn hình thành tư duy giải quyết vấn đề bằng thuật toán cực kỳ hiệu quả. Từ các cấu trúc dữ liệu nền tảng như List, Tuple, Dictionary cho đến việc tự động hóa các tác vụ nhàm chán như đổi tên hàng loạt file, cào dữ liệu web (Web Scraping), gửi email tự động, khóa học sẽ biến bạn thành một người tối ưu hiệu suất công việc thực sự.",
     lang_id: 2,
-    level: "Cơ bản",
-    image: "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/python-co-ban_b80bca9b238b4615b94541de28af00ae.png",
-    rating: 4.9,
-    duration: getTotalDuration(2),
-    lessons: getLessonCount(2),
-    progress: 30,
+    difficulty_level: "beginner",
+    imageUrl: pythonImg,
+    average_rating: 4.9,
+    estimated_hours: getTotalDurationHours(2),
+    total_lessons_in_path: getLessonCount(2),
+    progress_percentage: 30,
+    completed_lessons: 0,
+    total_sections: 5,
     isFavorite: true,
     intro: {
       description: [
@@ -110,16 +73,18 @@ export const mockCourses = [
     ],
   },
   {
-    id: 3,
-    title: "Lập trình Java Doanh nghiệp",
+    path_id: 3,
+    path_name: "Java Cơ bản",
     description: "Java vẫn giữ vị thế là ngôn ngữ thống trị ở phần mềm cấp doanh nghiệp lớn (Enterprise) nhờ tính bảo mật cực cao, hiệu năng ổn định và nguyên lý Khai báo rõ ràng. Trong khóa học dài hơi này, chúng tôi mang tới một bộ giáo trình toàn diện kết hợp giữa nguyên lý Lập trình hướng đối tượng (OOP) kinh điển và cách tiếp cận Java ở thực tế. Bạn sẽ được mổ xẻ tận gốc rễ cách Java Virtual Machine (JVM) quản lý bộ nhớ, nguyên lý hoạt động của Garbage Collector, đa luồng (Multithreading) và làm thế nào để xây dựng các ứng dụng có khả năng chịu tải hàng triệu Request.",
     lang_id: 4,
-    level: "Cơ bản",
-    image: "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/java-cho-nguoi-moi-bat-dau_9a1c4247a23441d9874bb3caca9ea497.png",
-    rating: 4.7,
-    duration: getTotalDuration(3),
-    lessons: getLessonCount(3),
-    progress: 100,
+    difficulty_level: "beginner",
+    imageUrl: javaImg,
+    average_rating: 4.7,
+    estimated_hours: getTotalDurationHours(3),
+    total_lessons_in_path: getLessonCount(3),
+    progress_percentage: 100,
+    completed_lessons: 25,
+    total_sections: 8,
     isFavorite: false,
     intro: {
       description: [
@@ -149,16 +114,18 @@ export const mockCourses = [
     ],
   },
   {
-    id: 5,
-    title: "C++ Chuyên Sâu Cấu Trúc Dữ Liệu",
+    path_id: 5,
+    path_name: "C++ Cơ bản",
     description: "Khi hiệu năng (Performance) là yếu tố sống còn, C++ luôn là bức tường thành vững chắc không thể thay thế. Khóa học này đập tan đi sự sợ hãi của học viên đối với Con trỏ (Pointers) và Cấp phát vùng nhớ động (Dynamic memory allocation). Chúng tôi sẽ lặn sâu xuống cấp độ phần cứng máy tính, chỉ ra cho bạn thấy bộ nhớ RAM được cấp phát ra sao, và tại sao một cấu trúc thuật toán kém có thể làm Crash phần mềm game AAA của bạn. Hàng loạt cấu trúc dữ liệu cốt lõi như Bảng Băm (Hash Table), Danh sách liên kết (Linked List), Cây nhị phân (Binary Tree) và Đồ thị (Graph) sẽ được triển khai bằng tay 100% bằng C++.",
     lang_id: 3,
-    level: "Trung bình",
-    image: "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/thuat-toan-co-ban-cho-hoc-sinh_90c8311268d0425495915a7c125a1c91.jpg",
-    rating: 4.8,
-    duration: getTotalDuration(4),
-    lessons: getLessonCount(4),
-    progress: 10,
+    difficulty_level: "beginner",
+    imageUrl: cppImg,
+    average_rating: 4.8,
+    estimated_hours: getTotalDurationHours(5),
+    total_lessons_in_path: getLessonCount(5),
+    progress_percentage: 0,
+    completed_lessons: 0,
+    total_sections: 6,
     isFavorite: true,
     intro: {
       description: [
@@ -188,42 +155,123 @@ export const mockCourses = [
     ],
   },
   {
-    id: 6,
-    title: "Lập trình C# & Hệ sinh thái .NET",
-    description: "Bước chân vào thế giới khổng lồ đầy uy lực của Microsoft bằng C#. Được thiết kế đặc biệt kết hợp sức mạnh của C++ và nét quyến rũ mềm mại của Java, C# sở hữu một hệ sinh thái cực kì chặt chẽ là .NET Framework và .NET Core (nay là .NET 8, 9). Khóa học vạch ra một lộ trình trơn tru tuyệt đối, đẩy bạn từ những cú pháp nền cứng như struct, enum, record cho tới việc viết những truy vấn dữ liệu LINQ ma thuật, xử lý bất đồng bộ Async/Task mạnh mẽ, và khả năng xây dựng ứng dụng đa nền tảng không giới hạn từ Desktop Winform, Backend API đến ứng dụng Mobile.",
-    lang_id: 5,
-    level: "Cơ bản",
-    image: "https://s3-hfx03.fptcloud.com/codelearnstorage/files/thumbnails/csharp-co-ban_96ca03bee27f454eb1f1c86e1fc5ef74.png",
-    rating: 4.6,
-    duration: getTotalDuration(5),
-    lessons: getLessonCount(5),
-    progress: 100,
+    path_id: 6,
+    path_name: "Python Siêu cấp: Xây dựng ứng dụng chuyên nghiệp",
+    description: "Vượt qua giới hạn cơ bản để viết mã nguồn Python chuẩn mực như những chuyên gia hàng đầu tại Google, Meta. Học cách tối ưu hiệu năng và xử lý dữ liệu lớn.",
+    lang_id: 2,
+    difficulty_level: "advanced",
+    imageUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800",
+    average_rating: 4.8,
+    estimated_hours: 15,
+    total_lessons_in_path: 20,
+    progress_percentage: 0,
+    completed_lessons: 0,
+    total_sections: 6,
     isFavorite: false,
     intro: {
-      description: [
-        "Hệ sinh thái .NET của Microsoft đang phát triển nhanh chưa từng thấy nhờ việc chuyển hướng sang mã nguồn mở tuyệt đối và kiến trúc cross-platform. Bằng việc chọn C#, bạn không chỉ học một ngôn ngữ, bạn đang chọn một tấm vé vạn năng mở khóa toàn bộ các ngành mũi nhọn của ngành phần mềm.",
-        "Khóa học C# cơ bản này giúp bạn đi những bước đầu tiên cực kỳ vững chãi. Đi từ nền tảng ngôn ngữ mạnh về kiểu dữ liệu (Strongly typed language), bạn sẽ hiểu rõ thế nào là Value Types, Reference Types và cơ chế hoạt động của CLR (Common Language Runtime).",
-        "Điểm sáng vĩ đại nhất của C# mà chúng tôi sẽ nhấn mạnh là LINQ (Language Integrated Query) - tính năng độc quyền cho phép bạn xử lý Data Collection sướng, gọn và an toàn chưa từng thấy so với bất kì ngôn ngữ đối thủ nào. Thêm vào đó, chúng tôi cũng đào sâu vào cơ chế Events, Delegates - nền tảng thiết yếu để bạn sau này có thể làm Game bằng Unity Engine.",
-        "Bạn sẽ được thực hành lập trình trực tiếp bằng Visual Studio (hoặc Rider), trải nghiệm bộ công cụ lập trình mạnh mẽ nhất hành tinh với khả năng cảnh báo lỗi thời gian thực, gợi ý IntelliSense xuất sắc, giúp quy trình học tập trở nên thật trôi chảy và hiệu quả tối đa."
-      ],
-      techIcons: [
-        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
-        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg",
-        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/visualstudio/visualstudio-plain.svg",
-        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg",
-      ],
+      description: ["Biến những dòng code Python của bạn trở nên ngắn gọn, tinh tế và cực kỳ hiệu quả."],
+      techIcons: ["https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"],
     },
-    outcomes: [
-      "Khởi tạo dự án và quen thuộc tay nghề với quy trình làm việc trên Visual Studio cấp độ doanh nghiệp.",
-      "Làm chủ hoàn chỉnh cú pháp dòng lệnh C# hiện đại, hiểu sâu Type System và Type Casting an toàn.",
-      "Vận dụng xuất sắc nguyên lý Lập trình hướng đối tượng OOP và áp dụng tốt với class, interface, abstract class, record.",
-      "Hiểu rõ chu trình biên dịch C# thành mã trung gian IL, sự can thiệp của JIT Compiler và bộ thu gom rác CLR.",
-      "Viết mã nguồn ngắn gọn kinh ngạc để thao tác với Collections nhờ biểu thức Lambda và sức mạnh tuyệt hảo của hệ thống LINQ.",
-      "Khai thác khả năng đa luồng bằng mô hình Task Parallel Library (TPL) cùng các từ khóa async và await mới nhất.",
-      "Thiết kế cấu trúc Pattern Event-Delegate chuyên sâu phục vụ cho phát triển ứng dụng UI hoặc cấu trúc game engine.",
-      "Ứng dụng Entity Format căn bản để cấu trúc lớp tương tác với hệ thống hệ CSDL sau này.",
-      "Thực hiện thành thạo Unit Test cơ bản trên C# để đảm bảo chất lượng dòng lệnh (NUnit, xUnit).",
-      "Góp phần tạo ra 3 dự án Windows console có độ khó cực cao quản lý cơ sở dữ liệu học sinh với tính năng ghi đọc file xuất dạng JSON."
-    ],
+    outcomes: ["Thành thạo lập trình đa luồng và bất đồng bộ", "Xây dựng các thư viện Python chuyên nghiệp"],
+  },
+  {
+    path_id: 7,
+    path_name: "Làm Web thực tế với Java Spring Boot",
+    description: "Học cách tự tay xây dựng hệ thống website bán hàng, mạng xã hội quy mô lớn từ con số 0. Java Spring Boot là công cụ mạnh mẽ nhất để làm việc này.",
+    lang_id: 4,
+    difficulty_level: "intermediate",
+    imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=800",
+    average_rating: 4.9,
+    estimated_hours: 25,
+    total_lessons_in_path: 35,
+    progress_percentage: 0,
+    completed_lessons: 0,
+    total_sections: 10,
+    isFavorite: false,
+    intro: {
+      description: ["Trở thành kỹ sư Backend chuyên nghiệp với Framework Java phổ biến nhất hiện nay."],
+      techIcons: ["https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"],
+    },
+    outcomes: ["Xây dựng RESTful API chuẩn chỉnh", "Tích hợp cơ sở dữ liệu với JPA/Hibernate"],
+  },
+  {
+    path_id: 8,
+    path_name: "Tạo Game 3D đỉnh cao với C++ & Unreal",
+    description: "Biến niềm đam mê chơi game thành nghề nghiệp. Tự tay code logic cho nhân vật, hiệu ứng vật lý và không gian 3D sống động với Unreal Engine - engine game hàng đầu thế giới.",
+    lang_id: 3,
+    difficulty_level: "advanced",
+    imageUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800",
+    average_rating: 4.9,
+    estimated_hours: 40,
+    total_lessons_in_path: 50,
+    progress_percentage: 0,
+    completed_lessons: 0,
+    total_sections: 12,
+    isFavorite: false,
+    intro: {
+      description: ["Khám phá bí mật đằng sau những siêu phẩm game AAA và tự tay hiện thực hóa ý tưởng của bạn."],
+      techIcons: ["https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"],
+    },
+    outcomes: ["Làm chủ Unreal Engine C++ API", "Tối ưu hóa hiệu năng đồ họa và vật lý"],
+  },
+  {
+    path_id: 9,
+    path_name: "Phân tích dữ liệu & Vẽ biểu đồ với Python",
+    description: "Biến những con số khô khan thành hình ảnh và kiến thức giá trị. Học cách dùng Python để khám phá kho báu ẩn sau các bảng dữ liệu khổng lồ.",
+    lang_id: 2,
+    difficulty_level: "intermediate",
+    imageUrl: "https://images.unsplash.com/photo-1551288049-bbbda50a5f4e?auto=format&fit=crop&q=80&w=800",
+    average_rating: 4.7,
+    estimated_hours: 20,
+    total_lessons_in_path: 25,
+    progress_percentage: 0,
+    completed_lessons: 0,
+    total_sections: 8,
+    isFavorite: false,
+    intro: {
+      description: ["Làm chủ bộ kỹ năng 'Hot' nhất hiện nay: Xử lý dữ liệu và trình bày báo cáo trực quan."],
+      techIcons: ["https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg"],
+    },
+    outcomes: ["Phân tích tập dữ liệu lớn", "Trực quan hóa dữ liệu phức tạp"],
+  },
+  {
+    path_id: 10,
+    path_name: "Tối ưu hóa: Giúp phần mềm Java chạy xé gió",
+    description: "Tại sao phần mềm lại chậm? Học cách chuẩn đoán và tăng tốc mã nguồn Java của bạn lên mức tối đa. Dành cho những ai muốn xây dựng hệ thống quy mô lớn và tốc độ cao.",
+    lang_id: 4,
+    difficulty_level: "advanced",
+    imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
+    average_rating: 4.8,
+    estimated_hours: 30,
+    total_lessons_in_path: 15,
+    progress_percentage: 0,
+    completed_lessons: 0,
+    total_sections: 5,
+    isFavorite: false,
+    intro: {
+      description: ["Bí quyết giúp ứng dụng Java của bạn xử lý hàng triệu request mỗi giây mà vẫn mượt mà."],
+      techIcons: ["https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"],
+    },
+    outcomes: ["Làm chủ kỹ thuật profiling và debugging cấp thấp", "Tối ưu hóa Garbage Collector"],
+  },
+  {
+    path_id: 11,
+    path_name: "C++ Hiện đại: Những kỹ thuật mới nhất",
+    description: "Cập nhật những tính năng 'xịn xò' của C++ phiên bản mới nhất. Viết code ngắn gọn hơn, an toàn hơn và khai thác tối đa sức mạnh phần cứng hiện đại.",
+    lang_id: 3,
+    difficulty_level: "advanced",
+    imageUrl: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?auto=format&fit=crop&q=80&w=800",
+    average_rating: 5.0,
+    estimated_hours: 20,
+    total_lessons_in_path: 18,
+    progress_percentage: 0,
+    completed_lessons: 0,
+    total_sections: 6,
+    isFavorite: true,
+    intro: {
+      description: ["Bắt kịp xu hướng phát triển C++ hiện đại để không bị tụt hậu trong giới lập trình hệ thống."],
+      techIcons: ["https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"],
+    },
+    outcomes: ["Sử dụng thành thạo C++ Concepts và Ranges", "Triển khai Coroutines cho các tác vụ hiệu năng cao"],
   },
 ];

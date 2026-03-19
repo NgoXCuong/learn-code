@@ -198,7 +198,7 @@ export default function LessonPage() {
                 items={[
                   { label: "Trang chủ", href: "/" },
                   { label: "Khóa học", href: "/courses" },
-                  { label: course.title, href: `/courses/${courseId}` },
+                  { label: course.path_name, href: `/courses/${courseId}` },
                   { label: `Lesson ${currentIndex + 1}: ${lesson.title}` },
                 ]}
               />
@@ -222,10 +222,10 @@ export default function LessonPage() {
                 <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-3 sm:mb-4">
                   Thuộc khóa học:{" "}
                   <Link
-                    to={`/courses/${course.id}`}
+                    to={`/courses/${course.path_id}`}
                     className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
                   >
-                    {course.title}
+                    {course.path_name}
                   </Link>
                 </p>
 

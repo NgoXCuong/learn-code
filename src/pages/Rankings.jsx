@@ -150,77 +150,71 @@ export default function Rankings() {
               {/* ✅ Top 3 podium */}
               <PodiumTop3 users={top3Users} />
 
-              {/* ✅ Filters */}
-              <div className="mb-8">
-                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-stretch">
-                  {/* Search Input - Left side */}
-                  <div className="relative flex-1 sm:flex-none sm:w-64">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 dark:text-gray-500" />
+              {/* ✅ Filters Section */}
+              <div className="mb-10 group/filters">
+                <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center">
+                  {/* Search Input */}
+                  <div className="relative flex-1 group/search">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-focus-within/search:text-indigo-500 transition-colors duration-300">
+                      <Search size={18} />
+                    </div>
                     <Input
                       value={search}
                       onChange={(e) => {
                         setSearch(e.target.value);
                         setPage(1);
                       }}
-                      placeholder="Tìm người học..."
-                      className="pl-10 pr-4 py-2 sm:py-3 text-sm sm:text-base placeholder:text-sm sm:placeholder:text-base border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors h-full"
+                      placeholder="Tìm kiếm kỳ phùng địch thủ..."
+                      className="w-full pl-12 pr-4 h-14 rounded-2xl border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md text-base font-medium placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all duration-300"
                     />
                   </div>
 
-                  {/* Spacer to push selects to the right */}
-                  <div className="flex-1 hidden sm:block"></div>
-
-                  {/* Select Filters - Far right side */}
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full sm:w-auto sm:ml-auto">
+                  <div className="flex flex-col sm:flex-row gap-3">
                     {/* Timeframe Select */}
-                    <div className="flex-1 sm:flex-none sm:min-w-[140px] lg:w-[150px]">
-                      <Select
-                        value={timeframe}
-                        onValueChange={(value) => {
-                          setTimeframe(value);
-                          setPage(1);
-                        }}
-                      >
-                        <SelectTrigger className="w-full h-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 py-2 sm:py-3 focus:ring-0 transition-colors">
-                          <SelectValue placeholder="Chọn thời gian" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-                          {TIMEFRAMES.map((t) => {
-                            const Icon = t.icon;
-                            return (
-                              <SelectItem key={t.id} value={t.id}>
-                                <div className="flex items-center gap-2">
-                                  <Icon className="w-4 h-4" />
-                                  {t.label}
-                                </div>
-                              </SelectItem>
-                            );
-                          })}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    <Select
+                      value={timeframe}
+                      onValueChange={(value) => {
+                        setTimeframe(value);
+                        setPage(1);
+                      }}
+                    >
+                      <SelectTrigger className="w-full sm:w-[180px] h-14 rounded-2xl border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md px-6 font-semibold text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500/20 transition-all">
+                        <SelectValue placeholder="Thời gian" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-slate-100 dark:border-slate-800 shadow-2xl backdrop-blur-xl bg-white/95 dark:bg-slate-900/95">
+                        {TIMEFRAMES.map((t) => {
+                          const Icon = t.icon;
+                          return (
+                            <SelectItem key={t.id} value={t.id} className="rounded-xl my-1 mx-2 focus:bg-indigo-50 dark:focus:bg-indigo-900/30">
+                              <div className="flex items-center gap-3 py-1">
+                                <Icon size={16} className="text-indigo-500" />
+                                <span className="font-semibold">{t.label}</span>
+                              </div>
+                            </SelectItem>
+                          );
+                        })}
+                      </SelectContent>
+                    </Select>
 
                     {/* Language Select */}
-                    <div className="flex-1 sm:flex-none sm:min-w-[140px] lg:w-[150px]">
-                      <Select
-                        value={language}
-                        onValueChange={(value) => {
-                          setLanguage(value);
-                          setPage(1);
-                        }}
-                      >
-                        <SelectTrigger className="w-full h-full border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 py-2 sm:py-3 focus:ring-0 transition-colors">
-                          <SelectValue placeholder="Chọn ngôn ngữ" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
-                          {LANGUAGES.map((lang) => (
-                            <SelectItem key={lang.id} value={lang.id}>
-                              {lang.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    <Select
+                      value={language}
+                      onValueChange={(value) => {
+                        setLanguage(value);
+                        setPage(1);
+                      }}
+                    >
+                      <SelectTrigger className="w-full sm:w-[180px] h-14 rounded-2xl border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md px-6 font-semibold text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-indigo-500/20 transition-all">
+                        <SelectValue placeholder="Ngôn ngữ" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl border-slate-100 dark:border-slate-800 shadow-2xl backdrop-blur-xl bg-white/95 dark:bg-slate-900/95">
+                        {LANGUAGES.map((lang) => (
+                          <SelectItem key={lang.id} value={lang.id} className="rounded-xl my-1 mx-2 focus:bg-indigo-50 dark:focus:bg-indigo-900/30">
+                            <span className="font-semibold py-1 block">{lang.label}</span>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
               </div>

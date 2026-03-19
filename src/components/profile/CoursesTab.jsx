@@ -14,11 +14,11 @@ export default function CoursesTab() {
   const activeCourses = useMemo(() => {
     const userEnrolled = getMockMyCourses(user?.id);
     return userEnrolled.map(uc => {
-      const courseDetails = mockCourses.find(c => c.id === uc.path_id);
+      const courseDetails = mockCourses.find(c => c.path_id === uc.path_id);
       if (!courseDetails) return null;
       return {
         ...courseDetails,
-        progress: uc.progress_percentage
+        progress_percentage: uc.progress_percentage
       };
     }).filter(c => c !== null);
   }, [user]);
@@ -39,7 +39,7 @@ export default function CoursesTab() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {activeCourses.map((course) => (
               <CourseCard
-                key={course.id}
+                key={course.path_id}
                 course={course}
                 language={{ name: course.language || "Web", color: "from-blue-500 to-indigo-500" }}
                 darkMode={darkMode}

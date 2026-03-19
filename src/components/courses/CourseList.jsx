@@ -72,7 +72,7 @@ export default function CourseList({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
         {courses.map((course, idx) => (
           <CourseCard
-            key={`${currentPage}-${course.id}-${idx}`}
+            key={`${currentPage}-${course.path_id}-${idx}`}
             course={course}
             language={course.language}
             onEnroll={handleEnroll}

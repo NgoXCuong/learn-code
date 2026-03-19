@@ -120,7 +120,7 @@ export default function ProfilePage() {
               /* Grid Layout: Sidebar + Main Content */
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Left Sidebar - Profile Info */}
-                <div className="lg:col-span-1">
+                <div className="lg:col-span-1 h-full">
                   <ProfileSidebar
                     user={user}
                     darkMode={darkMode}
@@ -129,15 +129,22 @@ export default function ProfilePage() {
                 </div>
 
                 {/* Main Content Area */}
-                <div className="lg:col-span-2 space-y-6">
+                <div className="lg:col-span-2 space-y-6 flex flex-col h-full">
                   <ProfileTabs
                     activeTab={activeTab}
                     setActiveTab={setActiveTab}
                   />
 
-                  {activeTab === "overview" && <OverviewTab badges={badges} />}
-                  {activeTab === "courses" && <CoursesTab />}
-                  {activeTab === "badges" && <BadgesTab />}
+                  <div className="flex-1">
+                    {activeTab === "overview" && (
+                      <OverviewTab 
+                        badges={badges} 
+                        onViewAllCourses={() => setActiveTab("courses")} 
+                      />
+                    )}
+                    {activeTab === "courses" && <CoursesTab />}
+                    {activeTab === "badges" && <BadgesTab />}
+                  </div>
                 </div>
               </div>
             ) : null}

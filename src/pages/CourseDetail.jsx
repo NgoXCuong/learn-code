@@ -105,7 +105,7 @@ export default function CourseDetail() {
           items={[
             { label: "Trang chủ", href: "/" },
             { label: "Khóa học", href: "/courses" },
-            { label: course.title },
+            { label: course.path_name },
           ]}
         />
 
@@ -126,7 +126,7 @@ export default function CourseDetail() {
           <LessonList
             lessons={lessons}
             onLessonClick={(lessonId) =>
-              navigate(`/courses/${course.id}/lessons/${lessonId}`)
+              navigate(`/courses/${course.path_id}/lessons/${lessonId}`)
             }
           />
         </div>

@@ -17,9 +17,10 @@ import {
   fetchCourseById,
   fetchLessonsByCourse,
   fetchExercisesByLesson,
+  submitExercise,
+  api,
 } from "@/services/coursesApi";
 import { fetchChallengeById } from "@/services/challengesApi";
-import { submitExercise } from "@/services/coursesApi";
 import ProblemContent from "@/components/compiler/ProblemContent";
 import ResizableDivider from "@/components/compiler/ResizableDivider";
 import TopBar from "@/components/compiler/TopBar";
@@ -202,22 +203,17 @@ export default function Compiler() {
     setOutput("");
     const codeToRun = currentCode;
     try {
-      const response = await fetch("https://emkc.org/api/v2/piston/execute", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          language: selectedLanguage,
-          version: "*",
-          files: [{ name: `main.${getFileExtension()}`, content: codeToRun }],
-        }),
+      // Use the centralized API instead of direct fetch
+      const result = await api.runCode({
+        language: selectedLanguage,
+        code: codeToRun,
       });
-      const result = await response.json();
-      const stdout = result.run?.stdout || "";
-      const stderr = result.run?.stderr || "";
-      setOutput(stdout || stderr || "Không có kết quả.");
+
+      setOutput(result.output || "Không có kết quả.");
     } catch (err) {
       console.error(err);
       setOutput("Lỗi khi chạy code. Vui lòng thử lại sau.");
+      toast.error("Lỗi khi kết nối đến server");
     } finally {
       setIsRunning(false);
     }
@@ -280,7 +276,7 @@ export default function Compiler() {
         { label: "Trang chủ", href: "/" },
         { label: "Khóa học", href: "/courses" },
         currentCourse && {
-          label: currentCourse.title,
+          label: currentCourse.path_name || currentCourse.title,
           href: `/courses/${courseId}`,
         },
         currentLesson && {
